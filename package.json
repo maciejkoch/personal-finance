@@ -2,7 +2,10 @@
   "name": "@personal-finance/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "start": "nx serve personal-finance",
+    "build": "nx build personal-finance"
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "~18.2.0",

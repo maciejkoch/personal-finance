@@ -2,7 +2,7 @@
   "name": "personal-finance",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
-  "prefix": "app",
+  "prefix": "pf",
   "sourceRoot": "apps/personal-finance/src",
   "tags": [],
   "targets": {

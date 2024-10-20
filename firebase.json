@@ -1,0 +1,6 @@
+{
+  "hosting": {
+    "public": "dist/apps/personal-finance/browser",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
+  }
+}
