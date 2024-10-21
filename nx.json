@@ -14,7 +14,7 @@
     ],
     "sharedGlobals": []
   },
-  "nxCloudId": "67153d7f83a9e2124a322b5e",
+  "nxCloudId": "6716a6dfbf1e5d7d08b82851",
   "targetDefaults": {
     "@angular-devkit/build-angular:application": {
       "cache": true,
@@ -51,9 +51,22 @@
       "style": "scss",
       "unitTestRunner": "jest"
     },
+    "@nx/angular:library": {
+      "linter": "eslint",
+      "unitTestRunner": "jest"
+    },
     "@nx/angular:component": {
       "style": "scss",
       "changeDetection": "OnPush"
     }
-  }
+  },
+  "defaultBase": "main",
+  "plugins": [
+    {
+      "plugin": "@nx/eslint/plugin",
+      "options": {
+        "targetName": "eslint:lint"
+      }
+    }
+  ]
 }

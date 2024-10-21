@@ -22,7 +22,10 @@
             "input": "apps/personal-finance/public"
           }
         ],
-        "styles": ["apps/personal-finance/src/styles.scss"],
+        "styles": [
+          "apps/personal-finance/src/styles.scss",
+          "libs/ui/src/styles.scss"
+        ],
         "scripts": [],
         "server": "apps/personal-finance/src/main.server.ts",
         "prerender": true,
