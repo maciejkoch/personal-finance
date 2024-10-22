@@ -1,0 +1,11 @@
+<div class="flex space-x-4">
+  @for(item of items; track $index) {
+  <a
+    [routerLinkActive]="'text-red'"
+    [routerLink]="item.link"
+    class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white"
+    aria-current="page"
+    >{{ item.label }}</a
+  >
+  }
+</div>
