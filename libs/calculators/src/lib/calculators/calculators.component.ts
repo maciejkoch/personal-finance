@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { LongTermSavingsComponent } from '../long-term-savings/long-term-savings.component';
 
 @Component({
   selector: 'pf-calculators',
   standalone: true,
-  imports: [CommonModule],
+  imports: [LongTermSavingsComponent],
   templateUrl: './calculators.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
