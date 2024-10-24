@@ -13,7 +13,7 @@
         "outputPath": "dist/apps/personal-finance",
         "index": "apps/personal-finance/src/index.html",
         "browser": "apps/personal-finance/src/main.ts",
-        "polyfills": [],
+        "polyfills": ["zone.js"],
         "tsConfig": "apps/personal-finance/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
@@ -29,6 +29,7 @@
         "scripts": [],
         "server": "apps/personal-finance/src/main.server.ts",
         "prerender": {
+          "discoverRoutes": false,
           "routesFile": "apps/personal-finance/routes.txt"
         },
         "ssr": {
