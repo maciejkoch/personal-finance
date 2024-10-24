@@ -1,35 +1,35 @@
-<form></form>
-<div class="w-full max-w-xs" [formGroup]="form">
-  <form class="bg-gray-800 shadow-md rounded px-8 pt-6 pb-8 mb-4">
+<div class="flex gap-4">
+  <form class="px-8 pt-6 pb-8 mb-4" [formGroup]="form">
     <div class="mb-4">
-      <label class="block text-sm font-bold mb-2" for="numberInput">
+      <label class="block text-sm font-bold mb-2" for="amount">
         Twój cel
       </label>
       <input
         class="shadow appearance-none border rounded w-full py-2 px-3 bg-gray-700 text-white leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
         type="number"
+        id="amount"
         placeholder="1000"
         formControlName="amount"
       />
     </div>
     <div class="mb-4">
-      <label class="block text-sm font-bold mb-2" for="numberInput">
-        Okres
-      </label>
+      <label class="block text-sm font-bold mb-2" for="duration"> Okres </label>
       <input
         class="shadow appearance-none border rounded w-full py-2 px-3 bg-gray-700 text-white leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
         type="number"
+        id="duration"
         placeholder="10"
         formControlName="duration"
       />
     </div>
     <div class="mb-4">
-      <label class="block text-sm font-bold mb-2" for="numberInput">
+      <label class="block text-sm font-bold mb-2" for="inflation">
         Szacowana inflacja
       </label>
       <input
         class="shadow appearance-none border rounded w-full py-2 px-3 bg-gray-700 text-white leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
         type="number"
+        id="inflation"
         placeholder="1000"
         formControlName="inflation"
       />
@@ -45,12 +45,13 @@
       </label>
     </div>
     <div class="mb-4">
-      <label class="block text-sm font-bold mb-2" for="numberInput">
+      <label class="block text-sm font-bold mb-2" for="rate">
         Stopa zwrotu
       </label>
       <input
         class="shadow appearance-none border rounded w-full py-2 px-3 bg-gray-700 text-white leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
         type="number"
+        id="rate"
         placeholder="10"
         formControlName="rate"
       />
@@ -76,6 +77,10 @@
       </label>
     </div>
   </form>
-</div>
 
-{{ form.value | json }}
+  <div>
+    <pre>
+        {{ data() | json }}
+    </pre>
+  </div>
+</div>

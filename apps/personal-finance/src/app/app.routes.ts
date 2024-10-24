@@ -8,7 +8,7 @@ export const appRoutes: Route[] = [
   {
     path: 'calculators',
     loadComponent: async () =>
-      (await import('@pf/calculators')).CalculatorsComponent,
+      (await import('@pf/calculators')).CalculatorsShellComponent,
   },
   {
     path: '404',

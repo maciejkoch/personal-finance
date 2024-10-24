@@ -2,10 +2,10 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { LongTermSavingsComponent } from '../long-term-savings/long-term-savings.component';
 
 @Component({
-  selector: 'pf-calculators',
+  selector: 'pf-calculators-shell',
   standalone: true,
   imports: [LongTermSavingsComponent],
-  templateUrl: './calculators.component.html',
+  templateUrl: './calculators-shell.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CalculatorsComponent {}
+export class CalculatorsShellComponent {}
