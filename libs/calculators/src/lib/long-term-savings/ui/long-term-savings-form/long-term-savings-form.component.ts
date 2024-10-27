@@ -6,6 +6,7 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { useConditionallyEnable } from '@pf/shared';
 import { debounceTime, startWith, tap } from 'rxjs';
 import { LongTermSavingsRequest } from '../../data/long-term-savings.model';
 
@@ -37,16 +38,15 @@ export class LongTermSavingsFormComponent {
     skipTax: [false],
   });
 
+  conditionallyEnable = useConditionallyEnable(this.form);
+
   constructor() {
     this.form.valueChanges
       .pipe(
         startWith(this.form.value),
         tap((value) => {
-          const inflation = this.form.get('inflation');
-          const action = value.skipInflation
-            ? inflation?.disable
-            : inflation?.enable;
-          action?.call(inflation, { emitEvent: false });
+          this.conditionallyEnable(!value.skipInflation, 'inflation');
+          this.conditionallyEnable(!value.skipRate, 'rate', 'skipTax');
         }),
         debounceTime(300),
         takeUntilDestroyed()
