@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { LongTermSavingsRequest } from './data/long-term-savings.model';
+import { LongTermSavingsRequest } from './model/long-term-savings.model';
 import { LongTermSavingsStore } from './store/long-term-savings.store';
 import { LongTermSavingsChartComponent } from './ui/long-term-savings-chart/long-term-savings-chart.component';
 import { LongTermSavingsDescriptionComponent } from './ui/long-term-savings-chart/long-term-savings-description/long-term-savings-description.component';

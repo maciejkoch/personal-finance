@@ -8,7 +8,7 @@ import {
   viewChild,
 } from '@angular/core';
 import Chart, { ChartItem } from 'chart.js/auto';
-import { LongTermSavingsResponse } from '../../data/long-term-savings.model';
+import { LongTermSavingsData } from '../../model/long-term-savings.model';
 
 @Component({
   selector: 'pf-long-term-savings-chart',
@@ -20,7 +20,7 @@ import { LongTermSavingsResponse } from '../../data/long-term-savings.model';
 export class LongTermSavingsChartComponent {
   canvas = viewChild<ElementRef>('canvas');
 
-  data = input<LongTermSavingsResponse>();
+  data = input<LongTermSavingsData>();
 
   #chart: Chart | null = null;
 
@@ -39,20 +39,24 @@ export class LongTermSavingsChartComponent {
           (value) => value.compoundedInteres - value.totalContribution
         );
 
+        const totalContributionDataset = {
+          label: 'wpłaty',
+          data: totalContribution,
+          backgroundColor: '#2096f3',
+        };
+        const interestDataset = {
+          label: 'odsetki',
+          data: interest,
+          backgroundColor: '#ff9800',
+        };
+
+        const datasets = this.data()?.skipRate
+          ? [totalContributionDataset]
+          : [totalContributionDataset, interestDataset];
+
         this.#chart.data = {
           labels,
-          datasets: [
-            {
-              label: 'wpłaty',
-              data: totalContribution,
-              backgroundColor: '#2096f3',
-            },
-            {
-              label: 'odsetki',
-              data: interest,
-              backgroundColor: '#ff9800',
-            },
-          ],
+          datasets,
         };
 
         this.#chart.update();

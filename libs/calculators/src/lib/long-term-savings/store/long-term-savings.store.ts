@@ -1,16 +1,16 @@
-import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
-import {
-  LongTermSavingsRequest,
-  LongTermSavingsResponse,
-} from '../data/long-term-savings.model';
 import { inject } from '@angular/core';
-import { LongTermSavingsDataService } from '../data/long-term-savings-data.service';
+import { tapResponse } from '@ngrx/operators';
+import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { pipe, switchMap, tap } from 'rxjs';
-import { tapResponse } from '@ngrx/operators';
+import { LongTermSavingsDataService } from '../data/long-term-savings-data.service';
+import {
+  LongTermSavingsData,
+  LongTermSavingsRequest,
+} from '../model/long-term-savings.model';
 
 type State = {
-  result: LongTermSavingsResponse | null;
+  result: LongTermSavingsData | null;
   isLoading: boolean;
 };
 

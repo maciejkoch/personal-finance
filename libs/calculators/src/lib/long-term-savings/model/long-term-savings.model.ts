@@ -8,7 +8,7 @@ export type LongTermSavingsRequest = {
   skipTax: boolean;
 };
 
-export type LongTermSavingsResponse = LongTermSavingsRequest & {
+export type LongTermSavingsData = LongTermSavingsRequest & {
   finalValue: number;
   futureValue: number;
   monthlyContribution: number;

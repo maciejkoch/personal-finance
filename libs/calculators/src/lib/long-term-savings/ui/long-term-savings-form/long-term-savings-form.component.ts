@@ -8,7 +8,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { useConditionallyEnable } from '@pf/shared';
 import { debounceTime, startWith, tap } from 'rxjs';
-import { LongTermSavingsRequest } from '../../data/long-term-savings.model';
+import { LongTermSavingsRequest } from '../../model/long-term-savings.model';
 
 @Component({
   selector: 'pf-long-term-savings-form',

@@ -2,9 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import {
+  LongTermSavingsData,
   LongTermSavingsRequest,
-  LongTermSavingsResponse,
-} from './long-term-savings.model';
+} from '../model/long-term-savings.model';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +14,7 @@ export class LongTermSavingsDataService {
 
   calculate(
     request: LongTermSavingsRequest
-  ): Observable<LongTermSavingsResponse | null> {
+  ): Observable<LongTermSavingsData | null> {
     const host =
       'https://us-central1-calc-b6a6d.cloudfunctions.net/calculateSavingsHttpFunction';
 
@@ -28,7 +28,7 @@ export class LongTermSavingsDataService {
     }`;
 
     return this.#httpClient
-      .get<{ data: LongTermSavingsResponse }>(url)
+      .get<{ data: LongTermSavingsData }>(url)
       .pipe(map((result) => ({ ...result.data, ...request })));
   }
 }
