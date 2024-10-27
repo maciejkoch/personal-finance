@@ -8,7 +8,7 @@ import {
   viewChild,
 } from '@angular/core';
 import Chart, { ChartItem } from 'chart.js/auto';
-import { LongTermSavingsResponse } from '../data/long-term-savings.model';
+import { LongTermSavingsResponse } from '../../data/long-term-savings.model';
 
 @Component({
   selector: 'pf-long-term-savings-chart',

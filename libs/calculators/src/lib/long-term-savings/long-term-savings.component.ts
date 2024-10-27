@@ -1,50 +1,29 @@
-import { JsonPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { debounceTime, startWith } from 'rxjs';
+import { LongTermSavingsRequest } from './data/long-term-savings.model';
 import { LongTermSavingsStore } from './store/long-term-savings.store';
-import { LongTermSavingsChartComponent } from './ui/long-term-savings-chart.component';
+import { LongTermSavingsChartComponent } from './ui/long-term-savings-chart/long-term-savings-chart.component';
+import { LongTermSavingsDescriptionComponent } from './ui/long-term-savings-chart/long-term-savings-description/long-term-savings-description.component';
+import { LongTermSavingsFormComponent } from './ui/long-term-savings-form/long-term-savings-form.component';
 
 @Component({
   selector: 'pf-long-term-savings',
   standalone: true,
-  imports: [ReactiveFormsModule, JsonPipe, LongTermSavingsChartComponent],
+  imports: [
+    LongTermSavingsFormComponent,
+    LongTermSavingsDescriptionComponent,
+    LongTermSavingsChartComponent,
+  ],
   providers: [LongTermSavingsStore],
   templateUrl: './long-term-savings.component.html',
   styleUrl: './long-term-savings.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LongTermSavingsComponent {
-  #fb = inject(FormBuilder);
   #store = inject(LongTermSavingsStore);
-
-  form = this.#fb.nonNullable.group({
-    amount: [10000, [Validators.required, Validators.min(1)]],
-    duration: [
-      10,
-      [Validators.required, Validators.min(1), Validators.max(100)],
-    ],
-    inflation: [
-      3.5,
-      [Validators.required, Validators.min(0), Validators.max(100)],
-    ],
-    skipInflation: [false],
-    rate: [10, [Validators.required, Validators.min(0), Validators.max(100)]],
-    skipRate: [false],
-    skipTax: [false],
-  });
 
   data = this.#store.result;
 
-  constructor() {
-    this.form.valueChanges
-      .pipe(startWith(this.form.value), debounceTime(300), takeUntilDestroyed())
-      .subscribe(() => {
-        if (this.form.valid) {
-          const request = this.form.getRawValue();
-          this.#store.calculate(request);
-        }
-      });
+  calculate(request: LongTermSavingsRequest) {
+    this.#store.calculate(request);
   }
 }
