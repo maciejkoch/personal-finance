@@ -84,3 +84,6 @@
     </pre>
   </div>
 </div>
+@defer(when data(); prefetch on idle) { @if(data(); as data) {
+<pf-long-term-savings-chart [data]="data" />
+} }

@@ -4,11 +4,12 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { debounceTime, startWith } from 'rxjs';
 import { LongTermSavingsStore } from './store/long-term-savings.store';
+import { LongTermSavingsChartComponent } from './ui/long-term-savings-chart.component';
 
 @Component({
   selector: 'pf-long-term-savings',
   standalone: true,
-  imports: [ReactiveFormsModule, JsonPipe],
+  imports: [ReactiveFormsModule, JsonPipe, LongTermSavingsChartComponent],
   providers: [LongTermSavingsStore],
   templateUrl: './long-term-savings.component.html',
   styleUrl: './long-term-savings.component.scss',
