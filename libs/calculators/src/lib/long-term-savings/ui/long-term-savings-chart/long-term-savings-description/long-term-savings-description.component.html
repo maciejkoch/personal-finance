@@ -1,33 +1,40 @@
 @if (data(); as data) {
 <div class="flex items-center justify-center">
-  <div class="p-6 text-center w-[70%]">
+  <div class="p-6 text-center md:w-[70%]">
     <p class="text-lg font-semibold mb-4">
       Aby osiągnąć cel musisz miesięcznie odkładać
-      <span class="text-blue-600 font-bold"
+      <span class="text-primary font-bold"
         >{{ data.monthlyContribution | number }} zł</span
       >.
     </p>
     @if(!data.skipInflation){
     <p class="mb-2">
       Po okresie
-      <span class="font-bold">{{ data.duration }} lat</span>, uwzględniając
-      szacowaną inflację na poziomie
-      <span class="font-bold">{{ data.inflation }}%</span>, cel będzie
-      równowarty
-      <span class="font-bold">{{ data.futureValue | number }} zł</span>.
+      <span class="font-bold text-secondary">{{ data.duration }} lat</span>,
+      uwzględniając szacowaną inflację na poziomie
+      <span class="font-bold text-secondary">{{ data.inflation }}%</span>, cel
+      będzie równowarty
+      <span class="font-bold text-secondary"
+        >{{ data.futureValue | number }} zł</span
+      >.
     </p>
     } @if(!data.skipRate){
     <p class="mb-2">
       Uwzględniając stopę zwrotu w wysokości
-      <span class="font-bold">{{ data.rate }}%</span> zarobisz
-      <span class="font-bold">{{ data.totalInterest | number }} zł</span>
+      <span class="font-bold text-secondary">{{ data.rate }}%</span> zarobisz
+      <span class="font-bold text-secondary"
+        >{{ data.totalInterest | number }} zł</span
+      >
       odsetek, suma wszystkich wpłat wyniesie
-      <span class="font-bold">{{ data.totalContribution | number }} zł</span>, a
-      łączny kapitał
-      <span class="font-bold">{{ data.finalValue | number }} zł</span>
+      <span class="font-bold text-secondary"
+        >{{ data.totalContribution | number }} zł</span
+      >, a łączny kapitał
+      <span class="font-bold text-secondary"
+        >{{ data.finalValue | number }} zł</span
+      >
       @if(!data.skipTax){, z czego będziesz musiał zapłacić podatek Belki w
       wysokości
-      <span class="font-bold">{{ data.tax | number }} zł</span>}.
+      <span class="font-bold text-secondary">{{ data.tax | number }} zł</span>}.
     </p>
     }
   </div>

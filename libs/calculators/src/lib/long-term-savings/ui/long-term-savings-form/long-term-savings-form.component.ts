@@ -23,9 +23,9 @@ export class LongTermSavingsFormComponent {
   changed = output<LongTermSavingsRequest>();
 
   form = this.#fb.nonNullable.group({
-    amount: [10000, [Validators.required, Validators.min(1)]],
+    amount: [150000, [Validators.required, Validators.min(1)]],
     duration: [
-      10,
+      15,
       [Validators.required, Validators.min(1), Validators.max(100)],
     ],
     inflation: [

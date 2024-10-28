@@ -8,5 +8,22 @@ module.exports = {
     join(__dirname, 'src/**/!(*.stories|*.spec).{ts,html}'),
     ...createGlobPatternsForDependencies(__dirname),
   ],
-  plugins: [require('@tailwindcss/forms')],
+  daisyui: {
+    themes: [
+      {
+        pf: {
+          primary: '#d97706',
+          secondary: '#0ea5e9',
+          accent: '#f3f4f6',
+          neutral: '#f97316',
+          'base-100': '#111827',
+          info: '#1d4ed8',
+          success: '#00ff00',
+          warning: '#f97316',
+          error: '#ff0000',
+        },
+      },
+    ],
+  },
+  plugins: [require('@tailwindcss/typography'), require('daisyui')],
 };

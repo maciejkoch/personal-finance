@@ -15,13 +15,13 @@ import { LongTermSavingsFormComponent } from './ui/long-term-savings-form/long-t
   ],
   providers: [LongTermSavingsStore],
   templateUrl: './long-term-savings.component.html',
-  styleUrl: './long-term-savings.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LongTermSavingsComponent {
   #store = inject(LongTermSavingsStore);
 
   data = this.#store.result;
+  isLoading = this.#store.isLoading;
 
   calculate(request: LongTermSavingsRequest) {
     this.#store.calculate(request);

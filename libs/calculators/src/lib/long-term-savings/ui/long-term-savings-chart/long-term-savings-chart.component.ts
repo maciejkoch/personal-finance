@@ -42,12 +42,12 @@ export class LongTermSavingsChartComponent {
         const totalContributionDataset = {
           label: 'wpłaty',
           data: totalContribution,
-          backgroundColor: '#2096f3',
+          backgroundColor: '#d97706',
         };
         const interestDataset = {
           label: 'odsetki',
           data: interest,
-          backgroundColor: '#ff9800',
+          backgroundColor: '#0ea5e9',
         };
 
         const datasets = this.data()?.skipRate

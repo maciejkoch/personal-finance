@@ -2,33 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  :root {
-    --primary: 255 0 106;
-    --foreground: 255 255 255;
-    --border: 46 47 59;
-    --background: 16 15 21;
-  }
-}
-
-@layer base {
-  * {
-    @apply border-pf-border;
-  }
-
-  body {
-    @apply bg-pf-background text-pf-foreground;
-    font-family: 'Inter', sans-serif;
-    font-feature-settings: 'rlig' 1, 'calt' 1;
-  }
-}
-
-@layer utilities {
-  input:disabled {
-    @apply bg-gray-300 cursor-not-allowed;
-  }
-}
-
 html {
   font-size: 16px;
 }
+
+/* .menu .active,
+.menu a:focus {
+  background-color: transparent !important;
+  color: var(--secondary) !important;
+} */

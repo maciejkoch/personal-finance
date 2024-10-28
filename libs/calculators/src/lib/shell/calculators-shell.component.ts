@@ -7,5 +7,6 @@ import { LongTermSavingsComponent } from '../long-term-savings/long-term-savings
   imports: [LongTermSavingsComponent],
   templateUrl: './calculators-shell.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: { class: 'w-full' },
 })
 export class CalculatorsShellComponent {}

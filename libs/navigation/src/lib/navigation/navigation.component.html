@@ -1,11 +1,15 @@
-<div class="flex space-x-4">
+<ul class="menu menu-vertical md:menu-horizontal">
   @for(item of items; track $index) {
-  <a
-    [routerLinkActive]="'text-red'"
-    [routerLink]="item.link"
-    class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white"
-    aria-current="page"
-    >{{ item.label }}</a
-  >
+  <li>
+    <a
+      class="btn btn-ghost text-lg"
+      [routerLinkActive]="'text-secondary'"
+      [routerLinkActiveOptions]="{ exact: true }"
+      [routerLink]="item.link"
+      aria-current="page"
+    >
+      {{ item.label }}
+    </a>
+  </li>
   }
-</div>
+</ul>

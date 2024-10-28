@@ -1,9 +1,14 @@
-<div class="flex gap-4">
-  <pf-long-term-savings-form (changed)="calculate($event)" class="w-2/5" />
-  @if(data();as data) {
-  <pf-long-term-savings-description [data]="data" class="w-full" />
-  }
+<div class="flex flex-col md:flex-row gap-4 mb-10">
+  <div class="w-full md:w-3/5">
+    <pf-long-term-savings-form (changed)="calculate($event)" class="w-full" />
+  </div>
+  <div class="w-full md:w-3/5">
+    @if(data();as data) {
+    <pf-long-term-savings-description [data]="data" class="w-full" />
+    }
+  </div>
 </div>
+
 @defer(when data(); prefetch on idle) { @if(data();as data) {
 <pf-long-term-savings-chart [data]="data" />
 } }

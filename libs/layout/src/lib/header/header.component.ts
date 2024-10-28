@@ -1,10 +1,10 @@
+import { NgClass, NgTemplateOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'pf-header',
   standalone: true,
-  imports: [CommonModule],
+  imports: [NgTemplateOutlet, NgClass],
   templateUrl: './header.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
