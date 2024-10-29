@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, output } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
@@ -11,6 +11,8 @@ export class NavigationComponent {
   items = [
     { link: '/', label: 'Blog' },
     { link: '/calculators', label: 'Kalkulatory' },
-    { link: '/', label: 'O nas' },
+    { link: '/about-us', label: 'O nas' },
   ];
+
+  navigated = output();
 }

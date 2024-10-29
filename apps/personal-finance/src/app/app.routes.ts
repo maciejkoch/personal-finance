@@ -11,6 +11,10 @@ export const appRoutes: Route[] = [
       (await import('@pf/calculators')).CalculatorsShellComponent,
   },
   {
+    path: 'about-us',
+    loadComponent: async () => (await import('@pf/about-us')).AboutUsComponent,
+  },
+  {
     path: '404',
     loadComponent: async () => (await import('@pf/blog')).BlogComponent, // temp
   },

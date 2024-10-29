@@ -54,7 +54,7 @@
         />
       </div>
       <div class="hidden md:ml-6 md:block">
-        <ng-container *ngTemplateOutlet="navigationTemplate" />
+        <pf-navigation />
       </div>
     </div>
   </div>
@@ -62,11 +62,7 @@
   <!-- Mobile menu, show/hide based on menu state. -->
   @if(showMenu()) {
   <div class="md:hidden transition-transform duration-300" id="mobile-menu">
-    <ng-container *ngTemplateOutlet="navigationTemplate" />
+    <pf-navigation (navigated)="showMenu.set(false)" />
   </div>
   }
 </nav>
-
-<ng-template #navigationTemplate>
-  <ng-content />
-</ng-template>

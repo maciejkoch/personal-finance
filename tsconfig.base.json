@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@pf/about-us": ["libs/about-us/src/index.ts"],
       "@pf/blog": ["libs/blog/src/index.ts"],
       "@pf/calculators": ["libs/calculators/src/index.ts"],
       "@pf/layout": ["libs/layout/src/index.ts"],
