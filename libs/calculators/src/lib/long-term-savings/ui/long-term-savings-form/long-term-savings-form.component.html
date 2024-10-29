@@ -1,88 +1,80 @@
 <form [formGroup]="form">
-  <div class="mb-4">
-    <label class="form-control w-full">
-      <div class="label">
-        <span class="label-text">Twój cel</span>
-        <span class="label-text-alt">(zł)</span>
-      </div>
-      <input
-        type="number"
-        placeholder="1000"
-        class="input input-bordered input-primary"
-        formControlName="amount"
-      />
-    </label>
-  </div>
-  <div class="mb-4">
-    <label class="form-control w-full">
-      <div class="label">
-        <span class="label-text">Okres</span>
-        <span class="label-text-alt">(lat)</span>
-      </div>
-      <input
-        type="number"
-        class="input input-bordered input-primary"
-        placeholder="10"
-        formControlName="duration"
-      />
-    </label>
-  </div>
-  <div class="mb-4">
-    <label class="form-control w-full">
-      <div class="label">
-        <span class="label-text"> Szacowana inflacja</span>
-        <span class="label-text-alt">(%)</span>
-      </div>
-      <input
-        type="number"
-        class="input input-bordered input-primary"
-        placeholder="3.5"
-        formControlName="inflation"
-      />
-    </label>
-  </div>
-  <div class="mb-4">
-    <label class="inline-flex items-center">
-      <input
-        type="checkbox"
-        class="toggle toggle-primary"
-        formControlName="skipInflation"
-      />
-      <span class="ml-2">Pomiń inflację</span>
-    </label>
-  </div>
-  <div class="mb-4">
-    <label class="form-control w-full">
-      <div class="label">
-        <span class="label-text"> Stopa zwrotu</span>
-        <span class="label-text-alt">(%)</span>
-      </div>
-      <input
-        type="number"
-        class="input input-bordered input-primary"
-        placeholder="10"
-        formControlName="rate"
-      />
-    </label>
-  </div>
-  <div class="mb-4">
-    <label class="inline-flex items-center">
-      <input
-        type="checkbox"
-        class="toggle toggle-primary"
-        formControlName="skipRate"
-      />
-      <span class="ml-2">Pomiń stopę zwrotu</span>
-    </label>
-  </div>
-  <div class="mb-4">
-    <label class="inline-flex items-center">
-      <input
-        type="checkbox"
-        class="toggle toggle-primary"
-        formControlName="skipTax"
-      />
-      <span class="ml-2">Pomiń podatek Belki</span>
-    </label>
-  </div>
+  <label class="form-control w-full">
+    <div class="label">
+      <span class="label-text">Twój cel</span>
+      <span class="label-text-alt">(zł)</span>
+    </div>
+    <input
+      type="number"
+      placeholder="1000"
+      class="input input-bordered input-primary"
+      formControlName="amount"
+    />
+  </label>
+
+  <label class="form-control w-full">
+    <div class="label">
+      <span class="label-text">Okres</span>
+      <span class="label-text-alt">(lat)</span>
+    </div>
+    <input
+      type="number"
+      class="input input-bordered input-primary"
+      placeholder="10"
+      formControlName="duration"
+    />
+  </label>
+
+  <label class="form-control w-full">
+    <div class="label">
+      <span class="label-text"> Szacowana inflacja</span>
+      <span class="label-text-alt">(%)</span>
+    </div>
+    <input
+      type="number"
+      class="input input-bordered input-primary"
+      placeholder="3.5"
+      formControlName="inflation"
+    />
+  </label>
+
+  <label class="flex items-center mt-4">
+    <input
+      type="checkbox"
+      class="toggle toggle-primary"
+      formControlName="skipInflation"
+    />
+    <span class="ml-2">Pomiń inflację</span>
+  </label>
+
+  <label class="form-control w-full">
+    <div class="label">
+      <span class="label-text"> Stopa zwrotu</span>
+      <span class="label-text-alt">(%)</span>
+    </div>
+    <input
+      type="number"
+      class="input input-bordered input-primary"
+      placeholder="10"
+      formControlName="rate"
+    />
+  </label>
+
+  <label class="flex items-center mt-4">
+    <input
+      type="checkbox"
+      class="toggle toggle-primary"
+      formControlName="skipRate"
+    />
+    <span class="ml-2">Pomiń stopę zwrotu</span>
+  </label>
+
+  <label class="flex items-center mt-4">
+    <input
+      type="checkbox"
+      class="toggle toggle-primary"
+      formControlName="skipTax"
+    />
+    <span class="ml-2">Pomiń podatek Belki</span>
+  </label>
 </form>

@@ -1,2 +1,18 @@
-navigation
-<router-outlet />
+<div class="flex flex-row gap-5">
+  <div class="hidden lg:block lg:min-w-[250px]">
+    <ul class="fixed menu bg-base-300 rounded-box lg:w-[250px]">
+      @for(item of links; track $index) {
+      <li>
+        <a
+          [routerLink]="item.link"
+          [routerLinkActive]="'text-primary focus:text-primary'"
+          >{{ item.label }}</a
+        >
+      </li>
+      }
+    </ul>
+  </div>
+  <div class="flex-grow">
+    <router-outlet />
+  </div>
+</div>

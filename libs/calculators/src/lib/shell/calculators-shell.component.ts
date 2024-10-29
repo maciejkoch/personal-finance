@@ -1,13 +1,23 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { LongTermSavingsComponent } from '../long-term-savings/long-term-savings.component';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'pf-calculators-shell',
   standalone: true,
-  imports: [RouterOutlet, LongTermSavingsComponent],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive],
   templateUrl: './calculators-shell.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { class: 'w-full' },
 })
-export class CalculatorsShellComponent {}
+export class CalculatorsShellComponent {
+  links = [
+    {
+      label: 'Cel długoterminowy',
+      link: 'long-term-savings',
+    },
+    {
+      label: 'Regularne oszczędzanie',
+      link: 'regular-contribution',
+    },
+  ];
+}
