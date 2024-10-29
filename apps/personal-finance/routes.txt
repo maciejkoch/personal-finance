@@ -1,1 +1,1 @@
-/test-article
+/calculators

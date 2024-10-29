@@ -32,9 +32,7 @@
           "discoverRoutes": false,
           "routesFile": "apps/personal-finance/routes.txt"
         },
-        "ssr": {
-          "entry": "apps/personal-finance/server.ts"
-        }
+        "ssr": false
       },
       "configurations": {
         "production": {
