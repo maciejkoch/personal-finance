@@ -4,7 +4,7 @@
     <a
       class="btn btn-ghost text-lg"
       [routerLinkActive]="'text-secondary'"
-      [routerLinkActiveOptions]="{ exact: true }"
+      [routerLinkActiveOptions]="{ exact: item.directMatch ?? false }"
       [routerLink]="item.link"
       aria-current="page"
       (click)="navigated.emit()"

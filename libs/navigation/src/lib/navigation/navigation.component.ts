@@ -9,7 +9,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 })
 export class NavigationComponent {
   items = [
-    { link: '/', label: 'Blog' },
+    { link: '', label: 'Blog', directMatch: true },
     { link: '/calculators', label: 'Kalkulatory' },
     { link: '/about-us', label: 'O nas' },
   ];

@@ -7,8 +7,8 @@ export const appRoutes: Route[] = [
   },
   {
     path: 'calculators',
-    loadComponent: async () =>
-      (await import('@pf/calculators')).CalculatorsShellComponent,
+    loadChildren: () =>
+      import('@pf/calculators').then((m) => m.createRoutes('calculators')),
   },
   {
     path: 'about-us',
