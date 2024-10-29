@@ -4,7 +4,8 @@
   "license": "MIT",
   "scripts": {
     "start": "nx serve personal-finance",
-    "build": "nx build personal-finance"
+    "build": "nx build personal-finance",
+    "deploy": "firebase deploy --only hosting"
   },
   "private": true,
   "dependencies": {

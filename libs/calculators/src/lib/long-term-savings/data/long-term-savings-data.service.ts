@@ -15,8 +15,7 @@ export class LongTermSavingsDataService {
   calculate(
     request: LongTermSavingsRequest
   ): Observable<LongTermSavingsData | null> {
-    const host =
-      'https://us-central1-calc-b6a6d.cloudfunctions.net/calculateSavingsHttpFunction';
+    const host = 'https://calculatesavingshttpfunction-4mtb3gtbjq-uc.a.run.app';
 
     const inflation = request.skipInflation ? 0 : request.inflation;
     const rate = request.skipRate ? 0 : request.rate;
