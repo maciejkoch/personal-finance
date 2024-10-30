@@ -1,4 +1,1 @@
-/calculators
-/calculators/long-term-savings
-/calculators/regular-contribution
 /about-us
