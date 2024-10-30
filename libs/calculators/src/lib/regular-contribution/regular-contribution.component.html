@@ -1,19 +1,13 @@
-<!-- TODO create component for hero section -->
-<div class="hero bg-base-200 mb-10">
-  <div class="hero-content text-center">
-    <div class="lg:px-32">
-      <h1 class="text-3xl font-bold">Regularne oszczędzanie</h1>
-      <p class="py-6">
-        Regularne oszczędzanie to skuteczny sposób na gromadzenie kapitału i
-        osiąganie celów finansowych. Dzięki systematycznym wpłatom, nawet
-        niewielkie kwoty mogą z czasem znacznie wzrosnąć dzięki procentowi
-        składanemu. Oszczędzając co miesiąc, uczymy się dyscypliny finansowej i
-        budujemy zabezpieczenie na przyszłość. Takie podejście może pomóc w
-        realizacji marzeń, takich jak wakacje, zakup samochodu czy
-        zabezpieczenie emerytalne.
-      </p>
-      <button class="btn btn-primary">Rozpocznij</button>
-    </div>
-  </div>
-</div>
-<!-- --------------------------- -->
+<pfui-hero
+  title="Regularne oszczędzanie"
+  text="Regularne oszczędzanie to skuteczny sposób na gromadzenie kapitału i
+  osiąganie celów finansowych. Dzięki systematycznym wpłatom, nawet
+  niewielkie kwoty mogą z czasem znacznie wzrosnąć dzięki procentowi
+  składanemu. Oszczędzając co miesiąc, uczymy się dyscypliny finansowej i
+  budujemy zabezpieczenie na przyszłość. Takie podejście może pomóc w
+  realizacji marzeń, takich jak wakacje, zakup samochodu czy
+  zabezpieczenie emerytalne."
+  buttonLabel="Rozpocznij"
+  (clicked)="scrollToElement(formContainer)"
+/>
+<div #formContainer>tu będzie kalkulator</div>

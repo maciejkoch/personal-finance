@@ -1,11 +1,14 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { scrollToElement } from '@pf/shared';
+import { HeroComponent } from '@pf/ui';
 
 @Component({
   selector: 'pf-regular-contribution',
   standalone: true,
-  imports: [CommonModule],
+  imports: [HeroComponent],
   templateUrl: './regular-contribution.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RegularContributionComponent {}
+export class RegularContributionComponent {
+  scrollToElement = scrollToElement;
+}

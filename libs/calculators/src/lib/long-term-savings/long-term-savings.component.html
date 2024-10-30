@@ -1,22 +1,11 @@
-<!-- TODO create component for hero section -->
-<div class="hero bg-base-200 mb-10">
-  <div class="hero-content text-center">
-    <div class="lg:px-32">
-      <h1 class="text-3xl font-bold">Cel długoterminowy</h1>
-      <p class="py-6">
-        Oszczędzanie na cel długoterminowy pozwala gromadzić środki, które z
-        czasem wzrastają dzięki procentowi składanemu. Regularne wpłaty
-        sprawiają, że nasze oszczędności generują coraz większe zyski. W
-        dłuższej perspektywie taki kapitał może posłużyć do realizacji większych
-        planów, jak zakup mieszkania czy spokojna emerytura.
-      </p>
-      <button class="btn btn-primary">Rozpocznij</button>
-    </div>
-  </div>
-</div>
-<!-- --------------------------- -->
+<pfui-hero
+  title="Cel długoterminowy"
+  text="Oszczędzanie na cel długoterminowy pozwala gromadzić środki, które z czasem wzrastają dzięki procentowi składanemu. Regularne wpłaty sprawiają, że nasze oszczędności generują coraz większe zyski. W dłuższej perspektywie taki kapitał może posłużyć do realizacji większych planów, jak zakup mieszkania czy spokojna emerytura."
+  buttonLabel="Rozpocznij"
+  (clicked)="scrollToElement(formContainer)"
+/>
 <div class="flex flex-col lg:flex-row gap-4 mb-10">
-  <div class="w-full lg:w-2/5">
+  <div class="w-full lg:w-2/5" #formContainer>
     <pf-long-term-savings-form (changed)="calculate($event)" class="w-full" />
   </div>
   <div class="w-full lg:w-3/5">

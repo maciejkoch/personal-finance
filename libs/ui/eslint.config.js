@@ -20,7 +20,7 @@ module.exports = [
         'error',
         {
           type: 'element',
-          prefix: 'pf-ui',
+          prefix: 'pfui',
           style: 'kebab-case',
         },
       ],

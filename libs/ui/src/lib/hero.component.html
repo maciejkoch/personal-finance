@@ -1,0 +1,13 @@
+<div class="hero bg-base-200 mb-10">
+  <div class="hero-content text-center">
+    <div class="lg:px-32">
+      <h1 class="text-3xl font-bold">{{ title() }}</h1>
+      <p class="py-6">
+        {{ text() }}
+      </p>
+      <button class="btn btn-primary" (click)="clicked.emit()">
+        {{ buttonLabel() }}
+      </button>
+    </div>
+  </div>
+</div>
