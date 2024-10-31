@@ -2,9 +2,10 @@
   title="Cel długoterminowy"
   text="Oszczędzanie na cel długoterminowy pozwala gromadzić środki, które z czasem wzrastają dzięki procentowi składanemu. Regularne wpłaty sprawiają, że nasze oszczędności generują coraz większe zyski. W dłuższej perspektywie taki kapitał może posłużyć do realizacji większych planów, jak zakup mieszkania czy spokojna emerytura."
   buttonLabel="Rozpocznij"
-  (clicked)="scrollToElement(formContainer)"
+  (clicked)="scrollToForm()"
 />
 
+@defer () {
 <div class="flex flex-col lg:flex-row gap-4 mb-10">
   <div class="w-full lg:w-2/5" #formContainer>
     <pf-long-term-savings-form (changed)="calculate($event)" class="w-full" />
@@ -18,4 +19,4 @@
 
 @defer(when data(); prefetch on idle) { @if(data();as data) {
 <pf-long-term-savings-chart [data]="data" />
-} }
+} } }

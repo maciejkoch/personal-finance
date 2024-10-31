@@ -34,9 +34,14 @@ export class LongTermSavingsComponent {
   data = this.#store.result;
   isLoading = this.#store.isLoading;
 
-  scrollToElement = scrollToElement;
-
   calculate(request: LongTermSavingsRequest) {
     this.#store.calculate(request);
+  }
+
+  scrollToForm() {
+    const target = this.formContainer();
+    if (target) {
+      scrollToElement(target.nativeElement);
+    }
   }
 }
