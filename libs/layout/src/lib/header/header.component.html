@@ -2,42 +2,30 @@
   <div class="relative flex h-16 items-center justify-between">
     <div class="absolute inset-y-0 left-0 flex items-center lg:hidden">
       <button
-        type="button"
-        class="relative inline-flex items-center justify-center rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
-        aria-controls="mobile-menu"
-        aria-expanded="false"
+        class="btn btn-circle swap swap-rotate"
+        [class.swap-active]="showMenu()"
         (click)="toggleMenu()"
       >
-        <span class="absolute -inset-0.5"></span>
-        <span class="sr-only">Open main menu</span>
         <svg
-          class="block h-6 w-6"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-          aria-hidden="true"
-          data-slot="icon"
+          class="swap-off fill-current"
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 512 512"
         >
           <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+            d="M64,384H448V341.33H64Zm0-106.67H448V234.67H64ZM64,128v42.67H448V128Z"
           />
         </svg>
         <svg
-          class="hidden h-6 w-6"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-          aria-hidden="true"
-          data-slot="icon"
+          class="swap-on fill-current"
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 512 512"
         >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M6 18 18 6M6 6l12 12"
+          <polygon
+            points="400 145.49 366.51 112 256 222.51 145.49 112 112 145.49 222.51 256 112 366.51 145.49 400 256 289.49 366.51 400 400 366.51 289.49 256 400 145.49"
           />
         </svg>
       </button>
@@ -53,7 +41,7 @@
         />
       </div>
       <div class="hidden lg:ml-6 lg:block">
-        <pf-navigation />
+        <pf-navigation [desktop]="true" />
       </div>
     </div>
   </div>

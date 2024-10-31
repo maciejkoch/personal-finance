@@ -1,4 +1,4 @@
-import { Component, output, signal } from '@angular/core';
+import { Component, input, output, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
@@ -8,7 +8,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   templateUrl: './navigation.component.html',
 })
 export class NavigationComponent {
-  desktop = signal(true);
+  desktop = input(false);
 
   items = [
     { link: '', label: 'Blog', directMatch: true },
