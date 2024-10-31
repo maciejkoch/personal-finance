@@ -1,4 +1,5 @@
-<ul class="menu menu-vertical lg:menu-horizontal">
+@if(desktop()) {
+<ul class="menu hidden lg:menu-horizontal">
   @for(item of items; track $index) {
   <li>
     <a
@@ -14,3 +15,43 @@
   </li>
   }
 </ul>
+} @else {
+<ul class="menu menu-lg lg:hidden">
+  @for(item of items; track $index) {
+  <li>
+    @if (item.items) {
+    <button (click)="item.open.set(!item.open())">{{ item.label }}</button>
+
+    <ul class="expandable" [class.expanded]="item.open()">
+      <div class="expandable-inner">
+        @for(subitem of item.items; track $index) {
+        <li>
+          <a
+            [routerLinkActive]="'text-secondary'"
+            [routerLink]="subitem.link"
+            aria-current="page"
+            (click)="navigated.emit()"
+          >
+            {{ subitem.label }}
+          </a>
+        </li>
+        }
+      </div>
+    </ul>
+    } @else {
+
+    <a
+      [routerLinkActive]="'text-secondary'"
+      [routerLinkActiveOptions]="{ exact: item.directMatch ?? false }"
+      [routerLink]="item.link"
+      aria-current="page"
+      (click)="navigated.emit()"
+    >
+      {{ item.label }}
+    </a>
+
+    }
+  </li>
+  }
+</ul>
+}

@@ -6,3 +6,19 @@ html {
   font-size: 16px;
   overflow-y: scroll;
 }
+
+@layer utilities {
+  .expandable {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.3s ease-out;
+
+    &.expanded {
+      grid-template-rows: 1fr;
+    }
+  }
+
+  .expandable-inner {
+    overflow: hidden;
+  }
+}
