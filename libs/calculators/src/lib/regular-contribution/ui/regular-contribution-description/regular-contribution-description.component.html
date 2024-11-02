@@ -1,0 +1,35 @@
+@if (data(); as data) {
+<div class="flex items-center justify-center">
+  <div class="p-6 text-center lg:pr-10">
+    <p class="text-lg font-semibold mb-4">
+      Okładając miesięcznie
+      <span class="font-bold text-secondary">{{ data.contribution }} zł</span>,
+      po
+      <span class="font-bold text-secondary">{{ data.duration }} latach</span>,
+      uzbierasz
+      <span class="text-primary font-bold"
+        >{{ data.finalValue - data.tax | number }} zł</span
+      >.
+    </p>
+    @if(!data.skipRate){
+    <p class="mb-2">
+      Uwzględniając stopę zwrotu w wysokości
+      <span class="font-bold text-secondary">{{ data.rate }}%</span> zarobisz
+      <span class="font-bold text-secondary"
+        >{{ data.totalInterest | number }} zł</span
+      >
+      odsetek, suma wszystkich wpłat wyniesie
+      <span class="font-bold text-secondary"
+        >{{ data.totalContribution | number }} zł</span
+      >, a łączny kapitał
+      <span class="font-bold text-secondary"
+        >{{ data.finalValue | number }} zł</span
+      >
+      @if(!data.skipTax){, z czego będziesz musiał zapłacić podatek Belki w
+      wysokości
+      <span class="font-bold text-secondary">{{ data.tax | number }} zł</span>}.
+    </p>
+    }
+  </div>
+</div>
+}

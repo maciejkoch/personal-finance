@@ -1,6 +1,6 @@
 import { DecimalPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { LongTermSavingsData } from '../../../model/long-term-savings.model';
+import { LongTermSavingsData } from '../../model/long-term-savings.model';
 @Component({
   selector: 'pf-long-term-savings-description',
   standalone: true,

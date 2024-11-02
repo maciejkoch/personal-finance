@@ -8,6 +8,24 @@
   realizacji marzeń, takich jak wakacje, zakup samochodu czy
   zabezpieczenie emerytalne."
   buttonLabel="Rozpocznij"
-  (clicked)="scrollToElement(formContainer)"
+  (clicked)="scrollToForm()"
 />
-<div #formContainer>tu będzie kalkulator</div>
+
+@defer () {
+<div class="flex flex-col lg:flex-row gap-4 mb-10">
+  <div class="w-full lg:w-2/5" #formContainer>
+    <pf-regular-contribution-form
+      (changed)="calculate($event)"
+      class="w-full"
+    />
+  </div>
+  <div class="w-full lg:w-3/5">
+    @if(data();as data) {
+    <pf-regular-contribution-description [data]="data" class="w-full" />
+    }
+  </div>
+</div>
+
+@defer(when data(); prefetch on idle) { @if(data();as data) {
+<pf-regular-contribution-chart [data]="data" />
+} } }
