@@ -1,6 +1,7 @@
 import * as cors from 'cors';
 import * as logger from 'firebase-functions/logger';
 import { onRequest } from 'firebase-functions/v2/https';
+import { execute as executeRegularContributions } from './regular-contributions/regular-contributions';
 import { execute as executeSavings } from './savings/savings';
 
 export const helloWorld = onRequest((request, response) => {
@@ -19,3 +20,11 @@ const options: cors.CorsOptions = {
 export const calculateSavingsHttpFunction = onRequest((request, response) => {
   cors(options)(request, response, () => executeSavings(request, response));
 });
+
+export const calculateRegularContributionHttpFunction = onRequest(
+  (request, response) => {
+    cors(options)(request, response, () =>
+      executeRegularContributions(request, response)
+    );
+  }
+);
