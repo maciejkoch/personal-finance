@@ -1,13 +1,53 @@
-<div class="hero bg-base-200 mb-10">
+<div class="hero bg-base-200">
   <div class="hero-content text-center">
-    <div class="lg:px-32">
-      <h1 class="text-3xl font-bold">{{ title() }}</h1>
-      <p class="py-6">
-        {{ text() }}
-      </p>
-      <button class="btn btn-primary" (click)="clicked.emit()">
-        {{ buttonLabel() }}
-      </button>
+    <div>
+      <div class="flex justify-between items-center">
+        <h1 class="grow text-3xl font-bold">{{ title() }}</h1>
+        <div class="w-[48px]">
+          <button
+            class="btn swap swap-rotate"
+            [class.swap-active]="expanded()"
+            (click)="toggle()"
+          >
+            <svg
+              class="swap-on h-10 w-10 fill-current"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 16 16"
+              fill="currentColor"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1Zm-.75 10.25a.75.75 0 0 0 1.5 0V6.56l1.22 1.22a.75.75 0 1 0 1.06-1.06l-2.5-2.5a.75.75 0 0 0-1.06 0l-2.5 2.5a.75.75 0 0 0 1.06 1.06l1.22-1.22v4.69Z"
+                clip-rule="evenodd"
+              />
+            </svg>
+
+            <svg
+              class="swap-off h-10 w-10 fill-current"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 16 16"
+              fill="currentColor"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14Zm.75-10.25a.75.75 0 0 0-1.5 0v4.69L6.03 8.22a.75.75 0 0 0-1.06 1.06l2.5 2.5a.75.75 0 0 0 1.06 0l2.5-2.5a.75.75 0 1 0-1.06-1.06L8.75 9.44V4.75Z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="expandable" [class.expanded]="expanded()">
+        <div class="expandable-inner">
+          <p class="py-6">
+            {{ text() }}
+          </p>
+          <button class="btn btn-primary" (click)="handleClick()">
+            {{ buttonLabel() }}
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
