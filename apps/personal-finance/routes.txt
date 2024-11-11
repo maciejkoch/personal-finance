@@ -1,3 +1,5 @@
 /calculators/long-term-savings
 /calculators/regular-contribution
 /about-us
+/oszczedzaj-regularnie
+/kalkulator-obligacji-skarbowych

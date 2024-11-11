@@ -1,6 +1,7 @@
 import * as cors from 'cors';
 import * as logger from 'firebase-functions/logger';
 import { onRequest } from 'firebase-functions/v2/https';
+import { execute as executeArticle } from './articles/articles';
 import { execute as executeRegularContributions } from './regular-contributions/regular-contributions';
 import { execute as executeSavings } from './savings/savings';
 
@@ -28,3 +29,7 @@ export const calculateRegularContributionHttpFunction = onRequest(
     );
   }
 );
+
+export const articleHttpFunction = onRequest((request, response) => {
+  cors(options)(request, response, () => executeArticle(request, response));
+});

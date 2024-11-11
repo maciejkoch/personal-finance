@@ -19,6 +19,10 @@ export const appRoutes: Route[] = [
     loadComponent: async () => (await import('@pf/blog')).BlogComponent, // temp
   },
   {
+    path: ':slug',
+    loadComponent: async () => (await import('@pf/blog')).ArticleComponent,
+  },
+  {
     path: '**',
     redirectTo: '404',
   },

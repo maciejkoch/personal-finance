@@ -7,6 +7,8 @@ import {
 import { provideClientHydration } from '@angular/platform-browser';
 import {
   provideRouter,
+  withComponentInputBinding,
+  withInMemoryScrolling,
   withRouterConfig,
   withViewTransitions,
 } from '@angular/router';
@@ -25,7 +27,11 @@ export const appConfig: ApplicationConfig = {
       withRouterConfig({
         onSameUrlNavigation: 'reload',
       }),
-      withViewTransitions()
+      withInMemoryScrolling({
+        scrollPositionRestoration: 'enabled',
+      }),
+      withViewTransitions(),
+      withComponentInputBinding()
     ),
     provideHttpClient(withFetch()),
   ],
