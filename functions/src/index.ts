@@ -1,14 +1,9 @@
 import * as cors from 'cors';
-import * as logger from 'firebase-functions/logger';
 import { onRequest } from 'firebase-functions/v2/https';
 import { execute as executeArticle } from './articles/articles';
 import { execute as executeRegularContributions } from './regular-contributions/regular-contributions';
 import { execute as executeSavings } from './savings/savings';
-
-export const helloWorld = onRequest((request, response) => {
-  logger.info('Hello logs!', { structuredData: true });
-  response.send('Hello from Firebase!');
-});
+import { execute as executeTreasuryBonds } from './treasury-bonds/treasury-bonds';
 
 const whitelist = [
   'http://localhost:4200', //
@@ -26,6 +21,14 @@ export const calculateRegularContributionHttpFunction = onRequest(
   (request, response) => {
     cors(options)(request, response, () =>
       executeRegularContributions(request, response)
+    );
+  }
+);
+
+export const calculateTreasuryBondsHttpFunction = onRequest(
+  (request, response) => {
+    cors(options)(request, response, () =>
+      executeTreasuryBonds(request, response)
     );
   }
 );
