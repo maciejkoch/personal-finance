@@ -25,6 +25,10 @@ export class NavigationComponent {
           link: '/calculators/regular-contribution',
           label: 'Regularne oszczędzanie',
         },
+        {
+          link: '/calculators/treasury-bonds',
+          label: 'Obligacje skarbowe indeksowane inflacją',
+        },
       ],
     },
     { link: '/about-us', label: 'O nas' },

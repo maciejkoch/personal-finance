@@ -23,6 +23,12 @@ export const createRoutes: CreateRoutesFn = (parent) => [
             )
           ).RegularContributionComponent,
       },
+      {
+        path: 'treasury-bonds',
+        loadComponent: async () =>
+          (await import('../treasury-bonds/treasury-bonds.component'))
+            .TreasuryBondsComponent,
+      },
     ],
   },
   {

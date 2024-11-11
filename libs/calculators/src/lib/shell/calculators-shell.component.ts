@@ -19,5 +19,9 @@ export class CalculatorsShellComponent {
       label: 'Regularne oszczędzanie',
       link: 'regular-contribution',
     },
+    {
+      label: 'Obligacje skarbowe indeksowane inflacją',
+      link: 'treasury-bonds',
+    },
   ];
 }
