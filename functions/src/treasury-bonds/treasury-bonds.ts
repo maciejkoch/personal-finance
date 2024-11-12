@@ -44,6 +44,9 @@ function calculate(dto: TreasuryBondsSchemaDTO) {
     ror: calculateROR(numberOfBonds, month, params),
     dor: calculateDOR(numberOfBonds, month, params),
     tos: calculateTOS(numberOfBonds, month, params),
+    // TODO
+    // 1. add coi, edo, ros, rod
+    // 2. unify services by type of indexation (ror + dor, tos, coi + edo + ros + rod)
   };
 
   const months = [...Array(month).keys()].map((i) => i + 1);
