@@ -1,11 +1,10 @@
 import { deepStrictEqual } from 'assert';
 
-import { DOR } from '../treasury-bonds.consts';
 import {
   CalculationParams,
   TreasuryBondsMonthlyResult,
 } from '../treasury-bonds.model';
-import { calculate } from '../treasury-bonds.service';
+import { calculate } from './dor.service';
 
 describe('Calculate treasury bonds', () => {
   it('should work for DOR with 100 bonds', () => {
@@ -15,7 +14,7 @@ describe('Calculate treasury bonds', () => {
       wibor6m: [0.0584],
       savingsRate: [0.06],
     };
-    const result = calculate(DOR, 100, 144, calculationParams);
+    const result = calculate(100, 144, calculationParams);
 
     const expectedResult1: TreasuryBondsMonthlyResult = {
       rate: 0.059,
@@ -75,7 +74,7 @@ describe('Calculate treasury bonds', () => {
         0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.1, 0.11, 0.12,
       ],
     };
-    const result = calculate(DOR, 1000, 144, calculationParams);
+    const result = calculate(1000, 144, calculationParams);
     const expectedResult144: Partial<TreasuryBondsMonthlyResult> = {
       finalValueAtEndOfMath: 194938.41,
     };

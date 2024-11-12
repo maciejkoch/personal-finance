@@ -1,13 +1,9 @@
 import * as express from 'express';
 import { Request } from 'firebase-functions/v2/https';
 import { calculateFutureValueForMonths } from '../calculations/inflation.service';
-import { COI, DOR, EDO, ROD, ROR, ROS, TOZ } from './treasury-bonds.consts';
+import { calculate as calculateDOR } from './services/dor.service';
+import { calculate as calculateROR } from './services/ror.service';
 import { TreasuryBondsSchemaDTO, validate } from './treasury-bonds.dto';
-import { TreasuryBondsSimpleResult } from './treasury-bonds.model';
-import {
-  calculate as calculateTreasryBonds,
-  simplifyResult,
-} from './treasury-bonds.service';
 
 export function execute(request: Request, response: express.Response): void {
   const treasuryBonds = validate(request.query);
@@ -40,31 +36,24 @@ function calculate(dto: TreasuryBondsSchemaDTO) {
 
   const amount = numberOfBonds * 100;
 
-  const types = [ROR, DOR, TOZ, COI, EDO, ROS, ROD];
   const params = { inflation, referenceRate, savingsRate, wibor6m };
 
-  const results = types.reduce<Record<string, TreasuryBondsSimpleResult>>(
-    (acc, type) => ({
-      ...acc,
-      [type.name]: simplifyResult(
-        calculateTreasryBonds(type, numberOfBonds, month, params)
-      ),
-    }),
-    {
-      futureValue: calculateFutureValueForMonths(amount, month, inflation),
-    }
-  );
+  const results = {
+    futureValue: calculateFutureValueForMonths(amount, month, inflation),
+    ror: calculateROR(numberOfBonds, month, params),
+    dor: calculateDOR(numberOfBonds, month, params),
+  };
 
   const months = [...Array(month).keys()].map((i) => i + 1);
   const values = months.map((currentMonth) => ({
     month: currentMonth,
-    ror: results.ROR[currentMonth],
-    dor: results.DOR[currentMonth],
-    toz: results.TOZ[currentMonth],
-    coi: results.COI[currentMonth],
-    edo: results.EDO[currentMonth],
-    ros: results.ROS[currentMonth],
-    rod: results.ROD[currentMonth],
+    ror: results.ror[currentMonth],
+    dor: results.dor[currentMonth],
+    // tos: results.TOS[currentMonth],
+    // coi: results.COI[currentMonth],
+    // edo: results.EDO[currentMonth],
+    // ros: results.ROS[currentMonth],
+    // rod: results.ROD[currentMonth],
     futureValue: results.futureValue[currentMonth],
   }));
 

@@ -13,7 +13,7 @@ export interface TreasuryBondsRecord {
   ror: number;
   dor: number;
   coi: number;
-  toz: number;
+  tos: number;
   edo: number;
   ros: number;
   rod: number;
