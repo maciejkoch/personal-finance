@@ -3,7 +3,7 @@ import { Indexation, TreasuryBonds } from './treasury-bonds.model';
 export const ROR: TreasuryBonds = {
   name: 'ROR',
   maturityInMonths: 12,
-  firstPeriodRate: 0.0525,
+  firstPeriodRate: 0.0575,
   rateUpdateInMonths: 1,
   indexation: Indexation.referenceRate,
   margin: 0,
