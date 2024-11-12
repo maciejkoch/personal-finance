@@ -17,10 +17,10 @@ export const ROR: TreasuryBonds = {
 export const DOR: TreasuryBonds = {
   name: 'DOR',
   maturityInMonths: 24,
-  firstPeriodRate: 0.055,
+  firstPeriodRate: 0.059,
   rateUpdateInMonths: 1,
   indexation: Indexation.referenceRate,
-  margin: 0.0025,
+  margin: 0.0015,
   paymentOfInterestInMonths: 1,
   capitalizationOfInterestInMonths: 0,
   exchangeCost: 99.9,
