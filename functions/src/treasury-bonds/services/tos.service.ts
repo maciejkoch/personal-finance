@@ -1,6 +1,6 @@
 import { mapValues } from 'lodash';
 import { getNOrLastValue } from '../../calculations/calculations.service';
-import { DOR } from '../treasury-bonds.consts';
+import { TOS } from '../treasury-bonds.consts';
 import {
   CalculateByTreasuryBonds,
   CalculationParams,
@@ -20,7 +20,7 @@ export function calculate(
   calculationParams: CalculationParams
 ): TreasuryBondsResult {
   const calculateForMonth = calculateForMonthFactory(
-    DOR,
+    TOS,
     initialNumberOfBonds,
     calculationParams
   );
@@ -69,7 +69,6 @@ function calculateForMonthFactory(
 
   return (month, previousMonthResult) => {
     const currentCalculationParams = calculateParamsByMonth(month);
-    const indexation = currentCalculationParams[treasuryBonds.indexation];
     const savingsRate = currentCalculationParams.savingsRate;
 
     const amount = initialNumberOfBonds * BOND_COST;
@@ -81,7 +80,8 @@ function calculateForMonthFactory(
     const nominalValue = previousMonthResult?.nextNominalValue || amount;
     const basisOfCapitalisation =
       previousMonthResult?.nextBasisOfCapitalisation || nominalValue;
-    const rate = calculateRate(maturity, indexation)(treasuryBonds, month);
+    const rate = calculateRate()(treasuryBonds, month);
+
     const valueAtEndOfMonth = calculateValueAtEndOfMonth(
       basisOfCapitalisation,
       rate
@@ -97,31 +97,16 @@ function calculateForMonthFactory(
       valueAtEndOfMonth,
       earlyBuyoutPenalty
     );
-    const profitAtEndOfMonth = calculateProfitAtEndOfMonth(
-      maturity,
-      valueAtEndOfMonth,
-      nominalValue
-    )(treasuryBonds, month);
-    const previousBalance = previousMonthResult?.balanceAtEndOfMonth || 0;
-    const previousMaturity = previousMonthResult?.maturity || false;
-    const balanceAtEndOfMonth = calculateBalanceAtEndOfMonth(
-      previousMaturity,
-      previousBalance,
-      savingsRate,
-      profitAtEndOfMonth
-    );
 
     const nextNumberOfBonds = calculateNextNumberOfBonds(
       numberOfBonds,
       maturity,
-      buyoutAtEndOfMonth,
-      balanceAtEndOfMonth
+      buyoutAtEndOfMonth
     )(treasuryBonds);
     const nextBuyCost = calculateNextBuyCost(
       maturity,
       buyCost,
-      buyoutAtEndOfMonth,
-      balanceAtEndOfMonth
+      nextNumberOfBonds
     )(treasuryBonds);
     const nextNominalValue = calculateNextNominalValue(
       nextNumberOfBonds,
@@ -135,6 +120,17 @@ function calculateForMonthFactory(
       nextNominalValue,
       basisOfCapitalisation,
       valueAtEndOfMonth
+    );
+    const profitAtEndOfMonth = calculateProfitAtEndOfMonth(
+      maturity,
+      buyoutAtEndOfMonth,
+      nextBuyCost
+    )(treasuryBonds, month);
+    const previousBalance = previousMonthResult?.balanceAtEndOfMonth || 0;
+    const balanceAtEndOfMonth = calculateBalanceAtEndOfMonth(
+      previousBalance,
+      savingsRate,
+      profitAtEndOfMonth
     );
 
     const finalValueAtEndOfMath =
@@ -162,17 +158,10 @@ function calculateForMonthFactory(
   };
 }
 
-function calculateRate(
-  maturity: boolean,
-  indexation: number
-): CalculateByTreasuryBonds {
+function calculateRate(): CalculateByTreasuryBonds {
   return (treasuryBonds, month) => {
-    const isFirstPeriod =
-      month! % treasuryBonds.maturityInMonths <=
-        treasuryBonds.rateUpdateInMonths && !maturity;
-    return isFirstPeriod
-      ? treasuryBonds.firstPeriodRate
-      : treasuryBonds.margin + indexation;
+    // oprocentowanie stale
+    return treasuryBonds.firstPeriodRate;
   };
 }
 
@@ -222,37 +211,28 @@ function calculateBuyoutAtEndOfMonth(
 function calculateNextBuyCost(
   maturity: boolean,
   buyCost: number,
-  buyoutAtEndOfMonth: number,
-  balanceAtEndOfMonth: number
+  nextNumberOfBonds: number
 ): CalculateByTreasuryBonds {
   return (treasuryBonds) => {
     if (!maturity) {
       return buyCost;
     }
 
-    return (
-      Math.floor(buyoutAtEndOfMonth / treasuryBonds.exchangeCost) *
-        treasuryBonds.exchangeCost +
-      Math.floor(balanceAtEndOfMonth / 100) * 100
-    );
+    return nextNumberOfBonds * treasuryBonds.exchangeCost;
   };
 }
 
 function calculateNextNumberOfBonds(
   numberOfBonds: number,
   maturity: boolean,
-  buyoutAtEndOfMonth: number,
-  balanceAtEndOfMonth: number
+  buyoutAtEndOfMonth: number
 ): CalculateByTreasuryBonds {
   return (treasuryBonds) => {
     if (!maturity) {
       return numberOfBonds;
     }
 
-    return (
-      Math.floor(buyoutAtEndOfMonth / treasuryBonds.exchangeCost) +
-      Math.floor(balanceAtEndOfMonth / 100)
-    );
+    return Math.floor(buyoutAtEndOfMonth / treasuryBonds.exchangeCost);
   };
 }
 
@@ -266,38 +246,25 @@ function calculateNextNominalValue(
 
 function calculateProfitAtEndOfMonth(
   maturity: boolean,
-  valueAtEndOfMonth: number,
-  nominalValue: number
+  buyoutAtEndOfMonth: number,
+  nextBuyCost: number
 ): CalculateByTreasuryBonds {
   return (treasuryBonds, month) => {
     if (month! >= MAX_MONTH) {
       return 0;
     }
 
-    const profitIfNoPayment = (valueAtEndOfMonth - nominalValue) * (1 - TAX);
-    const profit =
-      month! % treasuryBonds.paymentOfInterestInMonths ? 0 : profitIfNoPayment;
-    // jak to nazwac?
-    const test = maturity
-      ? Math.floor(valueAtEndOfMonth / treasuryBonds.exchangeCost) *
-        (100 - treasuryBonds.exchangeCost)
-      : 0;
-
-    return profit + test;
+    return maturity ? buyoutAtEndOfMonth - nextBuyCost : 0;
   };
 }
 
 function calculateBalanceAtEndOfMonth(
-  previousMaturity: boolean,
   previousBalance: number,
   savingsRate: number,
   profitAtEndOfMonth: number
 ): number {
   return (
-    (previousBalance -
-      (previousMaturity ? Math.floor(previousBalance / 100) * 100 : 0)) *
-      (1 + (savingsRate / 12) * (1 - TAX)) +
-    profitAtEndOfMonth
+    previousBalance * (1 + (savingsRate / 12) * (1 - TAX)) + profitAtEndOfMonth
   );
 }
 
@@ -309,10 +276,6 @@ function calculateNextBasisOfCapitalisation(
   basisOfCapitalisation: number,
   valueAtEndOfMonth: number
 ): number {
-  if (!treasuryBonds.capitalizationOfInterestInMonths) {
-    return nextNominalValue;
-  }
-
   return maturity
     ? nextNominalValue
     : (month + 1) % treasuryBonds.capitalizationOfInterestInMonths !== 1

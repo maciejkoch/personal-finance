@@ -3,6 +3,7 @@ import { Request } from 'firebase-functions/v2/https';
 import { calculateFutureValueForMonths } from '../calculations/inflation.service';
 import { calculate as calculateDOR } from './services/dor.service';
 import { calculate as calculateROR } from './services/ror.service';
+import { calculate as calculateTOS } from './services/tos.service';
 import { TreasuryBondsSchemaDTO, validate } from './treasury-bonds.dto';
 
 export function execute(request: Request, response: express.Response): void {
@@ -42,6 +43,7 @@ function calculate(dto: TreasuryBondsSchemaDTO) {
     futureValue: calculateFutureValueForMonths(amount, month, inflation),
     ror: calculateROR(numberOfBonds, month, params),
     dor: calculateDOR(numberOfBonds, month, params),
+    tos: calculateTOS(numberOfBonds, month, params),
   };
 
   const months = [...Array(month).keys()].map((i) => i + 1);

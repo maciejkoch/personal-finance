@@ -8,7 +8,6 @@ import {
   TreasuryBonds,
   TreasuryBondsMonthlyResult,
   TreasuryBondsResult,
-  TreasuryBondsSimpleResult,
 } from '../treasury-bonds.model';
 
 const TAX = 0.19;
@@ -36,12 +35,6 @@ export function calculate(
   );
 
   return normalizeResult(result);
-}
-
-export function simplifyResult(
-  result: TreasuryBondsResult
-): TreasuryBondsSimpleResult {
-  return mapValues(result, (value) => value.finalValueAtEndOfMath);
 }
 
 function normalizeResult(result: TreasuryBondsResult): TreasuryBondsResult {
