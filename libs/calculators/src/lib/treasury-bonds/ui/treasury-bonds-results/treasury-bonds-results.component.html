@@ -1,0 +1,24 @@
+<div class="overflow-x-auto">
+  <table class="table table-zebra table-pin-cols">
+    <thead>
+      <tr>
+        @for(column of columns; track $index) { @if(column.pinned) {
+        <th>{{ column.label || column.property }}</th>
+        } @else {
+        <td>{{ column.label || column.property }}</td>
+        } }
+      </tr>
+    </thead>
+    <tbody>
+      @for (row of rows(); track $index) {
+      <tr>
+        @for(column of columns; track $index) { @if(column.pinned) {
+        <th>{{ row[column.property] | json }}</th>
+        } @else {
+        <td>{{ row[column.property] | json }}</td>
+        } }
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>

@@ -10,17 +10,21 @@ export interface TreasuryBondsRequest {
 export interface TreasuryBondsRecord {
   month: number;
 
-  ror: number;
-  dor: number;
-  coi: number;
-  tos: number;
-  edo: number;
-  ros: number;
-  rod: number;
+  ror: TreasuryBondsValue;
+  dor: TreasuryBondsValue;
+  coi: TreasuryBondsValue;
+  tos: TreasuryBondsValue;
+  edo: TreasuryBondsValue;
+  ros: TreasuryBondsValue;
+  rod: TreasuryBondsValue;
 
   futureValue: number;
 }
 
 export interface TreasuryBondsResult extends TreasuryBondsRequest {
   values: TreasuryBondsRecord[];
+}
+
+export interface TreasuryBondsValue {
+  finalValueAtEndOfMath: number;
 }

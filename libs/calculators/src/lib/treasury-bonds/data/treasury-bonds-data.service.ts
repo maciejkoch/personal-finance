@@ -16,8 +16,7 @@ export class TreasuryBondsDataService {
     request: TreasuryBondsRequest
   ): Observable<TreasuryBondsResult | null> {
     const host =
-      'http://127.0.0.1:5001/personal-finance-2ee61/us-central1/calculateTreasuryBondsHttpFunction';
-
+      'https://calculatetreasurybondshttpfunction-4mtb3gtbjq-uc.a.run.app';
     const fromObject = {
       ...request, //
       inflation: JSON.stringify(request.inflation),

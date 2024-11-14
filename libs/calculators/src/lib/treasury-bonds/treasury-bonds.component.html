@@ -1,1 +1,13 @@
-<pre>{{ data | async | json }}</pre>
+@defer () {
+<div class="flex flex-col lg:flex-row gap-4 mb-10">
+  <div class="w-full lg:w-2/5" #formContainer>
+    <pf-treasury-bonds-form (changed)="calculate($event)" class="w-full" />
+  </div>
+  <div class="w-full lg:w-3/5"></div>
+</div>
+
+@if(result(); as result) {
+<div class="w-full">
+  <pf-treasury-bonds-results [results]="result" />
+</div>
+} }
