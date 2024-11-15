@@ -3,9 +3,11 @@
     <thead>
       <tr>
         @for(column of columns; track $index) { @if(column.pinned) {
-        <th>{{ column.label || column.property }}</th>
+        <th class="text-right">{{ column.label || column.property }}</th>
         } @else {
-        <td>{{ column.label || column.property }}</td>
+        <td class="text-right" [class.whitespace-normal]="column.wrap">
+          {{ column.label || column.property }}
+        </td>
         } }
       </tr>
     </thead>
@@ -13,9 +15,11 @@
       @for (row of rows(); track $index) {
       <tr>
         @for(column of columns; track $index) { @if(column.pinned) {
-        <th>{{ row[column.property] | json }}</th>
-        } @else {
-        <td>{{ row[column.property] | json }}</td>
+        <th class="text-right">{{ row[column.property].value }}</th>
+        } @else { @let value = row[column.property];
+        <td class="text-right" [style.color]="value.color">
+          {{ value.value | currency : 'PLN' : 'symbol' : '1.0-0' }}
+        </td>
         } }
       </tr>
       }

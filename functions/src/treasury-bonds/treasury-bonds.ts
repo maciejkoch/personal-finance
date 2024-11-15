@@ -9,6 +9,7 @@ import { calculate as calculateROR } from './services/ror.service';
 import { calculate as calculateROS } from './services/ros.service';
 import { calculate as calculateTOS } from './services/tos.service';
 import { TreasuryBondsSchemaDTO, validate } from './treasury-bonds.dto';
+import { simplifyResult } from './treasury-bonds.service';
 
 export function execute(request: Request, response: express.Response): void {
   const treasuryBonds = validate(request.query);
@@ -45,14 +46,16 @@ function calculate(dto: TreasuryBondsSchemaDTO) {
 
   const results = {
     futureValue: calculateFutureValueForMonths(amount, month, inflation),
-    ror: calculateROR(numberOfBonds, month, params),
-    dor: calculateDOR(numberOfBonds, month, params),
-    tos: calculateTOS(numberOfBonds, month, params),
-    coi: calculateCOI(numberOfBonds, month, params),
-    edo: calculateEDO(numberOfBonds, month, params),
-    ros: calculateROS(numberOfBonds, month, params),
-    rod: calculateROD(numberOfBonds, month, params),
-    // TODO unify services by type of indexation (ror + dor, tos, coi + edo + ros + rod). They are identical.
+    ror: simplifyResult(calculateROR(numberOfBonds, month, params)),
+    dor: simplifyResult(calculateDOR(numberOfBonds, month, params)),
+    tos: simplifyResult(calculateTOS(numberOfBonds, month, params)),
+    coi: simplifyResult(calculateCOI(numberOfBonds, month, params)),
+    edo: simplifyResult(calculateEDO(numberOfBonds, month, params)),
+    ros: simplifyResult(calculateROS(numberOfBonds, month, params)),
+    rod: simplifyResult(calculateROD(numberOfBonds, month, params)),
+    // TODO
+    // 1. unify services by type of indexation (ror + dor, tos, coi + edo + ros + rod). They are identical.
+    // 2. refactor this simpleResult function to be be called once
   };
 
   const months = [...Array(month).keys()].map((i) => i + 1);

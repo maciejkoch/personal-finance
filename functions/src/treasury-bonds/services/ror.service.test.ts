@@ -101,6 +101,21 @@ describe('Calculate treasury bonds', () => {
     deepStrictEqual(result[144], expectedResult144);
   });
 
+  it('should work for ROR with 100 bonds', () => {
+    const calculationParams: CalculationParams = {
+      inflation: [0.035],
+      referenceRate: [0.05],
+      wibor6m: [0.01],
+      savingsRate: [0.1],
+    };
+    const result = calculate(100, 144, calculationParams);
+
+    const expectedResult144: Partial<TreasuryBondsMonthlyResult> = {
+      finalValueAtEndOfMath: 16702.7,
+    };
+    deepStrictEqual(result[144], { ...result[144], ...expectedResult144 });
+  });
+
   it('should work for ROR with 1000 bonds and progressive params', () => {
     const calculationParams: CalculationParams = {
       inflation: [
