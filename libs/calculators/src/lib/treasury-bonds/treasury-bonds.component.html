@@ -3,7 +3,11 @@
   <div class="w-full lg:w-2/5" #formContainer>
     <pf-treasury-bonds-form (changed)="calculate($event)" class="w-full" />
   </div>
-  <div class="w-full lg:w-3/5"></div>
+  <div class="w-full lg:w-3/5">
+    @if(result();as result) {
+    <pf-treasury-bonds-results-description [data]="result" class="w-full" />
+    }
+  </div>
 </div>
 
 @if(result(); as result) {

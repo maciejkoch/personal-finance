@@ -3,6 +3,7 @@ import { TreasuryBondsRequest } from './model/treasury-bonds.model';
 import { TreasuryBondsStore } from './store/treasury-bonds.store';
 import { TreasuryBondsChartComponent } from './ui/treasury-bonds-chart/treasury-bonds-chart.component';
 import { TreasuryBondsFormComponent } from './ui/treasury-bonds-form/treasury-bonds-form.component';
+import { TreasuryBondsResultsDescriptionComponent } from './ui/treasury-bonds-results-description/treasury-bonds-results-description.component';
 import { TreasuryBondsResultsComponent } from './ui/treasury-bonds-results/treasury-bonds-results.component';
 
 @Component({
@@ -10,6 +11,7 @@ import { TreasuryBondsResultsComponent } from './ui/treasury-bonds-results/treas
   standalone: true,
   imports: [
     TreasuryBondsFormComponent,
+    TreasuryBondsResultsDescriptionComponent,
     TreasuryBondsResultsComponent,
     TreasuryBondsChartComponent,
   ],
