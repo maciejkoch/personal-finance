@@ -5,7 +5,7 @@ export const createRoutes: CreateRoutesFn = (parent) => [
   {
     path: '',
     component: CalculatorsShellComponent,
-    canActivate: [redirectToChild(parent, 'long-term-savings')],
+    canActivate: [redirectToChild(parent, 'treasury-bonds')],
     runGuardsAndResolvers: 'always',
     children: [
       {
@@ -33,6 +33,6 @@ export const createRoutes: CreateRoutesFn = (parent) => [
   },
   {
     path: '**',
-    redirectTo: 'long-term-savings',
+    redirectTo: 'treasury-bonds',
   },
 ];

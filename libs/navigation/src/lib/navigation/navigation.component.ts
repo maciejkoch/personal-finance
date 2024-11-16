@@ -18,16 +18,16 @@ export class NavigationComponent {
       open: signal(false),
       items: [
         {
+          link: '/calculators/treasury-bonds',
+          label: 'Obligacje skarbowe indeksowane inflacją',
+        },
+        {
           link: '/calculators/long-term-savings',
           label: 'Cel długoterminowy',
         },
         {
           link: '/calculators/regular-contribution',
           label: 'Regularne oszczędzanie',
-        },
-        {
-          link: '/calculators/treasury-bonds',
-          label: 'Obligacje skarbowe indeksowane inflacją',
         },
       ],
     },

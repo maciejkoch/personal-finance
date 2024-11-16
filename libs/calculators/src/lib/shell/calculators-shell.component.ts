@@ -12,16 +12,16 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 export class CalculatorsShellComponent {
   links = [
     {
+      label: 'Obligacje skarbowe indeksowane inflacją',
+      link: 'treasury-bonds',
+    },
+    {
       label: 'Cel długoterminowy',
       link: 'long-term-savings',
     },
     {
       label: 'Regularne oszczędzanie',
       link: 'regular-contribution',
-    },
-    {
-      label: 'Obligacje skarbowe indeksowane inflacją',
-      link: 'treasury-bonds',
     },
   ];
 }
