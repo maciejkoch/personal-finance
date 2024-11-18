@@ -1,30 +1,8 @@
-<!-- <div class="join">
-  <input
-    class="join-item btn"
-    type="checkbox"
-    name="options"
-    aria-label="Radio 1"
-  />
-  <input
-    class="join-item btn"
-    type="checkbox"
-    name="options"
-    aria-label="Radio 2"
-  />
-  <input
-    class="join-item btn"
-    type="checkbox"
-    name="options"
-    aria-label="Radio 3"
-  />
-</div> -->
-
 <form [formGroup]="form">
-  <div class="join join-vertical w-full">
-    <div class="collapse collapse-arrow join-item border-base-300 border">
-      <input type="radio" name="my-accordion-4" checked="checked" />
-      <div class="collapse-title text-xl font-medium">Założenia główne</div>
-      <div class="collapse-content">
+  <pfui-accordion>
+    <pfui-accordion-item [opened]="true">
+      <span title>Założenia główne</span>
+      <div content>
         <label class="form-control w-full">
           <div class="label">
             <span class="label-text">Ilość obligacji</span>
@@ -59,12 +37,11 @@
           <span class="ml-2">Pomiń podatek Belki</span>
         </label>
       </div>
-    </div>
+    </pfui-accordion-item>
 
-    <div class="collapse collapse-arrow join-item border-base-300 border">
-      <input type="radio" name="my-accordion-4" />
-      <div class="collapse-title text-xl font-medium">Założenia dodatkowe</div>
-      <div class="collapse-content">
+    <pfui-accordion-item>
+      <span title>Założenia dodatkowe</span>
+      <div content>
         <label class="form-control w-full">
           <div class="label">
             <span class="label-text"> Szacowana inflacja</span>
@@ -117,6 +94,6 @@
           />
         </label>
       </div>
-    </div>
-  </div>
+    </pfui-accordion-item>
+  </pfui-accordion>
 </form>

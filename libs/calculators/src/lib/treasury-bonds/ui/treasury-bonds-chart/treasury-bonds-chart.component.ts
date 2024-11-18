@@ -52,8 +52,8 @@ export class TreasuryBondsChartComponent {
         const futureValueDataset = {
           label: 'Wpłaty powiększone o INFLACJĘ',
           data: futureValue,
-          backgroundColor: '#ff0000',
-          borderColor: '#ff0000',
+          backgroundColor: '#e11d48',
+          borderColor: '#e11d48',
           borderDash: [5, 5],
           pointRadius: 0,
         };
@@ -61,56 +61,56 @@ export class TreasuryBondsChartComponent {
         const rorDataset = {
           label: 'ROR (roczne)',
           data: ror,
-          backgroundColor: '#0000ff',
-          borderColor: '#0000ff',
+          backgroundColor: '#9333ea',
+          borderColor: '#9333ea',
           pointRadius: 0,
         };
 
         const dorDataset = {
           label: 'DOR (2-latki)',
           data: dor,
-          backgroundColor: '#ff00ff',
-          borderColor: '#ff00ff',
+          backgroundColor: '#14b8a6',
+          borderColor: '#14b8a6',
           pointRadius: 0,
         };
 
         const tosDataset = {
           label: 'TOS (3-latki)',
           data: tos,
-          backgroundColor: '#00ffff',
-          borderColor: '#00ffff',
+          backgroundColor: '#84cc16',
+          borderColor: '#84cc16',
           pointRadius: 0,
         };
 
         const coiDataset = {
           label: 'COI (4-latki)',
           data: coi,
-          backgroundColor: '#ffff00',
-          borderColor: '#ffff00',
+          backgroundColor: '#84cc16',
+          borderColor: '#84cc16',
           pointRadius: 0,
         };
 
         const edoDataset = {
           label: 'EDO (10-latki)',
           data: edo,
-          backgroundColor: '#00ff00',
-          borderColor: '#00ff00',
+          backgroundColor: '#facc15',
+          borderColor: '#facc15',
           pointRadius: 0,
         };
 
         const rodDataset = {
           label: 'ROD (6-latki)',
           data: rod,
-          backgroundColor: '#ff0000',
-          borderColor: '#ff0000',
+          backgroundColor: '#64748b',
+          borderColor: '#64748b',
           pointRadius: 0,
         };
 
         const rosDataset = {
           label: 'ROS (12-latki)',
           data: ros,
-          backgroundColor: '#0000ff',
-          borderColor: '#0000ff',
+          backgroundColor: '#f43f5e',
+          borderColor: '#f43f5e',
           pointRadius: 0,
         };
 

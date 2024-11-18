@@ -1,0 +1,73 @@
+<pfui-accordion class="mt-6 block">
+  <pfui-accordion-item [hasBorder]="false" [opened]="false">
+    <span title>Jak działa ten kalkulator?</span>
+    <div content class="prose max-w-none">
+      <div class="section">
+        <h2>1. Założenia główne</h2>
+        <ul>
+          <li>
+            <strong>Ilość obligacji:</strong> Wprowadź liczbę obligacji, przy
+            czym jedna obligacja to równowartość 100 zł.
+          </li>
+          <li>
+            <strong>Okres (lata):</strong> Określ czas trwania inwestycji w
+            latach.
+          </li>
+          <li>
+            <strong>Pomijanie podatku Belki:</strong> Możesz wybrać, czy
+            kalkulacje mają uwzględniać podatek od zysków kapitałowych
+            (domyślnie 19%).
+          </li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h2>2. Założenia dodatkowe</h2>
+        <ul>
+          <li>
+            <strong>Szacowana inflacja:</strong> Pozwala uwzględnić przewidywany
+            poziom inflacji, który wpływa na rzeczywistą wartość zysku.
+          </li>
+          <li>
+            <strong>WIBOR6M i stopa referencyjna NBP:</strong> Te parametry
+            odzwierciedlają aktualne wskaźniki rynkowe, wpływające na
+            oprocentowanie obligacji zmiennoprocentowych.
+          </li>
+          <li>
+            <strong>Stopa zwrotu:</strong> Określa przewidywane oprocentowanie
+            obligacji.
+          </li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h2>3. Wyniki</h2>
+        <p class="highlight">
+          Kalkulator generuje szczegółową tabelę z rocznymi zyskami dla różnych
+          rodzajów obligacji, takich jak:
+          <em>ROR, DOR, TOS, COI, EDO, ROD, ROS</em>.
+        </p>
+        <ul>
+          <li>
+            Tabela prezentuje zyski dla każdego roku inwestycji, uwzględniając
+            podatek Belki (jeśli wybrano).
+          </li>
+          <li>
+            Wykres graficzny przedstawia wzrost wartości inwestycji w czasie, z
+            uwzględnieniem wpływu inflacji oraz różnych typów obligacji.
+          </li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h2>Podsumowanie</h2>
+        <p>
+          Kalkulator obligacji skarbowych to praktyczne narzędzie, które pomaga
+          porównać opłacalność różnych typów obligacji, uwzględniając kluczowe
+          czynniki, takie jak inflacja, podatki i zmienne rynkowe. Dzięki temu
+          możesz podjąć świadomą decyzję inwestycyjną.
+        </p>
+      </div>
+    </div>
+  </pfui-accordion-item>
+</pfui-accordion>

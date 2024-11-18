@@ -7,6 +7,7 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { useConditionallyEnable, useLocalStorage } from '@pf/shared';
+import { AccordionComponent, AccordionItemComponent } from '@pf/ui';
 import { debounceTime, startWith } from 'rxjs';
 import { z } from 'zod';
 import { TreasuryBondsRequest } from '../../model/treasury-bonds.model';
@@ -26,7 +27,7 @@ type FormType = z.infer<typeof formSchema>;
 @Component({
   selector: 'pf-treasury-bonds-form',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, AccordionComponent, AccordionItemComponent],
   templateUrl: './treasury-bonds-form.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

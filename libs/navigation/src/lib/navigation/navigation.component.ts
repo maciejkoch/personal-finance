@@ -19,7 +19,7 @@ export class NavigationComponent {
       items: [
         {
           link: '/calculators/treasury-bonds',
-          label: 'Obligacje skarbowe indeksowane inflacją',
+          label: 'Obligacje skarbowe',
         },
         {
           link: '/calculators/long-term-savings',

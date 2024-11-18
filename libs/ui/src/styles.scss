@@ -22,3 +22,10 @@ html {
     overflow: hidden;
   }
 }
+
+@layer utilities {
+  .content-visible {
+    visibility: visible;
+    min-height: fit-content;
+  }
+}

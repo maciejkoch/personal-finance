@@ -1,7 +1,9 @@
-@defer () {
+<pf-treasury-bonds-hero (clicked)="scrollToForm()" />
+<pf-treasury-bonds-how-to />
 
-<div class="flex flex-col lg:flex-row gap-4 mb-10">
-  <div class="w-full lg:w-2/5 relative" #formContainer>
+@defer () {
+<div class="flex flex-col lg:flex-row gap-4 mb-10 pt-5" #scrollToContainer>
+  <div class="w-full lg:w-2/5 relative">
     <pf-treasury-bonds-form (changed)="calculate($event)" class="w-full" />
   </div>
   <div class="w-full lg:w-3/5">

@@ -12,7 +12,7 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 export class CalculatorsShellComponent {
   links = [
     {
-      label: 'Obligacje skarbowe indeksowane inflacją',
+      label: 'Obligacje skarbowe',
       link: 'treasury-bonds',
     },
     {

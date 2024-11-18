@@ -1,0 +1,10 @@
+<div
+  class="collapse collapse-arrow join-item bg-base-200 border-neutral-700"
+  [class.border]="hasBorder()"
+>
+  <input type="checkbox" name="accordion-state" [checked]="opened()" />
+  <div class="collapse-title text-xl font-medium">
+    <ng-content select="[title]" />
+  </div>
+  <div class="collapse-content"><ng-content select="[content]" /></div>
+</div>
