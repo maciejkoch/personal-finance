@@ -18,11 +18,13 @@ import { TreasuryBondsResultsComponent } from './ui/treasury-bonds-results/treas
   templateUrl: './treasury-bonds.component.html',
   providers: [TreasuryBondsStore],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: { class: 'relative ' },
 })
 export class TreasuryBondsComponent {
   #store = inject(TreasuryBondsStore);
 
   result = this.#store.result;
+  loading = this.#store.loading;
 
   calculate(request: TreasuryBondsRequest) {
     this.#store.calculate(request);

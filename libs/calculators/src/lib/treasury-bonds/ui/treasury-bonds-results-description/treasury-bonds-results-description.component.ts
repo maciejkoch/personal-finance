@@ -5,16 +5,18 @@ import {
   computed,
   input,
 } from '@angular/core';
+import { DelayedLoaderComponent } from '@pf/ui';
 import { TreasuryBondsResult } from '../../model/treasury-bonds.model';
 @Component({
   selector: 'pf-treasury-bonds-results-description',
   standalone: true,
-  imports: [DecimalPipe, CurrencyPipe],
+  imports: [DecimalPipe, CurrencyPipe, DelayedLoaderComponent],
   templateUrl: './treasury-bonds-results-description.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TreasuryBondsResultsDescriptionComponent {
-  data = input<TreasuryBondsResult>();
+  data = input<TreasuryBondsResult | null>();
+  loading = input<boolean>();
 
   highestBond = computed(() => {
     const results = this.data();

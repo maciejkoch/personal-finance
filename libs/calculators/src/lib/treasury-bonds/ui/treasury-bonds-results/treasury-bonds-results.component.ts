@@ -5,6 +5,7 @@ import {
   computed,
   input,
 } from '@angular/core';
+import { DelayedLoaderComponent } from '@pf/ui';
 import { mapValues, sortBy } from 'lodash';
 import { TreasuryBondsResult } from '../../model/treasury-bonds.model';
 
@@ -52,12 +53,13 @@ const negativeColors: Record<number, string> = {
 @Component({
   selector: 'pf-treasury-bonds-results',
   standalone: true,
-  imports: [CurrencyPipe],
+  imports: [CurrencyPipe, DelayedLoaderComponent],
   templateUrl: './treasury-bonds-results.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TreasuryBondsResultsComponent {
   results = input<TreasuryBondsResult>();
+  loading = input<boolean>();
 
   rows = computed<Row[]>(() => {
     const results = this.results();
@@ -120,6 +122,8 @@ export class TreasuryBondsResultsComponent {
       wrap: true,
     },
   ];
+
+  loadingItems = Array.from({ length: 10 });
 
   private classifyValues(data: Row): Row {
     const finalValue = data.finalValue.value;

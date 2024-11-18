@@ -1,28 +1,36 @@
-<div class="overflow-x-auto">
-  <table class="table table-zebra table-pin-cols">
-    <thead>
-      <tr>
-        @for(column of columns; track $index) { @if(column.pinned) {
-        <th class="text-right">{{ column.label || column.property }}</th>
-        } @else {
-        <td class="text-right" [class.whitespace-normal]="column.wrap">
-          {{ column.label || column.property }}
-        </td>
-        } }
-      </tr>
-    </thead>
-    <tbody>
-      @for (row of rows(); track $index) {
-      <tr>
-        @for(column of columns; track $index) { @if(column.pinned) {
-        <th class="text-right">{{ row[column.property].value }}</th>
-        } @else { @let value = row[column.property];
-        <td class="text-right" [style.color]="value.color">
-          {{ value.value | currency : 'PLN' : 'symbol' : '1.0-0' }}
-        </td>
-        } }
-      </tr>
-      }
-    </tbody>
-  </table>
-</div>
+<pfui-delayed-loader [loading]="loading()">
+  <div content class="overflow-x-auto">
+    <table class="table table-zebra table-pin-cols">
+      <thead>
+        <tr>
+          @for(column of columns; track $index) { @if(column.pinned) {
+          <th class="text-right">{{ column.label || column.property }}</th>
+          } @else {
+          <td class="text-right" [class.whitespace-normal]="column.wrap">
+            {{ column.label || column.property }}
+          </td>
+          } }
+        </tr>
+      </thead>
+      <tbody>
+        @for (row of rows(); track $index) {
+        <tr>
+          @for(column of columns; track $index) { @if(column.pinned) {
+          <th class="text-right">{{ row[column.property].value }}</th>
+          } @else { @let value = row[column.property];
+          <td class="text-right" [style.color]="value.color">
+            {{ value.value | currency : 'PLN' : 'symbol' : '1.0-0' }}
+          </td>
+          } }
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+
+  <div loader class="flex w-full flex-col gap-4">
+    @for(item of loadingItems; track $index) {
+    <div class="skeleton h-8 w-full"></div>
+    }
+  </div>
+</pfui-delayed-loader>

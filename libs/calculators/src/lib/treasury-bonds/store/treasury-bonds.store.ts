@@ -11,12 +11,12 @@ import {
 
 type State = {
   result: TreasuryBondsResult | null;
-  isLoading: boolean;
+  loading: boolean;
 };
 
 const initialState: State = {
   result: null,
-  isLoading: false,
+  loading: false,
 };
 
 export const TreasuryBondsStore = signalStore(
@@ -24,13 +24,13 @@ export const TreasuryBondsStore = signalStore(
   withMethods((store, dataSservice = inject(TreasuryBondsDataService)) => ({
     calculate: rxMethod<TreasuryBondsRequest>(
       pipe(
-        tap(() => patchState(store, { isLoading: true })),
+        tap(() => patchState(store, { loading: true })),
         switchMap((request) => {
           return dataSservice.calculate(request).pipe(
             tapResponse({
               next: (result) => patchState(store, { result }),
               error: console.error,
-              finalize: () => patchState(store, { isLoading: false }),
+              finalize: () => patchState(store, { loading: false }),
             })
           );
         })
