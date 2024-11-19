@@ -1,3 +1,4 @@
+import { effect, signal } from '@angular/core';
 import { z, ZodType } from 'zod';
 
 const isLocalStorageAvailable = typeof localStorage !== 'undefined';
@@ -47,4 +48,16 @@ export function useLocalStorage<T extends ZodType>(key: string, schema: T) {
     save,
     load,
   };
+}
+
+export function localStorageSignal<T extends ZodType>(key: string, schema: T) {
+  const instance = useLocalStorage(key, schema);
+
+  const state = signal(instance.load());
+  effect(() => {
+    const value = state();
+    instance.save(value);
+  });
+
+  return state;
 }

@@ -5,8 +5,11 @@ import {
   computed,
   input,
 } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { localStorageSignal } from '@pf/shared';
 import { DelayedLoaderComponent } from '@pf/ui';
 import { mapValues, sortBy } from 'lodash';
+import { z } from 'zod';
 import { TreasuryBondsResult } from '../../model/treasury-bonds.model';
 
 // TODO
@@ -53,7 +56,7 @@ const negativeColors: Record<number, string> = {
 @Component({
   selector: 'pf-treasury-bonds-results',
   standalone: true,
-  imports: [CurrencyPipe, DelayedLoaderComponent],
+  imports: [FormsModule, CurrencyPipe, DelayedLoaderComponent],
   templateUrl: './treasury-bonds-results.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -106,6 +109,8 @@ export class TreasuryBondsResultsComponent {
         return withColor;
       });
   });
+
+  useColors = localStorageSignal('treasury-bonds-use-colors', z.boolean());
 
   columns = [
     { property: 'year', label: 'Rok', pinned: true },
