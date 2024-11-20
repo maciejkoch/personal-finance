@@ -1,3 +1,11 @@
 {
-  "singleQuote": true
+  "overrides": [
+    {
+      "files": "*.html",
+      "options": {
+        "parser": "angular"
+      }
+    }
+  ],
+  "parser": "angular"
 }
