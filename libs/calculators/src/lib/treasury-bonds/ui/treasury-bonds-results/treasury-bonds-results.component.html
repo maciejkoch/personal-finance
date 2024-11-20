@@ -1,6 +1,8 @@
+<h2 class="text-xl font-medium mb-4">Tabela wartości nominalnych</h2>
+
 <pfui-delayed-loader [loading]="loading()">
   <div content>
-    <label class="flex items-center mt-4">
+    <label class="flex items-center">
       <input
         type="checkbox"
         class="toggle toggle-primary"
@@ -9,32 +11,41 @@
       <span class="ml-2">Wyróżnij różnice</span>
     </label>
     <div class="overflow-x-auto">
-      <table class="table table-zebra table-pin-cols">
+      <table class="table table-pin-cols">
         <thead>
           <tr>
-            @for(column of columns; track $index) { @if(column.pinned) {
-            <th class="text-right">{{ column.label || column.property }}</th>
-            } @else {
-            <td class="text-right" [class.whitespace-normal]="column.wrap">
-              {{ column.label || column.property }}
-            </td>
-            } }
+            @for (column of columns; track $index) {
+              @if (column.pinned) {
+                <th class="text-right">
+                  {{ column.label || column.property }}
+                </th>
+              } @else {
+                <td class="text-right" [class.whitespace-normal]="column.wrap">
+                  {{ column.label || column.property }}
+                </td>
+              }
+            }
           </tr>
         </thead>
         <tbody>
           @for (row of rows(); track $index) {
-          <tr>
-            @for(column of columns; track $index) { @if(column.pinned) {
-            <th class="text-right">{{ row[column.property].value }}</th>
-            } @else { @let value = row[column.property];
-            <td
-              class="text-right"
-              [style.color]="useColors() ? value.color : undefined"
-            >
-              {{ value.value | currency : 'PLN' : 'symbol' : '1.0-0' }}
-            </td>
-            } }
-          </tr>
+            <tr>
+              @for (column of columns; track $index) {
+                @if (column.pinned) {
+                  <th class="text-right">
+                    {{ row[column.property].value }}
+                  </th>
+                } @else {
+                  @let value = row[column.property];
+                  <td
+                    class="text-right"
+                    [style.color]="useColors() ? value.color : undefined"
+                  >
+                    {{ value.value | currency: "PLN" : "symbol" : "1.0-0" }}
+                  </td>
+                }
+              }
+            </tr>
           }
         </tbody>
       </table>
@@ -42,8 +53,8 @@
   </div>
 
   <div loader class="flex w-full flex-col gap-4">
-    @for(item of loadingItems; track $index) {
-    <div class="skeleton h-8 w-full"></div>
+    @for (item of loadingItems; track $index) {
+      <div class="skeleton h-8 w-full"></div>
     }
   </div>
 </pfui-delayed-loader>

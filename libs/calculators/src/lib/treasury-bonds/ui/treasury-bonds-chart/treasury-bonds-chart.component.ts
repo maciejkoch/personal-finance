@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -13,7 +12,7 @@ import { TreasuryBondsResult } from '../../model/treasury-bonds.model';
 @Component({
   selector: 'pf-treasury-bonds-chart',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './treasury-bonds-chart.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -172,12 +171,4 @@ export class TreasuryBondsChartComponent {
   }
 }
 
-// data: {
-//   labels: data.map((row) => row.year),
-//   datasets: [
-//     {
-//       label: 'Acquisitions by year',
-//       data: data.map((row) => row.compoundedInteres),
-//     },
-//   ],
-// },
+

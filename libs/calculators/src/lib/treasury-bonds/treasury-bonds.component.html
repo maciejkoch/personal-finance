@@ -1,24 +1,28 @@
 <pf-treasury-bonds-hero (clicked)="scrollToForm()" />
 <pf-treasury-bonds-how-to />
 
-@defer () {
-<div class="flex flex-col lg:flex-row gap-4 mb-10 pt-5" #scrollToContainer>
-  <div class="w-full lg:w-2/5 relative">
-    <pf-treasury-bonds-form (changed)="calculate($event)" class="w-full" />
+@defer {
+  <div class="flex flex-col lg:flex-row gap-4 mb-5 pt-5" #scrollToContainer>
+    <div class="w-full lg:w-2/5 relative">
+      <pf-treasury-bonds-form (changed)="calculate($event)" class="w-full" />
+    </div>
+    <div class="w-full lg:w-3/5">
+      <pf-treasury-bonds-results-description
+        [data]="result()"
+        [loading]="loading()"
+        class="w-full"
+      />
+    </div>
   </div>
-  <div class="w-full lg:w-3/5">
-    <pf-treasury-bonds-results-description
-      [data]="result()"
-      [loading]="loading()"
-      class="w-full"
-    />
-  </div>
-</div>
 
-@if(result(); as result) {
-<div class="w-full mb-10">
-  <pf-treasury-bonds-results [results]="result" [loading]="loading()" />
-</div>
-} @defer(when result; prefetch on idle) { @if(result(); as result) {
-<pf-treasury-bonds-chart [data]="result" />
-} } }
+  @if (result(); as result) {
+    <div class="w-full mb-5">
+      <pf-treasury-bonds-results [results]="result" [loading]="loading()" />
+    </div>
+  }
+  @defer (when result; prefetch on idle) {
+    @if (result(); as result) {
+      <pf-treasury-bonds-chart [data]="result" />
+    }
+  }
+}
