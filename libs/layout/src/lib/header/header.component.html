@@ -4,6 +4,7 @@
       <button
         class="btn btn-circle swap swap-rotate"
         [class.swap-active]="showMenu()"
+        aria-label="Mobile menu"
         (click)="toggleMenu()"
       >
         <svg
@@ -34,11 +35,7 @@
       class="flex flex-1 items-center justify-center lg:items-stretch lg:justify-start"
     >
       <div class="flex flex-shrink-0 items-center">
-        <img
-          class="h-8 w-auto"
-          src="https://calc-b6a6d.web.app/assets/logo.png"
-          alt="Finanse Osobiste logo"
-        />
+        <a class="text-primary text-xl" [routerLink]="'/'">Walletify</a>
       </div>
       <div class="hidden lg:ml-6 lg:block">
         <pf-navigation [desktop]="true" />

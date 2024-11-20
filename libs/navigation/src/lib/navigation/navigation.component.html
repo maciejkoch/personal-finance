@@ -1,57 +1,60 @@
-@if(desktop()) {
-<ul class="menu hidden lg:menu-horizontal">
-  @for(item of items; track $index) {
-  <li>
-    <a
-      class="btn btn-ghost text-lg"
-      [routerLinkActive]="'text-secondary'"
-      [routerLinkActiveOptions]="{ exact: item.directMatch ?? false }"
-      [routerLink]="item.link"
-      aria-current="page"
-      (click)="navigated.emit()"
-    >
-      {{ item.label }}
-    </a>
-  </li>
-  }
-</ul>
+@if (desktop()) {
+  <ul class="menu hidden lg:menu-horizontal">
+    @for (item of items; track $index) {
+      <li>
+        <a
+          class="btn btn-ghost text-lg"
+          [routerLinkActive]="'text-secondary'"
+          [routerLinkActiveOptions]="{ exact: item.directMatch ?? false }"
+          [routerLink]="item.link"
+          aria-current="page"
+          (click)="navigated.emit()"
+        >
+          {{ item.label }}
+        </a>
+      </li>
+    }
+  </ul>
 } @else {
-<ul class="menu menu-lg lg:hidden">
-  @for(item of items; track $index) {
-  <li>
-    @if (item.items) {
-    <button (click)="item.open.set(!item.open())">{{ item.label }}</button>
+  <ul class="menu menu-lg lg:hidden">
+    @for (item of items; track $index) {
+      <li>
+        @if (item.items) {
+          <button (click)="item.open.set(!item.open())">
+            {{ item.label }}
+          </button>
 
-    <ul class="expandable" [class.expanded]="item.open()">
-      <div class="expandable-inner">
-        @for(subitem of item.items; track $index) {
-        <li>
+          <ul
+            class="max-h-0 overflow-hidden max transition-all ease-in-out duration-500"
+            [style.maxHeight.px]="
+              item.open() ? item.items.length * item.itemHeight : 0
+            "
+          >
+            @for (subitem of item.items; track $index) {
+              <li>
+                <a
+                  [routerLinkActive]="'text-secondary'"
+                  [routerLink]="subitem.link"
+                  aria-current="page"
+                  (click)="navigated.emit()"
+                >
+                  {{ subitem.label }}
+                </a>
+              </li>
+            }
+          </ul>
+        } @else {
           <a
             [routerLinkActive]="'text-secondary'"
-            [routerLink]="subitem.link"
+            [routerLinkActiveOptions]="{ exact: item.directMatch ?? false }"
+            [routerLink]="item.link"
             aria-current="page"
             (click)="navigated.emit()"
           >
-            {{ subitem.label }}
+            {{ item.label }}
           </a>
-        </li>
         }
-      </div>
-    </ul>
-    } @else {
-
-    <a
-      [routerLinkActive]="'text-secondary'"
-      [routerLinkActiveOptions]="{ exact: item.directMatch ?? false }"
-      [routerLink]="item.link"
-      aria-current="page"
-      (click)="navigated.emit()"
-    >
-      {{ item.label }}
-    </a>
-
+      </li>
     }
-  </li>
-  }
-</ul>
+  </ul>
 }

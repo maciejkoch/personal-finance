@@ -16,6 +16,7 @@ export class NavigationComponent {
       link: '/calculators',
       label: 'Kalkulatory',
       open: signal(false),
+      itemHeight: 52,
       items: [
         {
           link: '/calculators/treasury-bonds',

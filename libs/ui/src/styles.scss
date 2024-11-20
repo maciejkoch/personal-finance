@@ -21,6 +21,12 @@ html {
   .expandable-inner {
     overflow: hidden;
   }
+
+  .expandable2 {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-in-out;
+  }
 }
 
 @layer utilities {

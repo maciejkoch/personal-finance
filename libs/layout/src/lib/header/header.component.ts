@@ -1,11 +1,11 @@
-import { NgClass } from '@angular/common';
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { NavigationComponent } from '@pf/navigation';
 
 @Component({
   selector: 'pf-header',
   standalone: true,
-  imports: [NgClass, NavigationComponent],
+  imports: [RouterLink, NavigationComponent],
   templateUrl: './header.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

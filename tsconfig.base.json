@@ -10,19 +10,39 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
-    "lib": ["es2020", "dom"],
+    "lib": [
+      "es2020",
+      "dom"
+    ],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@pf/about-us": ["libs/about-us/src/index.ts"],
-      "@pf/blog": ["libs/blog/src/index.ts"],
-      "@pf/calculators": ["libs/calculators/src/index.ts"],
-      "@pf/layout": ["libs/layout/src/index.ts"],
-      "@pf/navigation": ["libs/navigation/src/index.ts"],
-      "@pf/shared": ["libs/shared/src/index.ts"],
-      "@pf/ui": ["libs/ui/src/index.ts"]
+      "@pf/about-us": [
+        "libs/about-us/src/index.ts"
+      ],
+      "@pf/blog": [
+        "libs/blog/src/index.ts"
+      ],
+      "@pf/calculators": [
+        "libs/calculators/src/index.ts"
+      ],
+      "@pf/layout": [
+        "libs/layout/src/index.ts"
+      ],
+      "@pf/navigation": [
+        "libs/navigation/src/index.ts"
+      ],
+      "@pf/shared": [
+        "libs/shared/src/index.ts"
+      ],
+      "@pf/ui": [
+        "libs/ui/src/index.ts"
+      ]
     }
   },
-  "exclude": ["node_modules", "tmp"]
+  "exclude": [
+    "node_modules",
+    "tmp"
+  ]
 }
