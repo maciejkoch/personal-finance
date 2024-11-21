@@ -11,11 +11,10 @@ import Chart, { ChartItem } from 'chart.js/auto';
 import { RegularContributionData } from '../../model/regular-contribution.model';
 
 @Component({
-  selector: 'pf-regular-contribution-chart',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './regular-contribution-chart.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'pf-regular-contribution-chart',
+    imports: [CommonModule],
+    templateUrl: './regular-contribution-chart.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RegularContributionChartComponent {
   canvas = viewChild<ElementRef>('canvas');

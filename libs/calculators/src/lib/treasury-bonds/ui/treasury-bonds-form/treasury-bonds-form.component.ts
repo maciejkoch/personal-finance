@@ -25,11 +25,10 @@ const formSchema = z.object({
 type FormType = z.infer<typeof formSchema>;
 
 @Component({
-  selector: 'pf-treasury-bonds-form',
-  standalone: true,
-  imports: [ReactiveFormsModule, AccordionComponent, AccordionItemComponent],
-  templateUrl: './treasury-bonds-form.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'pf-treasury-bonds-form',
+    imports: [ReactiveFormsModule, AccordionComponent, AccordionItemComponent],
+    templateUrl: './treasury-bonds-form.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TreasuryBondsFormComponent {
   #fb = inject(FormBuilder);

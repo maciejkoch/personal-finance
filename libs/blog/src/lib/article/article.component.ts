@@ -3,11 +3,10 @@ import { Component, inject, input } from '@angular/core';
 import { ArticleStore } from './store/article.store';
 
 @Component({
-  selector: 'pf-article',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './article.component.html',
-  providers: [ArticleStore],
+    selector: 'pf-article',
+    imports: [CommonModule],
+    templateUrl: './article.component.html',
+    providers: [ArticleStore]
 })
 export class ArticleComponent {
   #store = inject(ArticleStore);

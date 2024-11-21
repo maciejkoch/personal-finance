@@ -22,11 +22,10 @@ const formSchema = z.object({
 });
 
 @Component({
-  selector: 'pf-long-term-savings-form',
-  standalone: true,
-  imports: [ReactiveFormsModule],
-  templateUrl: './long-term-savings-form.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'pf-long-term-savings-form',
+    imports: [ReactiveFormsModule],
+    templateUrl: './long-term-savings-form.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LongTermSavingsFormComponent {
   #fb = inject(FormBuilder);

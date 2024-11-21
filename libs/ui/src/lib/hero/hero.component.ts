@@ -7,11 +7,10 @@ import {
 } from '@angular/core';
 
 @Component({
-  selector: 'pfui-hero',
-  standalone: true,
-  imports: [],
-  templateUrl: './hero.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'pfui-hero',
+    imports: [],
+    templateUrl: './hero.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeroComponent {
   ANIMATION_DURATION = 300;

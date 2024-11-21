@@ -20,11 +20,10 @@ const formSchema = z.object({
 });
 
 @Component({
-  selector: 'pf-regular-contribution-form',
-  standalone: true,
-  imports: [ReactiveFormsModule],
-  templateUrl: './regular-contribution-form.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'pf-regular-contribution-form',
+    imports: [ReactiveFormsModule],
+    templateUrl: './regular-contribution-form.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RegularContributionFormComponent {
   #fb = inject(FormBuilder);

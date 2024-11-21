@@ -20,7 +20,10 @@ export const appConfig: ApplicationConfig = {
   providers: [
     { provide: LOCALE_ID, useValue: 'pl-PL' },
     provideClientHydration(),
-    // provideExperimentalZonelessChangeDetection(), // TODO temporarily removed because pages are not pre-rendered
+    // TODO temporarily removed because:
+    // 1. pages are not pre-rendered
+    // 2. withViewTransitions throws weird error saying that "Injector has already been destroyed"
+    // provideExperimentalZonelessChangeDetection(), 
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(
       appRoutes,

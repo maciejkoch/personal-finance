@@ -54,11 +54,10 @@ const negativeColors: Record<number, string> = {
 };
 
 @Component({
-  selector: 'pf-treasury-bonds-results',
-  standalone: true,
-  imports: [FormsModule, CurrencyPipe, DelayedLoaderComponent],
-  templateUrl: './treasury-bonds-results.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'pf-treasury-bonds-results',
+    imports: [FormsModule, CurrencyPipe, DelayedLoaderComponent],
+    templateUrl: './treasury-bonds-results.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TreasuryBondsResultsComponent {
   results = input<TreasuryBondsResult>();
