@@ -10,11 +10,10 @@ import Chart, { ChartItem } from 'chart.js/auto';
 import { TreasuryBondsResult } from '../../model/treasury-bonds.model';
 
 @Component({
-  selector: 'pf-treasury-bonds-chart',
-  standalone: true,
-  imports: [],
-  templateUrl: './treasury-bonds-chart.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'pf-treasury-bonds-chart',
+    imports: [],
+    templateUrl: './treasury-bonds-chart.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TreasuryBondsChartComponent {
   canvas = viewChild<ElementRef>('canvas');

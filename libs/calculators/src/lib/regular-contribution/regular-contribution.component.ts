@@ -14,17 +14,16 @@ import { RegularContributionDescriptionComponent } from './ui/regular-contributi
 import { RegularContributionFormComponent } from './ui/regular-contribution-form/regular-contribution-form.component';
 
 @Component({
-  selector: 'pf-regular-contribution',
-  standalone: true,
-  imports: [
-    HeroComponent,
-    RegularContributionFormComponent,
-    RegularContributionDescriptionComponent,
-    RegularContributionChartComponent,
-  ],
-  providers: [RegularContributionStore],
-  templateUrl: './regular-contribution.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'pf-regular-contribution',
+    imports: [
+        HeroComponent,
+        RegularContributionFormComponent,
+        RegularContributionDescriptionComponent,
+        RegularContributionChartComponent,
+    ],
+    providers: [RegularContributionStore],
+    templateUrl: './regular-contribution.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RegularContributionComponent {
   #store = inject(RegularContributionStore);

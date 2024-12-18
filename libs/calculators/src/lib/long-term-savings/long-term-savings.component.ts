@@ -14,17 +14,16 @@ import { LongTermSavingsDescriptionComponent } from './ui/long-term-savings-desc
 import { LongTermSavingsFormComponent } from './ui/long-term-savings-form/long-term-savings-form.component';
 
 @Component({
-  selector: 'pf-long-term-savings',
-  standalone: true,
-  imports: [
-    HeroComponent,
-    LongTermSavingsFormComponent,
-    LongTermSavingsDescriptionComponent,
-    LongTermSavingsChartComponent,
-  ],
-  providers: [LongTermSavingsStore],
-  templateUrl: './long-term-savings.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'pf-long-term-savings',
+    imports: [
+        HeroComponent,
+        LongTermSavingsFormComponent,
+        LongTermSavingsDescriptionComponent,
+        LongTermSavingsChartComponent,
+    ],
+    providers: [LongTermSavingsStore],
+    templateUrl: './long-term-savings.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LongTermSavingsComponent {
   #store = inject(LongTermSavingsStore);

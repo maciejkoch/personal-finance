@@ -2,12 +2,11 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
 @Component({
-  selector: 'pf-calculators-shell',
-  standalone: true,
-  imports: [RouterOutlet, RouterLink, RouterLinkActive],
-  templateUrl: './calculators-shell.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { class: 'w-full' },
+    selector: 'pf-calculators-shell',
+    imports: [RouterOutlet, RouterLink, RouterLinkActive],
+    templateUrl: './calculators-shell.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    host: { class: 'w-full' }
 })
 export class CalculatorsShellComponent {
   links = [

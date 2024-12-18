@@ -11,11 +11,10 @@ import Chart, { ChartItem } from 'chart.js/auto';
 import { LongTermSavingsData } from '../../model/long-term-savings.model';
 
 @Component({
-  selector: 'pf-long-term-savings-chart',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './long-term-savings-chart.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'pf-long-term-savings-chart',
+    imports: [CommonModule],
+    templateUrl: './long-term-savings-chart.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LongTermSavingsChartComponent {
   canvas = viewChild<ElementRef>('canvas');

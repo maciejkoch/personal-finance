@@ -16,20 +16,19 @@ import { TreasuryBondsResultsDescriptionComponent } from './ui/treasury-bonds-re
 import { TreasuryBondsResultsComponent } from './ui/treasury-bonds-results/treasury-bonds-results.component';
 
 @Component({
-  selector: 'pf-treasury-bonds',
-  standalone: true,
-  imports: [
-    TreasuryBondsHeroComponent,
-    TreasuryBondsHowToComponent,
-    TreasuryBondsFormComponent,
-    TreasuryBondsResultsDescriptionComponent,
-    TreasuryBondsResultsComponent,
-    TreasuryBondsChartComponent,
-  ],
-  templateUrl: './treasury-bonds.component.html',
-  providers: [TreasuryBondsStore],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { class: 'relative ' },
+    selector: 'pf-treasury-bonds',
+    imports: [
+        TreasuryBondsHeroComponent,
+        TreasuryBondsHowToComponent,
+        TreasuryBondsFormComponent,
+        TreasuryBondsResultsDescriptionComponent,
+        TreasuryBondsResultsComponent,
+        TreasuryBondsChartComponent,
+    ],
+    templateUrl: './treasury-bonds.component.html',
+    providers: [TreasuryBondsStore],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    host: { class: 'relative ' }
 })
 export class TreasuryBondsComponent {
   #store = inject(TreasuryBondsStore);

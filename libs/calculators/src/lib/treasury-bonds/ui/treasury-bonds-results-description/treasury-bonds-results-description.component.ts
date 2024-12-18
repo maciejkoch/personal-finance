@@ -8,11 +8,10 @@ import {
 import { DelayedLoaderComponent } from '@pf/ui';
 import { TreasuryBondsResult } from '../../model/treasury-bonds.model';
 @Component({
-  selector: 'pf-treasury-bonds-results-description',
-  standalone: true,
-  imports: [DecimalPipe, CurrencyPipe, DelayedLoaderComponent],
-  templateUrl: './treasury-bonds-results-description.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'pf-treasury-bonds-results-description',
+    imports: [DecimalPipe, CurrencyPipe, DelayedLoaderComponent],
+    templateUrl: './treasury-bonds-results-description.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TreasuryBondsResultsDescriptionComponent {
   data = input<TreasuryBondsResult | null>();
