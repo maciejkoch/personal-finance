@@ -10,9 +10,11 @@ export class NavigationComponent {
   desktop = input(false);
 
   items = [
-    { link: '', label: 'Blog', directMatch: true },
+    // Blog has been disabled for now
+    // { link: '', label: 'Blog', directMatch: true },
     {
       link: '/calculators',
+      directMatch: false,
       label: 'Kalkulatory',
       open: signal(false),
       itemHeight: 52,

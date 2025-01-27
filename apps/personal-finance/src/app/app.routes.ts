@@ -1,10 +1,11 @@
 import { Route } from '@angular/router';
 
 export const appRoutes: Route[] = [
-  {
-    path: '',
-    loadComponent: async () => (await import('@pf/blog')).BlogComponent,
-  },
+  // Blog has been disabled for now
+  // {
+  //   path: '',
+  //   loadComponent: async () => (await import('@pf/blog')).BlogComponent,
+  // },
   {
     path: 'calculators',
     loadChildren: () =>
@@ -24,6 +25,6 @@ export const appRoutes: Route[] = [
   },
   {
     path: '**',
-    redirectTo: '404',
+    redirectTo: 'calculators', // since blog is disabled
   },
 ];
