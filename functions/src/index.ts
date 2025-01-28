@@ -8,6 +8,7 @@ import { execute as executeTreasuryBonds } from './treasury-bonds/treasury-bonds
 const whitelist = [
   'http://localhost:4200', //
   'https://personal-finance-2ee61.web.app',
+  'https://oszczedzify.org'
 ];
 const options: cors.CorsOptions = {
   origin: whitelist,
