@@ -5,6 +5,10 @@ const local = `http://127.0.0.1:5001/${project}/us-central1`;
 const production = `https://us-central1-${project}.cloudfunctions.net`;
 const compare = process.argv.includes("--compare-production");
 const productionOnly = process.argv.includes("--production");
+const contracts = process.argv.includes("--contracts");
+if (compare && productionOnly) {
+  throw new Error("Choose either --production or --compare-production.");
+}
 const base = productionOnly ? production : local;
 const cases = [
   [
@@ -63,6 +67,36 @@ async function call(host, name, params) {
   return body;
 }
 
+async function checkContracts(host, name) {
+  const invalid = await fetch(`${host}/${name}`, {
+    headers: { Origin: "http://localhost:4200" },
+    signal: AbortSignal.timeout(30000),
+  });
+  assert.equal(invalid.status, 400, `${name}: invalid input must return 400`);
+  assert.equal(
+    invalid.headers.get("access-control-allow-origin"),
+    "http://localhost:4200",
+  );
+  await invalid.arrayBuffer();
+  const preflight = await fetch(`${host}/${name}`, {
+    method: "OPTIONS",
+    headers: {
+      Origin: "http://localhost:4200",
+      "Access-Control-Request-Method": "GET",
+    },
+    signal: AbortSignal.timeout(30000),
+  });
+  assert.equal(
+    preflight.status,
+    204,
+    `${name}: CORS preflight must return 204`,
+  );
+  assert.equal(
+    preflight.headers.get("access-control-allow-origin"),
+    "http://localhost:4200",
+  );
+}
+
 let failed = false;
 for (const [name, params] of cases) {
   try {
@@ -74,7 +108,10 @@ for (const [name, params] of cases) {
         `${name}: local/production responses differ`,
       );
     }
-    console.log(`PASS ${name}${compare ? " (local = production)" : ""}`);
+    if (contracts) await checkContracts(base, name);
+    console.log(
+      `PASS ${name}${compare ? " (local = production)" : ""}${contracts ? " + validation/CORS" : ""}`,
+    );
   } catch (error) {
     console.error(`FAIL ${name}: ${error.message}`);
     failed = true;

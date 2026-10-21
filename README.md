@@ -4,7 +4,7 @@ Kalkulatory finansowe w Angular 19 / Nx oraz backend Firebase Functions. Docelow
 
 ## Uruchomienie lokalne
 
-Sprawdzony Node: 22.23.2. Functions deklarują jeszcze produkcyjny runtime Node 20; aktualizacja jest osobnym etapem. Emulator korzysta z lokalnego Node 22.
+Sprawdzony Node: 22.23.2, przypięty w `.nvmrc`. Konfiguracja Functions i emulator używają Node 22. Wdrożenie runtime Node 22 na produkcję wymaga osobnego polecenia — zobacz [raport etapu 1](docs/ETAP-1-RAPORT.md).
 
 ```sh
 npm ci
@@ -51,12 +51,12 @@ npm test
 npm run test:functions
 npm run build
 npm run smoke:api
-npm run smoke:api -- --compare-production
+npm run smoke:api -- --contracts --compare-production
 ```
 
 Ostatnia komenda wysyła stałe, przykładowe dane do emulatora i produkcji, porównuje JSON czterech endpointów oraz sprawdza CORS i lokalny identyfikator buildu. `npm run smoke:api -- --production` sprawdza wyłącznie produkcję. To sprawdzenia zachowania istniejącej wersji; zgodność finansowa z nową ofertą wymaga osobnego etapu.
 
-`npm --prefix functions run lint` jawnie analizuje `src`. Aktualnie ujawnia istniejący błąd konfiguracji flat config; przed wdrożeniem Functions trzeba go poprawić w etapie 1. Szczegóły w raporcie bazowym.
+`npm --prefix functions run lint` analizuje `src` poprawną konfiguracją flat config. Przechodzi z 33 ostrzeżeniami o istniejących asercjach non-null; brak błędów. Opcja `--contracts` w smoke sprawdza dodatkowo HTTP 400 dla błędnych żądań i HTTP 204 dla preflight CORS.
 
 ## Identyfikacja wydania
 
@@ -68,7 +68,7 @@ Metadane odświeżają się przy uruchomieniu polecenia, nie przy każdym HMR. P
 
 Projekt produkcyjny: `personal-finance-2ee61`. W tym etapie nie wykonano wdrożenia. Publikacja produkcyjna, commit i push wymagają osobnego polecenia użytkownika.
 
-`npm run deploy` wykonuje świeży build produkcyjny i wdraża tylko Hosting. Functions wdraża się oddzielnie po naprawie lintu oraz aktualizacji runtime w etapie 1.
+`npm run deploy` wykonuje świeży build produkcyjny i wdraża tylko Hosting. Po osobnym poleceniu użytkownika `npm run deploy:functions` wdraża wyłącznie Functions na Node 22. Hooki predeploy sprawdzają lint, budują backend i generują metadane. Po publikacji uruchom `npm run smoke:api -- --production --contracts` oraz sprawdź runtime i logi Functions.
 
 Preview Hosting nie tworzy backendu staging. Obecny CORS Functions dopuszcza localhost i domeny produkcyjne; nowy adres preview wymaga jawnej konfiguracji dozwolonego originu albo osobnego backendu staging. Podgląd techniczny można w tym czasie wykonywać lokalnie.
 

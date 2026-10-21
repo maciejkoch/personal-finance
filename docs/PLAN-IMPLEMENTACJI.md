@@ -3,7 +3,7 @@
 Data audytu: 21 października 2026 r. Stan wyjściowy: `main`, commit `6de87ec`.
 Projekt Firebase: `personal-finance-2ee61`. Produkcja: <https://oszczedzify.org>.
 
-Etap 0 wykonano 21.10.2026; szczegóły w [raporcie bazowym](ETAP-0-RAPORT.md). Etap 1 oraz wdrożenia produkcyjne nie zostały rozpoczęte.
+Etap 0 wykonano 21.10.2026; szczegóły w [raporcie bazowym](ETAP-0-RAPORT.md). Implementacja etapu 1 jest gotowa do przeglądu — [raport](ETAP-1-RAPORT.md). Wdrożenie i testy produkcyjne etapu 1 oczekują na polecenie użytkownika. Etap 2 nie został rozpoczęty.
 Wersje pakietów należy ponownie sprawdzić na początku odpowiedniego etapu.
 
 ## Sposób pracy

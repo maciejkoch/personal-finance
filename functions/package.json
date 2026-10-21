@@ -5,14 +5,14 @@
     "build": "tsc",
     "build:watch": "tsc --watch",
     "serve": "npm run build && node ../scripts/write-version.mjs functions && npx -y firebase-tools@latest emulators:start --only functions --project personal-finance-2ee61",
-    "shell": "npm run build && firebase functions:shell",
+    "shell": "npm run build && node ../scripts/write-version.mjs functions && npx -y firebase-tools@latest functions:shell --project personal-finance-2ee61",
     "start": "npm run shell",
-    "deploy": "firebase deploy --only functions",
-    "logs": "firebase functions:log",
+    "deploy": "npx -y firebase-tools@latest deploy --only functions --project personal-finance-2ee61",
+    "logs": "npx -y firebase-tools@latest functions:log --project personal-finance-2ee61",
     "test": "npm run build && mocha \"lib/**/*.test.js\""
   },
   "engines": {
-    "node": "20"
+    "node": "22"
   },
   "main": "lib/index.js",
   "dependencies": {
@@ -24,12 +24,14 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@eslint/js": "8.57.1",
     "@typescript-eslint/eslint-plugin": "^5.62.0",
     "@typescript-eslint/parser": "^5.62.0",
     "eslint": "^8.57.1",
     "eslint-config-google": "^0.14.0",
     "eslint-plugin-import": "^2.31.0",
     "firebase-functions-test": "^3.1.0",
+    "globals": "13.24.0",
     "mocha": "^10.8.2",
     "typescript": "^5.6.3"
   },

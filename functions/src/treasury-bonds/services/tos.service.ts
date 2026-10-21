@@ -159,7 +159,7 @@ function calculateForMonthFactory(
 }
 
 function calculateRate(): CalculateByTreasuryBonds {
-  return (treasuryBonds, month) => {
+  return (treasuryBonds) => {
     // oprocentowanie stale
     return treasuryBonds.firstPeriodRate;
   };
