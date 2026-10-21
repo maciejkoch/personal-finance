@@ -1,15 +1,15 @@
 {
   "name": "functions",
   "scripts": {
-    "lint": "eslint",
+    "lint": "eslint src",
     "build": "tsc",
     "build:watch": "tsc --watch",
-    "serve": "npm run build && firebase emulators:start --only functions",
+    "serve": "npm run build && node ../scripts/write-version.mjs functions && npx -y firebase-tools@latest emulators:start --only functions --project personal-finance-2ee61",
     "shell": "npm run build && firebase functions:shell",
     "start": "npm run shell",
     "deploy": "firebase deploy --only functions",
     "logs": "firebase functions:log",
-    "test": "mocha -r ts-node/register src/**/**.test.ts"
+    "test": "npm run build && mocha \"lib/**/*.test.js\""
   },
   "engines": {
     "node": "20"

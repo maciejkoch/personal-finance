@@ -40,9 +40,15 @@ Thumbs.db
 
 .nx/cache
 .nx/workspace-data
+.nx/native
 
 .angular
 
 # Firebase
 firebase-debug.log
 .firebase
+
+# Generated build metadata and local staging configuration
+.build-metadata/
+apps/personal-finance/public/version.json
+apps/personal-finance/src/environments/environment.staging.local.ts

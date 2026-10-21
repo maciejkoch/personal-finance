@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
+import { API_ENDPOINTS } from '@pf/shared';
 import {
   TreasuryBondsRequest,
   TreasuryBondsResult,
@@ -11,12 +12,12 @@ import {
 })
 export class TreasuryBondsDataService {
   #httpClient = inject(HttpClient);
+  #endpoints = inject(API_ENDPOINTS);
 
   calculate(
     request: TreasuryBondsRequest
   ): Observable<TreasuryBondsResult | null> {
-    const host =
-      'https://calculatetreasurybondshttpfunction-4mtb3gtbjq-uc.a.run.app';
+    const host = this.#endpoints.treasuryBonds;
     const fromObject = {
       ...request, //
       inflation: JSON.stringify(request.inflation),

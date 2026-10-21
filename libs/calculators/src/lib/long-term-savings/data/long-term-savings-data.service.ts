@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
+import { API_ENDPOINTS } from '@pf/shared';
 import {
   LongTermSavingsData,
   LongTermSavingsRequest,
@@ -11,11 +12,12 @@ import {
 })
 export class LongTermSavingsDataService {
   #httpClient = inject(HttpClient);
+  #endpoints = inject(API_ENDPOINTS);
 
   calculate(
     request: LongTermSavingsRequest
   ): Observable<LongTermSavingsData | null> {
-    const host = 'https://calculatesavingshttpfunction-4mtb3gtbjq-uc.a.run.app';
+    const host = this.#endpoints.savings;
 
     const inflation = request.skipInflation ? 0 : request.inflation;
     const rate = request.skipRate ? 0 : request.rate;

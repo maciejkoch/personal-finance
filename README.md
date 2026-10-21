@@ -1,82 +1,75 @@
-# PersonalFinance
+# Oszczędzify
 
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
+Kalkulatory finansowe w Angular 19 / Nx oraz backend Firebase Functions. Docelowe zmiany są opisane w [planie](docs/PLAN-IMPLEMENTACJI.md), a pomiary i znane problemy w [raporcie etapu 0](docs/ETAP-0-RAPORT.md).
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is almost ready ✨.
+## Uruchomienie lokalne
 
-[Learn more about this workspace setup and its capabilities](https://nx.dev/getting-started/tutorials/angular-monorepo-tutorial?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
-
-## Finish your remote caching setup
-
-[Click here to finish setting up your workspace!](https://cloud.nx.app/connect/tz1EVXXSxq)
-
-
-## Run tasks
-
-To run the dev server for your app, use:
+Sprawdzony Node: 22.23.2. Functions deklarują jeszcze produkcyjny runtime Node 20; aktualizacja jest osobnym etapem. Emulator korzysta z lokalnego Node 22.
 
 ```sh
-npx nx serve personal-finance
+npm ci
+npm --prefix functions ci
 ```
 
-To create a production bundle:
+Terminal 1 — backend i emulator Hosting:
 
 ```sh
-npx nx build personal-finance
+npm run emulators
 ```
 
-To see all available targets to run for a project, run:
+Terminal 2 — frontend z lokalnym backendem:
 
 ```sh
-npx nx show project personal-finance
+npm start -- --host localhost --port 4200
 ```
 
-These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
+- Aplikacja: http://localhost:4200/calculators/treasury-bonds
+- Functions: http://127.0.0.1:5001/personal-finance-2ee61/us-central1
+- Panel emulatorów: http://127.0.0.1:4000
+- Hosting: http://127.0.0.1:5050 — serwuje istniejący katalog `dist`, z API wybranym przy jego budowaniu. Przed pierwszym uruchomieniem Hosting wykonaj `npm run build`. Port 5000 jest zajęty przez usługę macOS.
 
-[More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+Po zmianach źródeł Functions wykonaj `npm run build:functions`; emulator obserwuje skompilowane pliki. Nie ma potrzeby wdrażania kodu do Firebase, żeby testować kalkulatory.
 
-## Add new projects
+## Środowiska i build
 
-While you could add new projects to your workspace manually, you might want to leverage [Nx plugins](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) and their [code generation](https://nx.dev/features/generate-code?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) feature.
+| Komenda | Backend |
+| --- | --- |
+| `npm start` | Lokalny emulator |
+| `npm run start:production` | Produkcyjne API, frontend w trybie developerskim |
+| `npm run build` | Produkcyjne API, zoptymalizowany build z prerenderem |
+| `npm run build:local` | Emulator, build developerski; wymaga działającego emulatora do prerenderingu |
+| `npm run start:staging` / `npm run build:staging` | Jawnie wskazany backend staging |
 
-Use the plugin's generator to create new projects.
+Staging wymaga zmiennej `OSZCZEDZIFY_STAGING_FUNCTIONS_BASE_URL`, np. bazowego adresu `https://us-central1-TWOJ-PROJEKT-STAGING.cloudfunctions.net`. Nie jest to zmienna z tokenem. Bez niej polecenie kończy się błędem; nie używa produkcji zastępczo. Backend staging musi udostępniać te same cztery endpointy. Nowego projektu staging nie utworzono.
 
-To generate a new application, use:
+Wspólne URL produkcyjne: `libs/shared/src/lib/http/api-endpoints.ts`. Lokalne: `apps/personal-finance/src/environments/environment.local.ts`. Konfiguracja staging jest generowana do ignorowanego pliku. Nie należy jej edytować ręcznie.
+
+## Sprawdzenia
 
 ```sh
-npx nx g @nx/angular:app demo
+npm test
+npm run test:functions
+npm run build
+npm run smoke:api
+npm run smoke:api -- --compare-production
 ```
 
-To generate a new library, use:
+Ostatnia komenda wysyła stałe, przykładowe dane do emulatora i produkcji, porównuje JSON czterech endpointów oraz sprawdza CORS i lokalny identyfikator buildu. `npm run smoke:api -- --production` sprawdza wyłącznie produkcję. To sprawdzenia zachowania istniejącej wersji; zgodność finansowa z nową ofertą wymaga osobnego etapu.
 
-```sh
-npx nx g @nx/angular:lib mylib
-```
+`npm --prefix functions run lint` jawnie analizuje `src`. Aktualnie ujawnia istniejący błąd konfiguracji flat config; przed wdrożeniem Functions trzeba go poprawić w etapie 1. Szczegóły w raporcie bazowym.
 
-You can use `npx nx list` to get a list of installed plugins. Then, run `npx nx list <plugin-name>` to learn about more specific capabilities of a particular plugin. Alternatively, [install Nx Console](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) to browse plugins and generators in your IDE.
+## Identyfikacja wydania
 
-[Learn more about Nx plugins &raquo;](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) | [Browse the plugin registry &raquo;](https://nx.dev/plugin-registry?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+`npm start` i polecenia build generują metadane w `/version.json`. Lokalna komenda `npm run build:functions` oraz hook predeploy generują `functions/lib/version.json`, a odpowiedzi HTTP mają nagłówek `X-Oszczedzify-Build`. Oznaczenia obejmują SHA Git, dirty, czas, cel API i hash konfiguracji obligacji. `legacy-unversioned` oznacza, że danych oferty nie zaktualizowano jeszcze do nowej emisji.
 
+Metadane odświeżają się przy uruchomieniu polecenia, nie przy każdym HMR. Pliki generowane nie trafiają do Git. Przy publikowaniu zmian z `dirty: true` trzeba osobno zachować dokładny patch/źródła wydania.
 
-[Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+## Wdrożenie po przeglądzie
 
-## Install Nx Console
+Projekt produkcyjny: `personal-finance-2ee61`. W tym etapie nie wykonano wdrożenia. Publikacja produkcyjna, commit i push wymagają osobnego polecenia użytkownika.
 
-Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
+`npm run deploy` wykonuje świeży build produkcyjny i wdraża tylko Hosting. Functions wdraża się oddzielnie po naprawie lintu oraz aktualizacji runtime w etapie 1.
 
-[Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+Preview Hosting nie tworzy backendu staging. Obecny CORS Functions dopuszcza localhost i domeny produkcyjne; nowy adres preview wymaga jawnej konfiguracji dozwolonego originu albo osobnego backendu staging. Podgląd techniczny można w tym czasie wykonywać lokalnie.
 
-## Useful links
-
-Learn more:
-
-- [Learn more about this workspace setup](https://nx.dev/getting-started/tutorials/angular-monorepo-tutorial?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects)
-- [Learn about Nx on CI](https://nx.dev/ci/intro/ci-with-nx?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Releasing Packages with Nx release](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-And join the Nx community:
-- [Discord](https://go.nx.dev/community)
-- [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
-- [Our Youtube channel](https://www.youtube.com/@nxdevtools)
-- [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+Przed publikacją zapisz bieżący release Hosting, kod i konfigurację Functions oraz identyfikatory buildów. Hosting można przywrócić do poprzedniego wydania. Powrót Functions polega na ponownym wdrożeniu zachowanego kodu na wspieranym runtime.

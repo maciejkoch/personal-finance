@@ -1,0 +1,529 @@
+{
+  "observedOn": "2026-10-21",
+  "project": "personal-finance-2ee61",
+  "hosting": {
+    "releaseCount": 79,
+    "releases": [
+      {
+        "version": "sites/personal-finance-2ee61/versions/7982bf5807b070e8",
+        "releaseTime": "2025-02-03T12:31:44.813Z",
+        "type": "DEPLOY"
+      },
+      {
+        "version": "sites/personal-finance-2ee61/versions/c68689914cd15ca2",
+        "releaseTime": "2025-01-27T16:28:53.758Z",
+        "type": "DEPLOY"
+      },
+      {
+        "version": "sites/personal-finance-2ee61/versions/6a8a21a26ced2f16",
+        "releaseTime": "2025-01-27T16:19:22.527Z",
+        "type": "DEPLOY"
+      },
+      {
+        "version": "sites/personal-finance-2ee61/versions/fd46be05856fd63f",
+        "releaseTime": "2025-01-27T16:18:13.426Z",
+        "type": "DEPLOY"
+      },
+      {
+        "version": "sites/personal-finance-2ee61/versions/060673a2b0557bfc",
+        "releaseTime": "2024-12-18T17:30:45.265Z",
+        "type": "DEPLOY"
+      },
+      {
+        "version": "sites/personal-finance-2ee61/versions/30937afedbaed0af",
+        "releaseTime": "2024-12-18T17:28:36.834Z",
+        "type": "DEPLOY"
+      },
+      {
+        "version": "sites/personal-finance-2ee61/versions/5af6a3bb0960d627",
+        "releaseTime": "2024-12-18T17:27:08.108Z",
+        "type": "DEPLOY"
+      },
+      {
+        "version": "sites/personal-finance-2ee61/versions/a5110fd52ef1b00f",
+        "releaseTime": "2024-11-21T05:31:27.998Z",
+        "type": "DEPLOY"
+      },
+      {
+        "version": "sites/personal-finance-2ee61/versions/180215d537f97104",
+        "releaseTime": "2024-11-20T20:02:35.793Z",
+        "type": "DEPLOY"
+      },
+      {
+        "version": "sites/personal-finance-2ee61/versions/c0d9a2fd8d2ec7dd",
+        "releaseTime": "2024-11-20T19:52:30.728Z",
+        "type": "DEPLOY"
+      },
+      {
+        "version": "sites/personal-finance-2ee61/versions/3a7635f46b8018fb",
+        "releaseTime": "2024-11-20T19:19:36.944Z",
+        "type": "DEPLOY"
+      },
+      {
+        "version": "sites/personal-finance-2ee61/versions/0bb8c2c2394d70e2",
+        "releaseTime": "2024-11-20T19:11:32.262Z",
+        "type": "DEPLOY"
+      },
+      {
+        "version": "sites/personal-finance-2ee61/versions/25077eb268d0fba8",
+        "releaseTime": "2024-11-20T19:09:21.953Z",
+        "type": "DEPLOY"
+      },
+      {
+        "version": "sites/personal-finance-2ee61/versions/cfb0736273eecd15",
+        "releaseTime": "2024-11-20T19:03:58.833Z",
+        "type": "DEPLOY"
+      },
+      {
+        "version": "sites/personal-finance-2ee61/versions/9dec7796ac2a5567",
+        "releaseTime": "2024-11-20T18:20:26.348Z",
+        "type": "DEPLOY"
+      },
+      {
+        "version": "sites/personal-finance-2ee61/versions/6faa1ede529dcc25",
+        "releaseTime": "2024-11-19T19:22:36.165Z",
+        "type": "DEPLOY"
+      },
+      {
+        "version": "sites/personal-finance-2ee61/versions/1828bb7aef94857f",
+        "releaseTime": "2024-11-19T19:02:24.725Z",
+        "type": "DEPLOY"
+      },
+      {
+        "version": "sites/personal-finance-2ee61/versions/e1cbef059db73967",
+        "releaseTime": "2024-11-19T12:03:26.706Z",
+        "type": "DEPLOY"
+      },
+      {
+        "version": "sites/personal-finance-2ee61/versions/be953313006498bc",
+        "releaseTime": "2024-11-19T11:43:18.559Z",
+        "type": "DEPLOY"
+      },
+      {
+        "version": "sites/personal-finance-2ee61/versions/3bcc95dd6392dbc4",
+        "releaseTime": "2024-11-19T11:37:12.261Z",
+        "type": "DEPLOY"
+      },
+      {
+        "version": "sites/personal-finance-2ee61/versions/eee31da40959bc6a",
+        "releaseTime": "2024-11-19T07:41:23.171Z",
+        "type": "DEPLOY"
+      },
+      {
+        "version": "sites/personal-finance-2ee61/versions/6974c5dbcbc6d434",
+        "releaseTime": "2024-11-18T11:29:01.296Z",
+        "type": "DEPLOY"
+      },
+      {
+        "version": "sites/personal-finance-2ee61/versions/83502c090caf9f8e",
+        "releaseTime": "2024-11-18T11:24:45.362Z",
+        "type": "DEPLOY"
+      },
+      {
+        "version": "sites/personal-finance-2ee61/versions/f15cee490e3e9bae",
+        "releaseTime": "2024-11-18T11:04:27.204Z",
+        "type": "DEPLOY"
+      },
+      {
+        "version": "sites/personal-finance-2ee61/versions/d7997677952ccd39",
+        "releaseTime": "2024-11-18T10:53:28.561Z",
+        "type": "DEPLOY"
+      },
+      {
+        "version": "sites/personal-finance-2ee61/versions/1b2789f8a39ed017",
+        "releaseTime": "2024-11-18T09:31:07.688Z",
+        "type": "DEPLOY"
+      },
+      {
+        "version": "sites/personal-finance-2ee61/versions/625c78c9b14d15c5",
+        "releaseTime": "2024-11-18T09:27:52.809Z",
+        "type": "DEPLOY"
+      },
+      {
+        "version": "sites/personal-finance-2ee61/versions/aed6252b4ed80644",
+        "releaseTime": "2024-11-16T21:01:52.801Z",
+        "type": "DEPLOY"
+      },
+      {
+        "version": "sites/personal-finance-2ee61/versions/fa0e0ab6dd057848",
+        "releaseTime": "2024-11-16T19:10:06.003Z",
+        "type": "DEPLOY"
+      },
+      {
+        "version": "sites/personal-finance-2ee61/versions/5cd79c77eb4c88c1",
+        "releaseTime": "2024-11-16T19:00:09.407Z",
+        "type": "DEPLOY"
+      },
+      {
+        "version": "sites/personal-finance-2ee61/versions/a3756bd597a1ba20",
+        "releaseTime": "2024-11-16T18:27:39.237Z",
+        "type": "DEPLOY"
+      },
+      {
+        "version": "sites/personal-finance-2ee61/versions/12ae770a3fe8022e",
+        "releaseTime": "2024-11-15T19:32:12.912Z",
+        "type": "DEPLOY"
+      },
+      {
+        "version": "sites/personal-finance-2ee61/versions/0de27e22e12240b3",
+        "releaseTime": "2024-11-15T19:16:43.240Z",
+        "type": "DEPLOY"
+      },
+      {
+        "version": "sites/personal-finance-2ee61/versions/2b22f12e2d22afa3",
+        "releaseTime": "2024-11-15T19:06:07.621Z",
+        "type": "DEPLOY"
+      },
+      {
+        "version": "sites/personal-finance-2ee61/versions/ab4a890164f9b561",
+        "releaseTime": "2024-11-15T18:19:44.683Z",
+        "type": "DEPLOY"
+      },
+      {
+        "version": "sites/personal-finance-2ee61/versions/b955a9a6ccd77cdd",
+        "releaseTime": "2024-11-15T18:09:52.800Z",
+        "type": "DEPLOY"
+      },
+      {
+        "version": "sites/personal-finance-2ee61/versions/c1c739cacf12eda1",
+        "releaseTime": "2024-11-15T13:53:57.439Z",
+        "type": "DEPLOY"
+      },
+      {
+        "version": "sites/personal-finance-2ee61/versions/c2fd2cd542608f30",
+        "releaseTime": "2024-11-15T11:32:46.848Z",
+        "type": "DEPLOY"
+      },
+      {
+        "version": "sites/personal-finance-2ee61/versions/39c2a844f7799da5",
+        "releaseTime": "2024-11-14T20:35:54.589Z",
+        "type": "DEPLOY"
+      },
+      {
+        "version": "sites/personal-finance-2ee61/versions/865a8e067e843bd7",
+        "releaseTime": "2024-11-14T19:27:43.753Z",
+        "type": "DEPLOY"
+      },
+      {
+        "version": "sites/personal-finance-2ee61/versions/0dbfa011e6319f6c",
+        "releaseTime": "2024-11-14T19:22:38.151Z",
+        "type": "DEPLOY"
+      },
+      {
+        "version": "sites/personal-finance-2ee61/versions/aaa3ba4112682fcf",
+        "releaseTime": "2024-11-04T21:53:25.202Z",
+        "type": "DEPLOY"
+      },
+      {
+        "version": "sites/personal-finance-2ee61/versions/50dec19d5f931776",
+        "releaseTime": "2024-11-04T21:47:06.382Z",
+        "type": "DEPLOY"
+      },
+      {
+        "version": "sites/personal-finance-2ee61/versions/9ca4babb81f05a24",
+        "releaseTime": "2024-11-03T14:50:19.932Z",
+        "type": "DEPLOY"
+      },
+      {
+        "version": "sites/personal-finance-2ee61/versions/5ba196cec8e9c0ad",
+        "releaseTime": "2024-11-03T14:01:26.844Z",
+        "type": "DEPLOY"
+      },
+      {
+        "version": "sites/personal-finance-2ee61/versions/79a15311c11d3737",
+        "releaseTime": "2024-11-02T13:42:37.390Z",
+        "type": "DEPLOY"
+      },
+      {
+        "version": "sites/personal-finance-2ee61/versions/a8abe43c32ecbe72",
+        "releaseTime": "2024-11-02T11:35:03.599Z",
+        "type": "DEPLOY"
+      },
+      {
+        "version": "sites/personal-finance-2ee61/versions/8c2585edbb6bbddd",
+        "releaseTime": "2024-10-31T12:59:53.379Z",
+        "type": "DEPLOY"
+      },
+      {
+        "version": "sites/personal-finance-2ee61/versions/a040521ca0566a93",
+        "releaseTime": "2024-10-31T12:51:31.368Z",
+        "type": "DEPLOY"
+      },
+      {
+        "version": "sites/personal-finance-2ee61/versions/5421e117bba73288",
+        "releaseTime": "2024-10-31T12:49:02.148Z",
+        "type": "DEPLOY"
+      },
+      {
+        "version": "sites/personal-finance-2ee61/versions/4153725348436eed",
+        "releaseTime": "2024-10-31T12:40:59.895Z",
+        "type": "DEPLOY"
+      },
+      {
+        "version": "sites/personal-finance-2ee61/versions/021dd8ca4bb792a2",
+        "releaseTime": "2024-10-31T12:38:11.594Z",
+        "type": "DEPLOY"
+      },
+      {
+        "version": "sites/personal-finance-2ee61/versions/b496dbd88ae441c8",
+        "releaseTime": "2024-10-31T12:36:43.242Z",
+        "type": "DEPLOY"
+      },
+      {
+        "version": "sites/personal-finance-2ee61/versions/75164c6fcc1cc5d1",
+        "releaseTime": "2024-10-31T12:34:37.096Z",
+        "type": "DEPLOY"
+      },
+      {
+        "version": "sites/personal-finance-2ee61/versions/45895a87fb49d4fb",
+        "releaseTime": "2024-10-31T11:41:34.547Z",
+        "type": "DEPLOY"
+      },
+      {
+        "version": "sites/personal-finance-2ee61/versions/cf41910a7f2a16c5",
+        "releaseTime": "2024-10-31T11:33:04.583Z",
+        "type": "DEPLOY"
+      },
+      {
+        "version": "sites/personal-finance-2ee61/versions/b8c52b6ef7fd6c11",
+        "releaseTime": "2024-10-31T10:42:45.482Z",
+        "type": "DEPLOY"
+      },
+      {
+        "version": "sites/personal-finance-2ee61/versions/272eb434c7a9a47e",
+        "releaseTime": "2024-10-31T10:32:25.189Z",
+        "type": "DEPLOY"
+      },
+      {
+        "version": "sites/personal-finance-2ee61/versions/5e579ba96f2af3c2",
+        "releaseTime": "2024-10-30T13:07:04.042Z",
+        "type": "DEPLOY"
+      },
+      {
+        "version": "sites/personal-finance-2ee61/versions/50600e8a856de065",
+        "releaseTime": "2024-10-30T12:59:27.050Z",
+        "type": "DEPLOY"
+      },
+      {
+        "version": "sites/personal-finance-2ee61/versions/f45681f33dc5da3a",
+        "releaseTime": "2024-10-30T11:37:59.148Z",
+        "type": "DEPLOY"
+      },
+      {
+        "version": "sites/personal-finance-2ee61/versions/619d8b279879c31f",
+        "releaseTime": "2024-10-29T21:47:31.231Z",
+        "type": "DEPLOY"
+      },
+      {
+        "version": "sites/personal-finance-2ee61/versions/b4112b3459c62b43",
+        "releaseTime": "2024-10-29T21:42:44.425Z",
+        "type": "DEPLOY"
+      },
+      {
+        "version": "sites/personal-finance-2ee61/versions/bb2934c84d1deabb",
+        "releaseTime": "2024-10-29T21:41:49.413Z",
+        "type": "DEPLOY"
+      },
+      {
+        "version": "sites/personal-finance-2ee61/versions/ed090103e0beb253",
+        "releaseTime": "2024-10-29T21:40:04.057Z",
+        "type": "DEPLOY"
+      },
+      {
+        "version": "sites/personal-finance-2ee61/versions/addf2ace34da82ff",
+        "releaseTime": "2024-10-29T21:34:34.005Z",
+        "type": "DEPLOY"
+      },
+      {
+        "version": "sites/personal-finance-2ee61/versions/6cbfdcb07e5b6d19",
+        "releaseTime": "2024-10-29T13:43:44.376Z",
+        "type": "DEPLOY"
+      },
+      {
+        "version": "sites/personal-finance-2ee61/versions/df1160b26d032a6c",
+        "releaseTime": "2024-10-29T13:41:51.162Z",
+        "type": "DEPLOY"
+      },
+      {
+        "version": "sites/personal-finance-2ee61/versions/c03c54bac2cb3552",
+        "releaseTime": "2024-10-29T12:47:45.466Z",
+        "type": "DEPLOY"
+      },
+      {
+        "version": "sites/personal-finance-2ee61/versions/afb6c991cf8a2bd9",
+        "releaseTime": "2024-10-29T09:22:05.407Z",
+        "type": "DEPLOY"
+      },
+      {
+        "version": "sites/personal-finance-2ee61/versions/4c0387a8cfe6be52",
+        "releaseTime": "2024-10-29T09:20:15.085Z",
+        "type": "DEPLOY"
+      },
+      {
+        "version": "sites/personal-finance-2ee61/versions/013dc8e28d5ba947",
+        "releaseTime": "2024-10-29T06:56:41.994Z",
+        "type": "DEPLOY"
+      },
+      {
+        "version": "sites/personal-finance-2ee61/versions/0583c069bbf9d29f",
+        "releaseTime": "2024-10-29T06:56:06.732Z",
+        "type": "DEPLOY"
+      },
+      {
+        "version": "sites/personal-finance-2ee61/versions/3e628b62f14e7777",
+        "releaseTime": "2024-10-28T21:36:06.255Z",
+        "type": "DEPLOY"
+      },
+      {
+        "version": "sites/personal-finance-2ee61/versions/c3c45ae9dd29ca07",
+        "releaseTime": "2024-10-28T21:34:53.581Z",
+        "type": "DEPLOY"
+      },
+      {
+        "version": "sites/personal-finance-2ee61/versions/d05798b5701e0a05",
+        "releaseTime": "2024-10-22T20:05:49.395Z",
+        "type": "DEPLOY"
+      },
+      {
+        "version": "sites/personal-finance-2ee61/versions/4e5d40929234f47d",
+        "releaseTime": "2024-10-21T20:23:52.456Z",
+        "type": "DEPLOY"
+      },
+      {
+        "version": "sites/personal-finance-2ee61/versions/6a8f28c51438abf3",
+        "releaseTime": "2024-10-20T18:36:04.440Z",
+        "type": "DEPLOY"
+      },
+      {
+        "version": "sites/personal-finance-2ee61/versions/e075e26087d96a90",
+        "releaseTime": "2024-10-20T18:16:38.486Z",
+        "type": "DEPLOY"
+      }
+    ]
+  },
+  "functions": [
+    {
+      "id": "articleHttpFunction",
+      "platform": "gcfv2",
+      "runtime": "nodejs20",
+      "region": "us-central1",
+      "uri": "https://us-central1-personal-finance-2ee61.cloudfunctions.net/articleHttpFunction",
+      "hash": "10e6c209df753501b5cefb4809e07ddb8374567c",
+      "state": "ACTIVE",
+      "timeoutSeconds": 60,
+      "availableMemoryMb": 256,
+      "concurrency": 80,
+      "maxInstances": 100
+    },
+    {
+      "id": "calculateRegularContributionHttpFunction",
+      "platform": "gcfv2",
+      "runtime": "nodejs20",
+      "region": "us-central1",
+      "uri": "https://us-central1-personal-finance-2ee61.cloudfunctions.net/calculateRegularContributionHttpFunction",
+      "hash": "10e6c209df753501b5cefb4809e07ddb8374567c",
+      "state": "ACTIVE",
+      "timeoutSeconds": 60,
+      "availableMemoryMb": 256,
+      "concurrency": 80,
+      "maxInstances": 100
+    },
+    {
+      "id": "calculateSavingsHttpFunction",
+      "platform": "gcfv2",
+      "runtime": "nodejs20",
+      "region": "us-central1",
+      "uri": "https://us-central1-personal-finance-2ee61.cloudfunctions.net/calculateSavingsHttpFunction",
+      "hash": "10e6c209df753501b5cefb4809e07ddb8374567c",
+      "state": "ACTIVE",
+      "timeoutSeconds": 60,
+      "availableMemoryMb": 256,
+      "concurrency": 80,
+      "maxInstances": 100
+    },
+    {
+      "id": "calculateTreasuryBondsHttpFunction",
+      "platform": "gcfv2",
+      "runtime": "nodejs20",
+      "region": "us-central1",
+      "uri": "https://us-central1-personal-finance-2ee61.cloudfunctions.net/calculateTreasuryBondsHttpFunction",
+      "hash": "10e6c209df753501b5cefb4809e07ddb8374567c",
+      "state": "ACTIVE",
+      "timeoutSeconds": 60,
+      "availableMemoryMb": 256,
+      "concurrency": 80,
+      "maxInstances": 100
+    }
+  ],
+  "searchConsole": {
+    "property": "sc-domain:oszczedzify.org",
+    "threeMonths": {
+      "from": "2026-07-20",
+      "to": "2026-10-19",
+      "clicks": 1,
+      "impressions": 5,
+      "ctrPercent": 20,
+      "averagePosition": 2.4
+    },
+    "sixteenMonths": {
+      "from": "2025-06-20",
+      "to": "2026-10-19",
+      "clicks": 1,
+      "impressions": 15,
+      "ctrPercent": 6.7,
+      "averagePosition": 1.5,
+      "pages": [
+        {
+          "url": "https://oszczedzify.org/",
+          "clicks": 1,
+          "impressions": 15
+        }
+      ],
+      "devices": [
+        {
+          "name": "mobile",
+          "clicks": 1,
+          "impressions": 2
+        },
+        {
+          "name": "desktop",
+          "clicks": 0,
+          "impressions": 13
+        }
+      ],
+      "queries": "No rows reported"
+    },
+    "indexReport": {
+      "updatedOn": "2026-10-12",
+      "indexed": 1,
+      "notIndexed": 2,
+      "reasons": {
+        "404": 1,
+        "redirect": 1
+      },
+      "example404": "http://www.oszczedzify.org/"
+    },
+    "submittedSitemaps": 0,
+    "manualActions": "No issues detected",
+    "inspections": [
+      {
+        "url": "https://oszczedzify.org/calculators/treasury-bonds",
+        "verdict": "URL unknown to Google",
+        "lastCrawl": null,
+        "referringSitemap": null
+      },
+      {
+        "url": "https://oszczedzify.org/calculators/regular-contribution",
+        "verdict": "URL unknown to Google",
+        "lastCrawl": null,
+        "referringSitemap": null
+      },
+      {
+        "url": "https://oszczedzify.org/calculators/long-term-savings",
+        "verdict": "URL unknown to Google",
+        "lastCrawl": null,
+        "referringSitemap": null
+      }
+    ]
+  }
+}

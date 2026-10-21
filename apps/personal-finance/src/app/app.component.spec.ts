@@ -1,27 +1,28 @@
-import { TestBed } from '@angular/core/testing';
-import { AppComponent } from './app.component';
-import { NxWelcomeComponent } from './nx-welcome.component';
-import { RouterModule } from '@angular/router';
+import { TestBed } from "@angular/core/testing";
+import { AppComponent } from "./app.component";
+import { provideRouter } from "@angular/router";
 
-describe('AppComponent', () => {
+describe("AppComponent", () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AppComponent, NxWelcomeComponent, RouterModule.forRoot([])],
+      imports: [AppComponent],
+      providers: [provideRouter([])],
     }).compileComponents();
   });
 
-  it('should render title', () => {
+  it("keeps calculators reachable through navigation", () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain(
-      'Welcome personal-finance'
-    );
-  });
-
-  it(`should have as title 'personal-finance'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('personal-finance');
+    for (const path of [
+      "treasury-bonds",
+      "regular-contribution",
+      "long-term-savings",
+    ]) {
+      expect(
+        compiled.querySelector(`a[href="/calculators/${path}"]`),
+      ).not.toBeNull();
+    }
+    expect(compiled.querySelector("router-outlet")).not.toBeNull();
   });
 });

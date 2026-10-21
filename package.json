@@ -3,9 +3,18 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "start": "nx serve personal-finance",
-    "build": "nx build personal-finance",
-    "deploy": "firebase deploy --only hosting"
+    "start": "node scripts/workspace.mjs serve local",
+    "build": "node scripts/workspace.mjs build production",
+    "deploy": "npm run build && npx -y firebase-tools@latest deploy --only hosting --project personal-finance-2ee61",
+    "start:production": "node scripts/workspace.mjs serve production",
+    "start:staging": "node scripts/workspace.mjs serve staging",
+    "build:local": "node scripts/workspace.mjs build local",
+    "build:staging": "node scripts/workspace.mjs build staging",
+    "test": "node scripts/workspace.mjs test",
+    "test:functions": "npm --prefix functions test",
+    "build:functions": "npm --prefix functions run build && node scripts/write-version.mjs functions",
+    "emulators": "npm run build:functions && npx -y firebase-tools@latest emulators:start --only functions,hosting --project personal-finance-2ee61",
+    "smoke:api": "node scripts/smoke-api.mjs"
   },
   "private": true,
   "dependencies": {

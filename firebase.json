@@ -8,7 +8,22 @@
       }
     ],
     "cleanUrls": true,
-    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
+    "headers": [
+      {
+        "source": "/version.json",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "no-store"
+          }
+        ]
+      }
+    ],
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
   },
   "functions": [
     {
@@ -23,8 +38,25 @@
       ],
       "predeploy": [
         "npm --prefix \"$RESOURCE_DIR\" run lint",
-        "npm --prefix \"$RESOURCE_DIR\" run build"
+        "npm --prefix \"$RESOURCE_DIR\" run build",
+        "node \"$PROJECT_DIR/scripts/write-version.mjs\" functions"
       ]
     }
-  ]
+  ],
+  "emulators": {
+    "functions": {
+      "host": "127.0.0.1",
+      "port": 5001
+    },
+    "hosting": {
+      "host": "127.0.0.1",
+      "port": 5050
+    },
+    "ui": {
+      "enabled": true,
+      "host": "127.0.0.1",
+      "port": 4000
+    },
+    "singleProjectMode": true
+  }
 }

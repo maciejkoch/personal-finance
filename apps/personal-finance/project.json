@@ -8,18 +8,27 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:application",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/apps/personal-finance",
         "index": "apps/personal-finance/src/index.html",
         "browser": "apps/personal-finance/src/main.ts",
-        "polyfills": ["zone.js"],
+        "polyfills": [
+          "zone.js"
+        ],
         "tsConfig": "apps/personal-finance/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
           {
             "glob": "**/*",
             "input": "apps/personal-finance/public"
+          },
+          {
+            "glob": "version.json",
+            "input": ".build-metadata/production",
+            "output": "/"
           }
         ],
         "styles": [
@@ -53,7 +62,94 @@
         "development": {
           "optimization": false,
           "extractLicenses": false,
-          "sourceMap": true
+          "sourceMap": true,
+          "fileReplacements": [
+            {
+              "replace": "apps/personal-finance/src/environments/environment.ts",
+              "with": "apps/personal-finance/src/environments/environment.local.ts"
+            }
+          ],
+          "assets": [
+            {
+              "glob": "**/*",
+              "input": "apps/personal-finance/public"
+            },
+            {
+              "glob": "version.json",
+              "input": ".build-metadata/local",
+              "output": "/"
+            }
+          ]
+        },
+        "development-production-api": {
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "assets": [
+            {
+              "glob": "**/*",
+              "input": "apps/personal-finance/public"
+            },
+            {
+              "glob": "version.json",
+              "input": ".build-metadata/production",
+              "output": "/"
+            }
+          ]
+        },
+        "staging": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "outputHashing": "all",
+          "fileReplacements": [
+            {
+              "replace": "apps/personal-finance/src/environments/environment.ts",
+              "with": "apps/personal-finance/src/environments/environment.staging.local.ts"
+            }
+          ],
+          "assets": [
+            {
+              "glob": "**/*",
+              "input": "apps/personal-finance/public"
+            },
+            {
+              "glob": "version.json",
+              "input": ".build-metadata/staging",
+              "output": "/"
+            }
+          ]
+        },
+        "development-staging": {
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "fileReplacements": [
+            {
+              "replace": "apps/personal-finance/src/environments/environment.ts",
+              "with": "apps/personal-finance/src/environments/environment.staging.local.ts"
+            }
+          ],
+          "assets": [
+            {
+              "glob": "**/*",
+              "input": "apps/personal-finance/public"
+            },
+            {
+              "glob": "version.json",
+              "input": ".build-metadata/staging",
+              "output": "/"
+            }
+          ]
         }
       },
       "defaultConfiguration": "production"
@@ -66,6 +162,12 @@
         },
         "development": {
           "buildTarget": "personal-finance:build:development"
+        },
+        "production-api": {
+          "buildTarget": "personal-finance:build:development-production-api"
+        },
+        "staging": {
+          "buildTarget": "personal-finance:build:development-staging"
         }
       },
       "defaultConfiguration": "development"
@@ -81,7 +183,9 @@
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "outputs": [
+        "{workspaceRoot}/coverage/{projectRoot}"
+      ],
       "options": {
         "jestConfig": "apps/personal-finance/jest.config.ts"
       }

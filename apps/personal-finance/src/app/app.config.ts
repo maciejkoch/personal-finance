@@ -13,11 +13,14 @@ import {
   withViewTransitions,
 } from '@angular/router';
 import { appRoutes } from './app.routes';
+import { API_ENDPOINTS } from '@pf/shared';
+import { environment } from '../environments/environment';
 
 import '@angular/common/locales/global/pl';
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    { provide: API_ENDPOINTS, useValue: environment.apiEndpoints },
     { provide: LOCALE_ID, useValue: 'pl-PL' },
     provideClientHydration(),
     // TODO temporarily removed because:
