@@ -1,16 +1,16 @@
-import { CurrencyPipe } from '@angular/common';
+import { CurrencyPipe } from "@angular/common";
 import {
   ChangeDetectionStrategy,
   Component,
   computed,
   input,
-} from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { localStorageSignal } from '@pf/shared';
-import { DelayedLoaderComponent } from '@pf/ui';
-import { mapValues, sortBy } from 'lodash';
-import { z } from 'zod';
-import { TreasuryBondsResult } from '../../model/treasury-bonds.model';
+} from "@angular/core";
+import { FormsModule } from "@angular/forms";
+import { localStorageSignal } from "@pf/shared";
+import { DelayedLoaderComponent } from "@pf/ui";
+import { mapValues, sortBy } from "lodash";
+import { z } from "zod";
+import { TreasuryBondsResult } from "../../model/treasury-bonds.model";
 
 // TODO
 // Refactor this file:
@@ -32,32 +32,32 @@ type RowValue = {
 };
 
 const positiveColors: Record<number, string> = {
-  7: '#00ff00',
-  6: '#33ff33',
-  5: '#66ff66',
-  4: '#99ff99',
-  3: '#ccffcc',
-  2: '#e6ffe6',
-  1: '#f0fff0',
-  0: '#f5fff5',
+  7: "#00ff00",
+  6: "#33ff33",
+  5: "#66ff66",
+  4: "#99ff99",
+  3: "#ccffcc",
+  2: "#e6ffe6",
+  1: "#f0fff0",
+  0: "#f5fff5",
 };
 
 const negativeColors: Record<number, string> = {
-  7: '#FF0000',
-  6: '#B22222',
-  5: '#CD5C5C',
-  4: '#F08080',
-  3: '#FA8072',
-  2: '#FFA07A',
-  1: '#FFC0CB',
-  0: '#FFE4E1',
+  7: "#FF0000",
+  6: "#B22222",
+  5: "#CD5C5C",
+  4: "#F08080",
+  3: "#FA8072",
+  2: "#FFA07A",
+  1: "#FFC0CB",
+  0: "#FFE4E1",
 };
 
 @Component({
-    selector: 'pf-treasury-bonds-results',
-    imports: [FormsModule, CurrencyPipe, DelayedLoaderComponent],
-    templateUrl: './treasury-bonds-results.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+  selector: "pf-treasury-bonds-results",
+  imports: [FormsModule, CurrencyPipe, DelayedLoaderComponent],
+  templateUrl: "./treasury-bonds-results.component.html",
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TreasuryBondsResultsComponent {
   results = input<TreasuryBondsResult>();
@@ -109,20 +109,20 @@ export class TreasuryBondsResultsComponent {
       });
   });
 
-  useColors = localStorageSignal('treasury-bonds-use-colors', z.boolean());
+  useColors = localStorageSignal("treasury-bonds-use-colors", z.boolean());
 
   columns = [
-    { property: 'year', label: 'Rok', pinned: true },
-    { property: 'ror', label: 'ROR (roczne)' },
-    { property: 'dor', label: 'DOR (2-latki)' },
-    { property: 'tos', label: 'TOS (3-latki)' },
-    { property: 'coi', label: 'COI (4-latki)' },
-    { property: 'edo', label: 'EDO (10-latki)' },
-    { property: 'rod', label: 'ROD (6-latki)' },
-    { property: 'ros', label: 'ROS (12-latki)' },
+    { property: "year", label: "Rok", pinned: true },
+    { property: "ror", label: "ROR (roczne)" },
+    { property: "dor", label: "DOR (2-latki)" },
+    { property: "tos", label: "TOS (3-latki)" },
+    { property: "coi", label: "COI (4-latki)" },
+    { property: "edo", label: "EDO (10-latki)" },
+    { property: "rod", label: "ROD (12-latki)" },
+    { property: "ros", label: "ROS (6-latki)" },
     {
-      property: 'finalValue',
-      label: 'Wpłata powiększona o INFLACJĘ',
+      property: "finalValue",
+      label: "Wpłata powiększona o INFLACJĘ",
       wrap: true,
     },
   ];
@@ -133,22 +133,32 @@ export class TreasuryBondsResultsComponent {
     const finalValue = data.finalValue.value;
 
     const positives = Object.keys(data)
-      .filter((key) => key !== 'finalValue' && data[key].value > finalValue)
+      .filter(
+        (key) =>
+          key !== "year" &&
+          key !== "finalValue" &&
+          data[key].value > finalValue,
+      )
       .map((key) => ({ key, value: data[key].value }));
 
     const negatives = Object.keys(data)
-      .filter((key) => key !== 'finalValue' && data[key].value <= finalValue)
+      .filter(
+        (key) =>
+          key !== "year" &&
+          key !== "finalValue" &&
+          data[key].value <= finalValue,
+      )
       .map((key) => ({ key, value: data[key].value }));
 
-    const sortedPositives = sortBy(positives, 'value').reverse();
-    const sortedNegatives = sortBy(negatives, 'value');
+    const sortedPositives = sortBy(positives, "value").reverse();
+    const sortedNegatives = sortBy(negatives, "value");
 
     sortedPositives.forEach((item, index) => {
       data[item.key].positive = 7 - index;
     });
 
     sortedNegatives.forEach((item, index) => {
-      data[item.key].negative = 7 - index + 1;
+      data[item.key].negative = 7 - index;
     });
 
     return data;

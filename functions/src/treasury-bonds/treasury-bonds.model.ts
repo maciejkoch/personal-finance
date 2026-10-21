@@ -1,7 +1,7 @@
 export enum Indexation {
-  wibor6m = 'wibor6m',
-  inflation = 'inflation',
-  referenceRate = 'referenceRate',
+  wibor6m = "wibor6m",
+  inflation = "inflation",
+  referenceRate = "referenceRate",
 }
 
 export interface CalculationParams {
@@ -9,6 +9,7 @@ export interface CalculationParams {
   wibor6m: number[];
   referenceRate: number[];
   savingsRate: number[];
+  skipTax?: boolean;
 }
 
 export interface TreasuryBonds {
@@ -16,7 +17,7 @@ export interface TreasuryBonds {
   maturityInMonths: number; // zapadalnosc
   firstPeriodRate: number;
   rateUpdateInMonths: number;
-  indexation: Indexation;
+  indexation: string;
   margin: number;
   paymentOfInterestInMonths: number;
   capitalizationOfInterestInMonths: number;
@@ -48,5 +49,13 @@ export interface TreasuryBondsMonthlyResult {
 export type TreasuryBondsResult = Record<number, TreasuryBondsMonthlyResult>;
 export type TreasuryBondsSimpleResult = Record<number, number>;
 
-export type CalculationParamsByMonthFn = (month: number) => { inflation: number; wibor6m: number; referenceRate: number; savingsRate: number };
-export type CalculateByTreasuryBonds = (treasuryBonds: TreasuryBonds, month?: number) => number;
+export type CalculationParamsByMonthFn = (month: number) => {
+  inflation: number;
+  wibor6m: number;
+  referenceRate: number;
+  savingsRate: number;
+};
+export type CalculateByTreasuryBonds = (
+  treasuryBonds: TreasuryBonds,
+  month?: number,
+) => number;

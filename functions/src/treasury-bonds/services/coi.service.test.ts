@@ -1,76 +1,28 @@
-import { deepStrictEqual } from 'assert';
+import { strictEqual } from "assert";
+import { calculate } from "./coi.service";
+import { CalculationParams } from "../treasury-bonds.model";
 
-import {
-  CalculationParams,
-  TreasuryBondsMonthlyResult,
-} from '../treasury-bonds.model';
-import { calculate } from './coi.service';
-
-describe('Calculate treasury bonds', () => {
-  it('should work for COI with 1000 bonds and progressive params', () => {
-    const calculationParams: CalculationParams = {
-      inflation: [
-        0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.1, 0.11, 0.12,
-      ],
-      referenceRate: [
-        0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.1, 0.11, 0.12,
-      ],
-      wibor6m: [
-        0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.1, 0.11, 0.12,
-      ],
-      savingsRate: [
-        0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.1, 0.11, 0.12,
-      ],
-    };
-    const result = calculate(1000, 144, calculationParams);
-
-    const expectedResult1: Partial<TreasuryBondsMonthlyResult> = {
-      rate: 0.063,
-      valueAtEndOfMonth: 100525,
-    };
-    deepStrictEqual(result[1], { ...result[1], ...expectedResult1 });
-
-    const expectedResult12: Partial<TreasuryBondsMonthlyResult> = {
-      rate: 0.063,
-      valueAtEndOfMonth: 106300,
-      nominalValue: 100000,
-      profitAtEndOfMonth: 5103,
-      finalValueAtEndOfMath: 103483,
-    };
-    deepStrictEqual(result[12], { ...result[12], ...expectedResult12 });
-
-    const expectedResult13: Partial<TreasuryBondsMonthlyResult> = {
-      rate: 0.025,
-      valueAtEndOfMonth: 100208.33,
-      finalValueAtEndOfMath: 103658.64,
-      buyoutAtEndOfMonth: 98548.75,
-    };
-    deepStrictEqual(result[13], { ...result[13], ...expectedResult13 });
-
-    const expectedResult48: Partial<TreasuryBondsMonthlyResult> = {
-      rate: 0.045,
-      maturity: true,
-      finalValueAtEndOfMath: 114204.69,
-      earlyBuyoutPenalty: 0,
-      balanceAtEndOfMonth: 10608.39,
-      buyoutAtEndOfMonth: 103645,
-      profitAtEndOfMonth: 48.7,
-      nextNumberOfBonds: 1143,
-    };
-    deepStrictEqual(result[48], { ...result[48], ...expectedResult48 });
-
-    const expectedResult49: Partial<TreasuryBondsMonthlyResult> = {
-      finalValueAtEndOfMath: 114308.42,
-      earlyBuyoutPenalty: 600.07,
-      rate: 0.063,
-      numberOfBonds: 1143,
-      buyoutAtEndOfMonth: 114300,
-    };
-    deepStrictEqual(result[49], { ...result[49], ...expectedResult49 });
-
-    const expectedResult144: Partial<TreasuryBondsMonthlyResult> = {
-      finalValueAtEndOfMath: 196888.29,
-    };
-    deepStrictEqual(result[144], { ...result[144], ...expectedResult144 });
+// Independent examples derived from the October 2026 issue letters; see docs/ETAP-2-RAPORT.md.
+const params: CalculationParams = {
+  inflation: [0.035],
+  referenceRate: [0.04],
+  wibor6m: [0],
+  savingsRate: [0],
+};
+describe("COI October 2026", () => {
+  it("pays the annual coupon once and charges the fee after the first period", () => {
+    const result = calculate(1, 48, params);
+    strictEqual(result[1].buyoutAtEndOfMonth, 100);
+    strictEqual(result[12].profitAtEndOfMonth, 3.84); // 4.75 - ceil(0.9025)
+    strictEqual(result[12].buyoutAtEndOfMonth, 98);
+    strictEqual(result[12].finalValueAtEndOfMath, 101.84);
+    strictEqual(result[13].rate, 0.05); // previous year inflation 3.5% + margin 1.5%
+    strictEqual(result[48].earlyBuyoutPenalty, 0);
+    strictEqual(result[48].finalValueAtEndOfMath, 115.99);
+  });
+  it("floors deflation at zero for indexation, without losing a zero scenario value", () => {
+    const result = calculate(1, 25, { ...params, inflation: [0, -0.05, 0.5] });
+    strictEqual(result[13].rate, 0.015);
+    strictEqual(result[25].rate, 0.015);
   });
 });

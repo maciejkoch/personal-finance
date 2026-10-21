@@ -1,31 +1,22 @@
-import { deepStrictEqual } from 'assert';
+import { strictEqual } from "assert";
+import { calculate } from "./rod.service";
+import { CalculationParams } from "../treasury-bonds.model";
 
-import {
-  CalculationParams,
-  TreasuryBondsMonthlyResult,
-} from '../treasury-bonds.model';
-import { calculate } from './rod.service';
-
-describe('Calculate treasury bonds', () => {
-  it('should work for ROD with 1000 bonds and progressive params', () => {
-    const calculationParams: CalculationParams = {
-      inflation: [
-        0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.1, 0.11, 0.12,
-      ],
-      referenceRate: [
-        0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.1, 0.11, 0.12,
-      ],
-      wibor6m: [
-        0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.1, 0.11, 0.12,
-      ],
-      savingsRate: [
-        0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.1, 0.11, 0.12,
-      ],
-    };
-    const result = calculate(1000, 144, calculationParams);
-    const expectedResult144: Partial<TreasuryBondsMonthlyResult> = {
-      finalValueAtEndOfMath: 230228.65,
-    };
-    deepStrictEqual(result[144], { ...result[144], ...expectedResult144 });
+// Independent examples derived from the October 2026 issue letters; see docs/ETAP-2-RAPORT.md.
+const params: CalculationParams = {
+  inflation: [0.035],
+  referenceRate: [0.04],
+  wibor6m: [0],
+  savingsRate: [0],
+};
+describe("ROD October 2026", () => {
+  it("is twelve years long and caps the fee at accrued interest", () => {
+    const result = calculate(1, 144, params);
+    strictEqual(result[1].buyoutAtEndOfMonth, 100);
+    strictEqual(result[12].buyoutAtEndOfMonth, 102.1); // 105.60 - 3 - ceil(2.60 * 19%)
+    strictEqual(result[72].maturity, false);
+    strictEqual(result[143].earlyBuyoutPenalty, 3);
+    strictEqual(result[144].maturity, true);
+    strictEqual(result[144].earlyBuyoutPenalty, 0);
   });
 });

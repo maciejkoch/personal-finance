@@ -1,15 +1,16 @@
-import * as express from 'express';
-import { Request } from 'firebase-functions/v2/https';
-import { calculateFutureValueForMonths } from '../calculations/inflation.service';
-import { calculate as calculateCOI } from './services/coi.service';
-import { calculate as calculateDOR } from './services/dor.service';
-import { calculate as calculateEDO } from './services/edo.service';
-import { calculate as calculateROD } from './services/rod.service';
-import { calculate as calculateROR } from './services/ror.service';
-import { calculate as calculateROS } from './services/ros.service';
-import { calculate as calculateTOS } from './services/tos.service';
-import { TreasuryBondsSchemaDTO, validate } from './treasury-bonds.dto';
-import { simplifyResult } from './treasury-bonds.service';
+import * as express from "express";
+import { Request } from "firebase-functions/v2/https";
+import { calculateFutureValueForMonths } from "../calculations/inflation.service";
+import { calculate as calculateCOI } from "./services/coi.service";
+import { calculate as calculateDOR } from "./services/dor.service";
+import { calculate as calculateEDO } from "./services/edo.service";
+import { calculate as calculateROD } from "./services/rod.service";
+import { calculate as calculateROR } from "./services/ror.service";
+import { calculate as calculateROS } from "./services/ros.service";
+import { calculate as calculateTOS } from "./services/tos.service";
+import { TreasuryBondsSchemaDTO, validate } from "./treasury-bonds.dto";
+import { TREASURY_BONDS_OFFER } from "./treasury-bonds.consts";
+import { simplifyResult } from "./treasury-bonds.service";
 
 export function execute(request: Request, response: express.Response): void {
   const treasuryBonds = validate(request.query);
@@ -30,7 +31,7 @@ export function execute(request: Request, response: express.Response): void {
   }
 }
 
-function calculate(dto: TreasuryBondsSchemaDTO) {
+export function calculate(dto: TreasuryBondsSchemaDTO) {
   const {
     numberOfBonds,
     month,
@@ -38,11 +39,12 @@ function calculate(dto: TreasuryBondsSchemaDTO) {
     referenceRate,
     savingsRate,
     wibor6m,
+    skipTax,
   } = dto;
 
   const amount = numberOfBonds * 100;
 
-  const params = { inflation, referenceRate, savingsRate, wibor6m };
+  const params = { inflation, referenceRate, savingsRate, wibor6m, skipTax };
 
   const results = {
     futureValue: calculateFutureValueForMonths(amount, month, inflation),
@@ -53,9 +55,6 @@ function calculate(dto: TreasuryBondsSchemaDTO) {
     edo: simplifyResult(calculateEDO(numberOfBonds, month, params)),
     ros: simplifyResult(calculateROS(numberOfBonds, month, params)),
     rod: simplifyResult(calculateROD(numberOfBonds, month, params)),
-    // TODO
-    // 1. unify services by type of indexation (ror + dor, tos, coi + edo + ros + rod). They are identical.
-    // 2. refactor this simpleResult function to be be called once
   };
 
   const months = [...Array(month).keys()].map((i) => i + 1);
@@ -71,5 +70,9 @@ function calculate(dto: TreasuryBondsSchemaDTO) {
     futureValue: results.futureValue[currentMonth],
   }));
 
-  return { values };
+  return {
+    values,
+    offerVersion: TREASURY_BONDS_OFFER.version,
+    calculationVersion: 2,
+  };
 }

@@ -1,27 +1,39 @@
-import { z } from 'zod';
+import { z } from "zod";
 
-const parseNumber = (value: unknown) => Number(value);
-const treasuryBondsParam = z.preprocess(safeParseArray, z.array(z.number().gte(0), z.number().lte(1)).min(1).max(12));
+const parseNumber = (value: unknown) =>
+  typeof value === "string" && value.trim() !== "" ? Number(value) : value;
+const rates = (min: number) =>
+  z.preprocess(
+    (value) => {
+      if (typeof value !== "string") return value;
+      try {
+        return JSON.parse(value);
+      } catch {
+        return null;
+      }
+    },
+    z.array(z.number().finite().min(min).max(1)).min(1).max(12),
+  );
 
 const TreasuryBondsSchema = z.object({
-  numberOfBonds: z.preprocess(parseNumber, z.number().gt(0)),
-  month: z.preprocess(parseNumber, z.number().gt(0), z.number().lt(144)),
-  inflation: treasuryBondsParam,
-  wibor6m: treasuryBondsParam,
-  referenceRate: treasuryBondsParam,
-  savingsRate: treasuryBondsParam,
+  numberOfBonds: z.preprocess(
+    parseNumber,
+    z.number().int().min(1).max(1000000),
+  ),
+  month: z.preprocess(parseNumber, z.number().int().min(1).max(144)),
+  inflation: rates(-0.99),
+  // Accepted for existing clients; TOS has a fixed rate and never uses WIBOR.
+  wibor6m: rates(0).optional().default([0]),
+  referenceRate: rates(0),
+  savingsRate: rates(0),
+  skipTax: z.preprocess((value) => {
+    if (value === undefined || value === "false") return false;
+    if (value === "true") return true;
+    return value;
+  }, z.boolean()),
 });
 
 export type TreasuryBondsSchemaDTO = z.infer<typeof TreasuryBondsSchema>;
-
 export function validate(source: unknown) {
   return TreasuryBondsSchema.safeParse(source);
-}
-
-function safeParseArray(value: unknown): number[] | null {
-  try {
-    return value && JSON.parse(value as string);
-  } catch {
-    return null;
-  }
 }

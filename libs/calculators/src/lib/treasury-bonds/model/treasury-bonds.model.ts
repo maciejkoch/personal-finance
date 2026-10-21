@@ -5,6 +5,7 @@ export interface TreasuryBondsRequest {
   wibor6m: number[];
   referenceRate: number[];
   savingsRate: number[];
+  skipTax: boolean;
 }
 
 export interface TreasuryBondsRecord {
@@ -23,4 +24,6 @@ export interface TreasuryBondsRecord {
 
 export interface TreasuryBondsResult extends TreasuryBondsRequest {
   values: TreasuryBondsRecord[];
+  offerVersion: string;
+  calculationVersion: number;
 }

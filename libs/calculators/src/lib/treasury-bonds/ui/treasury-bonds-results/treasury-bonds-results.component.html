@@ -1,4 +1,9 @@
-<h2 class="text-xl font-medium mb-4">Tabela wartości nominalnych</h2>
+<h2 class="text-xl font-medium mb-4">
+  Wartość inwestycji
+  {{
+    results()?.skipTax ? "bez podatku, po opłatach" : "po podatku i opłatach"
+  }}
+</h2>
 
 <pfui-delayed-loader [loading]="loading()">
   <div content>
@@ -10,7 +15,12 @@
       />
       <span class="ml-2">Wyróżnij różnice</span>
     </label>
-    <div class="overflow-x-auto">
+    <div
+      class="overflow-x-auto"
+      tabindex="0"
+      role="region"
+      aria-label="Roczne wartości inwestycji"
+    >
       <table class="table table-pin-cols">
         <thead>
           <tr>
@@ -20,9 +30,13 @@
                   {{ column.label || column.property }}
                 </th>
               } @else {
-                <td class="text-right" [class.whitespace-normal]="column.wrap">
+                <th
+                  scope="col"
+                  class="text-right"
+                  [class.whitespace-normal]="column.wrap"
+                >
                   {{ column.label || column.property }}
-                </td>
+                </th>
               }
             }
           </tr>
@@ -41,7 +55,7 @@
                     class="text-right"
                     [style.color]="useColors() ? value.color : undefined"
                   >
-                    {{ value.value | currency: "PLN" : "symbol" : "1.0-0" }}
+                    {{ value.value | currency: "PLN" : "symbol" : "1.2-2" }}
                   </td>
                 }
               }

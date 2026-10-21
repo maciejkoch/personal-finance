@@ -1,0 +1,63 @@
+{
+  "offerVersion": "2026-10-v1",
+  "verifiedAt": "2026-10-21",
+  "issueDate": "2026-09-21",
+  "sources": [
+    {
+      "type": "ROR",
+      "series": "ROR1027",
+      "issueLetter": "95/2026",
+      "url": "https://www.obligacjeskarbowe.pl/media_files/f4e264bb-537d-4a7e-813e-e4f099ea0cc5.pdf",
+      "sha256": "fa9c85053f0e4a4a2f12e084b659af371ddb513feab664ae1ff42e988b522eb9",
+      "bytes": 99490
+    },
+    {
+      "type": "DOR",
+      "series": "DOR1028",
+      "issueLetter": "96/2026",
+      "url": "https://www.obligacjeskarbowe.pl/media_files/d4585b0f-349e-42b0-a399-a43051310cc3.pdf",
+      "sha256": "e6ebe6ba419157003065785769bf9086524a9572cd75cd90a8dcfe19a083431e",
+      "bytes": 112449
+    },
+    {
+      "type": "TOS",
+      "series": "TOS1029",
+      "issueLetter": "97/2026",
+      "url": "https://www.obligacjeskarbowe.pl/media_files/c15a26ae-de6e-4b89-a137-cb16687a7b0a.pdf",
+      "sha256": "7043bb72cf38a1a2f19eab88e5a5bde5a015334484a7643022b96df656919156",
+      "bytes": 78498
+    },
+    {
+      "type": "COI",
+      "series": "COI1030",
+      "issueLetter": "98/2026",
+      "url": "https://www.obligacjeskarbowe.pl/media_files/e156037b-5b0c-40b8-85e1-0b205d4ac395.pdf",
+      "sha256": "eaf60857b6e32825e4f19254745d91b681826272ebf7a2fb358812665ace5c94",
+      "bytes": 112170
+    },
+    {
+      "type": "EDO",
+      "series": "EDO1036",
+      "issueLetter": "99/2026",
+      "url": "https://www.obligacjeskarbowe.pl/media_files/4f5f6353-fdcd-4b7e-b44f-63088098c534.pdf",
+      "sha256": "fb6e0ffa9ebc506a745ca52cc0e8290b13ac0844e11a8ca3c79df215f838cdf1",
+      "bytes": 111424
+    },
+    {
+      "type": "ROS",
+      "series": "ROS1032",
+      "issueLetter": "100/2026",
+      "url": "https://www.obligacjeskarbowe.pl/media_files/429484ab-572e-4c43-9f64-3ea8fea13437.pdf",
+      "sha256": "8392707166643812d6f84a6f7f3a4c65a87f18689eefc5fae4155b2650eab6de",
+      "bytes": 91247
+    },
+    {
+      "type": "ROD",
+      "series": "ROD1038",
+      "issueLetter": "101/2026",
+      "url": "https://www.obligacjeskarbowe.pl/media_files/03e2bc03-0128-49b7-be93-669ef058b7c5.pdf",
+      "sha256": "5abce44d3968a44323411a2369d36afa2fdeb937b71085d9a976395da2e7cb2e",
+      "bytes": 96035
+    }
+  ]
+}

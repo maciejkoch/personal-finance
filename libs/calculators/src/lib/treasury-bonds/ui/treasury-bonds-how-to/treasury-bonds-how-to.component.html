@@ -1,75 +1,63 @@
 <pfui-accordion class="mt-6 block">
   <pfui-accordion-item [hasBorder]="false" [opened]="false">
-    <span title>Jak działa ten kalkulator?</span>
+    <span title>Założenia i sposób obliczeń</span>
     <div content class="prose max-w-none">
-      <div class="section">
-        <h2>1. Założenia główne</h2>
-        <ul>
-          <li>
-            <strong>Ilość obligacji:</strong> Wprowadź liczbę obligacji, przy
-            czym jedna obligacja to równowartość 100 zł.
-          </li>
-          <li>
-            <strong>Okres (lata):</strong> Określ czas trwania inwestycji w
-            latach.
-          </li>
-        </ul>
-      </div>
-
-      <div class="section">
-        <h2>2. Założenia dodatkowe</h2>
-        <ul>
-          <li>
-            <strong>Szacowana inflacja:</strong> Pozwala uwzględnić przewidywany
-            poziom inflacji, który wpływa na rzeczywistą wartość zysku.
-          </li>
-          <li>
-            <strong>Stopa referencyjna NBP:</strong> Parametr odzwierciedla
-            przewidywane wskaźniki rynkowe, wpływające na oprocentowanie
-            obligacji zmiennoprocentowych.
-          </li>
-          <li>
-            <strong>Stopa zwrotu:</strong> Oprocentowanie odsetek z obligacji,
-            jeśli dana obligacja (np. ROR, DOR, TOZ,COI) wypłaca odsetki
-            wcześniej niż na dzień wykupu.
-          </li>
-        </ul>
-      </div>
-
-      <div class="section">
-        <h2>3. Wyniki</h2>
-        <p class="highlight">
-          Kalkulator generuje szczegółową tabelę z rocznymi zyskami dla różnych
-          rodzajów obligacji, takich jak:
-          <em>ROR, DOR, TOS, COI, EDO, ROD, ROS</em>.
-        </p>
-        <ul>
-          <li>
-            Tabela prezentuje zyski dla każdego roku inwestycji, uwzględniając
-            podatek Belki.
-          </li>
-          <li>
-            Wykres graficzny przedstawia wzrost wartości inwestycji w czasie, z
-            uwzględnieniem wpływu inflacji oraz różnych typów obligacji.
-          </li>
-        </ul>
-      </div>
-
-      <div class="section">
-        <h2>Podsumowanie</h2>
-        <p>
-          Kalkulator obligacji skarbowych to praktyczne narzędzie, które pomaga
-          porównać opłacalność różnych typów obligacji, uwzględniając kluczowe
-          czynniki, takie jak inflacja, podatki i zmienne rynkowe. Dzięki temu
-          możesz podjąć świadomą decyzję inwestycyjną.
-        </p>
-
-        <p>
-          Obliczenia mogą zawierać błędy, a autor nie ponosi odpowiedzialności
-          za ich wykorzystanie w praktyce. Zawsze podejmuj decyzje finansowe w
-          oparciu o konsultacje z odpowiednimi ekspertami.
-        </p>
-      </div>
+      <h2>Oferta i przyszłe założenia</h2>
+      <p>
+        Aktualne parametry zakupu pokazano nad formularzem. Inflacja, przyszła
+        stopa NBP oraz oprocentowanie wypłaconych środków są Twoimi założeniami,
+        a nie prognozą ani gwarancją. Ostatnia podana wartość obowiązuje w
+        kolejnych latach. Ujemna inflacja obniża próg zachowania siły nabywczej;
+        indeksacja obligacji przyjmuje co najmniej zerową inflację, do której
+        dodaje marżę.
+      </p>
+      <p>
+        TOS ma stałą stopę przez trzy lata i nie zależy od WIBOR. ROR/DOR
+        zmieniają stopę co miesiąc, a COI/EDO/ROS/ROD co rok. Dla indeksacji
+        rocznej przyjmujemy inflację z poprzedniego roku symulacji.
+      </p>
+      <h2>Wycena i podatek</h2>
+      <p>
+        Symulacja zakłada zakup pierwszego dnia miesiąca oferty i wycenę w
+        miesięczne rocznice, po wypłacie należnych kuponów. Odsetki za niepełny
+        rok wylicza według rzeczywistej liczby dni okresu. Tabela i wykres
+        pokazują wartości na koniec pełnych lat: środki po hipotetycznym wykupie
+        wraz z wypłaconymi wcześniej odsetkami. To wartość całej inwestycji, nie
+        sam zysk.
+      </p>
+      <p>
+        Wcześniejszy wykup pomniejsza należność o opłatę z listu emisyjnego. Dla
+        TOS/EDO/ROS/ROD opłata nie przekracza narosłych odsetek. Dla ROR/DOR/COI
+        ochrona obejmuje pierwszy okres odsetkowy; po wypłacie kuponu opłata
+        może pomniejszyć kapitał. Kupon już wypłacony nie pokrywa tej opłaty. W
+        terminie zapadalności opłata wynosi zero.
+      </p>
+      <p>
+        Należność za jedną obligację jest zaokrąglana do groszy przed
+        przemnożeniem przez liczbę sztuk. Podatek 19% od dodatniego dochodu z
+        całej wypłaty zaokrąglamy w górę do grosza. Uwzględniamy opłatę i
+        dyskonto zakupu; strata nie powoduje zwrotu podatku. Przy kapitalizacji
+        rocznej podatek jest odroczony do wypłaty.
+      </p>
+      <h2>Ponowny zakup i ograniczenia</h2>
+      <p>
+        Po zapadalności zakładamy ponowny zakup tego samego typu z zachowaniem
+        dzisiejszych warunków. Przyszłe oferty nie są znane. Środki z wykupu
+        kupują obligacje po cenie zamiany z bieżącej oferty (99,90 zł dla
+        ROR/DOR/TOS/COI/EDO); pozostała gotówka kupuje po 100 zł. ROS/ROD nie
+        mają dyskonta zamiany. Kupujemy wyłącznie pełne sztuki. Reszta i
+        wypłacone kupony pracują według założonej stopy, z miesięcznym
+        podatkiem. W końcowym punkcie wyceny środki pozostają gotówką.
+      </p>
+      <p>
+        Nie odwzorowujemy kalendarza dni roboczych, dat ustalenia praw,
+        pięciodniowego rozliczenia ani ograniczenia dyspozycji wykupu: po 7
+        dniach od zakupu i najpóźniej 20 dni przed zapadalnością. Wycena na
+        rocznicę jest hipotetyczna; faktyczna kwota i dzień przelewu zależą od
+        dat dyspozycji. Nie uwzględniamy opłat rachunków IKE/IKZE ani limitu
+        dostępności obligacji rodzinnych. OTS 3-miesięczne nie są objęte
+        porównaniem.
+      </p>
     </div>
   </pfui-accordion-item>
 </pfui-accordion>

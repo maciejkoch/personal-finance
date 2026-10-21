@@ -18,23 +18,18 @@ export function writeVersion(part, apiTarget) {
   const commit = git("rev-parse", "HEAD");
   const dirty = git("status", "--porcelain").length > 0;
   const builtAt = new Date().toISOString();
+  const offerData = readFileSync(
+    resolve(root, "functions/src/treasury-bonds/treasury-bonds.offer.json"),
+  );
   const metadata = {
     buildId: `${commit.slice(0, 7)}${dirty ? "-dirty" : ""}-${builtAt}`,
     commit,
     dirty,
     builtAt,
     apiTarget,
-    offerVersion: "legacy-unversioned",
-    offerDataHash: createHash("sha256")
-      .update(
-        readFileSync(
-          resolve(
-            root,
-            "functions/src/treasury-bonds/treasury-bonds.consts.ts",
-          ),
-        ),
-      )
-      .digest("hex"),
+    offerVersion: JSON.parse(offerData).version,
+    calculationVersion: 2,
+    offerDataHash: createHash("sha256").update(offerData).digest("hex"),
   };
   const output = resolve(
     root,

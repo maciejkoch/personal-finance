@@ -1,31 +1,24 @@
-import { deepStrictEqual } from 'assert';
+import { strictEqual } from "assert";
+import { calculate } from "./edo.service";
+import { CalculationParams } from "../treasury-bonds.model";
 
-import {
-  CalculationParams,
-  TreasuryBondsMonthlyResult,
-} from '../treasury-bonds.model';
-import { calculate } from './edo.service';
-
-describe('Calculate treasury bonds', () => {
-  it('should work for EDO with 1000 bonds and progressive params', () => {
-    const calculationParams: CalculationParams = {
-      inflation: [
-        0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.1, 0.11, 0.12,
-      ],
-      referenceRate: [
-        0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.1, 0.11, 0.12,
-      ],
-      wibor6m: [
-        0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.1, 0.11, 0.12,
-      ],
-      savingsRate: [
-        0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.1, 0.11, 0.12,
-      ],
-    };
-    const result = calculate(1000, 144, calculationParams);
-    const expectedResult144: Partial<TreasuryBondsMonthlyResult> = {
-      finalValueAtEndOfMath: 202442.36,
-    };
-    deepStrictEqual(result[144], { ...result[144], ...expectedResult144 });
+// Independent examples derived from the October 2026 issue letters; see docs/ETAP-2-RAPORT.md.
+const params: CalculationParams = {
+  inflation: [0.035],
+  referenceRate: [0.04],
+  wibor6m: [0],
+  savingsRate: [0],
+};
+describe("EDO October 2026", () => {
+  it("compounds without annual tax and subtracts the fee before taxing redemption", () => {
+    const result = calculate(1, 24, params);
+    strictEqual(result[12].profitAtEndOfMonth, 0);
+    strictEqual(result[12].buyoutAtEndOfMonth, 101.9); // (105.35 - 3) - 0.45
+    strictEqual(result[13].rate, 0.055);
+    strictEqual(result[24].valueAtEndOfMonth, 111.14); // 100 * 1.0535 * 1.055
+    strictEqual(result[24].buyoutAtEndOfMonth, 106.59); // 108.14 - ceil(8.14 * 19%)
+  });
+  it("does not charge the fee at ten-year maturity", () => {
+    strictEqual(calculate(1, 120, params)[120].earlyBuyoutPenalty, 0);
   });
 });

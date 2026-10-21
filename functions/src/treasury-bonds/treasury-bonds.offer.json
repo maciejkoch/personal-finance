@@ -1,0 +1,165 @@
+{
+  "version": "2026-10-v1",
+  "month": "2026-10",
+  "label": "październik 2026",
+  "verifiedAt": "2026-10-21",
+  "saleFrom": "2026-10-01",
+  "saleTo": "2026-10-31",
+  "source": "https://www.obligacjeskarbowe.pl/listy-emisyjne/",
+  "bonds": {
+    "ROR": {
+      "name": "ROR",
+      "series": "ROR1027",
+      "maturityInMonths": 12,
+      "firstPeriodRate": 0.04,
+      "rateUpdateInMonths": 1,
+      "indexation": "referenceRate",
+      "margin": 0,
+      "paymentOfInterestInMonths": 1,
+      "capitalizationOfInterestInMonths": 0,
+      "exchangeCost": 99.9,
+      "earlyBuyoutCost": 0.5,
+      "buyoutProtectionInMonths": 1,
+      "familyOnly": false,
+      "source": "https://www.obligacjeskarbowe.pl/media_files/f4e264bb-537d-4a7e-813e-e4f099ea0cc5.pdf",
+      "issueLetter": "95/2026",
+      "earlyRedemption": {
+        "minimumHoldingDays": 7,
+        "cutoffDaysBeforeMaturity": 20,
+        "settlementBusinessDays": 5
+      }
+    },
+    "DOR": {
+      "name": "DOR",
+      "series": "DOR1028",
+      "maturityInMonths": 24,
+      "firstPeriodRate": 0.0415,
+      "rateUpdateInMonths": 1,
+      "indexation": "referenceRate",
+      "margin": 0.0015,
+      "paymentOfInterestInMonths": 1,
+      "capitalizationOfInterestInMonths": 0,
+      "exchangeCost": 99.9,
+      "earlyBuyoutCost": 0.7,
+      "buyoutProtectionInMonths": 1,
+      "familyOnly": false,
+      "source": "https://www.obligacjeskarbowe.pl/media_files/d4585b0f-349e-42b0-a399-a43051310cc3.pdf",
+      "issueLetter": "96/2026",
+      "earlyRedemption": {
+        "minimumHoldingDays": 7,
+        "cutoffDaysBeforeMaturity": 20,
+        "settlementBusinessDays": 5
+      }
+    },
+    "TOS": {
+      "name": "TOS",
+      "series": "TOS1029",
+      "maturityInMonths": 36,
+      "firstPeriodRate": 0.044,
+      "rateUpdateInMonths": 36,
+      "indexation": "fixed",
+      "margin": 0,
+      "paymentOfInterestInMonths": 0,
+      "capitalizationOfInterestInMonths": 12,
+      "exchangeCost": 99.9,
+      "earlyBuyoutCost": 1,
+      "buyoutProtectionInMonths": 36,
+      "familyOnly": false,
+      "source": "https://www.obligacjeskarbowe.pl/media_files/c15a26ae-de6e-4b89-a137-cb16687a7b0a.pdf",
+      "issueLetter": "97/2026",
+      "earlyRedemption": {
+        "minimumHoldingDays": 7,
+        "cutoffDaysBeforeMaturity": 20,
+        "settlementBusinessDays": 5
+      }
+    },
+    "COI": {
+      "name": "COI",
+      "series": "COI1030",
+      "maturityInMonths": 48,
+      "firstPeriodRate": 0.0475,
+      "rateUpdateInMonths": 12,
+      "indexation": "inflation",
+      "margin": 0.015,
+      "paymentOfInterestInMonths": 12,
+      "capitalizationOfInterestInMonths": 0,
+      "exchangeCost": 99.9,
+      "earlyBuyoutCost": 2,
+      "buyoutProtectionInMonths": 12,
+      "familyOnly": false,
+      "source": "https://www.obligacjeskarbowe.pl/media_files/e156037b-5b0c-40b8-85e1-0b205d4ac395.pdf",
+      "issueLetter": "98/2026",
+      "earlyRedemption": {
+        "minimumHoldingDays": 7,
+        "cutoffDaysBeforeMaturity": 20,
+        "settlementBusinessDays": 5
+      }
+    },
+    "EDO": {
+      "name": "EDO",
+      "series": "EDO1036",
+      "maturityInMonths": 120,
+      "firstPeriodRate": 0.0535,
+      "rateUpdateInMonths": 12,
+      "indexation": "inflation",
+      "margin": 0.02,
+      "paymentOfInterestInMonths": 0,
+      "capitalizationOfInterestInMonths": 12,
+      "exchangeCost": 99.9,
+      "earlyBuyoutCost": 3,
+      "buyoutProtectionInMonths": 120,
+      "familyOnly": false,
+      "source": "https://www.obligacjeskarbowe.pl/media_files/4f5f6353-fdcd-4b7e-b44f-63088098c534.pdf",
+      "issueLetter": "99/2026",
+      "earlyRedemption": {
+        "minimumHoldingDays": 7,
+        "cutoffDaysBeforeMaturity": 20,
+        "settlementBusinessDays": 5
+      }
+    },
+    "ROS": {
+      "name": "ROS",
+      "series": "ROS1032",
+      "maturityInMonths": 72,
+      "firstPeriodRate": 0.05,
+      "rateUpdateInMonths": 12,
+      "indexation": "inflation",
+      "margin": 0.02,
+      "paymentOfInterestInMonths": 0,
+      "capitalizationOfInterestInMonths": 12,
+      "exchangeCost": 100,
+      "earlyBuyoutCost": 2,
+      "buyoutProtectionInMonths": 72,
+      "familyOnly": true,
+      "source": "https://www.obligacjeskarbowe.pl/media_files/429484ab-572e-4c43-9f64-3ea8fea13437.pdf",
+      "issueLetter": "100/2026",
+      "earlyRedemption": {
+        "minimumHoldingDays": 7,
+        "cutoffDaysBeforeMaturity": 20,
+        "settlementBusinessDays": 5
+      }
+    },
+    "ROD": {
+      "name": "ROD",
+      "series": "ROD1038",
+      "maturityInMonths": 144,
+      "firstPeriodRate": 0.056,
+      "rateUpdateInMonths": 12,
+      "indexation": "inflation",
+      "margin": 0.025,
+      "paymentOfInterestInMonths": 0,
+      "capitalizationOfInterestInMonths": 12,
+      "exchangeCost": 100,
+      "earlyBuyoutCost": 3,
+      "buyoutProtectionInMonths": 144,
+      "familyOnly": true,
+      "source": "https://www.obligacjeskarbowe.pl/media_files/03e2bc03-0128-49b7-be93-669ef058b7c5.pdf",
+      "issueLetter": "101/2026",
+      "earlyRedemption": {
+        "minimumHoldingDays": 7,
+        "cutoffDaysBeforeMaturity": 20,
+        "settlementBusinessDays": 5
+      }
+    }
+  }
+}

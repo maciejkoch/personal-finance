@@ -10,10 +10,11 @@
             <span class="font-bold text-secondary">{{
               data.numberOfBonds
             }}</span>
-            obligacji skarbowych, najwyższa wartość nominalna zostanie
+            obligacji skarbowych, najwyższa wartość inwestycji zostanie
             osiągnięta, wybierając obligacje
             <span class="text-primary font-bold">{{ data.bond }}</span
-            >. Wartość nominalna obligacji skarbowych wyniesie wówczas
+            >. Wartość inwestycji po uwzględnieniu podatku (zgodnie z
+            ustawieniem) i opłat wyniesie wówczas
             <span class="text-primary font-bold">{{
               data.value | currency: "PLN" : "symbol" : "1.0-0"
             }}</span
@@ -29,14 +30,16 @@
               >{{ data.futureValue | number }} zł</span
             >.
             @if (data.value > data.futureValue) {
-              Oznacza to, że nominalny zysk z inwestycji wyniesie
+              Oznacza to, że nadwyżka ponad próg zachowania siły nabywczej
+              wyniesie
               <span class="font-bold text-success">{{
                 data.value - data.futureValue
                   | currency: "PLN" : "symbol" : "1.0-0"
               }}</span
               >.
             } @else {
-              Oznacza to, że nominalna strata z inwestycji wyniesie
+              Oznacza to, że niedobór względem progu zachowania siły nabywczej
+              wyniesie
               <span class="font-bold text-error">{{
                 data.futureValue - data.value
                   | currency: "PLN" : "symbol" : "1.0-0"

@@ -1,77 +1,36 @@
-import { deepStrictEqual } from 'assert';
+import { deepStrictEqual, strictEqual } from "assert";
+import { calculate } from "./tos.service";
+import { CalculationParams } from "../treasury-bonds.model";
 
-import {
-  CalculationParams,
-  TreasuryBondsMonthlyResult,
-} from '../treasury-bonds.model';
-import { calculate } from './tos.service';
-
-describe('Calculate treasury bonds', () => {
-  it('should work for TOS with 1000 bonds and progressive params', () => {
-    const calculationParams: CalculationParams = {
-      inflation: [
-        0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.1, 0.11, 0.12,
-      ],
-      referenceRate: [
-        0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.1, 0.11, 0.12,
-      ],
-      wibor6m: [
-        0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.1, 0.11, 0.12,
-      ],
-      savingsRate: [
-        0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.1, 0.11, 0.12,
-      ],
-    };
-    const result = calculate(1000, 144, calculationParams);
-
-    const expectedResult1: Partial<TreasuryBondsMonthlyResult> = {
-      numberOfBonds: 1000,
-      rate: 0.0595,
-      valueAtEndOfMonth: 100495.83,
-      earlyBuyoutPenalty: 495.83,
-    };
-    deepStrictEqual(result[1], { ...result[1], ...expectedResult1 });
-
-    const expectedResult3: Partial<TreasuryBondsMonthlyResult> = {
-      rate: 0.0595,
-      valueAtEndOfMonth: 101487.5,
-      buyoutAtEndOfMonth: 100394.88,
-      balanceAtEndOfMonth: 0,
-      profitAtEndOfMonth: 0,
-      finalValueAtEndOfMath: 100394.88,
-    };
-    deepStrictEqual(result[3], { ...result[3], ...expectedResult3 });
-
-    const expectedResult7: Partial<TreasuryBondsMonthlyResult> = {
-      rate: 0.0595,
-      buyoutAtEndOfMonth: 102001.38,
-    };
-    deepStrictEqual(result[7], { ...result[7], ...expectedResult7 });
-
-    const expectedResult13: Partial<TreasuryBondsMonthlyResult> = {
-      rate: 0.0595,
-      basisOfCapitalisation: 105950,
-      buyoutAtEndOfMonth: 104435.02,
-      finalValueAtEndOfMath: 104435.02,
-    };
-    deepStrictEqual(result[13], { ...result[13], ...expectedResult13 });
-
-    const expectedResult36: Partial<TreasuryBondsMonthlyResult> = {
-      numberOfBonds: 1000,
-      profitAtEndOfMonth: 51.24,
-      earlyBuyoutPenalty: 0,
-      nextNumberOfBonds: 1154,
-      maturity: true,
-      valueAtEndOfMonth: 118933.14,
-      nominalValue: 100000,
-      rate: 0.0595,
-      buyoutAtEndOfMonth: 115335.84,
-    };
-    deepStrictEqual(result[36], { ...result[36], ...expectedResult36 });
-
-    const expectedResult144: Partial<TreasuryBondsMonthlyResult> = {
-      finalValueAtEndOfMath: 177517.36,
-    };
-    deepStrictEqual(result[144], { ...result[144], ...expectedResult144 });
+// Independent examples derived from the October 2026 issue letters; see docs/ETAP-2-RAPORT.md.
+const params: CalculationParams = {
+  inflation: [0.035],
+  referenceRate: [0.04],
+  wibor6m: [0],
+  savingsRate: [0],
+};
+describe("TOS October 2026", () => {
+  it("matches the explicit 113.79 PLN gross redemption in letter 97/2026 section 14", () => {
+    const result = calculate(1, 36, params);
+    strictEqual(result[36].valueAtEndOfMonth, 113.79);
+    strictEqual(result[36].buyoutAtEndOfMonth, 111.16); // tax ceil(13.79 * 19%) = 2.63
+    strictEqual(result[36].earlyBuyoutPenalty, 0);
+    strictEqual(result[35].earlyBuyoutPenalty, 1);
+    strictEqual(result[1].buyoutAtEndOfMonth, 100);
+  });
+  it("never indexes TOS to WIBOR, NBP or inflation", () => {
+    deepStrictEqual(
+      calculate(100, 36, params),
+      calculate(100, 36, {
+        ...params,
+        wibor6m: [1],
+        referenceRate: [1],
+        inflation: [1],
+      }),
+    );
+  });
+  it("uses ACT/ACT and rounded N1 for an early redemption in a leap-year period", () => {
+    // Annex 2: 104.40 * (1 + 0.044 * 31/366) - 1 = 103.79 gross.
+    strictEqual(calculate(1, 13, params)[13].buyoutAtEndOfMonth, 103.06);
   });
 });

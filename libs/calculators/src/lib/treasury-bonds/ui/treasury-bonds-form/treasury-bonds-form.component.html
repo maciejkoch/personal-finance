@@ -5,7 +5,7 @@
       <div content>
         <label class="form-control w-full">
           <div class="label">
-            <span class="label-text">Ilość obligacji</span>
+            <span class="label-text">Liczba obligacji</span>
             <span class="label-text-alt">(x 100zł)</span>
           </div>
           <input
@@ -13,6 +13,10 @@
             placeholder="1000"
             class="input input-bordered input-primary"
             formControlName="numberOfBonds"
+            min="1"
+            max="1000000"
+            step="1"
+            [attr.aria-invalid]="form.controls.numberOfBonds.invalid"
           />
         </label>
 
@@ -26,6 +30,10 @@
             class="input input-bordered input-primary"
             placeholder="10"
             formControlName="duration"
+            min="1"
+            max="12"
+            step="1"
+            [attr.aria-invalid]="form.controls.duration.invalid"
           />
         </label>
       </div>
@@ -44,12 +52,15 @@
             class="input input-bordered input-primary"
             placeholder="3.5"
             formControlName="inflation"
+            min="-99"
+            max="100"
+            step="0.1"
           />
         </label>
 
         <label class="form-control w-full">
           <div class="label">
-            <span class="label-text">Stopa referencyjna NBP</span>
+            <span class="label-text">Zakładana przyszła stopa NBP</span>
             <span class="label-text-alt">(%)</span>
           </div>
           <input
@@ -57,22 +68,54 @@
             class="input input-bordered input-primary"
             placeholder="5"
             formControlName="referenceRate"
+            min="0"
+            max="100"
+            step="0.1"
           />
         </label>
 
         <label class="form-control w-full">
           <div class="label">
-            <span class="label-text"> Stopa zwrotu</span>
+            <span class="label-text">
+              Zakładane oprocentowanie wypłaconych środków</span
+            >
             <span class="label-text-alt">(%)</span>
           </div>
           <input
             type="number"
             class="input input-bordered input-primary"
-            placeholder="10"
+            placeholder="0"
             formControlName="rate"
+            min="0"
+            max="100"
+            step="0.1"
           />
         </label>
       </div>
     </pfui-accordion-item>
   </pfui-accordion>
+  <label class="flex items-center gap-3 my-4">
+    <input
+      type="checkbox"
+      class="checkbox checkbox-primary"
+      formControlName="skipTax"
+    />
+    <span>Pomiń podatek 19% (scenariusz porównawczy)</span>
+  </label>
+  <p class="text-sm mb-3">
+    Ta opcja nie odwzorowuje wszystkich zasad IKE/IKZE.
+  </p>
+  @if (form.invalid) {
+    <p class="text-error mb-3" role="alert">
+      Podaj całkowitą liczbę obligacji od 1 do 1 000 000 i okres od 1 do 12
+      pełnych lat. Inflacja: −99–100%, pozostałe stopy: 0–100%.
+    </p>
+  }
+  <button
+    type="button"
+    class="btn btn-outline w-full whitespace-normal h-auto min-h-12"
+    (click)="resetToCurrentDefaults()"
+  >
+    Przywróć aktualne ustawienia domyślne
+  </button>
 </form>

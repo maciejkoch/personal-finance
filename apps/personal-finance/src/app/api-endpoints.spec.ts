@@ -29,6 +29,7 @@ describe("Local API routing", () => {
     TestBed.inject(TreasuryBondsDataService)
       .calculate({
         numberOfBonds: 100,
+        skipTax: false,
         month: 24,
         inflation: [0.035],
         referenceRate: [0.0575],
@@ -41,7 +42,9 @@ describe("Local API routing", () => {
     );
     expect(request.request.params.get("inflation")).toBe("[0.035]");
     expect(request.request.params.get("month")).toBe("24");
-    request.flush({ data: {} });
+    request.flush({
+      data: { values: [], offerVersion: "2026-10-v1", calculationVersion: 2 },
+    });
   });
 
   it("routes savings locally while retaining percentage conversion", () => {

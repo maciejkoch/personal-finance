@@ -4,30 +4,33 @@ import {
   effect,
   ElementRef,
   input,
+  inject,
+  DestroyRef,
   viewChild,
-} from '@angular/core';
-import Chart, { ChartItem } from 'chart.js/auto';
-import { TreasuryBondsResult } from '../../model/treasury-bonds.model';
+} from "@angular/core";
+import Chart, { ChartItem } from "chart.js/auto";
+import { TreasuryBondsResult } from "../../model/treasury-bonds.model";
 
 @Component({
-    selector: 'pf-treasury-bonds-chart',
-    imports: [],
-    templateUrl: './treasury-bonds-chart.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+  selector: "pf-treasury-bonds-chart",
+  imports: [],
+  templateUrl: "./treasury-bonds-chart.component.html",
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TreasuryBondsChartComponent {
-  canvas = viewChild<ElementRef>('canvas');
+  canvas = viewChild<ElementRef>("canvas");
 
   data = input<TreasuryBondsResult>();
 
   #chart: Chart | null = null;
 
   constructor() {
+    inject(DestroyRef).onDestroy(() => this.#chart?.destroy());
     effect(() => {
       const canvas = this.canvas()?.nativeElement as ChartItem;
       // TODO to check monthly data. This is a temporary solution
       const data = this.data()?.values.filter(
-        (value) => value.month % 12 === 0
+        (value) => value.month % 12 === 0,
       );
       if (canvas && data) {
         if (!this.#chart) {
@@ -48,67 +51,67 @@ export class TreasuryBondsChartComponent {
         const ros = data.map((value) => value.ros);
 
         const futureValueDataset = {
-          label: 'Wpłaty powiększone o INFLACJĘ',
+          label: "Wpłaty powiększone o INFLACJĘ",
           data: futureValue,
-          backgroundColor: '#e11d48',
-          borderColor: '#e11d48',
+          backgroundColor: "#e11d48",
+          borderColor: "#e11d48",
           borderDash: [5, 5],
           pointRadius: 0,
         };
 
         const rorDataset = {
-          label: 'ROR (roczne)',
+          label: "ROR (roczne)",
           data: ror,
-          backgroundColor: '#9333ea',
-          borderColor: '#9333ea',
+          backgroundColor: "#9333ea",
+          borderColor: "#9333ea",
           pointRadius: 0,
         };
 
         const dorDataset = {
-          label: 'DOR (2-latki)',
+          label: "DOR (2-latki)",
           data: dor,
-          backgroundColor: '#14b8a6',
-          borderColor: '#14b8a6',
+          backgroundColor: "#14b8a6",
+          borderColor: "#14b8a6",
           pointRadius: 0,
         };
 
         const tosDataset = {
-          label: 'TOS (3-latki)',
+          label: "TOS (3-latki)",
           data: tos,
-          backgroundColor: '#84cc16',
-          borderColor: '#84cc16',
+          backgroundColor: "#84cc16",
+          borderColor: "#84cc16",
           pointRadius: 0,
         };
 
         const coiDataset = {
-          label: 'COI (4-latki)',
+          label: "COI (4-latki)",
           data: coi,
-          backgroundColor: '#84cc16',
-          borderColor: '#84cc16',
+          backgroundColor: "#84cc16",
+          borderColor: "#84cc16",
           pointRadius: 0,
         };
 
         const edoDataset = {
-          label: 'EDO (10-latki)',
+          label: "EDO (10-latki)",
           data: edo,
-          backgroundColor: '#facc15',
-          borderColor: '#facc15',
+          backgroundColor: "#facc15",
+          borderColor: "#facc15",
           pointRadius: 0,
         };
 
         const rodDataset = {
-          label: 'ROD (6-latki)',
+          label: "ROD (12-latki)",
           data: rod,
-          backgroundColor: '#64748b',
-          borderColor: '#64748b',
+          backgroundColor: "#64748b",
+          borderColor: "#64748b",
           pointRadius: 0,
         };
 
         const rosDataset = {
-          label: 'ROS (12-latki)',
+          label: "ROS (6-latki)",
           data: ros,
-          backgroundColor: '#f43f5e',
-          borderColor: '#f43f5e',
+          backgroundColor: "#f43f5e",
+          borderColor: "#f43f5e",
           pointRadius: 0,
         };
 
@@ -135,7 +138,7 @@ export class TreasuryBondsChartComponent {
 
   #createChart() {
     return new Chart(this.canvas()?.nativeElement as ChartItem, {
-      type: 'line',
+      type: "line",
       data: {
         labels: [],
         datasets: [
@@ -161,7 +164,7 @@ export class TreasuryBondsChartComponent {
             display: true,
             title: {
               display: true,
-              text: 'Value',
+              text: "Wartość (zł)",
             },
           },
         },
@@ -169,5 +172,3 @@ export class TreasuryBondsChartComponent {
     });
   }
 }
-
-
