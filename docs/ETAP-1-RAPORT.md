@@ -1,6 +1,6 @@
 # Etap 1 — runtime Functions i lint
 
-Data: 21.10.2026. Baza: commit etapu 0 `3aaf765`. Commit implementacji `5e72874` został wypchnięty i wdrożony. Kontrola produkcji wykryła zmianę domyślnego limitu instancji ze 100 na 20; poprawka przypina dotychczasowy limit i oczekuje na ponowne wdrożenie.
+Data: 21.10.2026. Baza: commit etapu 0 `3aaf765`. Implementacja `5e72874` i poprawka limitu instancji `6d4b0c3` zostały wypchnięte na `origin/main`. Wersja `6d4b0c3` działa na produkcji; kontrola po wdrożeniu przeszła.
 
 ## Zmiany
 
@@ -32,7 +32,7 @@ Nie zmieniono nazw funkcji, regionów, whitelisty CORS, kontraktów danych, konf
 
 Wszystkie ostrzeżenia lintu dotyczą istniejących asercji non-null `!` w siedmiu modułach kalkulacji. Reguła pozostaje aktywna; ich usunięcie wymaga osobnego uporządkowania typów. Nie blokują predeploya.
 
-Emulator i zgodność kilku odpowiedzi nie zastępują testów środowiska Google po wdrożeniu. Nie wykonano ponownego buildu frontendu — jego kod i zależności nie były zmieniane w tym etapie. Poprawność nowych emisji obligacji pozostaje zakresem etapu 2.
+Sprawdzenia produkcyjne opisano poniżej. Nie wykonano ponownego buildu frontendu — jego kod i zależności nie były zmieniane w tym etapie. Poprawność nowych emisji obligacji pozostaje zakresem etapu 2.
 
 ## Powtarzalne sprawdzenia
 
@@ -45,15 +45,22 @@ npm run emulators
 npm run smoke:api -- --contracts --compare-production
 ```
 
-## Publikacja po przeglądzie
+## Publikacja i kontrola produkcji
 
-Po osobnym poleceniu użytkownika można wykonać `npm run deploy:functions`. Firebase uruchomi lokalne hooki lint/build/metadane i wdroży cztery Functions na runtime Node 22. Hosting nie jest objęty tym poleceniem.
+Na polecenie użytkownika wykonano commit, push i deploy wyłącznie Functions do `personal-finance-2ee61`. Zastosowano lokalne hooki lint/build/metadane. Build produkcyjny: `6d4b0c3-2026-10-21T20:17:02.430Z`, pełny commit `6d4b0c3084b53361884a417e333733e4b98addc8`, `dirty: false`.
 
-Po wdrożeniu należy:
+- Wszystkie cztery dotychczasowe funkcje mają runtime `nodejs22`, stan `ACTIVE` i region `us-central1`.
+- Zachowano konfigurację: 256 MiB RAM, 1 CPU, timeout 60 s, współbieżność 80, maksymalnie 100 instancji. Pierwszy deploy ujawnił zmianę limitu na 20; po jawnym ustawieniu 100 ponowny odczyt potwierdził zgodność ze stanem bazowym.
+- `smoke:api -- --production --contracts`: 4/4 poprawne odpowiedzi JSON, HTTP 400 bez wymaganych parametrów, preflight HTTP 204 i CORS z localhost.
+- `smoke:api -- --compare-production`: 4/4 odpowiedzi lokalnych identycznych z produkcyjnymi.
+- Osiem adresów (Cloud Functions i używane przez frontend Cloud Run dla każdej funkcji) zwraca HTTP 200, właściwy nagłówek buildu oraz CORS dla `https://oszczedzify.org`.
+- W przeglądarce potwierdzono wyniki trzech kalkulatorów oraz treść artykułu „Jak działa ten kalkulator?”.
+- Odczyt 44 wpisów logów po ponownym wdrożeniu, od 20:17:04 do 20:19:42 UTC: brak ERROR/CRITICAL/ALERT/EMERGENCY i HTTP 5xx. To kontrola krótkiego okna po wdrożeniu. Pierwszy deploy zawierał przejściowy błąd DeadlineExceeded operacji UpdateFunction; końcowe odczyty i testy potwierdziły zakończenie aktualizacji.
+- Hosting zachował wersję `7982bf5807b070e8` z 03.02.2025. Nie publikowano frontendu.
 
-1. Odczytać metadane Functions i potwierdzić runtime `nodejs22`, stan ACTIVE, cztery dotychczasowe nazwy, region `us-central1` oraz zachowaną konfigurację.
-2. Uruchomić `npm run smoke:api -- --production --contracts` i porównać nagłówek `X-Oszczedzify-Build` z opublikowaną wersją.
-3. Sprawdzić trzy kalkulatory i artykuł oraz logi błędów Functions.
+Narzędzie Firebase zwróciło status `failed` z komunikatem „Functions successfully deployed but could not set up cleanup policy in location us-central1”. Dotyczy to automatycznego sprzątania obrazów w Artifact Registry, a nie publikacji Functions. Nie zmieniano polityki retencji; pozostaje do osobnego uporządkowania. Sukces wdrożenia potwierdzono niezależnie stanem funkcji, runtime i nagłówkami aktywnego buildu.
+
+Zanonimizowany zapis wersji i konfiguracji: [baseline wdrożenia](baseline/2026-10-21-stage1-deploy.json).
 
 Procedura odtworzenia poprzedniej logiki: zachować poprzedni kod i konfigurację, ale wdrożyć je na wspieranym Node 22. Nie zakładać możliwości redeploya Node 20 po terminie jego wycofania. Etap 2 nie został rozpoczęty.
 
