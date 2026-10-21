@@ -1,6 +1,6 @@
 # Etap 1 — runtime Functions i lint
 
-Data: 21.10.2026. Baza: commit etapu 0 `3aaf765`. Implementacja gotowa do przeglądu. Nie wykonano deploya, commita ani pusha tego etapu; kontrola produkcji po wdrożeniu pozostaje do wykonania.
+Data: 21.10.2026. Baza: commit etapu 0 `3aaf765`. Commit implementacji `5e72874` został wypchnięty i wdrożony. Kontrola produkcji wykryła zmianę domyślnego limitu instancji ze 100 na 20; poprawka przypina dotychczasowy limit i oczekuje na ponowne wdrożenie.
 
 ## Zmiany
 
@@ -10,6 +10,7 @@ Data: 21.10.2026. Baza: commit etapu 0 `3aaf765`. Implementacja gotowa do przegl
 - Reguły formatowania `quotes` i `indent`, których poprzednia konfiguracja nie potrafiła uruchomić, nie są częścią bramki deploya. Formatowanie pozostaje do uporządkowania w etapie narzędziowym. Zalecane reguły wykrywające błędy i kontrola nieużywanych zmiennych działają.
 - Usunięto jeden nieużywany parametr `month` z callbacka oprocentowania TOS. Funkcja nadal zwraca dokładnie `treasuryBonds.firstPeriodRate`; stawki i obliczenia pozostają bez zmiany.
 - Dodano rootową komendę `npm run deploy:functions`, kierującą wyłącznie do Functions projektu `personal-finance-2ee61`. Komendy backendu również korzystają z oficjalnego CLI przez npx i jawnego projektu.
+- Jawnie ustawiono `maxInstances: 100` dla czterech Functions, zachowując wartość odczytaną z produkcji przed wdrożeniem. Pierwszy deploy bez tego ustawienia zmienił limit na 20.
 - `smoke:api -- --contracts` dodatkowo sprawdza HTTP 400 dla żądania bez parametrów i preflight CORS HTTP 204 dla czterech endpointów.
 
 Nie zmieniono nazw funkcji, regionów, whitelisty CORS, kontraktów danych, konfiguracji skalowania ani kodu frontendu.
