@@ -23,6 +23,23 @@
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
+    ],
+    "redirects": [
+      {
+        "source": "/",
+        "destination": "/calculators/treasury-bonds",
+        "type": 302
+      },
+      {
+        "source": "/calculators",
+        "destination": "/calculators/treasury-bonds",
+        "type": 302
+      },
+      {
+        "source": "/calculators/",
+        "destination": "/calculators/treasury-bonds",
+        "type": 302
+      }
     ]
   },
   "functions": [

@@ -16,7 +16,8 @@
     "emulators": "npm run build:functions && npx -y firebase-tools@latest emulators:start --only functions,hosting --project personal-finance-2ee61",
     "smoke:api": "node scripts/smoke-api.mjs",
     "deploy:functions": "npx -y firebase-tools@latest deploy --only functions --project personal-finance-2ee61",
-    "smoke:bonds": "node scripts/smoke-bonds.mjs"
+    "smoke:bonds": "node scripts/smoke-bonds.mjs",
+    "smoke:hosting": "node scripts/smoke-hosting.mjs"
   },
   "private": true,
   "dependencies": {
