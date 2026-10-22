@@ -1,0 +1,58 @@
+[
+  {
+    "path": "/",
+    "title": "Kalkulatory finansowe – oszczędzanie i obligacje | Oszczędzify",
+    "description": "Porównaj obligacje skarbowe, oblicz efekty regularnych wpłat i zaplanuj oszczędzanie na cel. Wybierz jeden z trzech kalkulatorów Oszczędzify.",
+    "name": "Kalkulatory finansowe",
+    "type": "WebPage",
+    "lastmod": "2026-10-22"
+  },
+  {
+    "path": "/calculators/treasury-bonds",
+    "title": "Kalkulator obligacji skarbowych – porównanie | Oszczędzify",
+    "description": "Porównaj ROR, DOR, TOS, COI, EDO, ROS i ROD. Oblicz wynik obligacji z uwzględnieniem podatku, opłat oraz własnych założeń inflacji i stóp NBP.",
+    "name": "Kalkulator obligacji skarbowych",
+    "type": "WebApplication",
+    "lastmod": "2026-10-22"
+  },
+  {
+    "path": "/calculators/regular-contribution",
+    "title": "Kalkulator regularnego oszczędzania | Oszczędzify",
+    "description": "Sprawdź, jak regularne wpłaty i procent składany wpływają na oszczędności. Ustaw kwotę wpłat, okres i zakładane oprocentowanie.",
+    "name": "Regularne oszczędzanie",
+    "type": "WebApplication",
+    "lastmod": "2026-10-22"
+  },
+  {
+    "path": "/calculators/long-term-savings",
+    "title": "Kalkulator oszczędzania na cel długoterminowy | Oszczędzify",
+    "description": "Zaplanuj oszczędzanie na cel długoterminowy. Porównaj wpływ kapitału początkowego, wpłat, czasu i zakładanego oprocentowania.",
+    "name": "Cel długoterminowy",
+    "type": "WebApplication",
+    "lastmod": "2026-10-22"
+  },
+  {
+    "path": "/about-us",
+    "title": "O serwisie i kalkulatorach finansowych | Oszczędzify",
+    "description": "Poznaj Oszczędzify: kalkulatory obligacji skarbowych, regularnego oszczędzania i celów długoterminowych oraz ograniczenia prezentowanych obliczeń.",
+    "name": "O serwisie Oszczędzify",
+    "type": "AboutPage",
+    "lastmod": "2026-10-22"
+  },
+  {
+    "path": "/oszczedzaj-regularnie",
+    "title": "Regularne oszczędzanie – dlaczego i jak zacząć? | Oszczędzify",
+    "description": "Jak zacząć regularnie oszczędzać? Przeczytaj o ustalaniu celów, budżecie, automatycznych przelewach i śledzeniu postępów.",
+    "name": "Regularne Oszczędzanie – Dlaczego i Jak Zacząć?",
+    "type": "Article",
+    "lastmod": "2026-10-22"
+  },
+  {
+    "path": "/kalkulator-obligacji-skarbowych",
+    "title": "Obligacje indeksowane inflacją – jak działają? | Oszczędzify",
+    "description": "Dowiedz się, czym są obligacje skarbowe indeksowane inflacją, jak działa oprocentowanie oraz jakie mają zalety, ograniczenia i koszty.",
+    "name": "Obligacje Skarbowe Indeksowane Inflacją – Co To Jest i Jak Działają?",
+    "type": "Article",
+    "lastmod": "2026-10-22"
+  }
+]

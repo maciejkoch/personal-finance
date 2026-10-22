@@ -1,43 +1,50 @@
-import { provideHttpClient, withFetch } from '@angular/common/http';
+import { provideHttpClient, withFetch } from "@angular/common/http";
 import {
   ApplicationConfig,
   LOCALE_ID,
   provideZoneChangeDetection,
-} from '@angular/core';
-import { provideClientHydration } from '@angular/platform-browser';
+} from "@angular/core";
+import { provideClientHydration } from "@angular/platform-browser";
 import {
   provideRouter,
+  TitleStrategy,
   withComponentInputBinding,
   withInMemoryScrolling,
   withRouterConfig,
   withViewTransitions,
-} from '@angular/router';
-import { appRoutes } from './app.routes';
-import { API_ENDPOINTS } from '@pf/shared';
-import { environment } from '../environments/environment';
+} from "@angular/router";
+import { appRoutes } from "./app.routes";
+import { API_ENDPOINTS } from "@pf/shared";
+import { environment } from "../environments/environment";
 
-import '@angular/common/locales/global/pl';
+import "@angular/common/locales/global/pl";
+import {
+  SEO_INDEXABLE,
+  SeoTitleStrategy,
+} from "./seo/seo-title-strategy.service";
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    { provide: TitleStrategy, useClass: SeoTitleStrategy },
+    { provide: SEO_INDEXABLE, useValue: environment.seoIndexable },
     { provide: API_ENDPOINTS, useValue: environment.apiEndpoints },
-    { provide: LOCALE_ID, useValue: 'pl-PL' },
+    { provide: LOCALE_ID, useValue: "pl-PL" },
     provideClientHydration(),
     // TODO temporarily removed because:
     // 1. pages are not pre-rendered
     // 2. withViewTransitions throws weird error saying that "Injector has already been destroyed"
-    // provideExperimentalZonelessChangeDetection(), 
+    // provideExperimentalZonelessChangeDetection(),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(
       appRoutes,
       withRouterConfig({
-        onSameUrlNavigation: 'reload',
+        onSameUrlNavigation: "reload",
       }),
       withInMemoryScrolling({
-        scrollPositionRestoration: 'enabled',
+        scrollPositionRestoration: "enabled",
       }),
       withViewTransitions(),
-      withComponentInputBinding()
+      withComponentInputBinding(),
     ),
     provideHttpClient(withFetch()),
   ],

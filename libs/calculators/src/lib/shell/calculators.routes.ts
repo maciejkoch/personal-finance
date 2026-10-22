@@ -1,38 +1,33 @@
-import { CreateRoutesFn, redirectToChild } from '@pf/shared';
-import { CalculatorsShellComponent } from './calculators-shell.component';
+import { CreateRoutesFn } from "@pf/shared";
+import { CalculatorsShellComponent } from "./calculators-shell.component";
 
-export const createRoutes: CreateRoutesFn = (parent) => [
+export const createRoutes: CreateRoutesFn = () => [
   {
-    path: '',
+    path: "",
     component: CalculatorsShellComponent,
-    canActivate: [redirectToChild(parent, 'treasury-bonds')],
-    runGuardsAndResolvers: 'always',
     children: [
+      { path: "", pathMatch: "full", redirectTo: "treasury-bonds" },
       {
-        path: 'long-term-savings',
+        path: "long-term-savings",
         loadComponent: async () =>
-          (await import('../long-term-savings/long-term-savings.component'))
+          (await import("../long-term-savings/long-term-savings.component"))
             .LongTermSavingsComponent,
       },
       {
-        path: 'regular-contribution',
+        path: "regular-contribution",
         loadComponent: async () =>
           (
             await import(
-              '../regular-contribution/regular-contribution.component'
+              "../regular-contribution/regular-contribution.component"
             )
           ).RegularContributionComponent,
       },
       {
-        path: 'treasury-bonds',
+        path: "treasury-bonds",
         loadComponent: async () =>
-          (await import('../treasury-bonds/treasury-bonds.component'))
+          (await import("../treasury-bonds/treasury-bonds.component"))
             .TreasuryBondsComponent,
       },
     ],
-  },
-  {
-    path: '**',
-    redirectTo: 'treasury-bonds',
   },
 ];

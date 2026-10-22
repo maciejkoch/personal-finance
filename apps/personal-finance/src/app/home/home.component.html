@@ -1,0 +1,87 @@
+<section class="py-10 lg:py-16 max-w-4xl mx-auto text-center">
+  <p class="text-primary font-semibold mb-3">Oszczędzify</p>
+  <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6">
+    Kalkulatory finansowe
+  </h1>
+  <p class="text-lg max-w-2xl mx-auto">
+    Sprawdź, jak Twoje założenia wpływają na oszczędności. Porównaj obligacje
+    skarbowe, zaplanuj regularne wpłaty lub oszczędzanie na większy cel.
+  </p>
+</section>
+<section aria-labelledby="choose-calculator" class="mb-12">
+  <h2 id="choose-calculator" class="text-2xl font-bold mb-6">
+    Co chcesz obliczyć?
+  </h2>
+  <div class="grid md:grid-cols-3 gap-6">
+    <article class="card bg-base-200">
+      <div class="card-body">
+        <h3 class="card-title">Obligacje skarbowe</h3>
+        <p>
+          Porównaj siedem typów obligacji. Uwzględnij podatek, opłaty i własne
+          założenia przyszłej inflacji oraz stóp procentowych.
+        </p>
+        <div class="card-actions mt-4">
+          <a
+            class="btn btn-primary h-auto min-h-12 py-3"
+            routerLink="/calculators/treasury-bonds"
+            >Kalkulator obligacji</a
+          >
+        </div>
+      </div>
+    </article>
+    <article class="card bg-base-200">
+      <div class="card-body">
+        <h3 class="card-title">Regularne oszczędzanie</h3>
+        <p>
+          Sprawdź, ile możesz zgromadzić dzięki systematycznym wpłatom i
+          procentowi składanemu przy wybranym oprocentowaniu.
+        </p>
+        <div class="card-actions mt-4">
+          <a
+            class="btn btn-primary h-auto min-h-12 py-3"
+            routerLink="/calculators/regular-contribution"
+            >Kalkulator regularnych wpłat</a
+          >
+        </div>
+      </div>
+    </article>
+    <article class="card bg-base-200">
+      <div class="card-body">
+        <h3 class="card-title">Cel długoterminowy</h3>
+        <p>
+          Zaplanuj odkładanie na przyszłość. Zobacz wpływ czasu, wpłat i
+          kapitału początkowego na realizację swojego celu.
+        </p>
+        <div class="card-actions mt-4">
+          <a
+            class="btn btn-primary h-auto min-h-12 py-3"
+            routerLink="/calculators/long-term-savings"
+            >Kalkulator oszczędzania na cel</a
+          >
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+<section class="prose max-w-none mb-10">
+  <h2>Jak korzystać z kalkulatorów?</h2>
+  <p>
+    Wybierz narzędzie, wpisz swoje założenia i porównaj scenariusze. Wyniki są
+    symulacją: przyszłe oprocentowanie i inflacja mogą różnić się od przyjętych
+    wartości. Obliczenia nie stanowią rekomendacji inwestycyjnej.
+  </p>
+  <h2>Przeczytaj także</h2>
+  <ul>
+    <li>
+      <a routerLink="/oszczedzaj-regularnie"
+        >Regularne oszczędzanie – dlaczego i jak zacząć?</a
+      >
+    </li>
+    <li>
+      <a routerLink="/kalkulator-obligacji-skarbowych"
+        >Jak działają obligacje indeksowane inflacją?</a
+      >
+    </li>
+    <li><a routerLink="/about-us">O serwisie Oszczędzify</a></li>
+  </ul>
+</section>

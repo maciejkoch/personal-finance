@@ -1,12 +1,6 @@
 {
   "hosting": {
     "public": "dist/apps/personal-finance/browser",
-    "rewrites": [
-      {
-        "source": "**",
-        "destination": "/index.html"
-      }
-    ],
     "cleanUrls": true,
     "headers": [
       {
@@ -19,28 +13,20 @@
         ]
       }
     ],
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ],
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "redirects": [
-      {
-        "source": "/",
-        "destination": "/calculators/treasury-bonds",
-        "type": 302
-      },
       {
         "source": "/calculators",
         "destination": "/calculators/treasury-bonds",
-        "type": 302
+        "type": 301
       },
       {
         "source": "/calculators/",
         "destination": "/calculators/treasury-bonds",
-        "type": 302
+        "type": 301
       }
-    ]
+    ],
+    "trailingSlash": false
   },
   "functions": [
     {
