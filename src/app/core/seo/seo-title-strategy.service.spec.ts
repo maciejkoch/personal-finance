@@ -24,6 +24,18 @@ describe("SEO during navigation", () => {
   it("updates metadata and schema between routes, excluding query and fragment from canonical", async () => {
     const harness = await RouterTestingHarness.create();
     await harness.navigateByUrl("/calculators/treasury-bonds?count=100#form");
+    expect(
+      document
+        .querySelector('meta[property="og:image"]')
+        ?.getAttribute("content"),
+    ).toBe(
+      "https://oszczedzify.org/brand/social/calculators-treasury-bonds.png",
+    );
+    expect(
+      document
+        .querySelector('meta[name="twitter:card"]')
+        ?.getAttribute("content"),
+    ).toBe("summary_large_image");
     expect(document.title).toContain("Kalkulator obligacji skarbowych");
     expect(
       document.querySelector('link[rel="canonical"]')?.getAttribute("href"),
@@ -37,6 +49,11 @@ describe("SEO during navigation", () => {
       ],
     ).toBe("WebApplication");
     await harness.navigateByUrl("/oszczedzaj-regularnie");
+    expect(
+      document
+        .querySelector('meta[name="twitter:image"]')
+        ?.getAttribute("content"),
+    ).toBe("https://oszczedzify.org/brand/social/oszczedzaj-regularnie.png");
     expect(document.title).toContain("Regularne oszczędzanie – dlaczego");
     expect(
       document
@@ -62,6 +79,10 @@ describe("SEO during navigation", () => {
     ).toBe("noindex, follow");
     expect(document.querySelector('link[rel="canonical"]')).toBeNull();
     expect(document.querySelector('meta[property="og:url"]')).toBeNull();
+    expect(document.querySelector('meta[property="og:image"]')).toBeNull();
+    expect(document.querySelector('meta[property="og:image:alt"]')).toBeNull();
+    expect(document.querySelector('meta[name="twitter:image"]')).toBeNull();
+    expect(document.querySelector('meta[name="twitter:image:alt"]')).toBeNull();
     expect(document.getElementById("page-structured-data")).toBeNull();
   });
 

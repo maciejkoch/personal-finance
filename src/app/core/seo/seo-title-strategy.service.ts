@@ -50,7 +50,10 @@ export class SeoTitleStrategy extends TitleStrategy {
     });
     this.meta.updateTag({ property: "og:locale", content: "pl_PL" });
     this.meta.updateTag({ property: "og:site_name", content: "Oszczędzify" });
-    this.meta.updateTag({ name: "twitter:card", content: "summary" });
+    this.meta.updateTag({
+      name: "twitter:card",
+      content: page ? "summary_large_image" : "summary",
+    });
     this.meta.updateTag({ name: "twitter:title", content: title });
     this.meta.updateTag({ name: "twitter:description", content: description });
     let canonical = this.document.head.querySelector<HTMLLinkElement>(
@@ -60,9 +63,30 @@ export class SeoTitleStrategy extends TitleStrategy {
     if (!page) {
       canonical?.remove();
       this.meta.removeTag('property="og:url"');
+      for (const property of [
+        "og:image",
+        "og:image:width",
+        "og:image:height",
+        "og:image:type",
+        "og:image:alt",
+      ]) {
+        this.meta.removeTag(`property="${property}"`);
+      }
+      this.meta.removeTag('name="twitter:image"');
+      this.meta.removeTag('name="twitter:image:alt"');
       return;
     }
     const url = ORIGIN + page.path;
+    const imageKey = page.path.slice(1).replaceAll("/", "-") || "home";
+    const image = `${ORIGIN}/brand/social/${imageKey}.png`;
+    const imageAlt = `${page.title.split(" | ")[0]} — Oszczędzify`;
+    this.meta.updateTag({ property: "og:image", content: image });
+    this.meta.updateTag({ property: "og:image:width", content: "1200" });
+    this.meta.updateTag({ property: "og:image:height", content: "630" });
+    this.meta.updateTag({ property: "og:image:type", content: "image/png" });
+    this.meta.updateTag({ property: "og:image:alt", content: imageAlt });
+    this.meta.updateTag({ name: "twitter:image", content: image });
+    this.meta.updateTag({ name: "twitter:image:alt", content: imageAlt });
     if (!canonical) {
       canonical = this.document.createElement("link");
       canonical.rel = "canonical";

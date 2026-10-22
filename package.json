@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
+    "brand:generate": "node scripts/generate-brand.mjs",
     "start": "node scripts/workspace.mjs serve local",
     "build": "node scripts/workspace.mjs build production",
     "deploy": "npm run build && npx -y firebase-tools@latest deploy --only hosting --project personal-finance-2ee61",

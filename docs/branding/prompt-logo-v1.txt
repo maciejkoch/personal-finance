@@ -1,0 +1,7 @@
+Tryb: wbudowane narzędzie image_gen; transparent_background=false.
+Wybrany rezultat: oszczedzify-logo-koncepcja-v1.png
+
+Use case: logo-brand
+Asset type: polished logo presentation for the Polish financial calculator website Oszczędzify.
+Create a single beautiful minimalist horizontal logo on a perfectly uniform solid dark navy background #171E2B. On the left, a flat amber #D88A16 circular ring O symbol with three solid amber ascending rounded vertical bars cleanly arranged inside the ring, with the same navy negative space between the bars and ring. Ring and bars must be simple clean geometry. On the right, exact text "Oszczędzify" in near-white #F1F2F4, bold friendly modern humanist sans-serif, excellent kerning, clearly correct Polish ę. Horizontal composition, centered, wordmark about 3.5 times the width of symbol, ring 1.4 times cap-height, generous clearspace. Make logo occupy about 75% canvas width. ONE logo only.
+Very precise smooth edges and solid flat colors. Strictly NO texture, damage, grain, distressed treatment, mottling, glow, 3D, shadow, gradients, mockups, presentations panels, transparency, checkerboard, arrows, coins, extra captions or other text. This should look like an immaculate clean vector identity exported on a navy background.

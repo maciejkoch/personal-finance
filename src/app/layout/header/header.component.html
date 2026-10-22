@@ -1,10 +1,10 @@
-<nav>
+<nav aria-label="Nawigacja główna">
   <div class="relative flex h-16 items-center justify-between">
     <div class="absolute inset-y-0 left-0 flex items-center lg:hidden">
       <button
         class="btn btn-circle swap swap-rotate"
         [class.swap-active]="showMenu()"
-        aria-label="Mobile menu"
+        aria-label="Menu nawigacyjne"
         [attr.aria-expanded]="showMenu()"
         aria-controls="mobile-navigation"
         (click)="toggleMenu()"
@@ -34,10 +34,23 @@
       </button>
     </div>
     <div
-      class="flex flex-1 items-center justify-center lg:items-stretch lg:justify-start"
+      class="flex min-w-0 flex-1 items-center justify-center px-12 lg:justify-start lg:px-0"
     >
       <div class="flex shrink-0 items-center">
-        <a class="text-primary text-xl" [routerLink]="'/'">Oszczędzify</a>
+        <a
+          class="brand-link"
+          routerLink="/"
+          aria-label="Oszczędzify — strona główna"
+          (click)="showMenu.set(false)"
+        >
+          <img
+            class="brand-logo"
+            src="/brand/logo-dark.svg"
+            alt="Oszczędzify"
+            width="589"
+            height="112"
+          />
+        </a>
       </div>
       <div class="hidden lg:ml-6 lg:block">
         <pf-navigation [desktop]="true" />

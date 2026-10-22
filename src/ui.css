@@ -1,3 +1,32 @@
+@layer components {
+  .brand-link {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    min-height: 44px;
+    border-radius: 0.375rem;
+  }
+
+  .brand-link:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 4px;
+  }
+
+  .brand-logo {
+    display: block;
+    width: auto;
+    height: 32px;
+  }
+
+  @media (min-width: 64rem) {
+    .brand-logo {
+      height: 36px;
+    }
+  }
+}
+
 @layer utilities {
   /* This flat theme has no decorative noise on buttons or alerts. */
   .btn,
