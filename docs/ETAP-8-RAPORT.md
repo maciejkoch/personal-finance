@@ -1,6 +1,6 @@
 # Etap 8 — Tailwind 4 i daisyUI 5
 
-Stan: 22.10.2026. Migrację zaimplementowano i sprawdzono lokalnie na bazie `ac41bd38` (Angular 22, Signal Forms, zoneless). Użytkownik autoryzował commit, push i wdrożenie Hostingu. Wynik publikacji oraz kontrola produkcji zostaną zapisane w osobnym raporcie wdrożenia.
+Stan: 22.10.2026. Migrację zaimplementowano i sprawdzono lokalnie na bazie `ac41bd38` (Angular 22, Signal Forms, zoneless). Na polecenie użytkownika wykonano commit `e7e104e`, push na `main` i wdrożenie Hostingu. [Kontrola produkcji](ETAP-8-WDROZENIE.md) przeszła pomyślnie.
 
 ## Wersje
 
@@ -60,4 +60,4 @@ W tabelach obligacji axe pozostawia część ocen kontrastu jako `incomplete`, p
 
 ## Dalszy krok
 
-Użytkownik zatwierdził etap i polecił commit, push oraz wdrożenie Hostingu. Kolejny zakres planu to 9a — SDK i zależności Functions; Chart.js i pozostałe biblioteki frontendu należą do 9c.
+Etap 8 opublikowano razem z wcześniejszymi etapami 5–7; kontrola produkcji zakończyła się pomyślnie. Kolejny zakres planu to 9a — SDK i zależności Functions; Chart.js i pozostałe biblioteki frontendu należą do 9c.

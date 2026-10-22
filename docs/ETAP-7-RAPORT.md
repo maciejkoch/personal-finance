@@ -1,6 +1,8 @@
 # Etap 7 — Angular 22, Signal Forms i zoneless
 
-Stan: 22.10.2026. Migrację Angular 19 → 20 → 21 → 22 zakończono i sprawdzono lokalnie. Na prośbę użytkownika kontynuowano do najnowszego stabilnego Angulara bez wdrożeń wersji pośrednich i przeniesiono wszystkie trzy formularze kalkulatorów na Signal Forms. Bazowy commit całego zestawu zmian: `6c07a2e`, po produkcyjnym wdrożeniu etapu 4. Użytkownik zatwierdził commit i push całego zestawu; wdrożenia nie wykonano.
+Stan: 22.10.2026. Migrację Angular 19 → 20 → 21 → 22 zakończono i sprawdzono lokalnie. Na prośbę użytkownika kontynuowano do najnowszego stabilnego Angulara bez wdrożeń wersji pośrednich i przeniesiono wszystkie trzy formularze kalkulatorów na Signal Forms. Bazowy commit całego zestawu zmian: `6c07a2e`, po produkcyjnym wdrożeniu etapu 4. Użytkownik zatwierdził commit i push całego zestawu; Hosting opublikowano później razem z etapem 8.
+
+Aktualizacja 22.10.2026: Hosting etapów 5–7 opublikowano razem z etapem 8, z commita `e7e104e`. [Kontrola produkcji](ETAP-8-WDROZENIE.md) przeszła pomyślnie.
 
 ## Docelowy zestaw
 
@@ -74,6 +76,6 @@ Formularze i API kontrolowano przez port 4300 z lokalnymi Functions. Produkcyjny
 
 ## Dalszy stan
 
-Aktualizacja samego Angulara do najnowszego stabilnego wydania, migracja trzech formularzy na Signal Forms i przejście na zoneless są zakończone lokalnie. Użytkownik zatwierdził commit i push. Wdrożenie wyłącznie Hostingu z kontrolą produkcji wymaga osobnego polecenia. Produkcyjne zależności, kod wykonawczy i kontrakty Functions nie zostały zmienione; dodano wyłącznie własne typy runnera testowego i ich konfigurację.
+Aktualizacja samego Angulara do najnowszego stabilnego wydania, migracja trzech formularzy na Signal Forms i przejście na zoneless są zakończone lokalnie. Użytkownik zatwierdził commit i push. Hosting wdrożono na osobne polecenie razem z etapem 8; kontrola produkcji przeszła pomyślnie. Produkcyjne zależności, kod wykonawczy i kontrakty Functions nie zostały zmienione; dodano wyłącznie własne typy runnera testowego i ich konfigurację.
 
 Kolejne zakresy modernizacji z planu to Tailwind 4 + daisyUI 5 (etap 8), aktualizacje SDK i pozostałych bibliotek (etap 9), a następnie prace nad treścią i dalszym SEO (etap 10).

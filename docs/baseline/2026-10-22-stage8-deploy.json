@@ -1,0 +1,56 @@
+{
+  "checkedAt": "2026-10-22T18:41:28.919Z",
+  "project": "personal-finance-2ee61",
+  "frontend": {
+    "buildId": "e7e104e-2026-10-22T18:38:47.613Z",
+    "commit": "e7e104eeb128d44e0b85047d70af0454f10db0b7",
+    "dirty": false,
+    "builtAt": "2026-10-22T18:38:47.613Z",
+    "apiTarget": "production",
+    "offerVersion": "2026-10-v1",
+    "calculationVersion": 2,
+    "offerDataHash": "842b6e37a276a66bea362fca39fb13a1af3682af200a7824cbd1a964b232f0a8"
+  },
+  "hosting": {
+    "version": "projects/personal-finance-2ee61/sites/personal-finance-2ee61/versions/ab563bfaf823b781",
+    "release": "projects/personal-finance-2ee61/sites/personal-finance-2ee61/channels/live/releases/1792694428430000",
+    "releasedAt": "2026-10-22T18:40:28.430Z"
+  },
+  "previousHosting": {
+    "version": "projects/personal-finance-2ee61/sites/personal-finance-2ee61/versions/aedba44b7203bf49",
+    "release": "projects/personal-finance-2ee61/sites/personal-finance-2ee61/channels/live/releases/1792666201538000",
+    "releasedAt": "2026-10-22T10:50:01.538Z"
+  },
+  "functionsDeployed": false,
+  "frontendTests": {
+    "suites": 10,
+    "tests": 28,
+    "passed": true
+  },
+  "productionSmoke": "passed",
+  "productionApiContracts": "passed",
+  "productionAssets": {
+    "files": 35,
+    "status": "passed",
+    "byteComparison": "identical to local artifact, including version.json"
+  },
+  "www": {
+    "tlsVerified": true,
+    "redirectStatus": 301,
+    "verifiedPaths": 7,
+    "pathAndQueryPreserved": true
+  },
+  "browser": {
+    "angular": "22.2.3",
+    "homepage": true,
+    "navigationToBonds": true,
+    "bondsFormTableAndChart": true,
+    "bondsInvalidDuration": true,
+    "goalCalculationAndDisabledFields": true,
+    "regularContributionCalculation": true,
+    "canonical": true,
+    "robots": "index, follow",
+    "consoleErrors": 0
+  },
+  "stageStatus": "stages 5–8 deployed; production acceptance verified"
+}

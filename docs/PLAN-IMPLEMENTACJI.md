@@ -5,8 +5,8 @@ Projekt Firebase: `personal-finance-2ee61`. Produkcja: <https://oszczedzify.org>
 
 Etapy 0 i 1 wykonano 21.10.2026; szczegóły w [raporcie bazowym](ETAP-0-RAPORT.md) i [raporcie etapu 1](ETAP-1-RAPORT.md). Etap 1 wdrożono do produkcyjnych Functions z commita `6d4b0c3`; testy produkcyjne przeszły. Hosting pozostał bez zmian. Etap 2 wdrożono 22.10.2026 z commita `caea9b4` do Functions i Hosting; [raport zmian](ETAP-2-RAPORT.md) i [kontrola produkcji](ETAP-2-WDROZENIE.md). Etap 3 zaimplementowano i sprawdzono lokalnie 22.10.2026; [raport etapu 3](ETAP-3-RAPORT.md). Hosting etapu 3 wdrożono 22.10.2026 z commita `706fc76`; [kontrola produkcji](ETAP-3-WDROZENIE.md). Sitemapę zgłoszono w Search Console (Sukces, 7 stron). Domena `www` została dodana jako przekierowanie; wymagany rekord CNAME zmieniono w Squarespace i potwierdzono w autorytatywnym DNS. Firebase potwierdził własność domeny; testy HTTPS i 301 dla siedmiu stron przeszły. Etap 3 zakończono.
 Etap 4 wdrożono 22.10.2026 z commita `d7d8e90`; [raport zmian](ETAP-4-RAPORT.md) i [kontrola produkcji](ETAP-4-WDROZENIE.md). Testy odbiorcze przeszły. Etap 4 zakończono.
-Etapy 5–7 zaimplementowano i sprawdzono lokalnie 22.10.2026: [Angular 20](ETAP-5-RAPORT.md), [Angular 21](ETAP-6-RAPORT.md) i [Angular 22.2.3](ETAP-7-RAPORT.md). Na prośbę użytkownika kontynuowano do najnowszej stabilnej wersji bez osobnej publikacji wersji pośrednich; rozszerzono zakres o Signal Forms we wszystkich trzech kalkulatorach. Docelowy frontend działa zoneless, z Vitest. Użytkownik zatwierdził commit i push; publikacja Hostingu wymaga osobnego polecenia.
-Etap 8 zaimplementowano i sprawdzono lokalnie 22.10.2026: Tailwind 4.3.3, daisyUI 5.7.50, CSS-first i poprawki dostępności — [raport etapu 8](ETAP-8-RAPORT.md). Użytkownik autoryzował commit, push i wdrożenie Hostingu.
+Etapy 5–7 zaimplementowano i sprawdzono lokalnie 22.10.2026: [Angular 20](ETAP-5-RAPORT.md), [Angular 21](ETAP-6-RAPORT.md) i [Angular 22.2.3](ETAP-7-RAPORT.md). Na prośbę użytkownika kontynuowano do najnowszej stabilnej wersji bez osobnej publikacji wersji pośrednich; rozszerzono zakres o Signal Forms we wszystkich trzech kalkulatorach. Docelowy frontend działa zoneless, z Vitest. Użytkownik zatwierdził commit i push; Hosting etapów 5–7 opublikowano razem z etapem 8 — [kontrola produkcji](ETAP-8-WDROZENIE.md).
+Etap 8 zaimplementowano i sprawdzono lokalnie 22.10.2026: Tailwind 4.3.3, daisyUI 5.7.50, CSS-first i poprawki dostępności — [raport etapu 8](ETAP-8-RAPORT.md). Wykonano commit `e7e104e`, push i wdrożenie Hostingu — [kontrola produkcji](ETAP-8-WDROZENIE.md).
 Wersje pakietów należy ponownie sprawdzić na początku odpowiedniego etapu.
 
 ## Sposób pracy
@@ -221,7 +221,7 @@ Wdrożenie: Hosting. Osobny punkt przeglądu przed etapem 7.
 
 ### Etap 7 — Angular 21 → 22 i aktualny zestaw Angulara
 
-Stan: implementacja i lokalne testy odbiorcze zakończone 22.10.2026. Angular 22.2.3, NgRx 22.0.1, TypeScript 6.0.3, zoneless, Vitest 5 i Signal Forms w trzech kalkulatorach. [Raport etapu 7](ETAP-7-RAPORT.md). Użytkownik zatwierdził commit i push; bez wdrożenia.
+Stan: implementacja i lokalne testy odbiorcze zakończone 22.10.2026. Angular 22.2.3, NgRx 22.0.1, TypeScript 6.0.3, zoneless, Vitest 5 i Signal Forms w trzech kalkulatorach. [Raport etapu 7](ETAP-7-RAPORT.md). Hosting opublikowano razem z etapem 8 — [kontrola produkcji](ETAP-8-WDROZENIE.md).
 
 Zakres:
 
@@ -237,7 +237,7 @@ Wdrożenie: Hosting.
 
 ### Etap 8 — Tailwind 4 + daisyUI 5
 
-Stan: implementacja i lokalna weryfikacja zakończone 22.10.2026. [Raport etapu 8](ETAP-8-RAPORT.md), z wynikami testów, porównaniem wizualnym i zakresem audytu dostępności. Użytkownik autoryzował commit, push i wdrożenie Hostingu.
+Stan: implementacja i lokalna weryfikacja zakończone 22.10.2026. [Raport etapu 8](ETAP-8-RAPORT.md), z wynikami testów, porównaniem wizualnym i zakresem audytu dostępności. Wykonano commit `e7e104e`, push i wdrożenie Hostingu — [kontrola produkcji](ETAP-8-WDROZENIE.md).
 
 Zakres:
 

@@ -84,7 +84,7 @@ Metadane odświeżają się przy uruchomieniu polecenia, nie przy każdym HMR. P
 
 ## Wdrożenie po przeglądzie
 
-Projekt produkcyjny: `personal-finance-2ee61`. Etap 4 wdrożono 22.10.2026 — [kontrola produkcji](docs/ETAP-4-WDROZENIE.md). Publikacja produkcyjna, commit i push wymagają osobnego polecenia użytkownika.
+Projekt produkcyjny: `personal-finance-2ee61`. Etapy 5–8 wdrożono do Hostingu 22.10.2026 z commita `e7e104e` — [kontrola produkcji](docs/ETAP-8-WDROZENIE.md). Frontend produkcyjny korzysta z Angulara 22, Signal Forms, zoneless, Tailwinda 4 i daisyUI 5. Publikacja produkcyjna, commit i push wymagają osobnego polecenia użytkownika.
 
 `npm run deploy` wykonuje świeży build produkcyjny i wdraża tylko Hosting. Po osobnym poleceniu użytkownika `npm run deploy:functions` wdraża wyłącznie Functions na Node 22. Hooki predeploy sprawdzają lint, budują backend i generują metadane. Po publikacji uruchom `npm run smoke:api -- --production --contracts` oraz sprawdź runtime i logi Functions.
 
