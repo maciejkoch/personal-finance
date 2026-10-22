@@ -1,6 +1,6 @@
 # Etap 2 — oferta obligacji i kalkulator
 
-Data: 21.10.2026. Baza repozytorium: `001e38b` (produkcyjne Functions: `6d4b0c3`). Użytkownik zatwierdził commit, push oraz wdrożenie. Wynik publikacji zostanie zapisany w osobnym raporcie wdrożenia. Etap 3 pozostaje poza zakresem.
+Data: 21.10.2026. Baza repozytorium: `001e38b` (produkcyjne Functions: `6d4b0c3`). Etap opublikowano 22.10.2026 z commita `caea9b4`; szczegóły zawiera [raport wdrożenia](ETAP-2-WDROZENIE.md). Etap 3 pozostaje poza zakresem.
 
 ## Dane i źródła
 

@@ -3,7 +3,7 @@
 Data audytu: 21 października 2026 r. Stan wyjściowy: `main`, commit `6de87ec`.
 Projekt Firebase: `personal-finance-2ee61`. Produkcja: <https://oszczedzify.org>.
 
-Etapy 0 i 1 wykonano 21.10.2026; szczegóły w [raporcie bazowym](ETAP-0-RAPORT.md) i [raporcie etapu 1](ETAP-1-RAPORT.md). Etap 1 wdrożono do produkcyjnych Functions z commita `6d4b0c3`; testy produkcyjne przeszły. Hosting pozostał bez zmian. Etap 2 zaimplementowano; szczegóły i ograniczenia opisuje [raport etapu 2](ETAP-2-RAPORT.md). Użytkownik zatwierdził commit, push i wdrożenie Functions oraz Hosting.
+Etapy 0 i 1 wykonano 21.10.2026; szczegóły w [raporcie bazowym](ETAP-0-RAPORT.md) i [raporcie etapu 1](ETAP-1-RAPORT.md). Etap 1 wdrożono do produkcyjnych Functions z commita `6d4b0c3`; testy produkcyjne przeszły. Hosting pozostał bez zmian. Etap 2 wdrożono 22.10.2026 z commita `caea9b4` do Functions i Hosting; [raport zmian](ETAP-2-RAPORT.md) i [kontrola produkcji](ETAP-2-WDROZENIE.md). Etap 3 nie został rozpoczęty.
 Wersje pakietów należy ponownie sprawdzić na początku odpowiedniego etapu.
 
 ## Sposób pracy

@@ -1,0 +1,100 @@
+{
+  "checkedAt": "2026-10-22T04:30:33.517497+00:00",
+  "project": "personal-finance-2ee61",
+  "sourceCommit": "caea9b4f0d9715234f028cc8053477540880443b",
+  "frontendVersion": {
+    "buildId": "caea9b4-2026-10-22T04:24:45.742Z",
+    "commit": "caea9b4f0d9715234f028cc8053477540880443b",
+    "dirty": false,
+    "builtAt": "2026-10-22T04:24:45.742Z",
+    "apiTarget": "production",
+    "offerVersion": "2026-10-v1",
+    "calculationVersion": 2,
+    "offerDataHash": "842b6e37a276a66bea362fca39fb13a1af3682af200a7824cbd1a964b232f0a8"
+  },
+  "functionsVersion": {
+    "buildId": "caea9b4-2026-10-22T04:25:10.787Z",
+    "commit": "caea9b4f0d9715234f028cc8053477540880443b",
+    "dirty": false,
+    "builtAt": "2026-10-22T04:25:10.787Z",
+    "apiTarget": "backend",
+    "offerVersion": "2026-10-v1",
+    "calculationVersion": 2,
+    "offerDataHash": "842b6e37a276a66bea362fca39fb13a1af3682af200a7824cbd1a964b232f0a8"
+  },
+  "functions": [
+    {
+      "id": "articleHttpFunction",
+      "platform": "gcfv2",
+      "runtime": "nodejs22",
+      "state": "ACTIVE",
+      "region": "us-central1",
+      "timeoutSeconds": 60,
+      "availableMemoryMb": 256,
+      "cpu": 1,
+      "concurrency": 80,
+      "maxInstances": 100
+    },
+    {
+      "id": "calculateRegularContributionHttpFunction",
+      "platform": "gcfv2",
+      "runtime": "nodejs22",
+      "state": "ACTIVE",
+      "region": "us-central1",
+      "timeoutSeconds": 60,
+      "availableMemoryMb": 256,
+      "cpu": 1,
+      "concurrency": 80,
+      "maxInstances": 100
+    },
+    {
+      "id": "calculateSavingsHttpFunction",
+      "platform": "gcfv2",
+      "runtime": "nodejs22",
+      "state": "ACTIVE",
+      "region": "us-central1",
+      "timeoutSeconds": 60,
+      "availableMemoryMb": 256,
+      "cpu": 1,
+      "concurrency": 80,
+      "maxInstances": 100
+    },
+    {
+      "id": "calculateTreasuryBondsHttpFunction",
+      "platform": "gcfv2",
+      "runtime": "nodejs22",
+      "state": "ACTIVE",
+      "region": "us-central1",
+      "timeoutSeconds": 60,
+      "availableMemoryMb": 256,
+      "cpu": 1,
+      "concurrency": 80,
+      "maxInstances": 100
+    }
+  ],
+  "hosting": {
+    "previousVersion": "7982bf5807b070e8",
+    "version": "8e7258ae16a90985",
+    "release": "projects/personal-finance-2ee61/sites/personal-finance-2ee61/channels/live/releases/1792643281685000",
+    "releaseTime": "2026-10-22T04:28:01.685Z",
+    "url": "https://oszczedzify.org"
+  },
+  "verification": {
+    "productionContractsPassed": 4,
+    "productionBuildTlsCorsUrlsPassed": 8,
+    "hostingMetadataHostsPassed": 2,
+    "prerenderedRoutesPassed": 6,
+    "offerPdfLinksInInitialHtml": 7,
+    "bondExamplesAndValidation": "passed",
+    "browser": "offer, table, chart and TOS 111.16 PLN taxed / 113.79 PLN without tax verified; no console errors",
+    "logs": {
+      "startTime": "2026-10-22T04:25:02.992Z",
+      "errorEntries": 0,
+      "scope": "short post-deploy observation window"
+    }
+  },
+  "deploymentToolWarnings": [
+    "Functions successfully deployed but cleanup policy was not configured in us-central1; retention unchanged.",
+    "Hosting MCP failed to resolve implicit site; official CLI deployed the same verified artifact successfully."
+  ]
+}
