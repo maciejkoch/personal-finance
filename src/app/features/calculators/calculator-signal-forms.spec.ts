@@ -8,6 +8,26 @@ const settle = () => new Promise((resolve) => setTimeout(resolve, 350));
 describe("Calculator Signal Forms", () => {
   beforeEach(() => localStorage.clear());
 
+  for (const component of [
+    RegularContributionFormComponent,
+    LongTermSavingsFormComponent,
+  ]) {
+    it(`blocks fractional and oversized periods in ${component.name}`, async () => {
+      const fixture = TestBed.createComponent<
+        RegularContributionFormComponent | LongTermSavingsFormComponent
+      >(component);
+      await fixture.whenStable();
+      for (const duration of [1.5, 101]) {
+        fixture.componentInstance.form.duration().value.set(duration);
+        await fixture.whenStable();
+        expect(fixture.componentInstance.form().invalid()).toBe(true);
+      }
+      fixture.componentInstance.form.duration().value.set(100);
+      await fixture.whenStable();
+      expect(fixture.componentInstance.form().valid()).toBe(true);
+    });
+  }
+
   it("restores regular contributions, emits the existing contract and preserves disabled values", async () => {
     const saved = {
       contribution: 500,

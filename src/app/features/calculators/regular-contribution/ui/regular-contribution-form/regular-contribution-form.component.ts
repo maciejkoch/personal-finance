@@ -12,6 +12,7 @@ import {
   max,
   min,
   required,
+  validate,
 } from "@angular/forms/signals";
 import { useLocalStorage } from "@shared/local-storage/use-local-storage";
 import { z } from "zod";
@@ -19,7 +20,7 @@ import { RegularContributionRequest } from "../../model/regular-contribution.mod
 
 const formSchema = z.object({
   contribution: z.number(),
-  duration: z.number(),
+  duration: z.number().int().min(1).max(100),
   rate: z.number(),
   skipRate: z.boolean(),
   skipTax: z.boolean(),
@@ -52,6 +53,11 @@ export class RegularContributionFormComponent {
     required(path.duration);
     min(path.duration, 1);
     max(path.duration, 100);
+    validate(path.duration, ({ value }) =>
+      Number.isInteger(value())
+        ? null
+        : { kind: "integer", message: "Podaj pełną liczbę lat." },
+    );
     required(path.rate);
     min(path.rate, 0);
     max(path.rate, 100);

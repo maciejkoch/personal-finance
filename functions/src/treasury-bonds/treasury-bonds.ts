@@ -1,5 +1,5 @@
-import * as express from "express";
-import { Request } from "firebase-functions/v2/https";
+import type { Request } from "firebase-functions/v2/https";
+import { HttpResponse, validationError } from "../http/query-validation";
 import { calculateFutureValueForMonths } from "../calculations/inflation.service";
 import { calculate as calculateCOI } from "./services/coi.service";
 import { calculate as calculateDOR } from "./services/dor.service";
@@ -12,7 +12,7 @@ import { TreasuryBondsSchemaDTO, validate } from "./treasury-bonds.dto";
 import { TREASURY_BONDS_OFFER } from "./treasury-bonds.consts";
 import { simplifyResult } from "./treasury-bonds.service";
 
-export function execute(request: Request, response: express.Response): void {
+export function execute(request: Request, response: HttpResponse): void {
   const treasuryBonds = validate(request.query);
 
   if (treasuryBonds.success) {
@@ -27,7 +27,7 @@ export function execute(request: Request, response: express.Response): void {
     }
   } else {
     response.status(400);
-    response.send(treasuryBonds.error);
+    response.send(validationError(treasuryBonds.error));
   }
 }
 

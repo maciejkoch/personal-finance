@@ -8,7 +8,6 @@ import {
 import { FormsModule } from "@angular/forms";
 import { localStorageSignal } from "@shared/local-storage/use-local-storage";
 import { DelayedLoaderComponent } from "@shared/ui/delayed-loader/delayed-loader.component";
-import { mapValues, sortBy } from "lodash";
 import { z } from "zod";
 import { TreasuryBondsResult } from "../../model/treasury-bonds.model";
 
@@ -151,8 +150,10 @@ export class TreasuryBondsResultsComponent {
       )
       .map((key) => ({ key, value: data[key].value }));
 
-    const sortedPositives = sortBy(positives, "value").reverse();
-    const sortedNegatives = sortBy(negatives, "value");
+    const sortedPositives = positives
+      .sort((a, b) => a.value - b.value)
+      .reverse();
+    const sortedNegatives = negatives.sort((a, b) => a.value - b.value);
 
     sortedPositives.forEach((item, index) => {
       data[item.key].positive = 7 - index;
@@ -166,13 +167,13 @@ export class TreasuryBondsResultsComponent {
   }
 
   private addColorToValues(data: Row): Row {
-    return mapValues(data, (value) => {
+    for (const value of Object.values(data)) {
       if (value.positive !== undefined) {
         value.color = positiveColors[value.positive];
       } else if (value.negative !== undefined) {
         value.color = negativeColors[value.negative];
       }
-      return value;
-    });
+    }
+    return data;
   }
 }

@@ -1,7 +1,6 @@
 import { z } from "zod";
 
-const parseNumber = (value: unknown) =>
-  typeof value === "string" && value.trim() !== "" ? Number(value) : value;
+import { parseQueryNumber, queryBoolean } from "../http/query-validation";
 const rates = (min: number) =>
   z.preprocess(
     (value) => {
@@ -17,20 +16,16 @@ const rates = (min: number) =>
 
 const TreasuryBondsSchema = z.object({
   numberOfBonds: z.preprocess(
-    parseNumber,
+    parseQueryNumber,
     z.number().int().min(1).max(1000000),
   ),
-  month: z.preprocess(parseNumber, z.number().int().min(1).max(144)),
+  month: z.preprocess(parseQueryNumber, z.number().int().min(1).max(144)),
   inflation: rates(-0.99),
   // Accepted for existing clients; TOS has a fixed rate and never uses WIBOR.
   wibor6m: rates(0).optional().default([0]),
   referenceRate: rates(0),
   savingsRate: rates(0),
-  skipTax: z.preprocess((value) => {
-    if (value === undefined || value === "false") return false;
-    if (value === "true") return true;
-    return value;
-  }, z.boolean()),
+  skipTax: queryBoolean,
 });
 
 export type TreasuryBondsSchemaDTO = z.infer<typeof TreasuryBondsSchema>;

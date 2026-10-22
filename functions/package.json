@@ -4,11 +4,11 @@
     "lint": "eslint src",
     "build": "tsc",
     "build:watch": "tsc --watch",
-    "serve": "npm run build && node ../scripts/write-version.mjs functions && npx -y firebase-tools@latest emulators:start --only functions --project personal-finance-2ee61",
-    "shell": "npm run build && node ../scripts/write-version.mjs functions && npx -y firebase-tools@latest functions:shell --project personal-finance-2ee61",
+    "serve": "npm run build && node ../scripts/write-version.mjs functions && npx -y firebase-tools@15.34.1 emulators:start --only functions --project personal-finance-2ee61",
+    "shell": "npm run build && node ../scripts/write-version.mjs functions && npx -y firebase-tools@15.34.1 functions:shell --project personal-finance-2ee61",
     "start": "npm run shell",
-    "deploy": "npx -y firebase-tools@latest deploy --only functions --project personal-finance-2ee61",
-    "logs": "npx -y firebase-tools@latest functions:log --project personal-finance-2ee61",
+    "deploy": "npx -y firebase-tools@15.34.1 deploy --only functions --project personal-finance-2ee61",
+    "logs": "npx -y firebase-tools@15.34.1 functions:log --project personal-finance-2ee61",
     "test": "npm run build && mocha \"lib/**/*.test.js\""
   },
   "engines": {
@@ -16,25 +16,22 @@
   },
   "main": "lib/index.js",
   "dependencies": {
-    "cors": "^2.8.5",
-    "firebase-admin": "^12.6.0",
-    "firebase-functions": "^6.0.1",
-    "lodash": "^4.17.21",
-    "marked": "^14.1.3",
-    "zod": "^3.23.8"
+    "cors": "2.8.6",
+    "firebase-functions": "7.4.0",
+    "marked": "18.1.1",
+    "zod": "4.6.7",
+    "firebase-admin": "14.5.0"
   },
   "devDependencies": {
-    "@eslint/js": "8.57.1",
+    "@eslint/js": "10.0.1",
+    "@types/cors": "2.8.19",
     "@types/mocha": "10.0.10",
-    "@typescript-eslint/eslint-plugin": "^5.62.0",
-    "@typescript-eslint/parser": "^5.62.0",
-    "eslint": "^8.57.1",
-    "eslint-config-google": "^0.14.0",
-    "eslint-plugin-import": "^2.31.0",
-    "firebase-functions-test": "^3.1.0",
-    "globals": "13.24.0",
-    "mocha": "^10.8.2",
-    "typescript": "^5.6.3"
+    "@types/node": "22.20.5",
+    "eslint": "10.13.0",
+    "globals": "17.13.0",
+    "mocha": "12.0.3",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.72.0"
   },
   "private": true
 }

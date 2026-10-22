@@ -1,20 +1,24 @@
-import { mapValues } from 'lodash';
-import { getNOrLastValue } from '../calculations/calculations.service';
+import { getNOrLastValue } from "../calculations/calculations.service";
 import {
   CalculationParams,
   CalculationParamsByMonthFn,
   TreasuryBondsResult,
   TreasuryBondsSimpleResult,
-} from './treasury-bonds.model';
+} from "./treasury-bonds.model";
 
 export function simplifyResult(
-  result: TreasuryBondsResult
+  result: TreasuryBondsResult,
 ): TreasuryBondsSimpleResult {
-  return mapValues(result, (value) => value.finalValueAtEndOfMath);
+  return Object.fromEntries(
+    Object.entries(result).map(([month, value]) => [
+      month,
+      value.finalValueAtEndOfMath,
+    ]),
+  );
 }
 
 export function createCalculationParamsByMonthFn(
-  params: CalculationParams
+  params: CalculationParams,
 ): CalculationParamsByMonthFn {
   return (month) => {
     const year = Math.ceil(month / 12);

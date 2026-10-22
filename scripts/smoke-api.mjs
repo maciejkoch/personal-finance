@@ -77,7 +77,12 @@ async function checkContracts(host, name) {
     invalid.headers.get("access-control-allow-origin"),
     "http://localhost:4200",
   );
-  await invalid.arrayBuffer();
+  const error = await invalid.json();
+  assert.equal(error.name, "ZodError", `${name}: stable error name`);
+  assert.ok(
+    Array.isArray(error.issues) && error.issues.length > 0,
+    `${name}: validation issues`,
+  );
   const preflight = await fetch(`${host}/${name}`, {
     method: "OPTIONS",
     headers: {
@@ -95,6 +100,61 @@ async function checkContracts(host, name) {
     preflight.headers.get("access-control-allow-origin"),
     "http://localhost:4200",
   );
+
+  if (host !== local) return;
+  const params = cases.find(([endpoint]) => endpoint === name)[1];
+  const malformed = {
+    calculateSavingsHttpFunction: [
+      { duration: "1.5" },
+      { duration: "101" },
+      { inflation: "" },
+      { rate: "1.01" },
+      { skipTax: "yes" },
+    ],
+    calculateRegularContributionHttpFunction: [
+      { duration: "1.5" },
+      { duration: "101" },
+      { contribution: "0" },
+      { rate: "" },
+      { skipTax: "yes" },
+    ],
+    calculateTreasuryBondsHttpFunction: [
+      { month: "1.5" },
+      { month: "145" },
+      { inflation: "not-json" },
+      { skipTax: "yes" },
+    ],
+    articleHttpFunction: [{ slug: "../README" }, { slug: "" }],
+  }[name];
+  const queries = malformed.map(
+    (overrides) => new URLSearchParams({ ...params, ...overrides }),
+  );
+  const duplicate = new URLSearchParams(params);
+  const firstKey = Object.keys(params)[0];
+  duplicate.append(firstKey, params[firstKey]);
+  queries.push(duplicate);
+  for (const query of queries) {
+    const response = await fetch(`${host}/${name}?${query}`, {
+      signal: AbortSignal.timeout(30000),
+    });
+    assert.equal(
+      response.status,
+      400,
+      `${name}: reject malformed or repeated input: ${query}`,
+    );
+    const body = await response.json();
+    assert.equal(body.name, "ZodError");
+    assert.ok(body.issues.length > 0);
+  }
+  const deniedOrigin = await fetch(
+    `${host}/${name}?${new URLSearchParams(params)}`,
+    {
+      headers: { Origin: "https://untrusted.example" },
+      signal: AbortSignal.timeout(30000),
+    },
+  );
+  assert.equal(deniedOrigin.headers.get("access-control-allow-origin"), null);
+  await deniedOrigin.arrayBuffer();
 }
 
 let failed = false;

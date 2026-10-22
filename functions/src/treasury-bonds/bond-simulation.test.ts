@@ -5,7 +5,7 @@ import { TreasuryBondsSchemaDTO, validate } from "./treasury-bonds.dto";
 import { calculate, execute } from "./treasury-bonds";
 import { CalculationParams } from "./treasury-bonds.model";
 import { Request } from "firebase-functions/v2/https";
-import { Response } from "express";
+import type { HttpResponse as Response } from "../http/query-validation";
 
 const params: CalculationParams = {
   inflation: [0.035],

@@ -12,6 +12,7 @@ import {
   max,
   min,
   required,
+  validate,
 } from "@angular/forms/signals";
 import { useLocalStorage } from "@shared/local-storage/use-local-storage";
 import { z } from "zod";
@@ -19,7 +20,7 @@ import { LongTermSavingsRequest } from "../../model/long-term-savings.model";
 
 const formSchema = z.object({
   amount: z.number(),
-  duration: z.number(),
+  duration: z.number().int().min(1).max(100),
   inflation: z.number(),
   skipInflation: z.boolean(),
   rate: z.number(),
@@ -62,6 +63,11 @@ export class LongTermSavingsFormComponent {
     required(path.duration);
     min(path.duration, 1);
     max(path.duration, 100);
+    validate(path.duration, ({ value }) =>
+      Number.isInteger(value())
+        ? null
+        : { kind: "integer", message: "Podaj pełną liczbę lat." },
+    );
     required(path.rate);
     min(path.rate, 0);
     max(path.rate, 100);

@@ -1,46 +1,25 @@
-import { effect, signal } from '@angular/core';
-import { z, ZodType } from 'zod';
-
-const isLocalStorageAvailable = typeof localStorage !== 'undefined';
+import { effect, signal } from "@angular/core";
+import { z, ZodType } from "zod";
 
 export function useLocalStorage<T extends ZodType>(key: string, schema: T) {
   type SchemaType = z.infer<T>;
 
   function save(value: SchemaType) {
-    if (!isLocalStorageAvailable) {
-      return;
+    try {
+      localStorage.setItem(key, JSON.stringify(value));
+    } catch {
+      // Storage may be unavailable, blocked by the browser or full.
     }
-
-    const serializedValue = JSON.stringify(value);
-    localStorage.setItem(key, serializedValue);
   }
 
   function load(): SchemaType | null {
-    if (!isLocalStorageAvailable) {
-      return null;
-    }
-
-    const localStorageValue = localStorage.getItem(key);
-    const parsedValue = parseLocalStorageValue(localStorageValue);
-    const value = schema.safeParse(parsedValue);
-
-    if (value.error) {
-      console.log(value.error.errors);
-      return null;
-    }
-
-    return value.data;
-  }
-
-  function parseLocalStorageValue(value: string | null) {
-    if (!value) {
-      return null;
-    }
-
     try {
-      return JSON.parse(value);
+      const serialized = localStorage.getItem(key);
+      if (serialized === null) return null;
+      const parsed = schema.safeParse(JSON.parse(serialized));
+      return parsed.success ? parsed.data : null;
     } catch {
-      return value;
+      return null;
     }
   }
 
@@ -56,7 +35,7 @@ export function localStorageSignal<T extends ZodType>(key: string, schema: T) {
   const state = signal(instance.load());
   effect(() => {
     const value = state();
-    instance.save(value);
+    if (value !== null) instance.save(value);
   });
 
   return state;

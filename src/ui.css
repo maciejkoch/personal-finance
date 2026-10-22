@@ -28,6 +28,15 @@
 }
 
 @layer utilities {
+  .menu.mobile-navigation-menu {
+    --menu-active-bg: color-mix(
+      in oklab,
+      var(--color-base-content) 10%,
+      transparent
+    );
+    --menu-active-fg: var(--color-secondary);
+  }
+
   /* This flat theme has no decorative noise on buttons or alerts. */
   .btn,
   .alert {

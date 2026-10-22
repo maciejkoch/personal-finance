@@ -1,0 +1,183 @@
+{
+  "date": "2026-10-22",
+  "stage": "9a–9c",
+  "productionDeployment": false,
+  "node": "22.23.2",
+  "frontendVersions": {
+    "zod": "4.6.7",
+    "chart.js": "4.6.1",
+    "rxjs": "7.8.2",
+    "typescript": "6.0.3",
+    "eslint": "10.13.0",
+    "typescript-eslint": "8.72.0",
+    "prettier": "3.9.10",
+    "@angular/build": "22.2.4",
+    "@angular/cli": "22.2.4",
+    "@angular/ssr": "22.2.4",
+    "vite": "8.3.5",
+    "@humanfs/node": "0.16.8",
+    "postcss-selector-parser": "6.1.5"
+  },
+  "functionsVersions": {
+    "firebase-functions": "7.4.0",
+    "firebase-admin": "14.5.0",
+    "zod": "4.6.7",
+    "marked": "18.1.1",
+    "mocha": "12.0.3",
+    "typescript": "6.0.3",
+    "eslint": "10.13.0",
+    "typescript-eslint": "8.72.0",
+    "@humanfs/node": "0.16.8"
+  },
+  "overrides": {
+    "@angular/build": {
+      "vite": "8.3.5"
+    },
+    "@tailwindcss/typography": {
+      "postcss-selector-parser": "6.1.5"
+    }
+  },
+  "audits": {
+    "frontend": {
+      "vulnerabilities": {
+        "info": 0,
+        "low": 0,
+        "moderate": 2,
+        "high": 0,
+        "critical": 0,
+        "total": 2
+      },
+      "issues": [
+        {
+          "name": "@tailwindcss/typography",
+          "severity": "moderate",
+          "range": "<=0.0.0-insiders.fda8ce5 || >=0.5.5",
+          "via": ["postcss-selector-parser"],
+          "fixAvailable": {
+            "name": "@tailwindcss/typography",
+            "version": "0.5.4",
+            "isSemVerMajor": true
+          }
+        },
+        {
+          "name": "postcss-selector-parser",
+          "severity": "moderate",
+          "range": "<7.1.6",
+          "via": [
+            {
+              "source": 1241232,
+              "name": "postcss-selector-parser",
+              "dependency": "postcss-selector-parser",
+              "title": "PostCSS: Quadratic complexity in flat selector parsing allows CPU exhaustion",
+              "url": "https://github.com/advisories/GHSA-rj75-hqrm-r3gf",
+              "severity": "moderate",
+              "cwe": ["CWE-400", "CWE-407"],
+              "cvss": {
+                "score": 5.9,
+                "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:H"
+              },
+              "range": "<7.1.6"
+            }
+          ],
+          "fixAvailable": {
+            "name": "@tailwindcss/typography",
+            "version": "0.5.4",
+            "isSemVerMajor": true
+          }
+        }
+      ]
+    },
+    "frontend-production": {
+      "vulnerabilities": {
+        "info": 0,
+        "low": 0,
+        "moderate": 0,
+        "high": 0,
+        "critical": 0,
+        "total": 0
+      },
+      "issues": []
+    },
+    "functions": {
+      "vulnerabilities": {
+        "info": 0,
+        "low": 0,
+        "moderate": 0,
+        "high": 0,
+        "critical": 0,
+        "total": 0
+      },
+      "issues": []
+    },
+    "functions-production": {
+      "vulnerabilities": {
+        "info": 0,
+        "low": 0,
+        "moderate": 0,
+        "high": 0,
+        "critical": 0,
+        "total": 0
+      },
+      "issues": []
+    }
+  },
+  "checks": {
+    "frontendTests": {
+      "passed": 35,
+      "suites": 11
+    },
+    "functionsTests": {
+      "passed": 44
+    },
+    "lintFrontend": true,
+    "lintFunctions": true,
+    "specTypes": true,
+    "productionBuild": {
+      "passed": true,
+      "prerenderedRoutes": 8,
+      "initialBytesApprox": 456740
+    },
+    "peerDependencies": true,
+    "cleanInstallBoth": true,
+    "smokeApi": {
+      "endpoints": 4,
+      "compareProduction": true,
+      "validationAndCors": true
+    },
+    "smokeBonds": true,
+    "smokeHosting": true,
+    "baselineComparison": {
+      "calculationResponses": 3,
+      "articleHtmlDocuments": 2,
+      "identical": true
+    },
+    "cssParserUpgrade": {
+      "identicalOutput": true,
+      "sha256": "706fac1e9e63793679e84c2a3050ce7bb5129c002b827c4b811c09806c32790b"
+    },
+    "browser": {
+      "desktop": true,
+      "mobileWidth": 390,
+      "charts": true,
+      "localStorage": true,
+      "article": true
+    },
+    "devServer": {
+      "port": 4301,
+      "vite": "8.3.5",
+      "htmlAndTransformedScripts": true
+    },
+    "hostingAssets": {
+      "count": 47,
+      "http200": true,
+      "matchBuildBytes": true
+    }
+  },
+  "auditNote": {
+    "advisory": "https://github.com/postcss/postcss-selector-parser/security/advisories/GHSA-rj75-hqrm-r3gf",
+    "patched6x": "6.1.5",
+    "npmRange": "<7.1.6",
+    "note": "Official advisory lists the installed 6.1.5 as patched; npm audit still reports two moderate development dependency findings."
+  },
+  "scopeNote": "Shared workspace also contains concurrent branding and SEO changes outside stage 9."
+}

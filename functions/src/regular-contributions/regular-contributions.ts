@@ -1,10 +1,10 @@
-import * as express from 'express';
-import { Request } from 'firebase-functions/v2/https';
+import type { Request } from "firebase-functions/v2/https";
+import { HttpResponse, validationError } from "../http/query-validation";
 
-import { validate } from './regular-contributions.dto';
-import { calculate } from './regular-contributions.service';
+import { validate } from "./regular-contributions.dto";
+import { calculate } from "./regular-contributions.service";
 
-export function execute(request: Request, response: express.Response): void {
+export function execute(request: Request, response: HttpResponse): void {
   const regularContribution = validate(request.query);
 
   if (regularContribution.success) {
@@ -20,6 +20,6 @@ export function execute(request: Request, response: express.Response): void {
     }
   } else {
     response.status(400);
-    response.send(regularContribution.error);
+    response.send(validationError(regularContribution.error));
   }
 }

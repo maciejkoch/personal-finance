@@ -1,8 +1,10 @@
 const eslint = require("@eslint/js");
 const tseslint = require("typescript-eslint");
 const angular = require("angular-eslint");
+const { defineConfig } = require("eslint/config");
+const prettier = require("eslint-config-prettier/flat");
 
-module.exports = tseslint.config(
+module.exports = defineConfig(
   { ignores: ["dist/**", "coverage/**", "functions/**", ".angular/**"] },
   {
     files: ["src/**/*.ts"],
@@ -40,4 +42,5 @@ module.exports = tseslint.config(
     files: ["src/**/*.html"],
     extends: [...angular.configs.templateRecommended],
   },
+  prettier,
 );

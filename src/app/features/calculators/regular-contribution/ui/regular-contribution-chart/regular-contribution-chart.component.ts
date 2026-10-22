@@ -97,7 +97,7 @@ export class RegularContributionChartComponent {
             callbacks: {
               footer: (tooltipItems) => {
                 const sum = tooltipItems.reduce(
-                  (acc, item) => (acc += item.parsed.y),
+                  (acc, item) => acc + (item.parsed.y ?? 0),
                   0,
                 );
                 return `Suma: ${sum.toLocaleString()} zł`;
