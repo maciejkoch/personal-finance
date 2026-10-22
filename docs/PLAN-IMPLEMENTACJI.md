@@ -7,7 +7,7 @@ Etapy 0 i 1 wykonano 21.10.2026; szczegóły w [raporcie bazowym](ETAP-0-RAPORT.
 Etap 4 wdrożono 22.10.2026 z commita `d7d8e90`; [raport zmian](ETAP-4-RAPORT.md) i [kontrola produkcji](ETAP-4-WDROZENIE.md). Testy odbiorcze przeszły. Etap 4 zakończono.
 Etapy 5–7 zaimplementowano i sprawdzono lokalnie 22.10.2026: [Angular 20](ETAP-5-RAPORT.md), [Angular 21](ETAP-6-RAPORT.md) i [Angular 22.2.3](ETAP-7-RAPORT.md). Na prośbę użytkownika kontynuowano do najnowszej stabilnej wersji bez osobnej publikacji wersji pośrednich; rozszerzono zakres o Signal Forms we wszystkich trzech kalkulatorach. Docelowy frontend działa zoneless, z Vitest. Użytkownik zatwierdził commit i push; Hosting etapów 5–7 opublikowano razem z etapem 8 — [kontrola produkcji](ETAP-8-WDROZENIE.md).
 Etap 8 zaimplementowano i sprawdzono lokalnie 22.10.2026: Tailwind 4.3.3, daisyUI 5.7.50, CSS-first i poprawki dostępności — [raport etapu 8](ETAP-8-RAPORT.md). Wykonano commit `e7e104e`, push i wdrożenie Hostingu — [kontrola produkcji](ETAP-8-WDROZENIE.md).
-Etap 9 (9a–9c) zaimplementowano łącznie na polecenie użytkownika i sprawdzono lokalnie 22.10.2026: SDK Firebase, Zod 4, biblioteki i narzędzia — [raport etapu 9](ETAP-9-RAPORT.md). Gotowy do przeglądu i osobnego wdrożenia Functions, a następnie Hostingu.
+Etap 9 (9a–9c) wykonano łącznie 22.10.2026: SDK Firebase, Zod 4, biblioteki i narzędzia — [raport etapu 9](ETAP-9-RAPORT.md). Po poprawce kontrastu menu mobilnego na polecenie użytkownika wykonano commit `be222d7`, push i publikację Functions oraz Hostingu; [kontrola produkcji](ETAP-9-WDROZENIE.md) przeszła. Etap 9 zakończono.
 Wersje pakietów należy ponownie sprawdzić na początku odpowiedniego etapu.
 
 ## Sposób pracy
@@ -254,7 +254,7 @@ Wdrożenie: Hosting, po przeglądzie wizualnym.
 
 ### Etap 9a — Firebase SDK i zależności backendu
 
-Stan: implementacja i lokalny odbiór zakończone 22.10.2026; [raport etapu 9](ETAP-9-RAPORT.md). Bez publikacji produkcyjnej.
+Stan: implementacja, odbiór i publikacja z commita `be222d7` zakończone 22.10.2026; [raport etapu 9](ETAP-9-RAPORT.md) i [kontrola produkcji](ETAP-9-WDROZENIE.md).
 
 Zakres:
 
@@ -268,7 +268,7 @@ Wdrożenie: Functions. Na polecenie użytkownika przegląd łączny po 9a–9c.
 
 ### Etap 9b — Zod 4 i walidacja
 
-Stan: implementacja i lokalny odbiór zakończone 22.10.2026; [raport etapu 9](ETAP-9-RAPORT.md). Bez publikacji produkcyjnej.
+Stan: implementacja, odbiór i publikacja z commita `be222d7` zakończone 22.10.2026; [raport etapu 9](ETAP-9-RAPORT.md) i [kontrola produkcji](ETAP-9-WDROZENIE.md).
 
 Zakres: Zod 4 we frontendzie i Functions, walidacja HTTP, błędy API, format i migracja zapisów localStorage. Zachować zgodność poprawnych żądań dotychczasowych klientów.
 
@@ -278,7 +278,7 @@ Wdrożenie: kompatybilny backend, następnie Hosting. Na polecenie użytkownika 
 
 ### Etap 9c — pozostałe biblioteki i narzędzia
 
-Stan: implementacja i lokalny odbiór zakończone 22.10.2026; [raport etapu 9](ETAP-9-RAPORT.md). Bez publikacji produkcyjnej.
+Stan: implementacja, odbiór i publikacja z commita `be222d7` zakończone 22.10.2026; [raport etapu 9](ETAP-9-RAPORT.md) i [kontrola produkcji](ETAP-9-WDROZENIE.md).
 
 Zakres: aktualizacja Marked, Chart.js, RxJS, Lodash i pozostałych używanych pakietów; uporządkowanie ESLint/TypeScript ESLint i Prettier. Konfiguracja backendu obecnie miesza składnię konfiguracji płaskiej i legacy. Usunąć martwe zależności i sprawdzić podatności produkcyjne oraz narzędziowe. Nie używać automatycznego `audit fix --force`.
 

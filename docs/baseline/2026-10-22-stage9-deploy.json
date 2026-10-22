@@ -1,0 +1,75 @@
+{
+  "date": "2026-10-22",
+  "project": "personal-finance-2ee61",
+  "sourceCommit": "be222d7ca897f55584d55a39c91e857864b7b2d2",
+  "sourceBase": "1860192",
+  "hosting": {
+    "version": "projects/personal-finance-2ee61/sites/personal-finance-2ee61/versions/0133aaae92f3b24c",
+    "release": "projects/personal-finance-2ee61/sites/personal-finance-2ee61/channels/live/releases/1792696650476000",
+    "releasedAt": "2026-10-22T19:17:30.476Z",
+    "previousVersion": "projects/personal-finance-2ee61/sites/personal-finance-2ee61/versions/eca376453a928c28",
+    "previousRelease": "projects/personal-finance-2ee61/sites/personal-finance-2ee61/channels/live/releases/1792696001210000"
+  },
+  "checks": {
+    "checkedAt": "2026-10-22T19:18:05.632Z",
+    "frontend": {
+      "buildId": "be222d7-2026-10-22T19:13:19.468Z",
+      "commit": "be222d7ca897f55584d55a39c91e857864b7b2d2",
+      "dirty": false,
+      "builtAt": "2026-10-22T19:13:19.468Z",
+      "apiTarget": "production",
+      "offerVersion": "2026-10-v1",
+      "calculationVersion": 2,
+      "offerDataHash": "842b6e37a276a66bea362fca39fb13a1af3682af200a7824cbd1a964b232f0a8"
+    },
+    "backend": {
+      "buildId": "be222d7-2026-10-22T19:13:53.660Z",
+      "commit": "be222d7ca897f55584d55a39c91e857864b7b2d2",
+      "dirty": false,
+      "builtAt": "2026-10-22T19:13:53.660Z",
+      "apiTarget": "backend",
+      "offerVersion": "2026-10-v1",
+      "calculationVersion": 2,
+      "offerDataHash": "842b6e37a276a66bea362fca39fb13a1af3682af200a7824cbd1a964b232f0a8"
+    },
+    "assets": {
+      "count": 47,
+      "http200": true,
+      "bytesMatch": true
+    },
+    "api": {
+      "endpoints": 4,
+      "valid": true,
+      "malformed": true,
+      "cors": true,
+      "article404": true,
+      "requestDurationsMs": {
+        "calculateSavingsHttpFunction": 239,
+        "calculateRegularContributionHttpFunction": 169,
+        "calculateTreasuryBondsHttpFunction": 254,
+        "articleHttpFunction": 185
+      }
+    }
+  },
+  "functions": {
+    "runtime": "nodejs22",
+    "region": "us-central1",
+    "generation": 2,
+    "memoryMiB": 256,
+    "allFourNewBuilds": true,
+    "smokeApi": true,
+    "smokeBonds": true,
+    "errorLogsSince": "2026-10-22T19:13:49Z",
+    "errorLogsFound": 0
+  },
+  "browser": {
+    "mobileWidth": 390,
+    "activeMenuDarkHighlight": true,
+    "activeMenuText": "secondary",
+    "productionConsoleErrors": 0
+  },
+  "deploymentNotes": {
+    "functions": "Connector reported deployment succeeded, then failed only on configuring Artifact Registry cleanup policy. All four production build headers and tests confirm the new source. No cleanup policy was changed.",
+    "hosting": "Connector failed resolving the default site before publication. Published the verified artifact using firebase-tools 15.34.1 with explicit --project and --only hosting."
+  }
+}

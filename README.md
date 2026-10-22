@@ -2,7 +2,7 @@
 
 Kalkulatory finansowe w jednej aplikacji Angular CLI 22 oraz osobny backend Firebase Functions. Frontend działa bez Zone.js, korzysta z NgRx SignalStore i Signal Forms we wszystkich trzech kalkulatorach. Migrację Angular 19 → 20 → 21 → 22 sprawdzono lokalnie — [raport etapu 7](docs/ETAP-7-RAPORT.md). Style korzystają z Tailwind 4.3.3 i daisyUI 5.7.50 — [raport etapu 8](docs/ETAP-8-RAPORT.md). Docelowe zmiany są opisane w [planie](docs/PLAN-IMPLEMENTACJI.md), a pomiary i znane problemy w [raporcie etapu 0](docs/ETAP-0-RAPORT.md).
 
-Etap 9 zrealizowano lokalnie: Functions SDK 7.4.0, Admin SDK 14.5.0, Zod 4.6.7 w obu częściach, Marked 18.1.1, Chart.js 4.6.1 i ESLint 10.13.0. Usunięto Lodash oraz nieużywane zależności; CLI Firebase jest przypięte do 15.34.1. [Raport etapu 9](docs/ETAP-9-RAPORT.md) zawiera testy, audyt i uzasadnienie override’ów Vite oraz parsera CSS. Etap oczekuje na osobne polecenie publikacji.
+Etap 9 zrealizowano lokalnie: Functions SDK 7.4.0, Admin SDK 14.5.0, Zod 4.6.7 w obu częściach, Marked 18.1.1, Chart.js 4.6.1 i ESLint 10.13.0. Usunięto Lodash oraz nieużywane zależności; CLI Firebase jest przypięte do 15.34.1. [Raport etapu 9](docs/ETAP-9-RAPORT.md) zawiera testy, audyt i uzasadnienie override’ów Vite oraz parsera CSS. Na polecenie użytkownika opublikowano Functions i Hosting z commita `be222d7`, wraz z poprawką kontrastu menu mobilnego — [kontrola produkcji](docs/ETAP-9-WDROZENIE.md).
 
 ## Uruchomienie lokalne
 

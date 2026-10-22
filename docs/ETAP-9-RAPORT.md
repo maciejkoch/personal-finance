@@ -1,6 +1,6 @@
 # Etap 9 — SDK, walidacja i pozostałe zależności
 
-Stan: 22.10.2026. Podetapy 9a–9c wykonano łącznie na polecenie użytkownika, na bazie wdrożonego etapu 8 (`e7e104e`). Implementacja i lokalny odbiór zakończone. Produkcja czeka na osobne polecenie publikacji; nie wykonano commita ani push.
+Stan: 22.10.2026. Podetapy 9a–9c wykonano łącznie na polecenie użytkownika. Po poprawce kontrastu menu mobilnego wykonano commit `be222d7`, push na `main` oraz publikację Functions i Hostingu. Uwzględniono wcześniej opublikowany commit identyfikacji wizualnej `1860192`. [Kontrola produkcji](ETAP-9-WDROZENIE.md) przeszła pomyślnie.
 
 ## Wersje i porządki
 
@@ -81,11 +81,11 @@ Skrót maszynowy wyników i wersji: [kontrola etapu 9](baseline/2026-10-22-stage
 
 Na zgłoszenie użytkownika usunięto pomarańczowe tło aktywnego linku. daisyUI 5 styluje automatycznie `aria-current`; lokalna klasa menu ustawia jego `--menu-active-bg` na delikatne jasne wyróżnienie na ciemnym tle oraz `--menu-active-fg` na niebieski kolor secondary. Sprawdzono aktywny kalkulator i „O nas” przy szerokości 390 px oraz nawigację Enter. Użytkownik polecił commit, push i publikację całości.
 
-## Publikacja po przeglądzie
+## Publikacja po przeglądzie — wykonana
 
-1. Zachować i przejrzeć dokładny stan źródeł, uwzględniając równoległe zmiany workspace. Commit i push dopiero na osobne polecenie.
-2. Po poleceniu publikacji wdrożyć kompatybilne Functions (`npm run deploy:functions`), sprawdzić cztery endpointy i logi. Stary frontend zachowuje obsługę poprawnych danych.
-3. Wdrożyć Hosting (`npm run deploy`); zweryfikować `version.json`, formularze, artykuły, wykresy, ofertę i SEO. Na produkcji po nowym backendzie wykonać `smoke:api -- --production --contracts` i `smoke:bonds -- --production`.
+1. Po osobnym poleceniu użytkownika przejrzano całość zmian i połączono je z aktualnym `origin/main`. Commit źródeł: `be222d7`; push wykonano.
+2. Opublikowano kompatybilne Functions, sprawdzono cztery endpointy, identyfikator buildu i logi. Szczegóły ostrzeżenia o polityce sprzątania obrazów zapisano w raporcie publikacji.
+3. Opublikowano dokładnie lokalnie sprawdzony Hosting, bez ponownego buildu. Weryfikacja `version.json`, menu mobilnego, zasobów, formularzy, artykułów, oferty i SEO oraz produkcyjne smoke API i obligacji przeszły.
 4. Następny etap planu: 10 — treść i dalszy wzrost SEO.
 
 Źródła migracji: [Zod 4](https://zod.dev/v4/changelog), [Marked](https://marked.js.org/using_advanced), [ESLint flat config](https://eslint.org/docs/latest/use/configure/migration-guide). Wersje bibliotek i wymagania zgodności pochodzą z metadanych oficjalnego rejestru npm odczytanych 22.10.2026.
