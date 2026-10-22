@@ -1,6 +1,6 @@
 # Etap 4 — jedna aplikacja Angular CLI, bez Nx
 
-Stan: 22.10.2026. Implementacja i weryfikacja lokalna zakończone. Bazowy commit: `7e9b943`. Bez commita, push i wdrożenia zmian etapu 4.
+Stan: 22.10.2026. Etap 4 wdrożono z commita `d7d8e90`; [kontrola produkcji](ETAP-4-WDROZENIE.md). Implementacja i testy odbiorcze zakończone. Bazowy commit: `7e9b943`.
 
 ## Zmiany
 
@@ -52,6 +52,6 @@ Porównanie przeniesionych źródeł potwierdziło, że zmiany 67 plików TypeSc
 
 ## Przegląd i publikacja
 
-Zmiany są gotowe do przeglądu. Ewentualne wdrożenie obejmuje wyłącznie Hosting; zmiana listy CORS backendu dotyczy wyłącznie emulatora, a obliczenia i ustawienia produkcyjne pozostają zgodne z produkcją. Commit, push oraz deploy wymagają osobnego polecenia użytkownika. Po publikacji należy powtórzyć kontrolę HTTP/SEO i formularzy na domenie produkcyjnej oraz zapisać identyfikator wydania.
+Na polecenie użytkownika wykonano commit, push na `main` i wdrożenie wyłącznie Hostingu. Zmiana listy CORS backendu dotyczy wyłącznie emulatora; Functions nie były wdrażane. Kontrola produkcyjnego HTTP/SEO, zasobów, API i formularza obligacji przeszła. Identyfikatory wydania i poprzedniej wersji zapisano w [raporcie wdrożenia](ETAP-4-WDROZENIE.md) i [pliku bazowym](baseline/2026-10-22-stage4-deploy.json).
 
 Konfigurację workspace zweryfikowano ze schematem zainstalowanego Angular CLI 19 i [oficjalną dokumentacją Angular](https://angular.dev/reference/configs/workspace-config).

@@ -84,7 +84,7 @@ Metadane odświeżają się przy uruchomieniu polecenia, nie przy każdym HMR. P
 
 ## Wdrożenie po przeglądzie
 
-Projekt produkcyjny: `personal-finance-2ee61`. Zmian etapu 4 nie wdrożono. Publikacja produkcyjna, commit i push wymagają osobnego polecenia użytkownika.
+Projekt produkcyjny: `personal-finance-2ee61`. Etap 4 wdrożono 22.10.2026 — [kontrola produkcji](docs/ETAP-4-WDROZENIE.md). Publikacja produkcyjna, commit i push wymagają osobnego polecenia użytkownika.
 
 `npm run deploy` wykonuje świeży build produkcyjny i wdraża tylko Hosting. Po osobnym poleceniu użytkownika `npm run deploy:functions` wdraża wyłącznie Functions na Node 22. Hooki predeploy sprawdzają lint, budują backend i generują metadane. Po publikacji uruchom `npm run smoke:api -- --production --contracts` oraz sprawdź runtime i logi Functions.
 
