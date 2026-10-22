@@ -1,4 +1,4 @@
-<pfui-delayed-loader [loading]="loading()">
+<pfui-delayed-loader [loading]="loading() && !data()">
   <div content>
     @if (highestBond(); as data) {
       <div class="flex items-center justify-center">

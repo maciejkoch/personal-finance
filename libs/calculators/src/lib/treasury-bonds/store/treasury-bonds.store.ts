@@ -27,15 +27,15 @@ export const TreasuryBondsStore = signalStore(
     calculate: rxMethod<TreasuryBondsRequest>(
       pipe(
         switchMap((request) => {
-          patchState(store, { loading: true, result: null, error: null });
+          patchState(store, { loading: true, error: null });
           return dataSservice.calculate(request).pipe(
             tapResponse({
               next: (result) => patchState(store, { result }),
               error: () =>
                 patchState(store, {
-                  result: null,
-                  error:
-                    "Nie udało się pobrać zgodnych wyników. Odśwież stronę i spróbuj ponownie.",
+                  error: store.result()
+                    ? "Nie udało się zaktualizować wyników. Wyświetlamy poprzednie obliczenia. Spróbuj ponownie."
+                    : "Nie udało się pobrać zgodnych wyników. Odśwież stronę i spróbuj ponownie.",
                 }),
               finalize: () => patchState(store, { loading: false }),
             }),

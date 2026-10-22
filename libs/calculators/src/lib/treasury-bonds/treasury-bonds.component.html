@@ -86,6 +86,11 @@
 }
 
 @defer {
+  <p class="min-h-6 text-sm" role="status" aria-live="polite">
+    @if (loading()) {
+      Aktualizowanie wyników…
+    }
+  </p>
   <div class="flex flex-col lg:flex-row gap-4 mb-5 pt-5" #scrollToContainer>
     <div class="w-full lg:w-2/5 relative">
       <pf-treasury-bonds-form (changed)="calculate($event)" class="w-full" />

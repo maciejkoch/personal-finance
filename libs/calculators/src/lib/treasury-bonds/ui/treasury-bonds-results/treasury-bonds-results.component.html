@@ -5,7 +5,7 @@
   }}
 </h2>
 
-<pfui-delayed-loader [loading]="loading()">
+<pfui-delayed-loader [loading]="loading() && !results()">
   <div content>
     <label class="flex items-center">
       <input
