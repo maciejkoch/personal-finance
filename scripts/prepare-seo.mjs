@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { readFileSync, readdirSync, writeFileSync } from "node:fs";
 const pages = JSON.parse(
   readFileSync(
-    new URL("../apps/personal-finance/src/app/seo/pages.json", import.meta.url),
+    new URL("../src/app/core/seo/pages.json", import.meta.url),
     "utf8",
   ),
 );
@@ -31,7 +31,7 @@ for (const page of pages) {
   );
 }
 writeFileSync(
-  new URL("../apps/personal-finance/routes.txt", import.meta.url),
+  new URL("../routes.txt", import.meta.url),
   pages.map((p) => p.path).join("\n") + "\n/404\n",
 );
 const xml =
@@ -43,11 +43,8 @@ const xml =
     )
     .join("\n") +
   "\n</urlset>\n";
+writeFileSync(new URL("../public/sitemap.xml", import.meta.url), xml);
 writeFileSync(
-  new URL("../apps/personal-finance/public/sitemap.xml", import.meta.url),
-  xml,
-);
-writeFileSync(
-  new URL("../apps/personal-finance/public/robots.txt", import.meta.url),
+  new URL("../public/robots.txt", import.meta.url),
   "User-agent: *\nAllow: /\n\nSitemap: https://oszczedzify.org/sitemap.xml\n",
 );

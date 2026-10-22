@@ -4,7 +4,7 @@ const base = process.argv[2] ?? "https://oszczedzify.org";
 const preview = process.argv.includes("--preview");
 const pages = JSON.parse(
   readFileSync(
-    new URL("../apps/personal-finance/src/app/seo/pages.json", import.meta.url),
+    new URL("../src/app/core/seo/pages.json", import.meta.url),
     "utf8",
   ),
 );

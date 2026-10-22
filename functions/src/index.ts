@@ -12,6 +12,7 @@ setGlobalOptions({ maxInstances: 100 });
 
 const whitelist = [
   'http://localhost:4200', //
+  ...(process.env.FUNCTIONS_EMULATOR === 'true' ? ['http://localhost:4300'] : []),
   'https://personal-finance-2ee61.web.app',
   'https://oszczedzify.org'
 ];

@@ -7,10 +7,7 @@ import {
 } from "node:fs";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
-const source = new URL(
-  "../dist/apps/personal-finance/browser/",
-  import.meta.url,
-);
+const source = new URL("../dist/oszczedzify/browser/", import.meta.url);
 const destination = new URL("../dist/hosting-preview/", import.meta.url);
 rmSync(destination, { recursive: true, force: true });
 cpSync(source, destination, { recursive: true, force: true });

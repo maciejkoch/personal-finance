@@ -1,9 +1,6 @@
 import { copyFileSync, rmSync, readFileSync } from "node:fs";
 import assert from "node:assert/strict";
-const browser = new URL(
-  "../dist/apps/personal-finance/browser/",
-  import.meta.url,
-);
+const browser = new URL("../dist/oszczedzify/browser/", import.meta.url);
 // Firebase uses this document for missing paths while preserving HTTP 404.
 const notFound = new URL("404/index.html", browser);
 assert.match(readFileSync(notFound, "utf8"), /noindex, follow/);
@@ -18,7 +15,7 @@ assert.match(
 
 const pages = JSON.parse(
   readFileSync(
-    new URL("../apps/personal-finance/src/app/seo/pages.json", import.meta.url),
+    new URL("../src/app/core/seo/pages.json", import.meta.url),
     "utf8",
   ),
 );

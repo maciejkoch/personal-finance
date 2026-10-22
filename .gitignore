@@ -38,10 +38,6 @@ testem.log
 .DS_Store
 Thumbs.db
 
-.nx/cache
-.nx/workspace-data
-.nx/native
-
 .angular
 
 # Firebase
@@ -50,5 +46,5 @@ firebase-debug.log
 
 # Generated build metadata and local staging configuration
 .build-metadata/
-apps/personal-finance/public/version.json
-apps/personal-finance/src/environments/environment.staging.local.ts
+public/version.json
+src/environments/environment.staging.local.ts

@@ -1,33 +1,45 @@
-const nx = require('@nx/eslint-plugin');
+const eslint = require("@eslint/js");
+const tseslint = require("typescript-eslint");
+const angular = require("@angular-eslint/eslint-plugin");
+const angularTemplate = require("@angular-eslint/eslint-plugin-template");
+const angularTemplateParser = require("@angular-eslint/template-parser");
 
-module.exports = [
-  ...nx.configs['flat/base'],
-  ...nx.configs['flat/typescript'],
-  ...nx.configs['flat/javascript'],
+module.exports = tseslint.config(
+  { ignores: ["dist/**", "coverage/**", "functions/**", ".angular/**"] },
   {
-    ignores: ['**/dist'],
-  },
-  {
-    files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
+    files: ["src/**/*.ts"],
+    extends: [eslint.configs.recommended, ...tseslint.configs.recommended],
+    plugins: { "@angular-eslint": angular },
+    processor: angularTemplate.processors["extract-inline-html"],
     rules: {
-      '@nx/enforce-module-boundaries': [
-        'error',
-        {
-          enforceBuildableLibDependency: true,
-          allow: ['^.*/eslint(\\.base)?\\.config\\.[cm]?js$'],
-          depConstraints: [
-            {
-              sourceTag: '*',
-              onlyDependOnLibsWithTags: ['*'],
-            },
-          ],
-        },
+      ...angular.configs.recommended.rules,
+      "@angular-eslint/directive-selector": [
+        "error",
+        { type: "attribute", prefix: "pf", style: "camelCase" },
+      ],
+      "@angular-eslint/component-selector": [
+        "error",
+        { type: "element", prefix: "pf", style: "kebab-case" },
       ],
     },
   },
   {
-    files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
-    // Override or add rules here
-    rules: {},
+    files: ["src/app/shared/ui/**/*.ts"],
+    rules: {
+      "@angular-eslint/component-selector": [
+        "error",
+        { type: "element", prefix: "pfui", style: "kebab-case" },
+      ],
+      "@angular-eslint/directive-selector": [
+        "error",
+        { type: "attribute", prefix: "pfUi", style: "camelCase" },
+      ],
+    },
   },
-];
+  {
+    files: ["src/**/*.html"],
+    languageOptions: { parser: angularTemplateParser },
+    plugins: { "@angular-eslint/template": angularTemplate },
+    rules: { ...angularTemplate.configs.recommended.rules },
+  },
+);
