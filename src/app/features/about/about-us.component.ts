@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, ChangeDetectionStrategy } from "@angular/core";
 
 @Component({
-    selector: 'pf-about-us',
-    imports: [CommonModule],
-    templateUrl: './about-us.component.html'
+  selector: "pf-about-us",
+  imports: [],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  templateUrl: "./about-us.component.html",
 })
 export class AboutUsComponent {}

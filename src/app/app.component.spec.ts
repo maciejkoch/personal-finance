@@ -10,9 +10,9 @@ describe("AppComponent", () => {
     }).compileComponents();
   });
 
-  it("keeps calculators reachable through navigation", () => {
+  it("keeps calculators reachable through navigation", async () => {
     const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
+    await fixture.whenStable();
     const compiled = fixture.nativeElement as HTMLElement;
     for (const path of [
       "treasury-bonds",

@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -6,18 +5,18 @@ import {
   ElementRef,
   input,
   viewChild,
-} from '@angular/core';
-import Chart, { ChartItem } from 'chart.js/auto';
-import { LongTermSavingsData } from '../../model/long-term-savings.model';
+} from "@angular/core";
+import Chart, { ChartItem } from "chart.js/auto";
+import { LongTermSavingsData } from "../../model/long-term-savings.model";
 
 @Component({
-    selector: 'pf-long-term-savings-chart',
-    imports: [CommonModule],
-    templateUrl: './long-term-savings-chart.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+  selector: "pf-long-term-savings-chart",
+  imports: [],
+  templateUrl: "./long-term-savings-chart.component.html",
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LongTermSavingsChartComponent {
-  canvas = viewChild<ElementRef>('canvas');
+  canvas = viewChild<ElementRef>("canvas");
 
   data = input<LongTermSavingsData>();
 
@@ -35,18 +34,18 @@ export class LongTermSavingsChartComponent {
         const labels = data.map((value) => value.year);
         const totalContribution = data.map((value) => value.totalContribution);
         const interest = data.map(
-          (value) => value.compoundedInteres - value.totalContribution
+          (value) => value.compoundedInteres - value.totalContribution,
         );
 
         const totalContributionDataset = {
-          label: 'wpłaty',
+          label: "wpłaty",
           data: totalContribution,
-          backgroundColor: '#d97706',
+          backgroundColor: "#d97706",
         };
         const interestDataset = {
-          label: 'odsetki',
+          label: "odsetki",
           data: interest,
-          backgroundColor: '#0ea5e9',
+          backgroundColor: "#0ea5e9",
         };
 
         const datasets = this.data()?.skipRate
@@ -65,7 +64,7 @@ export class LongTermSavingsChartComponent {
 
   #createChart() {
     return new Chart(this.canvas()?.nativeElement as ChartItem, {
-      type: 'bar',
+      type: "bar",
       data: {
         labels: [],
         datasets: [
@@ -81,7 +80,7 @@ export class LongTermSavingsChartComponent {
           x: {
             stacked: true,
             title: {
-              text: 'Lata',
+              text: "Lata",
               display: true,
             },
           },
@@ -91,7 +90,7 @@ export class LongTermSavingsChartComponent {
         },
         interaction: {
           intersect: false,
-          mode: 'index',
+          mode: "index",
         },
         plugins: {
           tooltip: {
@@ -99,7 +98,7 @@ export class LongTermSavingsChartComponent {
               footer: (tooltipItems) => {
                 const sum = tooltipItems.reduce(
                   (acc, item) => (acc += item.parsed.y),
-                  0
+                  0,
                 );
                 return `Suma: ${sum.toLocaleString()} zł`;
               },

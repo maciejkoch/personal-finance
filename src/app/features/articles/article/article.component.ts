@@ -1,12 +1,17 @@
-import { CommonModule } from '@angular/common';
-import { Component, inject, input } from '@angular/core';
-import { ArticleStore } from './store/article.store';
+import {
+  Component,
+  inject,
+  input,
+  ChangeDetectionStrategy,
+} from "@angular/core";
+import { ArticleStore } from "./store/article.store";
 
 @Component({
-    selector: 'pf-article',
-    imports: [CommonModule],
-    templateUrl: './article.component.html',
-    providers: [ArticleStore]
+  selector: "pf-article",
+  imports: [],
+  templateUrl: "./article.component.html",
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [ArticleStore],
 })
 export class ArticleComponent {
   #store = inject(ArticleStore);

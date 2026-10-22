@@ -1,16 +1,21 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  inject,
+  effect,
   output,
-} from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { useConditionallyEnable } from "@shared/forms/conditionally-enable";
+  signal,
+} from "@angular/core";
+import {
+  disabled,
+  form,
+  FormField,
+  max,
+  min,
+  required,
+} from "@angular/forms/signals";
 import { useLocalStorage } from "@shared/local-storage/use-local-storage";
-import { debounceTime, startWith, tap } from 'rxjs';
-import { z } from 'zod';
-import { LongTermSavingsRequest } from '../../model/long-term-savings.model';
+import { z } from "zod";
+import { LongTermSavingsRequest } from "../../model/long-term-savings.model";
 
 const formSchema = z.object({
   amount: z.number(),
@@ -23,44 +28,19 @@ const formSchema = z.object({
 });
 
 @Component({
-    selector: 'pf-long-term-savings-form',
-    imports: [ReactiveFormsModule],
-    templateUrl: './long-term-savings-form.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+  selector: "pf-long-term-savings-form",
+  imports: [FormField],
+  templateUrl: "./long-term-savings-form.component.html",
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LongTermSavingsFormComponent {
-  #fb = inject(FormBuilder);
-
-  formLocalStorage = useLocalStorage('long-term-savings-form', formSchema);
-
-  changed = output<LongTermSavingsRequest>();
-
-  form = this.buildForm();
-
-  conditionallyEnable = useConditionallyEnable(this.form);
-
-  constructor() {
-    this.form.valueChanges
-      .pipe(
-        startWith(this.form.value),
-        tap((value) => {
-          this.conditionallyEnable(!value.skipInflation, 'inflation');
-          this.conditionallyEnable(!value.skipRate, 'rate', 'skipTax');
-        }),
-        debounceTime(300),
-        takeUntilDestroyed()
-      )
-      .subscribe(() => {
-        if (this.form.valid) {
-          const request = this.form.getRawValue();
-          this.formLocalStorage.save(request);
-          this.changed.emit(request);
-        }
-      });
-  }
-
-  private buildForm() {
-    const defaultValues = {
+  private readonly storage = useLocalStorage(
+    "long-term-savings-form",
+    formSchema,
+  );
+  readonly changed = output<LongTermSavingsRequest>();
+  readonly model = signal<LongTermSavingsRequest>(
+    this.storage.load() ?? {
       amount: 150000,
       duration: 15,
       inflation: 3.5,
@@ -68,35 +48,36 @@ export class LongTermSavingsFormComponent {
       rate: 10,
       skipRate: false,
       skipTax: false,
-    };
+    },
+  );
+  readonly form = form(this.model, (path) => {
+    required(path.amount);
+    min(path.amount, 1);
+    required(path.inflation);
+    min(path.inflation, 0);
+    max(path.inflation, 100);
+    disabled(path.inflation, {
+      when: ({ valueOf }) => valueOf(path.skipInflation),
+    });
+    required(path.duration);
+    min(path.duration, 1);
+    max(path.duration, 100);
+    required(path.rate);
+    min(path.rate, 0);
+    max(path.rate, 100);
+    disabled(path.rate, { when: ({ valueOf }) => valueOf(path.skipRate) });
+    disabled(path.skipTax, { when: ({ valueOf }) => valueOf(path.skipRate) });
+  });
 
-    const {
-      amount,
-      duration,
-      inflation,
-      skipInflation,
-      rate,
-      skipRate,
-      skipTax,
-    } = this.formLocalStorage.load() || defaultValues;
-
-    return this.#fb.nonNullable.group({
-      amount: [amount, [Validators.required, Validators.min(1)]],
-      duration: [
-        duration,
-        [Validators.required, Validators.min(1), Validators.max(100)],
-      ],
-      inflation: [
-        inflation,
-        [Validators.required, Validators.min(0), Validators.max(100)],
-      ],
-      skipInflation: [skipInflation],
-      rate: [
-        rate,
-        [Validators.required, Validators.min(0), Validators.max(100)],
-      ],
-      skipRate: [skipRate],
-      skipTax: [skipTax],
+  constructor() {
+    effect((onCleanup) => {
+      const request = this.model();
+      if (!this.form().valid()) return;
+      const timer = setTimeout(() => {
+        this.storage.save(request);
+        this.changed.emit(request);
+      }, 300);
+      onCleanup(() => clearTimeout(timer));
     });
   }
 }

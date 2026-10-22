@@ -1,11 +1,9 @@
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, input } from "@angular/core";
 
 @Component({
-    selector: 'pfui-accordion-item',
-    imports: [ReactiveFormsModule],
-    templateUrl: './accordion-item.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+  selector: "pfui-accordion-item",
+  templateUrl: "./accordion-item.component.html",
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AccordionItemComponent {
   hasBorder = input(true);

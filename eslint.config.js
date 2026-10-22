@@ -1,18 +1,18 @@
 const eslint = require("@eslint/js");
 const tseslint = require("typescript-eslint");
-const angular = require("@angular-eslint/eslint-plugin");
-const angularTemplate = require("@angular-eslint/eslint-plugin-template");
-const angularTemplateParser = require("@angular-eslint/template-parser");
+const angular = require("angular-eslint");
 
 module.exports = tseslint.config(
   { ignores: ["dist/**", "coverage/**", "functions/**", ".angular/**"] },
   {
     files: ["src/**/*.ts"],
-    extends: [eslint.configs.recommended, ...tseslint.configs.recommended],
-    plugins: { "@angular-eslint": angular },
-    processor: angularTemplate.processors["extract-inline-html"],
+    extends: [
+      eslint.configs.recommended,
+      ...tseslint.configs.recommended,
+      ...angular.configs.tsRecommended,
+    ],
+    processor: angular.processInlineTemplates,
     rules: {
-      ...angular.configs.recommended.rules,
       "@angular-eslint/directive-selector": [
         "error",
         { type: "attribute", prefix: "pf", style: "camelCase" },
@@ -38,8 +38,6 @@ module.exports = tseslint.config(
   },
   {
     files: ["src/**/*.html"],
-    languageOptions: { parser: angularTemplateParser },
-    plugins: { "@angular-eslint/template": angularTemplate },
-    rules: { ...angularTemplate.configs.recommended.rules },
+    extends: [...angular.configs.templateRecommended],
   },
 );

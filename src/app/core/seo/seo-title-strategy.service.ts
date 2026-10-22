@@ -1,5 +1,11 @@
-import { DOCUMENT, isPlatformBrowser } from "@angular/common";
-import { inject, Injectable, InjectionToken, PLATFORM_ID } from "@angular/core";
+import { isPlatformBrowser } from "@angular/common";
+import {
+  inject,
+  Injectable,
+  InjectionToken,
+  PLATFORM_ID,
+  DOCUMENT,
+} from "@angular/core";
 import { Meta, Title } from "@angular/platform-browser";
 import { RouterStateSnapshot, TitleStrategy } from "@angular/router";
 import pages from "./pages.json";

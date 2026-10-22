@@ -1,4 +1,4 @@
-<form [formGroup]="form">
+<form novalidate (submit)="$event.preventDefault()">
   <label class="form-control w-full">
     <div class="label">
       <span class="label-text">Twój cel</span>
@@ -8,7 +8,7 @@
       type="number"
       placeholder="1000"
       class="input input-bordered input-primary"
-      formControlName="amount"
+      [formField]="form.amount"
     />
   </label>
 
@@ -21,7 +21,7 @@
       type="number"
       class="input input-bordered input-primary"
       placeholder="10"
-      formControlName="duration"
+      [formField]="form.duration"
     />
   </label>
 
@@ -34,7 +34,7 @@
       type="number"
       class="input input-bordered input-primary"
       placeholder="3.5"
-      formControlName="inflation"
+      [formField]="form.inflation"
     />
   </label>
 
@@ -42,7 +42,7 @@
     <input
       type="checkbox"
       class="toggle toggle-primary"
-      formControlName="skipInflation"
+      [formField]="form.skipInflation"
     />
     <span class="ml-2">Pomiń inflację</span>
   </label>
@@ -56,7 +56,7 @@
       type="number"
       class="input input-bordered input-primary"
       placeholder="10"
-      formControlName="rate"
+      [formField]="form.rate"
     />
   </label>
 
@@ -64,7 +64,7 @@
     <input
       type="checkbox"
       class="toggle toggle-primary"
-      formControlName="skipRate"
+      [formField]="form.skipRate"
     />
     <span class="ml-2">Pomiń stopę zwrotu</span>
   </label>
@@ -73,8 +73,14 @@
     <input
       type="checkbox"
       class="toggle toggle-primary"
-      formControlName="skipTax"
+      [formField]="form.skipTax"
     />
     <span class="ml-2">Pomiń podatek Belki</span>
   </label>
+  @if (form().invalid()) {
+    <p class="text-error mt-3" role="alert">
+      Podaj poprawne wartości: kwota co najmniej 1 zł, okres od 1 do 100 lat,
+      stopy procentowe od 0 do 100%.
+    </p>
+  }
 </form>

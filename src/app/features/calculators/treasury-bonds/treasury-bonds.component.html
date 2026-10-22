@@ -109,7 +109,7 @@
       <pf-treasury-bonds-results [results]="result" [loading]="loading()" />
     </div>
   }
-  @defer (when result; prefetch on idle) {
+  @defer (when result(); prefetch on idle) {
     @if (result(); as result) {
       <pf-treasury-bonds-chart [data]="result" />
     }

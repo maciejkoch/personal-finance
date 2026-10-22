@@ -1,50 +1,75 @@
-import { TestBed, fakeAsync, tick } from "@angular/core/testing";
+import { TestBed } from "@angular/core/testing";
+import { vi } from "vitest";
 import { TreasuryBondsFormComponent } from "./treasury-bonds-form.component";
 import {
   bondFormDefaults,
   BOND_STORAGE_KEY,
 } from "../../model/treasury-bonds-form-state";
 
-describe("Bond form API contract", () => {
+const settle = () => new Promise((resolve) => setTimeout(resolve, 350));
+
+describe("Bond Signal Form API contract", () => {
   beforeEach(() => localStorage.clear());
 
-  it("converts years to months and sends skipTax, without a WIBOR assumption", fakeAsync(() => {
+  it("converts years to months and sends skipTax, without a WIBOR assumption", async () => {
     const fixture = TestBed.createComponent(TreasuryBondsFormComponent);
-    const received = jest.fn();
+    const received = vi.fn();
     fixture.componentInstance.changed.subscribe(received);
-    fixture.componentInstance.form.patchValue({ duration: 12, skipTax: true });
-    tick(301);
+    fixture.componentInstance.model.update((value) => ({
+      ...value,
+      duration: 12,
+      skipTax: true,
+    }));
+    await fixture.whenStable();
+    await settle();
     expect(received).toHaveBeenLastCalledWith(
       expect.objectContaining({ month: 144, skipTax: true, wibor6m: [0] }),
     );
     expect(JSON.parse(localStorage.getItem(BOND_STORAGE_KEY)!)).toMatchObject({
       schemaVersion: 2,
     });
-    fixture.destroy();
-  }));
+  });
 
-  it("blocks fractions and out-of-range years, and reset emits current defaults", fakeAsync(() => {
+  it("blocks fractions and out-of-range years, and reset emits current defaults", async () => {
     const fixture = TestBed.createComponent(TreasuryBondsFormComponent);
-    const received = jest.fn();
-    fixture.componentInstance.changed.subscribe(received);
+    const component = fixture.componentInstance;
+    const received = vi.fn();
+    component.changed.subscribe(received);
     for (const duration of [0, 13, 144, 1.5]) {
-      fixture.componentInstance.form.patchValue({ duration });
-      tick(301);
-      expect(fixture.componentInstance.form.invalid).toBe(true);
+      component.model.update((value) => ({ ...value, duration }));
+      await fixture.whenStable();
+      await settle();
+      expect(component.form().invalid()).toBe(true);
     }
-    expect(received).not.toHaveBeenCalled();
-    fixture.componentInstance.form.patchValue({
+    component.model.update((value) => ({
+      ...value,
       numberOfBonds: 1.5,
       duration: 1,
-    });
-    tick(301);
+    }));
+    await fixture.whenStable();
+    await settle();
     expect(received).not.toHaveBeenCalled();
-    fixture.componentInstance.resetToCurrentDefaults();
-    tick(301);
-    expect(fixture.componentInstance.form.getRawValue()).toEqual(
-      bondFormDefaults,
-    );
+    component.resetToCurrentDefaults();
+    await fixture.whenStable();
+    await settle();
+    expect(component.model()).toEqual(bondFormDefaults);
     expect(received).toHaveBeenCalledTimes(1);
-    fixture.destroy();
-  }));
+  });
+
+  it("cancels a pending valid calculation when a field is cleared", async () => {
+    const fixture = TestBed.createComponent(TreasuryBondsFormComponent);
+    const received = vi.fn();
+    fixture.componentInstance.changed.subscribe(received);
+    await fixture.whenStable();
+    const input: HTMLInputElement = fixture.nativeElement.querySelector(
+      'input[type="number"]',
+    );
+    input.value = "";
+    input.dispatchEvent(new Event("input", { bubbles: true }));
+    await fixture.whenStable();
+    await settle();
+    expect(fixture.componentInstance.form().invalid()).toBe(true);
+    expect(received).not.toHaveBeenCalled();
+    expect(localStorage.getItem(BOND_STORAGE_KEY)).toBeNull();
+  });
 });

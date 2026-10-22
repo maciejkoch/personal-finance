@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -6,18 +5,18 @@ import {
   ElementRef,
   input,
   viewChild,
-} from '@angular/core';
-import Chart, { ChartItem } from 'chart.js/auto';
-import { RegularContributionData } from '../../model/regular-contribution.model';
+} from "@angular/core";
+import Chart, { ChartItem } from "chart.js/auto";
+import { RegularContributionData } from "../../model/regular-contribution.model";
 
 @Component({
-    selector: 'pf-regular-contribution-chart',
-    imports: [CommonModule],
-    templateUrl: './regular-contribution-chart.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+  selector: "pf-regular-contribution-chart",
+  imports: [],
+  templateUrl: "./regular-contribution-chart.component.html",
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RegularContributionChartComponent {
-  canvas = viewChild<ElementRef>('canvas');
+  canvas = viewChild<ElementRef>("canvas");
 
   data = input<RegularContributionData>();
 
@@ -35,18 +34,18 @@ export class RegularContributionChartComponent {
         const labels = data.map((value) => value.year);
         const totalContribution = data.map((value) => value.totalContribution);
         const interest = data.map(
-          (value) => value.compoundedInteres - value.totalContribution
+          (value) => value.compoundedInteres - value.totalContribution,
         );
 
         const totalContributionDataset = {
-          label: 'wpłaty',
+          label: "wpłaty",
           data: totalContribution,
-          backgroundColor: '#d97706',
+          backgroundColor: "#d97706",
         };
         const interestDataset = {
-          label: 'odsetki',
+          label: "odsetki",
           data: interest,
-          backgroundColor: '#0ea5e9',
+          backgroundColor: "#0ea5e9",
         };
 
         const datasets = this.data()?.skipRate
@@ -65,7 +64,7 @@ export class RegularContributionChartComponent {
 
   #createChart() {
     return new Chart(this.canvas()?.nativeElement as ChartItem, {
-      type: 'bar',
+      type: "bar",
       data: {
         labels: [],
         datasets: [
@@ -81,7 +80,7 @@ export class RegularContributionChartComponent {
           x: {
             stacked: true,
             title: {
-              text: 'Lata',
+              text: "Lata",
               display: true,
             },
           },
@@ -91,7 +90,7 @@ export class RegularContributionChartComponent {
         },
         interaction: {
           intersect: false,
-          mode: 'index',
+          mode: "index",
         },
         plugins: {
           tooltip: {
@@ -99,7 +98,7 @@ export class RegularContributionChartComponent {
               footer: (tooltipItems) => {
                 const sum = tooltipItems.reduce(
                   (acc, item) => (acc += item.parsed.y),
-                  0
+                  0,
                 );
                 return `Suma: ${sum.toLocaleString()} zł`;
               },

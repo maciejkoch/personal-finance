@@ -1,10 +1,8 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ChangeDetectionStrategy, Component } from "@angular/core";
 
 @Component({
-    selector: 'pfui-accordion',
-    imports: [ReactiveFormsModule],
-    templateUrl: './accordion.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+  selector: "pfui-accordion",
+  templateUrl: "./accordion.component.html",
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AccordionComponent {}

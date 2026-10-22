@@ -1,6 +1,6 @@
 # Oszczędzify
 
-Kalkulatory finansowe w jednej aplikacji Angular CLI 19 oraz osobny backend Firebase Functions. Docelowe zmiany są opisane w [planie](docs/PLAN-IMPLEMENTACJI.md), a pomiary i znane problemy w [raporcie etapu 0](docs/ETAP-0-RAPORT.md).
+Kalkulatory finansowe w jednej aplikacji Angular CLI 22 oraz osobny backend Firebase Functions. Frontend działa bez Zone.js, korzysta z NgRx SignalStore i Signal Forms we wszystkich trzech kalkulatorach. Migrację Angular 19 → 20 → 21 → 22 sprawdzono lokalnie — [raport etapu 7](docs/ETAP-7-RAPORT.md). Docelowe zmiany są opisane w [planie](docs/PLAN-IMPLEMENTACJI.md), a pomiary i znane problemy w [raporcie etapu 0](docs/ETAP-0-RAPORT.md).
 
 ## Uruchomienie lokalne
 
@@ -59,7 +59,7 @@ public/
 functions/       # osobny backend, własny package.json i lockfile
 ```
 
-`angular.json` definiuje jeden projekt `personal-finance`. Skrypt `scripts/workspace.mjs` przygotowuje SEO i metadane wersji, a następnie uruchamia lokalne `ng serve` lub `ng build`. `npm test` uruchamia testy Jest. Wynik produkcyjny do Firebase Hosting: `dist/oszczedzify/browser`. Aliasy TypeScript to `@core/*`, `@features/*`, `@layout/*`, `@shared/*` i `@data/bond-offer`; Jest korzysta z tej samej mapy. Tailwind 3 skanuje bezpośrednio pliki `src`.
+`angular.json` definiuje jeden projekt `personal-finance` z builderami `@angular/build`. Skrypt `scripts/workspace.mjs` przygotowuje SEO i metadane wersji, a następnie uruchamia lokalne `ng serve` lub `ng build`. `npm test` uruchamia Vitest przez Angular CLI (`ng test --watch=false`), w trybie zoneless. Wynik produkcyjny do Firebase Hosting: `dist/oszczedzify/browser`. Aliasy TypeScript to `@core/*`, `@features/*`, `@layout/*`, `@shared/*` i `@data/bond-offer`; testy korzystają z tej samej mapy. Tailwind 3 skanuje bezpośrednio pliki `src`.
 
 ## Sprawdzenia
 
@@ -74,7 +74,7 @@ npm run smoke:api -- --contracts --compare-production
 
 Ostatnia komenda wysyła stałe, przykładowe dane do emulatora i produkcji, porównuje JSON czterech endpointów oraz sprawdza CORS i lokalny identyfikator buildu. `npm run smoke:api -- --production` sprawdza wyłącznie produkcję. Sprawdzenie obejmuje kontrakty HTTP; testy zgodności obligacji z ofertą są opisane w [raporcie etapu 2](docs/ETAP-2-RAPORT.md).
 
-`npm --prefix functions run lint` analizuje `src` poprawną konfiguracją flat config. Przechodzi z 33 ostrzeżeniami o istniejących asercjach non-null; brak błędów. Opcja `--contracts` w smoke sprawdza dodatkowo HTTP 400 dla błędnych żądań i HTTP 204 dla preflight CORS.
+`npm --prefix functions run lint` analizuje `src` poprawną konfiguracją flat config. Po czystej instalacji zależności przechodzi bez błędów i ostrzeżeń. Opcja `--contracts` w smoke sprawdza dodatkowo HTTP 400 dla błędnych żądań i HTTP 204 dla preflight CORS.
 
 ## Identyfikacja wydania
 

@@ -1,3 +1,4 @@
+import { vi } from "vitest";
 import { provideHttpClient } from "@angular/common/http";
 import {
   provideHttpClientTesting,
@@ -20,7 +21,7 @@ describe("Bond HTTP client", () => {
   afterEach(() => TestBed.inject(HttpTestingController).verify());
 
   it("serializes assumptions and rejects a backend with stale offer data", () => {
-    const error = jest.fn();
+    const error = vi.fn();
     TestBed.inject(TreasuryBondsDataService)
       .calculate({
         numberOfBonds: 1,

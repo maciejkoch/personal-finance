@@ -1,3 +1,4 @@
+import { vi } from "vitest";
 import { TestBed } from "@angular/core/testing";
 import { Subject } from "rxjs";
 import { TreasuryBondsDataService } from "../data/treasury-bonds-data.service";
@@ -45,7 +46,7 @@ describe("Bond recalculation", () => {
         {
           provide: TreasuryBondsDataService,
           useValue: {
-            calculate: jest.fn(() => {
+            calculate: vi.fn(() => {
               const response = new Subject<TreasuryBondsResult>();
               responses.push(response);
               return response;

@@ -1,10 +1,9 @@
 import { provideHttpClient, withFetch } from "@angular/common/http";
+import { ApplicationConfig, LOCALE_ID } from "@angular/core";
 import {
-  ApplicationConfig,
-  LOCALE_ID,
-  provideZoneChangeDetection,
-} from "@angular/core";
-import { provideClientHydration } from "@angular/platform-browser";
+  provideClientHydration,
+  withNoIncrementalHydration,
+} from "@angular/platform-browser";
 import {
   provideRouter,
   TitleStrategy,
@@ -29,12 +28,7 @@ export const appConfig: ApplicationConfig = {
     { provide: SEO_INDEXABLE, useValue: environment.seoIndexable },
     { provide: API_ENDPOINTS, useValue: environment.apiEndpoints },
     { provide: LOCALE_ID, useValue: "pl-PL" },
-    provideClientHydration(),
-    // TODO temporarily removed because:
-    // 1. pages are not pre-rendered
-    // 2. withViewTransitions throws weird error saying that "Injector has already been destroyed"
-    // provideExperimentalZonelessChangeDetection(),
-    provideZoneChangeDetection({ eventCoalescing: true }),
+    provideClientHydration(withNoIncrementalHydration()),
     provideRouter(
       appRoutes,
       withRouterConfig({

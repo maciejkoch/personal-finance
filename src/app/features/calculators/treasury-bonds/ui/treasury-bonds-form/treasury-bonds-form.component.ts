@@ -1,14 +1,20 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  inject,
+  effect,
   output,
+  signal,
 } from "@angular/core";
-import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
-import { FormBuilder, ReactiveFormsModule, Validators } from "@angular/forms";
+import {
+  form,
+  FormField,
+  max,
+  min,
+  required,
+  validate,
+} from "@angular/forms/signals";
 import { AccordionComponent } from "@shared/ui/accordion/accordion.component";
 import { AccordionItemComponent } from "@shared/ui/accordion/accordion-item/accordion-item.component";
-import { debounceTime, startWith } from "rxjs";
 import { TreasuryBondsRequest } from "../../model/treasury-bonds.model";
 import {
   BOND_STORAGE_KEY,
@@ -20,76 +26,67 @@ import {
 
 @Component({
   selector: "pf-treasury-bonds-form",
-  imports: [ReactiveFormsModule, AccordionComponent, AccordionItemComponent],
+  imports: [FormField, AccordionComponent, AccordionItemComponent],
   templateUrl: "./treasury-bonds-form.component.html",
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TreasuryBondsFormComponent {
-  #fb = inject(FormBuilder);
-  changed = output<TreasuryBondsRequest>();
-  form = this.buildForm();
+  readonly changed = output<TreasuryBondsRequest>();
+  readonly model = signal(this.load());
+  readonly form = form(this.model, (path) => {
+    required(path.numberOfBonds);
+    min(path.numberOfBonds, 1);
+    max(path.numberOfBonds, 1000000);
+    validate(path.numberOfBonds, ({ value }) =>
+      Number.isInteger(value())
+        ? undefined
+        : { kind: "integer", message: "Podaj pełną liczbę obligacji." },
+    );
+    required(path.duration);
+    min(path.duration, 1);
+    max(path.duration, 12);
+    validate(path.duration, ({ value }) =>
+      Number.isInteger(value())
+        ? undefined
+        : { kind: "integer", message: "Podaj pełną liczbę lat." },
+    );
+    required(path.inflation);
+    min(path.inflation, -99);
+    max(path.inflation, 100);
+    required(path.referenceRate);
+    min(path.referenceRate, 0);
+    max(path.referenceRate, 100);
+    required(path.rate);
+    min(path.rate, 0);
+    max(path.rate, 100);
+  });
 
   constructor() {
-    this.form.valueChanges
-      .pipe(startWith(this.form.value), debounceTime(300), takeUntilDestroyed())
-      .subscribe(() => {
-        if (this.form.valid) {
-          const value = this.form.getRawValue();
-          try {
-            localStorage.setItem(BOND_STORAGE_KEY, serializeBondForm(value));
-          } catch {
-            /* Storage may be unavailable. */
-          }
-          this.changed.emit(this.toRequest(value));
+    effect((onCleanup) => {
+      const value = this.model();
+      if (!this.form().valid()) return;
+      const timer = setTimeout(() => {
+        try {
+          localStorage.setItem(BOND_STORAGE_KEY, serializeBondForm(value));
+        } catch {
+          /* Storage may be unavailable. */
         }
-      });
+        this.changed.emit(this.toRequest(value));
+      }, 300);
+      onCleanup(() => clearTimeout(timer));
+    });
   }
 
   resetToCurrentDefaults() {
-    this.form.reset({ ...bondFormDefaults });
+    this.form().reset({ ...bondFormDefaults });
   }
 
-  private buildForm() {
-    let saved: string | null = null;
+  private load(): BondFormValue {
     try {
-      saved = localStorage.getItem(BOND_STORAGE_KEY);
+      return readBondForm(localStorage.getItem(BOND_STORAGE_KEY));
     } catch {
-      /* SSR or denied storage. */
+      return { ...bondFormDefaults };
     }
-    const value = readBondForm(saved);
-    return this.#fb.nonNullable.group({
-      numberOfBonds: [
-        value.numberOfBonds,
-        [
-          Validators.required,
-          Validators.min(1),
-          Validators.max(1000000),
-          Validators.pattern(/^\d+$/),
-        ],
-      ],
-      duration: [
-        value.duration,
-        [
-          Validators.required,
-          Validators.min(1),
-          Validators.max(12),
-          Validators.pattern(/^\d+$/),
-        ],
-      ],
-      inflation: [
-        value.inflation,
-        [Validators.required, Validators.min(-99), Validators.max(100)],
-      ],
-      referenceRate: [
-        value.referenceRate,
-        [Validators.required, Validators.min(0), Validators.max(100)],
-      ],
-      rate: [
-        value.rate,
-        [Validators.required, Validators.min(0), Validators.max(100)],
-      ],
-      skipTax: [value.skipTax],
-    });
   }
 
   private toRequest(value: BondFormValue): TreasuryBondsRequest {

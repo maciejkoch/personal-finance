@@ -5,11 +5,12 @@ Projekt Firebase: `personal-finance-2ee61`. Produkcja: <https://oszczedzify.org>
 
 Etapy 0 i 1 wykonano 21.10.2026; szczegóły w [raporcie bazowym](ETAP-0-RAPORT.md) i [raporcie etapu 1](ETAP-1-RAPORT.md). Etap 1 wdrożono do produkcyjnych Functions z commita `6d4b0c3`; testy produkcyjne przeszły. Hosting pozostał bez zmian. Etap 2 wdrożono 22.10.2026 z commita `caea9b4` do Functions i Hosting; [raport zmian](ETAP-2-RAPORT.md) i [kontrola produkcji](ETAP-2-WDROZENIE.md). Etap 3 zaimplementowano i sprawdzono lokalnie 22.10.2026; [raport etapu 3](ETAP-3-RAPORT.md). Hosting etapu 3 wdrożono 22.10.2026 z commita `706fc76`; [kontrola produkcji](ETAP-3-WDROZENIE.md). Sitemapę zgłoszono w Search Console (Sukces, 7 stron). Domena `www` została dodana jako przekierowanie; wymagany rekord CNAME zmieniono w Squarespace i potwierdzono w autorytatywnym DNS. Firebase potwierdził własność domeny; testy HTTPS i 301 dla siedmiu stron przeszły. Etap 3 zakończono.
 Etap 4 wdrożono 22.10.2026 z commita `d7d8e90`; [raport zmian](ETAP-4-RAPORT.md) i [kontrola produkcji](ETAP-4-WDROZENIE.md). Testy odbiorcze przeszły. Etap 4 zakończono.
+Etapy 5–7 zaimplementowano i sprawdzono lokalnie 22.10.2026: [Angular 20](ETAP-5-RAPORT.md), [Angular 21](ETAP-6-RAPORT.md) i [Angular 22.2.3](ETAP-7-RAPORT.md). Na prośbę użytkownika kontynuowano do najnowszej stabilnej wersji bez osobnej publikacji wersji pośrednich; rozszerzono zakres o Signal Forms we wszystkich trzech kalkulatorach. Docelowy frontend działa zoneless, z Vitest. Użytkownik zatwierdził commit i push; publikacja Hostingu wymaga osobnego polecenia.
 Wersje pakietów należy ponownie sprawdzić na początku odpowiedniego etapu.
 
 ## Sposób pracy
 
-1. Realizujemy jeden numerowany etap, następnie zatrzymujemy się na przegląd użytkownika.
+1. Realizujemy jeden numerowany etap, następnie zatrzymujemy się na przegląd użytkownika. Wyjątek zatwierdzony 22.10.2026: etapy 5–7 realizujemy łącznie do najnowszego Angulara, z kontrolą wersji pośrednich, Signal Forms i zoneless.
 2. Każdy etap kończy się opisem zmian, wynikiem istotnych testów i możliwością osobnego wdrożenia.
 3. Wdrożenie produkcyjne wykonujemy na polecenie użytkownika. Nie commitujemy ani nie pushujemy bez wyraźnego polecenia.
 4. Zachowujemy istniejące adresy publicznych stron i nazwy endpointów Functions. Ewentualne zmiany URL wymagają mapy przekierowań.
@@ -199,6 +200,8 @@ Wdrożenie: Hosting; Functions pozostają bez zmiany zachowania.
 
 ### Etap 5 — Angular 19 → 20
 
+Stan: implementacja i lokalne testy odbiorcze zakończone 22.10.2026. [Raport etapu 5](ETAP-5-RAPORT.md). Na prośbę użytkownika kontynuowano etapy 6 i 7 bez wdrożenia wersji pośredniej.
+
 Zakres: oficjalne migracje Angular CLI/core/SSR oraz NgRx 20, zgodne wersje TypeScript, Angular ESLint i narzędzi budowania. Tailwind 3 i daisyUI 4 pozostają na tym etapie.
 
 Odbiór: pełny build, testy, prerender, nawodnienie strony, localStorage, formularze i wykresy. Sprawdzić zgodność Node z obiema wersjami podczas migracji.
@@ -207,6 +210,8 @@ Wdrożenie: Hosting. Osobny punkt przeglądu przed etapem 6.
 
 ### Etap 6 — Angular 20 → 21
 
+Stan: migracja, 23 testy, lint, build i lokalny smoke Hostingu zakończone 22.10.2026. [Raport etapu 6](ETAP-6-RAPORT.md). Wersja pośrednia, bez wdrożenia; kontynuowano etap 7.
+
 Zakres: kolejny oficjalny major upgrade, NgRx 21 i dopasowane narzędzia. Zachować zachowanie obliczeń i istniejące formularze podczas samej migracji.
 
 Odbiór: te same kryteria co w etapie 5, z kontrolą zmian domyślnych ustawień Angulara.
@@ -214,6 +219,8 @@ Odbiór: te same kryteria co w etapie 5, z kontrolą zmian domyślnych ustawień
 Wdrożenie: Hosting. Osobny punkt przeglądu przed etapem 7.
 
 ### Etap 7 — Angular 21 → 22 i aktualny zestaw Angulara
+
+Stan: implementacja i lokalne testy odbiorcze zakończone 22.10.2026. Angular 22.2.3, NgRx 22.0.1, TypeScript 6.0.3, zoneless, Vitest 5 i Signal Forms w trzech kalkulatorach. [Raport etapu 7](ETAP-7-RAPORT.md). Użytkownik zatwierdził commit i push; bez wdrożenia.
 
 Zakres:
 
