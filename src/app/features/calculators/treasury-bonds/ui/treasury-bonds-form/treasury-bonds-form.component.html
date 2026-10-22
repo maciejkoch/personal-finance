@@ -3,29 +3,29 @@
     <pfui-accordion-item [opened]="true">
       <span title>Założenia główne</span>
       <div content>
-        <label class="form-control w-full">
-          <div class="label">
-            <span class="label-text">Liczba obligacji</span>
-            <span class="label-text-alt">(x 100zł)</span>
+        <label class="flex flex-col w-full">
+          <div class="flex justify-between items-center px-1 py-2">
+            <span class="text-sm">Liczba obligacji</span>
+            <span class="text-xs">(x 100zł)</span>
           </div>
           <input
             type="number"
             placeholder="1000"
-            class="input input-bordered input-primary"
+            class="input input-primary w-full text-base px-4"
             [formField]="form.numberOfBonds"
             step="1"
             [attr.aria-invalid]="form.numberOfBonds().invalid()"
           />
         </label>
 
-        <label class="form-control w-full">
-          <div class="label">
-            <span class="label-text">Okres</span>
-            <span class="label-text-alt">(lat)</span>
+        <label class="flex flex-col w-full">
+          <div class="flex justify-between items-center px-1 py-2">
+            <span class="text-sm">Okres</span>
+            <span class="text-xs">(lat)</span>
           </div>
           <input
             type="number"
-            class="input input-bordered input-primary"
+            class="input input-primary w-full text-base px-4"
             placeholder="10"
             [formField]="form.duration"
             step="1"
@@ -38,44 +38,44 @@
     <pfui-accordion-item>
       <span title>Założenia dodatkowe</span>
       <div content>
-        <label class="form-control w-full">
-          <div class="label">
-            <span class="label-text"> Szacowana inflacja</span>
-            <span class="label-text-alt">(%)</span>
+        <label class="flex flex-col w-full">
+          <div class="flex justify-between items-center px-1 py-2">
+            <span class="text-sm"> Szacowana inflacja</span>
+            <span class="text-xs">(%)</span>
           </div>
           <input
             type="number"
-            class="input input-bordered input-primary"
+            class="input input-primary w-full text-base px-4"
             placeholder="3.5"
             [formField]="form.inflation"
             step="0.1"
           />
         </label>
 
-        <label class="form-control w-full">
-          <div class="label">
-            <span class="label-text">Zakładana przyszła stopa NBP</span>
-            <span class="label-text-alt">(%)</span>
+        <label class="flex flex-col w-full">
+          <div class="flex justify-between items-center px-1 py-2">
+            <span class="text-sm">Zakładana przyszła stopa NBP</span>
+            <span class="text-xs">(%)</span>
           </div>
           <input
             type="number"
-            class="input input-bordered input-primary"
+            class="input input-primary w-full text-base px-4"
             placeholder="5"
             [formField]="form.referenceRate"
             step="0.1"
           />
         </label>
 
-        <label class="form-control w-full">
-          <div class="label">
-            <span class="label-text">
+        <label class="flex flex-col w-full">
+          <div class="flex justify-between items-center px-1 py-2">
+            <span class="text-sm">
               Zakładane oprocentowanie wypłaconych środków</span
             >
-            <span class="label-text-alt">(%)</span>
+            <span class="text-xs">(%)</span>
           </div>
           <input
             type="number"
-            class="input input-bordered input-primary"
+            class="input input-primary w-full text-base px-4"
             placeholder="0"
             [formField]="form.rate"
             step="0.1"

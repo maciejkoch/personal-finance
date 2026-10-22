@@ -1,0 +1,60 @@
+@import "tailwindcss" source(none);
+@import "./ui.css";
+
+@source "./app";
+@source not "./app/**/*.spec.ts";
+@plugin "@tailwindcss/typography";
+@plugin "daisyui" {
+  themes: false;
+  logs: false;
+}
+
+/* Explicit colors preserve the existing pf theme rather than inheriting v5 defaults. */
+@plugin "daisyui/theme" {
+  name: "pf";
+  default: true;
+  prefersdark: true;
+  color-scheme: dark;
+
+  --color-base-100: oklch(21.0084% 0.031763 264.664526);
+  --color-base-200: oklch(19.5379% 0.029539 264.664526);
+  --color-base-300: oklch(18.0673% 0.027316 264.664526);
+  --color-base-content: oklch(84.2017% 0.006353 264.664526);
+  --color-primary: oklch(66.584% 0.157422 58.31834);
+  --color-primary-content: oklch(13.3168% 0.031484 58.31834);
+  --color-secondary: oklch(68.4687% 0.147869 237.322518);
+  --color-secondary-content: oklch(13.6937% 0.029574 237.322518);
+  --color-accent: oklch(96.6956% 0.002874 264.541934);
+  --color-accent-content: oklch(19.3391% 0.000575 264.541934);
+  --color-neutral: oklch(70.4871% 0.186721 47.604421);
+  --color-neutral-content: oklch(14.0974% 0.037344 47.604421);
+  --color-info: oklch(48.8198% 0.217165 264.376304);
+  --color-info-content: oklch(89.764% 0.043433 264.376304);
+  --color-success: oklch(86.644% 0.294827 142.495339);
+  --color-success-content: oklch(17.3288% 0.058965 142.495339);
+  --color-warning: oklch(70.4871% 0.186721 47.604421);
+  --color-warning-content: oklch(14.0974% 0.037344 47.604421);
+  --color-error: oklch(73.4642% 0.162647 21.86394);
+  --color-error-content: oklch(14.6928% 0.032529 21.86394);
+
+  --radius-selector: 1.9rem;
+  --radius-field: 0.5rem;
+  --radius-box: 1rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.3rem;
+  --border: 1px;
+  --depth: 0;
+  --noise: 0;
+}
+
+@layer base {
+  html {
+    font-size: 16px;
+    overflow-y: scroll;
+  }
+
+  /* Retain the v3 default for borders that do not specify their own color. */
+  *, ::before, ::after {
+    border-color: var(--color-gray-200, currentColor);
+  }
+}

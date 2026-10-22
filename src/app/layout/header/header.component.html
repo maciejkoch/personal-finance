@@ -5,6 +5,8 @@
         class="btn btn-circle swap swap-rotate"
         [class.swap-active]="showMenu()"
         aria-label="Mobile menu"
+        [attr.aria-expanded]="showMenu()"
+        aria-controls="mobile-navigation"
         (click)="toggleMenu()"
       >
         <svg
@@ -34,7 +36,7 @@
     <div
       class="flex flex-1 items-center justify-center lg:items-stretch lg:justify-start"
     >
-      <div class="flex flex-shrink-0 items-center">
+      <div class="flex shrink-0 items-center">
         <a class="text-primary text-xl" [routerLink]="'/'">Oszczędzify</a>
       </div>
       <div class="hidden lg:ml-6 lg:block">
@@ -43,7 +45,12 @@
     </div>
   </div>
 
-  <div class="lg:hidden expandable" [class.expanded]="showMenu()">
+  <div
+    id="mobile-navigation"
+    class="lg:hidden expandable"
+    [class.expanded]="showMenu()"
+    [inert]="!showMenu()"
+  >
     <pf-navigation class="expandable-inner" (navigated)="showMenu.set(false)" />
   </div>
 </nav>

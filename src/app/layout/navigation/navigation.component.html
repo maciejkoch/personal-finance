@@ -1,5 +1,5 @@
 @if (desktop()) {
-  <ul class="menu hidden lg:menu-horizontal">
+  <ul class="menu hidden lg:flex lg:menu-horizontal">
     @for (item of items; track $index) {
       <li>
         <a
@@ -7,7 +7,7 @@
           [routerLinkActive]="'text-secondary'"
           [routerLinkActiveOptions]="{ exact: item.directMatch ?? false }"
           [routerLink]="item.link"
-          aria-current="page"
+          ariaCurrentWhenActive="page"
           (click)="navigated.emit()"
         >
           {{ item.label }}
@@ -20,22 +20,26 @@
     @for (item of items; track $index) {
       <li>
         @if (item.items) {
-          <button (click)="item.open.set(!item.open())">
+          <button
+            (click)="item.open.set(!item.open())"
+            [attr.aria-expanded]="item.open()"
+          >
             {{ item.label }}
           </button>
 
           <ul
-            class="max-h-0 overflow-hidden max transition-all ease-in-out duration-500"
+            class="max-h-0 overflow-hidden transition-all ease-in-out duration-500"
             [style.maxHeight.px]="
               item.open() ? item.items.length * item.itemHeight : 0
             "
+            [inert]="!item.open()"
           >
             @for (subitem of item.items; track $index) {
               <li>
                 <a
                   [routerLinkActive]="'text-secondary'"
                   [routerLink]="subitem.link"
-                  aria-current="page"
+                  ariaCurrentWhenActive="page"
                   (click)="navigated.emit()"
                 >
                   {{ subitem.label }}
@@ -48,7 +52,7 @@
             [routerLinkActive]="'text-secondary'"
             [routerLinkActiveOptions]="{ exact: item.directMatch ?? false }"
             [routerLink]="item.link"
-            aria-current="page"
+            ariaCurrentWhenActive="page"
             (click)="navigated.emit()"
           >
             {{ item.label }}

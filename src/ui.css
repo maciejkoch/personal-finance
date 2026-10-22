@@ -1,13 +1,10 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-html {
-  font-size: 16px;
-  overflow-y: scroll;
-}
-
 @layer utilities {
+  /* This flat theme has no decorative noise on buttons or alerts. */
+  .btn,
+  .alert {
+    background-image: none;
+  }
+
   .expandable {
     display: grid;
     grid-template-rows: 0fr;

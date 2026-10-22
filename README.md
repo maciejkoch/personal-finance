@@ -1,6 +1,6 @@
 # Oszczędzify
 
-Kalkulatory finansowe w jednej aplikacji Angular CLI 22 oraz osobny backend Firebase Functions. Frontend działa bez Zone.js, korzysta z NgRx SignalStore i Signal Forms we wszystkich trzech kalkulatorach. Migrację Angular 19 → 20 → 21 → 22 sprawdzono lokalnie — [raport etapu 7](docs/ETAP-7-RAPORT.md). Docelowe zmiany są opisane w [planie](docs/PLAN-IMPLEMENTACJI.md), a pomiary i znane problemy w [raporcie etapu 0](docs/ETAP-0-RAPORT.md).
+Kalkulatory finansowe w jednej aplikacji Angular CLI 22 oraz osobny backend Firebase Functions. Frontend działa bez Zone.js, korzysta z NgRx SignalStore i Signal Forms we wszystkich trzech kalkulatorach. Migrację Angular 19 → 20 → 21 → 22 sprawdzono lokalnie — [raport etapu 7](docs/ETAP-7-RAPORT.md). Style korzystają z Tailwind 4.3.3 i daisyUI 5.7.50 — [raport etapu 8](docs/ETAP-8-RAPORT.md). Docelowe zmiany są opisane w [planie](docs/PLAN-IMPLEMENTACJI.md), a pomiary i znane problemy w [raporcie etapu 0](docs/ETAP-0-RAPORT.md).
 
 ## Uruchomienie lokalne
 
@@ -59,7 +59,7 @@ public/
 functions/       # osobny backend, własny package.json i lockfile
 ```
 
-`angular.json` definiuje jeden projekt `personal-finance` z builderami `@angular/build`. Skrypt `scripts/workspace.mjs` przygotowuje SEO i metadane wersji, a następnie uruchamia lokalne `ng serve` lub `ng build`. `npm test` uruchamia Vitest przez Angular CLI (`ng test --watch=false`), w trybie zoneless. Wynik produkcyjny do Firebase Hosting: `dist/oszczedzify/browser`. Aliasy TypeScript to `@core/*`, `@features/*`, `@layout/*`, `@shared/*` i `@data/bond-offer`; testy korzystają z tej samej mapy. Tailwind 3 skanuje bezpośrednio pliki `src`.
+`angular.json` definiuje jeden projekt `personal-finance` z builderami `@angular/build`. Skrypt `scripts/workspace.mjs` przygotowuje SEO i metadane wersji, a następnie uruchamia lokalne `ng serve` lub `ng build`. `npm test` uruchamia Vitest przez Angular CLI (`ng test --watch=false`), w trybie zoneless. Wynik produkcyjny do Firebase Hosting: `dist/oszczedzify/browser`. Aliasy TypeScript to `@core/*`, `@features/*`, `@layout/*`, `@shared/*` i `@data/bond-offer`; testy korzystają z tej samej mapy. Tailwind 4 korzysta z pluginu `@tailwindcss/postcss` w `.postcssrc.json`. Konfiguracja CSS-first, motyw `pf` i jawne skanowanie `src/app` (bez testów) są w `src/styles.css`; wspólne style interakcji w `src/ui.css`. Pipeline stylów aplikacji używa CSS bez Sass.
 
 ## Sprawdzenia
 

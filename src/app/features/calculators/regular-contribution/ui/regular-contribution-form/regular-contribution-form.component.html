@@ -1,38 +1,38 @@
 <form novalidate (submit)="$event.preventDefault()">
-  <label class="form-control w-full">
-    <div class="label">
-      <span class="label-text">Twoja miesięczna składka</span>
-      <span class="label-text-alt">(zł)</span>
+  <label class="flex flex-col w-full">
+    <div class="flex justify-between items-center px-1 py-2">
+      <span class="text-sm">Twoja miesięczna składka</span>
+      <span class="text-xs">(zł)</span>
     </div>
     <input
       type="number"
       placeholder="1000"
-      class="input input-bordered input-primary"
+      class="input input-primary w-full text-base px-4"
       [formField]="form.contribution"
     />
   </label>
 
-  <label class="form-control w-full">
-    <div class="label">
-      <span class="label-text">Okres</span>
-      <span class="label-text-alt">(lat)</span>
+  <label class="flex flex-col w-full">
+    <div class="flex justify-between items-center px-1 py-2">
+      <span class="text-sm">Okres</span>
+      <span class="text-xs">(lat)</span>
     </div>
     <input
       type="number"
-      class="input input-bordered input-primary"
+      class="input input-primary w-full text-base px-4"
       placeholder="10"
       [formField]="form.duration"
     />
   </label>
 
-  <label class="form-control w-full">
-    <div class="label">
-      <span class="label-text"> Stopa zwrotu</span>
-      <span class="label-text-alt">(%)</span>
+  <label class="flex flex-col w-full">
+    <div class="flex justify-between items-center px-1 py-2">
+      <span class="text-sm"> Stopa zwrotu</span>
+      <span class="text-xs">(%)</span>
     </div>
     <input
       type="number"
-      class="input input-bordered input-primary"
+      class="input input-primary w-full text-base px-4"
       placeholder="10"
       [formField]="form.rate"
     />

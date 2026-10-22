@@ -3,6 +3,7 @@
     <div>
       <button
         class="flex justify-between items-center w-full"
+        [attr.aria-expanded]="expanded()"
         (click)="toggle()"
       >
         <h1 class="grow text-3xl font-bold">{{ title() }}</h1>
@@ -38,7 +39,7 @@
       </button>
 
       <div class="expandable" [class.expanded]="expanded()">
-        <div class="expandable-inner">
+        <div class="expandable-inner" [inert]="!expanded()">
           <p class="mt-6">
             {{ text() }}
           </p>

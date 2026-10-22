@@ -43,9 +43,10 @@ const positiveColors: Record<number, string> = {
 };
 
 const negativeColors: Record<number, string> = {
-  7: "#FF0000",
-  6: "#B22222",
-  5: "#CD5C5C",
+  // Keep every highlight above WCAG AA contrast on the dark table background.
+  7: "#FF5555",
+  6: "#EE6666",
+  5: "#DD7777",
   4: "#F08080",
   3: "#FA8072",
   2: "#FFA07A",
