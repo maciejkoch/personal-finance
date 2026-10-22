@@ -1,0 +1,72 @@
+{
+  "checkedAt": "2026-10-22T06:46:19.460755+00:00",
+  "project": "personal-finance-2ee61",
+  "frontend": {
+    "buildId": "706fc76-2026-10-22T06:31:27.914Z",
+    "commit": "706fc76008e302ccdecf12726ddae69a1016d4cf",
+    "dirty": false,
+    "builtAt": "2026-10-22T06:31:27.914Z",
+    "apiTarget": "production",
+    "offerVersion": "2026-10-v1",
+    "calculationVersion": 2,
+    "offerDataHash": "842b6e37a276a66bea362fca39fb13a1af3682af200a7824cbd1a964b232f0a8"
+  },
+  "hosting": {
+    "version": "projects/personal-finance-2ee61/sites/personal-finance-2ee61/versions/20aa0338c455f50e",
+    "release": "projects/personal-finance-2ee61/sites/personal-finance-2ee61/channels/live/releases/1792650770329000",
+    "releasedAt": "2026-10-22T06:32:50.329Z"
+  },
+  "functionsDeployed": false,
+  "productionSmoke": "passed",
+  "utility404": {
+    "productionStatus": 200,
+    "emulatorStatus": 404,
+    "robots": "noindex, follow",
+    "canonical": null
+  },
+  "searchConsole": {
+    "property": "sc-domain:oszczedzify.org",
+    "sitemap": "https://oszczedzify.org/sitemap.xml",
+    "status": "Sukces",
+    "discoveredPages": 7,
+    "inspections": {
+      "/": {
+        "index": "indexed",
+        "live": "indexable"
+      },
+      "/calculators/treasury-bonds": {
+        "index": "unknown to Google",
+        "live": "indexable"
+      },
+      "/calculators/regular-contribution": {
+        "index": "unknown to Google",
+        "live": "indexable"
+      },
+      "/calculators/long-term-savings": {
+        "index": "unknown to Google",
+        "live": "indexable"
+      }
+    }
+  },
+  "www": {
+    "domainCreated": true,
+    "redirectTarget": "oszczedzify.org",
+    "ownershipState": "OWNERSHIP_MISSING",
+    "certificateState": "CERT_VALIDATING",
+    "dnsRequired": {
+      "remove": {
+        "type": "A",
+        "name": "www",
+        "value": "199.36.158.100"
+      },
+      "add": {
+        "type": "CNAME",
+        "name": "www",
+        "value": "personal-finance-2ee61.web.app"
+      }
+    },
+    "dnsProvider": "Squarespace",
+    "dnsChanged": false,
+    "pending": "Squarespace Google reauthentication by user"
+  }
+}

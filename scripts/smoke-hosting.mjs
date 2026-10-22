@@ -107,7 +107,6 @@ for (const path of [
   "/calculators/missing",
   "/missing/deep/path",
   "/index.csr.html",
-  "/404",
 ]) {
   const { response, body } = await read(path);
   assert.equal(response.status, 404, `${path}: real HTTP 404`);
@@ -116,6 +115,17 @@ for (const path of [
   assert.ok(!body.includes('rel="canonical"'));
   console.log(`PASS ${path}: 404, noindex`);
 }
+// With cleanUrls, production Hosting exposes the authored 404.html document
+// at /404 with HTTP 200. The emulator instead returns 404 for this utility URL.
+// Arbitrary missing pages above must always retain a real HTTP 404.
+const { response: errorDocumentResponse, body: errorDocument } =
+  await read("/404");
+assert.ok([200, 404].includes(errorDocumentResponse.status));
+assert.ok(errorDocument.includes("Nie znaleziono strony"));
+assert.equal(meta(errorDocument, "name", "robots"), "noindex, follow");
+assert.ok(!errorDocument.includes('rel="canonical"'));
+console.log("PASS /404: authored error document, noindex, no canonical");
+
 const { response: robotsResponse, body: robots } = await read("/robots.txt");
 assert.equal(robotsResponse.status, 200);
 assert.match(robotsResponse.headers.get("content-type"), /text\/plain/);
