@@ -30,16 +30,20 @@ W usłudze domenowej `sc-domain:oszczedzify.org` zgłoszono `https://oszczedzify
 
 Zgłoszenie sitemapy i pomyślny test dostępności nie oznaczają natychmiastowej indeksacji ani poprawy pozycji. Zapis dotyczy stanu odczytanego w momencie kontroli.
 
-## www — konfiguracja dodana, oczekuje na DNS
+## www — DNS i przekierowanie działają
 
-Dodano custom domain `www.oszczedzify.org` do tego samego site z `redirectTarget: oszczedzify.org`. Operacja: `018b4afa-d738-4da5-88c3-2953b2230b85`. Firebase potwierdził `HOST_ACTIVE`, lecz `OWNERSHIP_MISSING`; certyfikat jest w `CERT_VALIDATING`.
+Dodano custom domain `www.oszczedzify.org` do tego samego site z `redirectTarget: oszczedzify.org`. Operacja: `018b4afa-d738-4da5-88c3-2953b2230b85`. Po utworzeniu domena oczekiwała na weryfikację własności i zmianę DNS.
 
-Firebase wymaga zastąpienia rekordu A dla `www` (`199.36.158.100`) rekordem:
+W Squarespace zastąpiono rekord A dla `www` (`199.36.158.100`) rekordem:
 
 | Typ | Nazwa | Wartość |
 | --- | --- | --- |
 | CNAME | www | personal-finance-2ee61.web.app |
 
-Rekordu A głównej domeny nie należy zmieniać. Zmianę wykonuje się u dostawcy DNS. Autorytatywne serwery to `ns-cloud-e1`–`ns-cloud-e4.googledomains.com`. Cloud DNS API jest wyłączone w projekcie Firebase; nie włączano go ani nie zakładano, że strefa domeny znajduje się w tym projekcie. Potwierdzono domenę i istniejący rekord A `www` w zalogowanym panelu Squarespace. Edycja wywołała okno „Verify to continue” z ponownym logowaniem Google. Narzędzie przeglądarki nie uruchomiło osadzonego przycisku Continue; użytkownik został poproszony o potwierdzenie sesji. Rekordu DNS jeszcze nie zmieniono.
+Rekord A głównej domeny pozostawiono bez zmian. Autorytatywne serwery to `ns-cloud-e1`–`ns-cloud-e4.googledomains.com`. Cloud DNS API jest wyłączone w projekcie Firebase; nie włączano go ani nie zakładano, że strefa domeny znajduje się w tym projekcie. Po dodatkowym potwierdzeniu sesji Google przez użytkownika zmieniono istniejący rekord `www` w Squarespace z A na CNAME `personal-finance-2ee61.web.app`, z zachowaniem TTL 4 godziny. Zapis potwierdzono w panelu oraz odpowiedzią autorytatywnego serwera `ns-cloud-e1.googledomains.com`. Rekord A głównej domeny oraz rekordy TXT pozostały bez zmian.
 
-Po propagacji DNS należy odczytać ponownie stan ownership/cert i sprawdzić HTTPS oraz 301 z `www` na domenę właściwą, w tym zachowanie ścieżki i query. Ten punkt pozostaje otwarty; nie oznaczono całego etapu 3 jako zakończonego.
+Końcowy odczyt API: `HOST_ACTIVE`, `OWNERSHIP_ACTIVE`, `redirectTarget: oszczedzify.org`. Pole stanu certyfikatu nadal pokazywało `CERT_PROPAGATING`, ale rzeczywiste połączenia HTTPS przechodziły standardową walidację TLS.
+
+Sprawdzono wszystkie siedem stron przez `https://www.oszczedzify.org`: każda zwraca 301 do odpowiadającego adresu bez `www`, a cel odpowiada 200. Osobno sprawdzono zachowanie ścieżki i query string oraz wejście na `www` w przeglądarce — kończy się na prawidłowej stronie głównej bez `www`. Po aktywacji własności wcześniejszy testowy adres z odpowiedzią 404 mógł pozostawać w cache CDN; nowe żądania i wszystkie właściwe adresy stron przeszły kontrolę.
+
+Etap 3 został wdrożony i przeszedł kontrolę odbiorczą. Nie ma otwartych czynności po stronie użytkownika dla DNS.

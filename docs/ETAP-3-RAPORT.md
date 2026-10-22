@@ -1,6 +1,6 @@
 # Etap 3 — techniczne SEO
 
-Stan: 22.10.2026. Hosting wdrożono z commita `706fc76`; [kontrola produkcji](ETAP-3-WDROZENIE.md). Testy produkcyjne przeszły, Search Console przyjął sitemapę i wykrył siedem stron. Do domknięcia etapu pozostaje zmiana DNS dla `www`, aktywacja certyfikatu i test przekierowania. Bazowy commit implementacji: `1150d6d`. Functions nie zostały zmienione.
+Stan: 22.10.2026. Hosting wdrożono z commita `706fc76`; [kontrola produkcji](ETAP-3-WDROZENIE.md). Testy produkcyjne przeszły, Search Console przyjął sitemapę i wykrył siedem stron. Rekord DNS `www` zmieniono na wymagany CNAME; Firebase potwierdził własność domeny, a testy HTTPS i 301 dla siedmiu stron przeszły. Etap 3 zakończono. Bazowy commit implementacji: `1150d6d`. Functions nie zostały zmienione.
 
 ## Zmiany
 

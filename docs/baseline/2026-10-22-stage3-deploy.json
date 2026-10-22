@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-10-22T06:46:19.460755+00:00",
+  "checkedAt": "2026-10-22T07:14:18.760Z",
   "project": "personal-finance-2ee61",
   "frontend": {
     "buildId": "706fc76-2026-10-22T06:31:27.914Z",
@@ -51,9 +51,80 @@
   "www": {
     "domainCreated": true,
     "redirectTarget": "oszczedzify.org",
-    "ownershipState": "OWNERSHIP_MISSING",
-    "certificateState": "CERT_VALIDATING",
-    "dnsRequired": {
+    "ownershipState": "OWNERSHIP_ACTIVE",
+    "certificateState": "CERT_PROPAGATING",
+    "dnsProvider": "Squarespace",
+    "dnsChanged": true,
+    "pending": null,
+    "dnsRecord": {
+      "type": "CNAME",
+      "name": "www",
+      "value": "personal-finance-2ee61.web.app",
+      "ttlSeconds": 14400
+    },
+    "authoritativeDnsVerified": true,
+    "tlsVerified": true,
+    "redirectStatus": 301,
+    "hostState": "HOST_ACTIVE",
+    "verifiedRedirects": [
+      {
+        "path": "/",
+        "status": 301,
+        "destinationStatus": 200,
+        "pathAndQueryPreserved": true,
+        "tlsVerified": true,
+        "plainUrlStatus": 301
+      },
+      {
+        "path": "/calculators/treasury-bonds",
+        "status": 301,
+        "destinationStatus": 200,
+        "pathAndQueryPreserved": true,
+        "tlsVerified": true,
+        "plainUrlStatus": 301
+      },
+      {
+        "path": "/calculators/regular-contribution",
+        "status": 301,
+        "destinationStatus": 200,
+        "pathAndQueryPreserved": true,
+        "tlsVerified": true,
+        "plainUrlStatus": 301
+      },
+      {
+        "path": "/calculators/long-term-savings",
+        "status": 301,
+        "destinationStatus": 200,
+        "pathAndQueryPreserved": true,
+        "tlsVerified": true,
+        "plainUrlStatus": 301
+      },
+      {
+        "path": "/about-us",
+        "status": 301,
+        "destinationStatus": 200,
+        "pathAndQueryPreserved": true,
+        "tlsVerified": true,
+        "plainUrlStatus": 301
+      },
+      {
+        "path": "/oszczedzaj-regularnie",
+        "status": 301,
+        "destinationStatus": 200,
+        "pathAndQueryPreserved": true,
+        "tlsVerified": true,
+        "plainUrlStatus": 301
+      },
+      {
+        "path": "/kalkulator-obligacji-skarbowych",
+        "status": 301,
+        "destinationStatus": 200,
+        "pathAndQueryPreserved": true,
+        "tlsVerified": true,
+        "plainUrlStatus": 301
+      }
+    ],
+    "dnsChange": {
       "remove": {
         "type": "A",
         "name": "www",
@@ -64,9 +135,7 @@
         "name": "www",
         "value": "personal-finance-2ee61.web.app"
       }
-    },
-    "dnsProvider": "Squarespace",
-    "dnsChanged": false,
-    "pending": "Squarespace Google reauthentication by user"
-  }
+    }
+  },
+  "stageStatus": "deployed and acceptance verified"
 }
