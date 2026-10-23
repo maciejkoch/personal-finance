@@ -16,6 +16,12 @@ describe("Navigation submenus", () => {
     }),
   );
 
+  it("should create", async () => {
+    const fixture = TestBed.createComponent(NavigationComponent);
+    await fixture.whenStable();
+    expect(fixture.componentInstance).toBeTruthy();
+  });
+
   it("closes the desktop submenu on Escape or link selection and returns keyboard focus", async () => {
     const fixture = TestBed.createComponent(NavigationComponent);
     fixture.componentRef.setInput("desktop", true);

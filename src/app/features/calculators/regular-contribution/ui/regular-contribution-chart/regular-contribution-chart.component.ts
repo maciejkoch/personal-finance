@@ -41,7 +41,7 @@ export class RegularContributionChartComponent {
 
   data = input<RegularContributionData>();
 
-  #chart: Chart | null = null;
+  #chart: Chart<"bar", number[], number> | null = null;
 
   constructor() {
     inject(DestroyRef).onDestroy(() => this.#chart?.destroy());
@@ -85,50 +85,53 @@ export class RegularContributionChartComponent {
   }
 
   #createChart() {
-    return new Chart(this.canvas()?.nativeElement as ChartItem, {
-      type: "bar",
-      data: {
-        labels: [],
-        datasets: [
-          {
-            data: [],
-          },
-        ],
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        scales: {
-          x: {
-            stacked: true,
-            title: {
-              text: "Lata",
-              display: true,
+    return new Chart<"bar", number[], number>(
+      this.canvas()?.nativeElement as ChartItem,
+      {
+        type: "bar",
+        data: {
+          labels: [],
+          datasets: [
+            {
+              data: [],
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            x: {
+              stacked: true,
+              title: {
+                text: "Lata",
+                display: true,
+              },
+            },
+            y: {
+              stacked: true,
             },
           },
-          y: {
-            stacked: true,
+          interaction: {
+            intersect: false,
+            mode: "index",
           },
-        },
-        interaction: {
-          intersect: false,
-          mode: "index",
-        },
-        plugins: {
-          tooltip: {
-            callbacks: {
-              footer: (tooltipItems) => {
-                const sum = tooltipItems.reduce(
-                  (acc, item) => acc + (item.parsed.y ?? 0),
-                  0,
-                );
-                return `Suma: ${sum.toLocaleString()} zł`;
+          plugins: {
+            tooltip: {
+              callbacks: {
+                footer: (tooltipItems) => {
+                  const sum = tooltipItems.reduce(
+                    (acc, item) => acc + (item.parsed.y ?? 0),
+                    0,
+                  );
+                  return `Suma: ${sum.toLocaleString()} zł`;
+                },
               },
             },
           },
         },
       },
-    });
+    );
   }
 }
 
