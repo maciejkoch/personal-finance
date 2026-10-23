@@ -3,9 +3,22 @@ import {
   input,
   output,
   signal,
+  inject,
   ChangeDetectionStrategy,
 } from "@angular/core";
-import { RouterLink, RouterLinkActive } from "@angular/router";
+import {
+  NavigationEnd,
+  Router,
+  RouterLink,
+  RouterLinkActive,
+} from "@angular/router";
+import { toSignal } from "@angular/core/rxjs-interop";
+import { filter, map } from "rxjs";
+import {
+  CALCULATOR_LINKS,
+  GUIDE_LINKS,
+  SectionLink,
+} from "@core/navigation/section-links";
 
 @Component({
   selector: "pf-navigation",
@@ -16,49 +29,37 @@ import { RouterLink, RouterLinkActive } from "@angular/router";
 export class NavigationComponent {
   desktop = input(false);
 
-  items = [
+  private readonly router = inject(Router);
+  private readonly currentUrl = toSignal(
+    this.router.events.pipe(
+      filter((event) => event instanceof NavigationEnd),
+      map((event) => event.urlAfterRedirects),
+    ),
+    { initialValue: this.router.url },
+  );
+
+  readonly items = [
     {
+      link: "/kalkulatory",
       label: "Kalkulatory",
       open: signal(false),
       itemHeight: 52,
-      items: [
-        {
-          link: "/kalkulatory/obligacje-skarbowe",
-          label: "Obligacje skarbowe",
-        },
-        {
-          link: "/kalkulatory/oszczedzanie-na-cel",
-          label: "Cel długoterminowy",
-        },
-        {
-          link: "/kalkulatory/regularne-oszczedzanie",
-          label: "Regularne oszczędzanie",
-        },
-      ],
+      items: CALCULATOR_LINKS,
     },
     {
+      link: GUIDE_LINKS[0].link,
       label: "Poradniki",
       open: signal(false),
       itemHeight: 52,
-      items: [
-        {
-          link: "/kalkulator-obligacji-skarbowych",
-          label: "Poradnik obligacji",
-        },
-        {
-          link: "/oszczedzaj-regularnie",
-          label: "Poradnik oszczędzania",
-        },
-      ],
+      items: GUIDE_LINKS,
     },
     { link: "/o-nas", label: "O nas" },
   ];
 
-  navigated = output();
-
-  closeOnFocusLeave(event: FocusEvent, submenu: HTMLDetailsElement) {
-    if (!submenu.contains(event.relatedTarget as Node | null)) {
-      submenu.open = false;
-    }
+  isActive(item: { link: string; items?: readonly SectionLink[] }): boolean {
+    const path = this.currentUrl().split(/[?#]/)[0].replace(/\/$/, "") || "/";
+    return (item.items ?? [item]).some((link) => link.link === path);
   }
+
+  navigated = output();
 }

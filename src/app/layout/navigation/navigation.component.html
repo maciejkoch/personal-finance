@@ -2,49 +2,14 @@
   <ul class="menu hidden lg:flex lg:menu-horizontal">
     @for (item of items; track $index) {
       <li>
-        @if (item.items) {
-          <details
-            #submenu
-            name="desktop-navigation"
-            routerLinkActive
-            #active="routerLinkActive"
-            (keydown.escape)="submenu.open = false; disclosure.focus()"
-            (focusout)="closeOnFocusLeave($event, submenu)"
-          >
-            <summary
-              #disclosure
-              class="text-lg"
-              [class.text-secondary]="active.isActive"
-            >
-              {{ item.label }}
-            </summary>
-            <ul class="z-50 min-w-64 rounded-box bg-base-200 p-2 shadow-lg">
-              @for (subitem of item.items; track subitem.link) {
-                <li>
-                  <a
-                    [routerLink]="subitem.link"
-                    routerLinkActive="text-secondary"
-                    ariaCurrentWhenActive="page"
-                    (click)="submenu.open = false; navigated.emit()"
-                  >
-                    {{ subitem.label }}
-                  </a>
-                </li>
-              }
-            </ul>
-          </details>
-        } @else {
-          <a
-            class="btn btn-ghost text-lg"
-            [routerLinkActive]="'text-secondary'"
-            [routerLinkActiveOptions]="{ exact: true }"
-            [routerLink]="item.link"
-            ariaCurrentWhenActive="page"
-            (click)="navigated.emit()"
-          >
-            {{ item.label }}
-          </a>
-        }
+        <a
+          class="btn btn-ghost text-lg"
+          [class.text-secondary]="isActive(item)"
+          [attr.aria-current]="isActive(item) ? 'true' : null"
+          [routerLink]="item.link"
+          (click)="navigated.emit()"
+          >{{ item.label }}</a
+        >
       </li>
     }
   </ul>

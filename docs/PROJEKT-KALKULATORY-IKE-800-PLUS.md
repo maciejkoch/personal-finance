@@ -15,7 +15,7 @@ Dokument uwzględnia końcową decyzję: osobne obliczenia i reguły dla rynków
 - Limit rodzinny pozostaje opisanym ograniczeniem, bez jego wyliczania.
 - Wzory w metodologii oszczędzania na cel i regularnych wpłat są zapisane w natywnym MathML: osobne bloki, ułamki, potęgi i legenda symboli. Nie dodano bibliotek; wzory są obecne po prerenderze i mają opisy dla czytników ekranu.
 - Stopka wskazuje rok 2026 i zawiera polską treść praw autorskich.
-- Menu główne zawiera Kalkulatory, Poradniki i O nas. Dwie pierwsze pozycje mają podmenu na desktopie i mobile; wybór linku zamyka podmenu, Escape na desktopie przywraca fokus. Oba poradniki są również podlinkowane w stopce; linki stopki zawijają się na wąskim ekranie.
+- Menu główne zawiera Kalkulatory, Poradniki i O nas. Na desktopie są to zwykłe linki; kalkulatory i poradniki korzystają ze wspólnego układu bocznego menu po lewej. Na telefonie Kalkulatory i Poradniki zachowują rozwijane podmenu, a wybór linku zamyka menu główne. Oba poradniki są również podlinkowane w stopce; linki stopki zawijają się na wąskim ekranie.
 - W obligacjach pod nagłówkiem są formularz i wyniki; tabela oferty zakupu, założenia i metodologia znajdują się poniżej wyników oraz wykresów.
 
 ## Granice architektury

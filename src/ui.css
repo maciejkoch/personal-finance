@@ -70,7 +70,8 @@
 }
 
 @layer utilities {
-  .menu.mobile-navigation-menu {
+  .menu.mobile-navigation-menu,
+  .menu.section-navigation-menu {
     --menu-active-bg: color-mix(
       in oklab,
       var(--color-base-content) 10%,

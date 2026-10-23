@@ -1,0 +1,22 @@
+<div class="flex flex-row gap-5">
+  <nav class="hidden lg:block lg:min-w-[250px]" [attr.aria-label]="label()">
+    <ul
+      class="fixed menu section-navigation-menu bg-base-300 rounded-box lg:w-[250px]"
+    >
+      @for (item of links(); track item.link) {
+        <li>
+          <a
+            [routerLink]="item.link"
+            routerLinkActive="text-secondary focus:text-secondary"
+            [routerLinkActiveOptions]="{ exact: true }"
+            ariaCurrentWhenActive="page"
+            >{{ item.label }}</a
+          >
+        </li>
+      }
+    </ul>
+  </nav>
+  <div class="grow w-full min-w-0">
+    <ng-content />
+  </div>
+</div>
