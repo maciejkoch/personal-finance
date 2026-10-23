@@ -8,8 +8,29 @@ import {
   DestroyRef,
   viewChild,
 } from "@angular/core";
-import Chart, { ChartItem } from "chart.js/auto";
+import {
+  Chart,
+  CategoryScale,
+  LinearScale,
+  LineController,
+  LineElement,
+  PointElement,
+  Legend,
+  Tooltip,
+  type ChartItem,
+} from "chart.js";
+
 import { TreasuryBondsResult } from "../../model/treasury-bonds.model";
+
+Chart.register(
+  CategoryScale,
+  LinearScale,
+  LineController,
+  LineElement,
+  PointElement,
+  Legend,
+  Tooltip,
+);
 
 @Component({
   selector: "pf-treasury-bonds-chart",

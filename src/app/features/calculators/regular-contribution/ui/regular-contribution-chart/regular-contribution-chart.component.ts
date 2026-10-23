@@ -1,13 +1,34 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  DestroyRef,
+  inject,
   effect,
   ElementRef,
   input,
   viewChild,
 } from "@angular/core";
-import Chart, { ChartItem } from "chart.js/auto";
+import {
+  Chart,
+  CategoryScale,
+  LinearScale,
+  BarController,
+  BarElement,
+  Legend,
+  Tooltip,
+  type ChartItem,
+} from "chart.js";
+
 import { RegularContributionData } from "../../model/regular-contribution.model";
+
+Chart.register(
+  CategoryScale,
+  LinearScale,
+  BarController,
+  BarElement,
+  Legend,
+  Tooltip,
+);
 
 @Component({
   selector: "pf-regular-contribution-chart",
@@ -23,6 +44,7 @@ export class RegularContributionChartComponent {
   #chart: Chart | null = null;
 
   constructor() {
+    inject(DestroyRef).onDestroy(() => this.#chart?.destroy());
     effect(() => {
       const canvas = this.canvas()?.nativeElement as ChartItem;
       const data = this.data()?.valueYearPerYear;

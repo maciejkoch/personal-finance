@@ -13,7 +13,7 @@
     "description": "Porównaj ROR, DOR, TOS, COI, EDO, ROS i ROD. Oblicz wynik obligacji z uwzględnieniem podatku, opłat oraz własnych założeń inflacji i stóp NBP.",
     "name": "Kalkulator obligacji skarbowych",
     "type": "WebApplication",
-    "lastmod": "2026-10-22"
+    "lastmod": "2026-10-23"
   },
   {
     "path": "/calculators/regular-contribution",
@@ -21,15 +21,15 @@
     "description": "Sprawdź, jak regularne wpłaty i procent składany wpływają na oszczędności. Ustaw kwotę wpłat, okres i zakładane oprocentowanie.",
     "name": "Regularne oszczędzanie",
     "type": "WebApplication",
-    "lastmod": "2026-10-22"
+    "lastmod": "2026-10-23"
   },
   {
     "path": "/calculators/long-term-savings",
     "title": "Kalkulator oszczędzania na cel długoterminowy | Oszczędzify",
-    "description": "Zaplanuj oszczędzanie na cel długoterminowy. Porównaj wpływ kapitału początkowego, wpłat, czasu i zakładanego oprocentowania.",
+    "description": "Oblicz, ile odkładać co miesiąc na cel. Uwzględnij zakładaną inflację, stopę zwrotu i modelowy podatek. Poznaj metodę, przykład i ograniczenia.",
     "name": "Cel długoterminowy",
     "type": "WebApplication",
-    "lastmod": "2026-10-22"
+    "lastmod": "2026-10-23"
   },
   {
     "path": "/about-us",
@@ -37,7 +37,7 @@
     "description": "Poznaj Oszczędzify: kalkulatory obligacji skarbowych, regularnego oszczędzania i celów długoterminowych oraz ograniczenia prezentowanych obliczeń.",
     "name": "O serwisie Oszczędzify",
     "type": "AboutPage",
-    "lastmod": "2026-10-22"
+    "lastmod": "2026-10-23"
   },
   {
     "path": "/oszczedzaj-regularnie",
@@ -45,14 +45,14 @@
     "description": "Jak zacząć regularnie oszczędzać? Przeczytaj o ustalaniu celów, budżecie, automatycznych przelewach i śledzeniu postępów.",
     "name": "Regularne Oszczędzanie – Dlaczego i Jak Zacząć?",
     "type": "Article",
-    "lastmod": "2026-10-22"
+    "lastmod": "2026-10-23"
   },
   {
     "path": "/kalkulator-obligacji-skarbowych",
     "title": "Obligacje indeksowane inflacją – jak działają? | Oszczędzify",
-    "description": "Dowiedz się, czym są obligacje skarbowe indeksowane inflacją, jak działa oprocentowanie oraz jakie mają zalety, ograniczenia i koszty.",
-    "name": "Obligacje Skarbowe Indeksowane Inflacją – Co To Jest i Jak Działają?",
+    "description": "Poznaj różnice między COI i EDO, indeksację od drugiego roku, kapitalizację, podatek i wcześniejszy wykup. Zobacz, co ogranicza ochronę przed inflacją.",
+    "name": "Obligacje indeksowane inflacją — jak działają COI i EDO?",
     "type": "Article",
-    "lastmod": "2026-10-22"
+    "lastmod": "2026-10-23"
   }
 ]

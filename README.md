@@ -4,6 +4,8 @@ Kalkulatory finansowe w jednej aplikacji Angular CLI 22 oraz osobny backend Fire
 
 Etap 9 zrealizowano lokalnie: Functions SDK 7.4.0, Admin SDK 14.5.0, Zod 4.6.7 w obu częściach, Marked 18.1.1, Chart.js 4.6.1 i ESLint 10.13.0. Usunięto Lodash oraz nieużywane zależności; CLI Firebase jest przypięte do 15.34.1. [Raport etapu 9](docs/ETAP-9-RAPORT.md) zawiera testy, audyt i uzasadnienie override’ów Vite oraz parsera CSS. Na polecenie użytkownika opublikowano Functions i Hosting z commita `be222d7`, wraz z poprawką kontrastu menu mobilnego — [kontrola produkcji](docs/ETAP-9-WDROZENIE.md).
 
+Lokalna partia etapu 10 obejmuje opisy metod i przykłady trzech kalkulatorów, poprawiony poradnik o obligacjach, linkowanie oraz lżejsze wykresy i cache zasobów. [Raport etapu 10](docs/ETAP-10-RAPORT.md) zawiera pomiar PageSpeed, porównanie wielkości JS i otwarte punkty GSC. Zmiany nie zostały opublikowane.
+
 ## Uruchomienie lokalne
 
 Sprawdzony Node: 22.23.2, przypięty w `.nvmrc`. Konfiguracja Functions i emulator używają Node 22. Runtime Node 22 jest wdrożony na produkcji — zobacz [raport etapu 1](docs/ETAP-1-RAPORT.md).
@@ -41,7 +43,7 @@ Domyślny port frontendu to 4300; port 4200 pozostaje dostępny dla innych proje
 | `npm start` | Lokalny emulator |
 | `npm run start:production` | Produkcyjne API, frontend w trybie developerskim |
 | `npm run build` | Produkcyjne API, zoptymalizowany build z prerenderem |
-| `npm run build:local` | Emulator, build developerski; wymaga działającego emulatora do prerenderingu |
+| `npm run build:local` | Emulator dla interakcji, build developerski; treści artykułów prerenderowane z lokalnych plików |
 | `npm run start:staging` / `npm run build:staging` | Jawnie wskazany backend staging |
 
 Staging wymaga zmiennej `OSZCZEDZIFY_STAGING_FUNCTIONS_BASE_URL`, np. bazowego adresu `https://us-central1-TWOJ-PROJEKT-STAGING.cloudfunctions.net`. Nie jest to zmienna z tokenem. Bez niej polecenie kończy się błędem; nie używa produkcji zastępczo. Backend staging musi udostępniać te same cztery endpointy. Nowego projektu staging nie utworzono.
@@ -74,6 +76,18 @@ npm run build
 npm run smoke:api
 npm run smoke:api -- --contracts --compare-production
 ```
+
+Odbiór treści i rozmiaru paczek:
+
+```sh
+npm run build -- --stats-json
+npm run check:content
+npm run smoke:hosting -- http://127.0.0.1:5050
+```
+
+`check:content` wymaga produkcyjnego buildu z `--stats-json`. Sprawdza obecność metodologii bez JavaScript, zgodność HTML obu artykułów z lokalnym Markdown, dane hydratacji, daty, opiekuna treści i linki wewnętrzne. Weryfikuje także, że Marked nie trafił do JS przeglądarki. Smoke Hostingu sprawdza również roczny cache plików JS/CSS z ośmioznakowym hashem i `no-store` dla `version.json`.
+
+Podczas prerenderingu serwerowy dostawca artykułów czyta `functions/content/*.md` z bieżącego checkoutu i przetwarza je Marked 18.1.1, tak samo jak Functions. TransferState zachowuje tę treść podczas hydratacji bez pierwszego żądania API. Późniejsza nawigacja nadal używa skonfigurowanego HTTP API. Zmiany artykułów wymagają publikacji `articleHttpFunction` przed Hostingiem; sam Hosting nie aktualizuje odpowiedzi API.
 
 Ostatnia komenda wysyła stałe, przykładowe dane do emulatora i produkcji, porównuje JSON czterech endpointów oraz sprawdza CORS i lokalny identyfikator buildu. `npm run smoke:api -- --production` sprawdza wyłącznie produkcję. Sprawdzenie obejmuje kontrakty HTTP; testy zgodności obligacji z ofertą są opisane w [raporcie etapu 2](docs/ETAP-2-RAPORT.md).
 

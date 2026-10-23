@@ -1,0 +1,119 @@
+{
+  "checkedAt": "2026-10-23T07:37:53.730Z",
+  "sourceCommit": "5a2a0e9",
+  "sourceDirty": true,
+  "deployed": false,
+  "frontendTests": 38,
+  "functionsTests": 44,
+  "prerenderedRoutes": 8,
+  "publicCanonicalPages": 7,
+  "contentParity": "Both local Markdown documents match prerendered HTML and TransferState",
+  "markedInBrowserBundle": false,
+  "chart": {
+    "before": [
+      {
+        "file": "chunk-C4rUL5gE.js",
+        "bytes": 205843,
+        "gzip": 70923
+      }
+    ],
+    "after": [
+      {
+        "file": "chunk-jMAff4bx.js",
+        "bytes": 173070,
+        "gzip": 60518
+      }
+    ],
+    "rawReductionPercent": 15.92
+  },
+  "allJavascriptBytes": {
+    "before": 1121110,
+    "after": 1100771
+  },
+  "pageSpeedBefore": {
+    "url": "https://pagespeed.web.dev/analysis/https-oszczedzify-org-calculators-treasury-bonds/qt2kzjtkoq?form_factor=mobile",
+    "capturedAt": "2026-10-23T09:17:00+02:00",
+    "type": "lab",
+    "lighthouse": "13.5.0",
+    "performance": 97,
+    "accessibility": 100,
+    "bestPractices": 100,
+    "seo": 100,
+    "fcpSeconds": 0.8,
+    "lcpSeconds": 2.4,
+    "tbtMs": 140,
+    "cls": 0.004,
+    "speedIndexSeconds": 1.6,
+    "fieldDataAvailable": false,
+    "unusedJavascriptKiB": 168,
+    "cacheSavingsKiB": 234
+  },
+  "pageSpeedAfter": null,
+  "gscLatestRead": null,
+  "gscStatus": "Unavailable: Computer Use permissions are not granted",
+  "browserQa": {
+    "actualViewportWidth": 706,
+    "requested390Applied": false,
+    "chartTypes": ["bar", "line"],
+    "horizontalOverflow": false,
+    "consoleErrors": 0
+  },
+  "cache": {
+    "hashedJsCss": "public,max-age=31536000,immutable",
+    "version": "no-store"
+  },
+  "remaining": [
+    "Fresh GSC query/page data and indexing report",
+    "390 px viewport check (browser override did not apply)",
+    "Publish article Function then Hosting on user instruction",
+    "Production performance and SEO follow-up at 2–4 and 6–8 weeks after publication"
+  ],
+  "productionApiTiming": {
+    "measuredAt": "2026-10-23T07:37:13.770Z",
+    "note": "Sequential requests from development machine. Includes network latency; not classified as cold or warm starts.",
+    "endpoints": {
+      "calculateSavingsHttpFunction": [
+        {
+          "ms": 3478,
+          "status": 200
+        },
+        {
+          "ms": 215,
+          "status": 200
+        },
+        {
+          "ms": 160,
+          "status": 200
+        }
+      ],
+      "calculateRegularContributionHttpFunction": [
+        {
+          "ms": 2838,
+          "status": 200
+        },
+        {
+          "ms": 162,
+          "status": 200
+        },
+        {
+          "ms": 165,
+          "status": 200
+        }
+      ],
+      "calculateTreasuryBondsHttpFunction": [
+        {
+          "ms": 2142,
+          "status": 200
+        },
+        {
+          "ms": 161,
+          "status": 200
+        },
+        {
+          "ms": 169,
+          "status": 200
+        }
+      ]
+    }
+  }
+}

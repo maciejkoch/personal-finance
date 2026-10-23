@@ -101,13 +101,24 @@ export class SeoTitleStrategy extends TitleStrategy {
       url,
       description,
       inLanguage: "pl-PL",
+      dateModified: page.lastmod,
     };
     if (page.type === "WebApplication") {
+      schema["maintainer"] = {
+        "@type": "Organization",
+        name: "Oszczędzify",
+        url: ORIGIN + "/about-us",
+      };
       schema["applicationCategory"] = "FinanceApplication";
       schema["operatingSystem"] = "Any";
       schema["browserRequirements"] = "Requires JavaScript";
     }
     if (page.type === "Article") {
+      schema["author"] = {
+        "@type": "Organization",
+        name: "Oszczędzify",
+        url: ORIGIN + "/about-us",
+      };
       schema["headline"] = page.name;
       schema["publisher"] = {
         "@type": "Organization",

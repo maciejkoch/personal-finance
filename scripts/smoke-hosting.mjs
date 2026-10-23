@@ -33,9 +33,19 @@ const meta = (html, key, value) => {
   return attribute(matches[0], "content");
 };
 const titles = new Set();
+const immutableAssets = new Set();
 for (const page of pages) {
   const { response, body: html } = await read(page.path);
   assert.equal(response.status, 200, `${page.path}: expected prerendered HTML`);
+  assert.ok(
+    !response.headers.get("cache-control")?.includes("immutable"),
+    `${page.path}: HTML must allow updates`,
+  );
+  for (const match of html.matchAll(
+    /(?:src|href)="\/?((?:main|chunk|styles)-[A-Za-z0-9_-]{8}\.(?:js|css))"/g,
+  )) {
+    immutableAssets.add("/" + match[1]);
+  }
   assert.match(response.headers.get("content-type"), /text\/html/);
   assert.equal(
     (html.match(/<h1\b/g) ?? []).length,
@@ -84,6 +94,21 @@ for (const page of pages) {
   console.log(`PASS ${page.path}: 200, H1, metadata, canonical, JSON-LD`);
 }
 assert.equal(titles.size, pages.length);
+assert.ok(immutableAssets.size > 0, "Expected hashed assets in initial HTML");
+for (const path of immutableAssets) {
+  const { response } = await read(path);
+  assert.equal(response.status, 200, path);
+  assert.equal(
+    response.headers.get("cache-control"),
+    "public,max-age=31536000,immutable",
+    `${path}: versioned asset cache`,
+  );
+}
+const { response: versionResponse } = await read("/version.json");
+assert.equal(versionResponse.headers.get("cache-control"), "no-store");
+console.log(
+  `PASS cache: ${immutableAssets.size} hashed assets immutable, HTML updatable, version.json no-store`,
+);
 for (const path of ["/calculators", "/calculators/"]) {
   const { response } = await read(path);
   assert.equal(response.status, 301);

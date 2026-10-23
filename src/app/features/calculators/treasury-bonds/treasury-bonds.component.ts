@@ -5,6 +5,7 @@ import {
   inject,
   viewChild,
 } from "@angular/core";
+import { RouterLink } from "@angular/router";
 import * as offer from "@data/bond-offer";
 import { DecimalPipe } from "@angular/common";
 import { scrollToElement } from "@shared/scroll/scroll-to-element";
@@ -20,6 +21,7 @@ import { TreasuryBondsResultsComponent } from "./ui/treasury-bonds-results/treas
 @Component({
   selector: "pf-treasury-bonds",
   imports: [
+    RouterLink,
     DecimalPipe,
     TreasuryBondsHeroComponent,
     TreasuryBondsHowToComponent,

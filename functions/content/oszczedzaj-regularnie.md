@@ -32,10 +32,10 @@ Automatyczne przelewy na konto oszczędnościowe to prosty sposób, aby unikną�
 
 Regularnie sprawdzaj, jak blisko jesteś swoich celów oszczędnościowych. Śledzenie postępów może być motywujące i przypominać o ważności trzymania się planu.
 
-## Podsumowanie
+## Jak sprawdzić, ile uzbierasz?
 
-Regularne oszczędzanie to skuteczny sposób na poprawę stabilności finansowej i osiąganie długoterminowych celów. Nawet niewielkie kwoty, odkładane systematycznie, mogą przynieść znaczne korzyści. Zacznij od ustalenia celu, zaplanowania budżetu i ustawienia automatycznych przelewów – a z czasem zobaczysz, jak Twoje oszczędności rosną!
+Zacznij od wariantu bez odsetek: 500 zł miesięcznie przez 24 miesiące to 12 000 zł wpłat. Następnie w [kalkulatorze regularnego oszczędzania](/calculators/regular-contribution) ustaw własną stopę zwrotu i porównaj sumę wpłat, odsetki oraz modelowy podatek. Stopa zwrotu jest założeniem, więc sprawdź także niższy wariant.
 
----
+Jeżeli znasz koszt planowanego wydatku, [kalkulator oszczędzania na cel](/calculators/long-term-savings) wyliczy potrzebną miesięczną wpłatę z uwzględnieniem założonej inflacji. Oba narzędzia zakładają wpłaty na koniec miesiąca i start od zerowych oszczędności. Ich opisy wyjaśniają metodę i ograniczenia podatku.
 
-Pamiętaj, że kluczowym elementem sukcesu w oszczędzaniu jest cierpliwość i konsekwencja. Powodzenia!
+Dobór produktu to osobna decyzja. Jeżeli rozważasz obligacje detaliczne, sprawdź [porównanie obligacji skarbowych](/calculators/treasury-bonds) oraz [poradnik o indeksacji inflacją](/kalkulator-obligacji-skarbowych). Okres oszczędzania, dostęp do środków, podatek i koszty mogą zmienić przydatność danego rozwiązania.

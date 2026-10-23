@@ -1,55 +1,34 @@
-# Obligacje Skarbowe Indeksowane Inflacją – Co To Jest i Jak Działają?
+# Obligacje indeksowane inflacją — jak działają COI i EDO?
 
-Obligacje skarbowe indeksowane inflacją to jedna z form inwestycji dostępnych dla osób poszukujących bezpiecznego sposobu na pomnażanie oszczędności. W obliczu rosnącej inflacji, mogą być one skuteczną metodą ochrony kapitału przed spadkiem wartości. Dowiedz się, czym są te obligacje i jak działają.
+COI i EDO to detaliczne obligacje Skarbu Państwa, których oprocentowanie od drugiego roku zależy od wskaźnika inflacji i stałej marży. Pierwszy rok ma stopę ustaloną dla danej emisji. Samo określenie „indeksowane inflacją” nie oznacza gwarancji zachowania siły nabywczej pieniędzy po podatku i opłatach.
 
-## Czym Są Obligacje Skarbowe Indeksowane Inflacją?
+Jeśli chcesz policzyć kwoty dla własnego scenariusza, przejdź do [kalkulatora obligacji skarbowych](/calculators/treasury-bonds). Ten poradnik wyjaśnia zasady; aktualne parametry zakupu i linki do listów emisyjnych znajdują się przy narzędziu.
 
-Obligacje skarbowe indeksowane inflacją to papiery wartościowe emitowane przez państwo, które zapewniają ochronę kapitału przed inflacją. Ich oprocentowanie jest dostosowywane co roku w oparciu o wskaźnik inflacji, co oznacza, że wartość naszych oszczędności nie traci na skutek wzrostu cen.
+## Kiedy inflacja wpływa na oprocentowanie?
 
-## Jak Działają Obligacje Indeksowane Inflacją?
+Od drugiego rocznego okresu stopa jest ustalana jako inflacja powiększona o marżę. Wskaźnik dotyczy zmiany cen z ostatnich 12 miesięcy, ogłoszonej przez Prezesa GUS w miesiącu poprzedzającym rozpoczęcie danego okresu odsetkowego. Przy ujemnej inflacji do ustalenia oprocentowania przyjmuje się zero.
 
-Mechanizm działania obligacji indeksowanych inflacją jest prosty, ale skuteczny. W ich przypadku oprocentowanie składa się z dwóch elementów:
+Przykładowo: przy inflacji 3% i marży 1,5 punktu procentowego roczna stopa wynosi 4,5%. To przykład mechanizmu dla kolejnego okresu, a nie prognoza przyszłej oferty czy inflacji.
 
-1. **Stała marża** – To część oprocentowania, która jest określana w momencie zakupu obligacji i pozostaje niezmienna przez cały okres ich trwania.
-2. **Wskaźnik inflacji** – Oprocentowanie obligacji jest co roku dostosowywane do poziomu inflacji ogłaszanej przez państwowy urząd statystyczny. Jeśli inflacja rośnie, oprocentowanie obligacji również wzrasta, co chroni oszczędności przed jej skutkami.
+## COI a EDO: wypłata i kapitalizacja
 
-Przykład: Jeśli stała marża wynosi 1%, a roczna inflacja wynosi 3%, to oprocentowanie obligacji na dany rok wyniesie 4% (1% + 3%).
+- **COI, 4 lata:** odsetki są wypłacane po każdym roku. Pozostawienie wypłaty w gotówce nie powoduje automatycznej kapitalizacji wewnątrz obligacji.
+- **EDO, 10 lat:** odsetki powiększają podstawę oprocentowania co roku, a wypłata następuje przy wykupie. Kolejne lata pracują także na wcześniej naliczonych odsetkach.
 
-## Zalety Obligacji Indeksowanych Inflacją
+Obligacje rodzinne ROS na 6 lat i ROD na 12 lat również korzystają z indeksacji, ale ich zakup wiąże się z uprawnieniem do świadczenia wychowawczego i limitem. Kalkulator nie weryfikuje uprawnień ani dostępnego limitu.
 
-Obligacje indeksowane inflacją mają kilka kluczowych zalet:
+## Dlaczego wynik realny może być niższy od oczekiwań?
 
-- **Ochrona przed inflacją** – Rosnące ceny nie wpływają negatywnie na wartość inwestycji, ponieważ oprocentowanie rośnie proporcjonalnie do inflacji.
-- **Bezpieczeństwo** – Obligacje skarbowe są emitowane przez państwo, co oznacza, że są uważane za jedne z najbezpieczniejszych form inwestycji.
-- **Regularny zysk** – Każdego roku wypłacane jest oprocentowanie, które można reinwestować lub przeznaczyć na inne cele.
+Pierwszy rok nie jest indeksowany. Późniejsza stopa korzysta z historycznego wskaźnika, który może różnić się od przyszłego wzrostu cen i Twoich osobistych wydatków. Podatek obniża odsetki do dyspozycji. Przy COI znaczenie ma również sposób wykorzystania corocznych wypłat.
 
-## Wady Obligacji Indeksowanych Inflacją
+Wcześniejszy wykup może oznaczać opłatę. Jej wysokość i zasady wynikają z listu konkretnej emisji. Przed porównaniem kwot sprawdź też termin, w którym potrzebujesz pieniędzy; kalkulator nie odwzorowuje bankowego kalendarza dyspozycji i rozliczeń.
 
-Pomimo zalet, warto znać także potencjalne wady tego typu inwestycji:
+## Od zasad do porównania
 
-- **Niższa zyskowność w okresie niskiej inflacji** – Kiedy inflacja jest niska, oprocentowanie obligacji indeksowanych inflacją również jest niższe.
-- **Długi okres inwestycji** – Obligacje skarbowe zazwyczaj mają dłuższy okres zapadalności (np. 4 lub 10 lat), co może być ograniczeniem dla osób preferujących krótsze inwestycje.
-- **Podatek od zysków kapitałowych** – Zyski z obligacji są opodatkowane, co może wpłynąć na końcowy wynik inwestycji.
+W [kalkulatorze obligacji](/calculators/treasury-bonds) zmień inflację i horyzont, a następnie porównaj wynik z kwotą potrzebną do zachowania siły nabywczej. Założenia ponownego zakupu przyszłych emisji są uproszczeniem — dzisiejsze warunki nie muszą się utrzymać.
 
-## Jak Kupić Obligacje Skarbowe Indeksowane Inflacją?
+Do planowania miesięcznych wpłat służy [kalkulator regularnego oszczędzania](/calculators/regular-contribution), a do wyznaczenia potrzebnej wpłaty [kalkulator oszczędzania na cel](/calculators/long-term-savings).
 
-Zakup obligacji skarbowych jest prosty i dostępny dla każdego:
+## Źródła
 
-1. **Przez internet** – Obligacje można kupić online na stronie Ministerstwa Finansów lub przez banki, które oferują taką możliwość.
-2. **W oddziałach banków** – Obligacje są również dostępne w wybranych placówkach bankowych.
-
-## Dla Kogo Są Obligacje Skarbowe Indeksowane Inflacją?
-
-Obligacje indeksowane inflacją są idealne dla osób, które:
-
-- Chcą chronić swoje oszczędności przed inflacją.
-- Preferują bezpieczne inwestycje o niskim ryzyku.
-- Planują długoterminowe oszczędzanie i nie potrzebują szybkiego dostępu do środków.
-
-## Podsumowanie
-
-Obligacje skarbowe indeksowane inflacją to atrakcyjna opcja dla tych, którzy szukają sposobu na zabezpieczenie swoich oszczędności przed rosnącymi cenami. Dzięki połączeniu stałej marży z inflacją, pozwalają one na ochronę kapitału w długim okresie, jednocześnie oferując względne bezpieczeństwo inwestycji. Jeśli szukasz długoterminowej, stabilnej inwestycji, warto rozważyć obligacje skarbowe indeksowane inflacją.
-
----
-
-Pamiętaj, że każda inwestycja niesie za sobą ryzyko, dlatego przed zakupem warto dokładnie przeanalizować swoje cele finansowe i potrzeby.
+Zasady sprawdzono 23.10.2026 w oficjalnych opisach [COI](https://www.obligacjeskarbowe.pl/oferta-obligacji/obligacje-4-letnie-coi/) oraz [EDO](https://www.obligacjeskarbowe.pl/oferta-obligacji/obligacje-10-letnie-edo/). Wiążące warunki danej serii określa jej [list emisyjny](https://www.obligacjeskarbowe.pl/listy-emisyjne/).
