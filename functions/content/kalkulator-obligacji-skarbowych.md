@@ -2,7 +2,7 @@
 
 COI i EDO to detaliczne obligacje Skarbu Państwa, których oprocentowanie od drugiego roku zależy od wskaźnika inflacji i stałej marży. Pierwszy rok ma stopę ustaloną dla danej emisji. Samo określenie „indeksowane inflacją” nie oznacza gwarancji zachowania siły nabywczej pieniędzy po podatku i opłatach.
 
-Jeśli chcesz policzyć kwoty dla własnego scenariusza, przejdź do [kalkulatora obligacji skarbowych](/calculators/treasury-bonds). Ten poradnik wyjaśnia zasady; aktualne parametry zakupu i linki do listów emisyjnych znajdują się przy narzędziu.
+Jeśli chcesz policzyć kwoty dla własnego scenariusza, przejdź do [kalkulatora obligacji skarbowych](/kalkulatory/obligacje-skarbowe). Ten poradnik wyjaśnia zasady; aktualne parametry zakupu i linki do listów emisyjnych znajdują się przy narzędziu.
 
 ## Kiedy inflacja wpływa na oprocentowanie?
 
@@ -25,9 +25,9 @@ Wcześniejszy wykup może oznaczać opłatę. Jej wysokość i zasady wynikają 
 
 ## Od zasad do porównania
 
-W [kalkulatorze obligacji](/calculators/treasury-bonds) zmień inflację i horyzont, a następnie porównaj wynik z kwotą potrzebną do zachowania siły nabywczej. Założenia ponownego zakupu przyszłych emisji są uproszczeniem — dzisiejsze warunki nie muszą się utrzymać.
+W [kalkulatorze obligacji](/kalkulatory/obligacje-skarbowe) zmień inflację i horyzont, a następnie porównaj wynik z kwotą potrzebną do zachowania siły nabywczej. Założenia ponownego zakupu przyszłych emisji są uproszczeniem — dzisiejsze warunki nie muszą się utrzymać.
 
-Do planowania miesięcznych wpłat służy [kalkulator regularnego oszczędzania](/calculators/regular-contribution), a do wyznaczenia potrzebnej wpłaty [kalkulator oszczędzania na cel](/calculators/long-term-savings).
+Do planowania miesięcznych wpłat służy [kalkulator regularnego oszczędzania](/kalkulatory/regularne-oszczedzanie), a do wyznaczenia potrzebnej wpłaty [kalkulator oszczędzania na cel](/kalkulatory/oszczedzanie-na-cel).
 
 ## Źródła
 

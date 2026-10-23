@@ -34,13 +34,63 @@
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "redirects": [
       {
+        "source": "/calculators/treasury-bonds",
+        "destination": "/kalkulatory/obligacje-skarbowe",
+        "type": 301
+      },
+      {
+        "source": "/calculators/treasury-bonds/",
+        "destination": "/kalkulatory/obligacje-skarbowe",
+        "type": 301
+      },
+      {
+        "source": "/calculators/regular-contribution",
+        "destination": "/kalkulatory/regularne-oszczedzanie",
+        "type": 301
+      },
+      {
+        "source": "/calculators/regular-contribution/",
+        "destination": "/kalkulatory/regularne-oszczedzanie",
+        "type": 301
+      },
+      {
+        "source": "/calculators/long-term-savings",
+        "destination": "/kalkulatory/oszczedzanie-na-cel",
+        "type": 301
+      },
+      {
+        "source": "/calculators/long-term-savings/",
+        "destination": "/kalkulatory/oszczedzanie-na-cel",
+        "type": 301
+      },
+      {
+        "source": "/about-us",
+        "destination": "/o-nas",
+        "type": 301
+      },
+      {
+        "source": "/about-us/",
+        "destination": "/o-nas",
+        "type": 301
+      },
+      {
         "source": "/calculators",
-        "destination": "/calculators/treasury-bonds",
+        "destination": "/kalkulatory/obligacje-skarbowe",
         "type": 301
       },
       {
         "source": "/calculators/",
-        "destination": "/calculators/treasury-bonds",
+        "destination": "/kalkulatory/obligacje-skarbowe",
+        "type": 301
+      },
+      {
+        "source": "/kalkulatory",
+        "destination": "/kalkulatory/obligacje-skarbowe",
+        "type": 301
+      },
+      {
+        "source": "/kalkulatory/",
+        "destination": "/kalkulatory/obligacje-skarbowe",
         "type": 301
       }
     ],

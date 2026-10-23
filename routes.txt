@@ -1,8 +1,8 @@
 /
-/calculators/treasury-bonds
-/calculators/regular-contribution
-/calculators/long-term-savings
-/about-us
+/kalkulatory/obligacje-skarbowe
+/kalkulatory/regularne-oszczedzanie
+/kalkulatory/oszczedzanie-na-cel
+/o-nas
 /oszczedzaj-regularnie
 /kalkulator-obligacji-skarbowych
 /404

@@ -50,7 +50,7 @@ for (const page of pages) {
       doc.querySelector("time").getAttribute("datetime"),
       page.lastmod,
     );
-    assert.equal(schema.author.url, "https://oszczedzify.org/about-us");
+    assert.equal(schema.author.url, "https://oszczedzify.org/o-nas");
     const state = JSON.parse(
       doc.querySelector('script[id$="-state"]').textContent,
     );
@@ -63,7 +63,7 @@ for (const page of pages) {
     const path = new URL(link.getAttribute("href"), "https://oszczedzify.org")
       .pathname;
     assert.ok(
-      pages.some((p) => p.path === path) || path === "/calculators",
+      pages.some((p) => p.path === path) || path === "/kalkulatory",
       `${page.path}: broken internal link ${path}`,
     );
   }

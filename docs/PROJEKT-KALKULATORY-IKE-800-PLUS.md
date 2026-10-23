@@ -14,7 +14,8 @@ Dokument uwzględnia końcową decyzję: osobne obliczenia i reguły dla rynków
 - IKE nie zmienia opłat wykupu, wzorów, reinwestowania ani oprocentowania wypłaconej gotówki. Nie zbieramy daty otwarcia, wieku, historii ani wpłat; nie sprawdzamy limitów lub warunków zwolnienia. Opis kontrolki obligacji brzmi: „Po zaznaczeniu IKE kalkulator nie nalicza podatku Belki.”
 - Limit rodzinny pozostaje opisanym ograniczeniem, bez jego wyliczania.
 - Wzory w metodologii oszczędzania na cel i regularnych wpłat są zapisane w natywnym MathML: osobne bloki, ułamki, potęgi i legenda symboli. Nie dodano bibliotek; wzory są obecne po prerenderze i mają opisy dla czytników ekranu.
-- Stopka wskazuje rok 2026.
+- Stopka wskazuje rok 2026 i zawiera polską treść praw autorskich.
+- Menu główne zawiera Kalkulatory, Poradniki i O nas. Dwie pierwsze pozycje mają podmenu na desktopie i mobile; wybór linku zamyka podmenu, Escape na desktopie przywraca fokus. Oba poradniki są również podlinkowane w stopce; linki stopki zawijają się na wąskim ekranie.
 - W obligacjach pod nagłówkiem są formularz i wyniki; tabela oferty zakupu, założenia i metodologia znajdują się poniżej wyników oraz wykresów.
 
 ## Granice architektury
@@ -109,11 +110,25 @@ Adapter frontendowy PL sprawdza Zod: wersję kontraktu, silnika i oferty, rynek,
 ## Weryfikacja implementacji
 
 - 145 testów backendu: niezależne przykłady finansowe, zgodność legacy, nowy kontrakt i wszystkie kombinacje IKE/800+.
-- 94 testy frontendu: preferencje, migracja, kontrolki, odpowiedzi API, wszystkie widoki/ranking oraz anulowanie nieaktualnej odpowiedzi przy zmianie scenariusza.
+- 102 testy frontendu: preferencje, migracja, kontrolki, odpowiedzi API, wszystkie widoki/ranking oraz anulowanie nieaktualnej odpowiedzi przy zmianie scenariusza.
 - 14/14 celowych mutacji kodu wykrytych; raport w `docs/baseline/calculator-mutations.json`.
 - Weryfikacja HTTP na emulatorze: stare kontrakty, CORS i nowy kontrakt obligacji z czterema kombinacjami IKE/800+.
 - Ręczna kontrola w przeglądarce lokalnej: trzy kalkulatory, wymuszenie podatku, przywrócenie preferencji i filtrowanie rodzinnych. Podgląd obligacji: `docs/baseline/ike-bonds-preview.jpg`; połączonej opcji i spójnych checkboxów: `docs/baseline/calculator-checkboxes-preview.jpg`.
-- Przeszły lint obu części, build produkcyjny i kontrola treści po prerenderze. Łącznie przeszło 239 testów (145 backendu i 94 frontendu).
+- Przeszły lint obu części, build produkcyjny i kontrola treści po prerenderze. Łącznie przeszło 247 testów (145 backendu i 102 frontendu).
 - Dodatkowo sprawdzono wygenerowane przestrzenie nazw MathML, strukturę ułamków i rok 2026 w HTML. Podgląd wzorów: `docs/baseline/calculator-formulas-preview.jpg`.
 
 Kolejność przyszłego wdrożenia: Functions obsługujące oba kontrakty, następnie Hosting z nowym klientem. Publikacja wymaga osobnego polecenia użytkownika; zostało udzielone po końcowych poprawkach interfejsu.
+
+## Publiczne adresy po polsku
+
+| Stara ścieżka | Docelowa ścieżka |
+| --- | --- |
+| `/calculators` | `/kalkulatory/obligacje-skarbowe` |
+| `/calculators/treasury-bonds` | `/kalkulatory/obligacje-skarbowe` |
+| `/calculators/regular-contribution` | `/kalkulatory/regularne-oszczedzanie` |
+| `/calculators/long-term-savings` | `/kalkulatory/oszczedzanie-na-cel` |
+| `/about-us` | `/o-nas` |
+
+Hosting zwraca bezpośrednie 301 dla starych adresów, również z końcowym ukośnikiem. Router Angulara obsługuje te same historyczne linki przy nawigacji wewnątrz aplikacji, zachowując query i fragment. Nie przekierowujemy nieznanych starych podstron do przypadkowego kalkulatora.
+
+Zmienione są linki w całym interfejsie i Markdown artykułów, canonicale, dane strukturalne, sitemap, prerender oraz adresy grafik social. Klucze zapisanych ustawień i adresy API pozostają zgodne z dotychczasowymi klientami. Przed Hostingiem należy opublikować zmienione treści funkcji artykułów.

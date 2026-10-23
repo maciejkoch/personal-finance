@@ -27,7 +27,7 @@ Terminal 2 — frontend z lokalnym backendem:
 npm start
 ```
 
-- Aplikacja: http://localhost:4300/calculators/treasury-bonds
+- Aplikacja: http://localhost:4300/kalkulatory/obligacje-skarbowe
 - Functions: http://127.0.0.1:5001/personal-finance-2ee61/us-central1
 - Panel emulatorów: http://127.0.0.1:4000
 - Hosting: http://127.0.0.1:5050 — serwuje istniejący katalog `dist`, z API wybranym przy jego budowaniu. Przed pierwszym uruchomieniem Hosting wykonaj `npm run build`. Port 5000 jest zajęty przez usługę macOS.

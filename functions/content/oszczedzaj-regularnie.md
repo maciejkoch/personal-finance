@@ -34,8 +34,8 @@ Regularnie sprawdzaj, jak blisko jesteś swoich celów oszczędnościowych. Śle
 
 ## Jak sprawdzić, ile uzbierasz?
 
-Zacznij od wariantu bez odsetek: 500 zł miesięcznie przez 24 miesiące to 12 000 zł wpłat. Następnie w [kalkulatorze regularnego oszczędzania](/calculators/regular-contribution) ustaw własną stopę zwrotu i porównaj sumę wpłat, odsetki oraz modelowy podatek. Stopa zwrotu jest założeniem, więc sprawdź także niższy wariant.
+Zacznij od wariantu bez odsetek: 500 zł miesięcznie przez 24 miesiące to 12 000 zł wpłat. Następnie w [kalkulatorze regularnego oszczędzania](/kalkulatory/regularne-oszczedzanie) ustaw własną stopę zwrotu i porównaj sumę wpłat, odsetki oraz modelowy podatek. Stopa zwrotu jest założeniem, więc sprawdź także niższy wariant.
 
-Jeżeli znasz koszt planowanego wydatku, [kalkulator oszczędzania na cel](/calculators/long-term-savings) wyliczy potrzebną miesięczną wpłatę z uwzględnieniem założonej inflacji. Oba narzędzia zakładają wpłaty na koniec miesiąca i start od zerowych oszczędności. Ich opisy wyjaśniają metodę i ograniczenia podatku.
+Jeżeli znasz koszt planowanego wydatku, [kalkulator oszczędzania na cel](/kalkulatory/oszczedzanie-na-cel) wyliczy potrzebną miesięczną wpłatę z uwzględnieniem założonej inflacji. Oba narzędzia zakładają wpłaty na koniec miesiąca i start od zerowych oszczędności. Ich opisy wyjaśniają metodę i ograniczenia podatku.
 
-Dobór produktu to osobna decyzja. Jeżeli rozważasz obligacje detaliczne, sprawdź [porównanie obligacji skarbowych](/calculators/treasury-bonds) oraz [poradnik o indeksacji inflacją](/kalkulator-obligacji-skarbowych). Okres oszczędzania, dostęp do środków, podatek i koszty mogą zmienić przydatność danego rozwiązania.
+Dobór produktu to osobna decyzja. Jeżeli rozważasz obligacje detaliczne, sprawdź [porównanie obligacji skarbowych](/kalkulatory/obligacje-skarbowe) oraz [poradnik o indeksacji inflacją](/kalkulator-obligacji-skarbowych). Okres oszczędzania, dostęp do środków, podatek i koszty mogą zmienić przydatność danego rozwiązania.

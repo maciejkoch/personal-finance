@@ -6,24 +6,22 @@ export const createRoutes: CreateRoutesFn = () => [
     path: "",
     component: CalculatorsShellComponent,
     children: [
-      { path: "", pathMatch: "full", redirectTo: "treasury-bonds" },
+      { path: "", pathMatch: "full", redirectTo: "obligacje-skarbowe" },
       {
-        path: "long-term-savings",
+        path: "oszczedzanie-na-cel",
         loadComponent: async () =>
           (await import("../long-term-savings/long-term-savings.component"))
             .LongTermSavingsComponent,
       },
       {
-        path: "regular-contribution",
+        path: "regularne-oszczedzanie",
         loadComponent: async () =>
           (
-            await import(
-              "../regular-contribution/regular-contribution.component"
-            )
+            await import("../regular-contribution/regular-contribution.component")
           ).RegularContributionComponent,
       },
       {
-        path: "treasury-bonds",
+        path: "obligacje-skarbowe",
         loadComponent: async () =>
           (await import("../treasury-bonds/treasury-bonds.component"))
             .TreasuryBondsComponent,

@@ -15,13 +15,23 @@ describe("AppComponent", () => {
     await fixture.whenStable();
     const compiled = fixture.nativeElement as HTMLElement;
     for (const path of [
-      "treasury-bonds",
-      "regular-contribution",
-      "long-term-savings",
+      "obligacje-skarbowe",
+      "regularne-oszczedzanie",
+      "oszczedzanie-na-cel",
     ]) {
       expect(
-        compiled.querySelector(`a[href="/calculators/${path}"]`),
+        compiled.querySelector(`a[href="/kalkulatory/${path}"]`),
       ).not.toBeNull();
+    }
+    for (const path of [
+      "/kalkulator-obligacji-skarbowych",
+      "/oszczedzaj-regularnie",
+    ]) {
+      for (const navigation of ["pf-header", "pf-footer"]) {
+        expect(
+          compiled.querySelector(`${navigation} a[href="${path}"]`),
+        ).not.toBeNull();
+      }
     }
     expect(compiled.querySelector("router-outlet")).not.toBeNull();
   });

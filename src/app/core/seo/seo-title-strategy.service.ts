@@ -107,7 +107,7 @@ export class SeoTitleStrategy extends TitleStrategy {
       schema["maintainer"] = {
         "@type": "Organization",
         name: "Oszczędzify",
-        url: ORIGIN + "/about-us",
+        url: ORIGIN + "/o-nas",
       };
       schema["applicationCategory"] = "FinanceApplication";
       schema["operatingSystem"] = "Any";
@@ -117,7 +117,7 @@ export class SeoTitleStrategy extends TitleStrategy {
       schema["author"] = {
         "@type": "Organization",
         name: "Oszczędzify",
-        url: ORIGIN + "/about-us",
+        url: ORIGIN + "/o-nas",
       };
       schema["headline"] = page.name;
       schema["publisher"] = {

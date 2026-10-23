@@ -2,7 +2,7 @@
   <div class="prose max-w-none" [innerHTML]="content.html"></div>
   @if (page(); as page) {
     <p class="text-sm my-6">
-      Opiekun treści: <a class="link" routerLink="/about-us">Oszczędzify</a>.
+      Opiekun treści: <a class="link" routerLink="/o-nas">Oszczędzify</a>.
       Aktualizacja:
       <time [attr.datetime]="page.lastmod">{{ page.lastmod }}</time
       >.

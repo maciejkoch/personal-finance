@@ -18,36 +18,47 @@ export class NavigationComponent {
 
   items = [
     {
-      link: "/calculators",
-      directMatch: false,
       label: "Kalkulatory",
       open: signal(false),
       itemHeight: 52,
       items: [
         {
-          link: "/calculators/treasury-bonds",
+          link: "/kalkulatory/obligacje-skarbowe",
           label: "Obligacje skarbowe",
         },
         {
-          link: "/calculators/long-term-savings",
+          link: "/kalkulatory/oszczedzanie-na-cel",
           label: "Cel długoterminowy",
         },
         {
-          link: "/calculators/regular-contribution",
+          link: "/kalkulatory/regularne-oszczedzanie",
           label: "Regularne oszczędzanie",
         },
       ],
     },
     {
-      link: "/kalkulator-obligacji-skarbowych",
-      label: "Poradnik obligacji",
+      label: "Poradniki",
+      open: signal(false),
+      itemHeight: 52,
+      items: [
+        {
+          link: "/kalkulator-obligacji-skarbowych",
+          label: "Poradnik obligacji",
+        },
+        {
+          link: "/oszczedzaj-regularnie",
+          label: "Poradnik oszczędzania",
+        },
+      ],
     },
-    {
-      link: "/oszczedzaj-regularnie",
-      label: "Poradnik oszczędzania",
-    },
-    { link: "/about-us", label: "O nas" },
+    { link: "/o-nas", label: "O nas" },
   ];
 
   navigated = output();
+
+  closeOnFocusLeave(event: FocusEvent, submenu: HTMLDetailsElement) {
+    if (!submenu.contains(event.relatedTarget as Node | null)) {
+      submenu.open = false;
+    }
+  }
 }

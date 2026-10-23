@@ -8,7 +8,7 @@
     "lastmod": "2026-10-22"
   },
   {
-    "path": "/calculators/treasury-bonds",
+    "path": "/kalkulatory/obligacje-skarbowe",
     "title": "Kalkulator obligacji skarbowych – porównanie | Oszczędzify",
     "description": "Porównaj ROR, DOR, TOS, COI, EDO, ROS i ROD. Oblicz wynik obligacji z uwzględnieniem podatku, opłat oraz własnych założeń inflacji i stóp NBP.",
     "name": "Kalkulator obligacji skarbowych",
@@ -16,7 +16,7 @@
     "lastmod": "2026-10-23"
   },
   {
-    "path": "/calculators/regular-contribution",
+    "path": "/kalkulatory/regularne-oszczedzanie",
     "title": "Kalkulator regularnego oszczędzania | Oszczędzify",
     "description": "Sprawdź, jak regularne wpłaty i procent składany wpływają na oszczędności. Ustaw kwotę wpłat, okres i zakładane oprocentowanie.",
     "name": "Regularne oszczędzanie",
@@ -24,7 +24,7 @@
     "lastmod": "2026-10-23"
   },
   {
-    "path": "/calculators/long-term-savings",
+    "path": "/kalkulatory/oszczedzanie-na-cel",
     "title": "Kalkulator oszczędzania na cel długoterminowy | Oszczędzify",
     "description": "Oblicz, ile odkładać co miesiąc na cel. Uwzględnij zakładaną inflację, stopę zwrotu i modelowy podatek. Poznaj metodę, przykład i ograniczenia.",
     "name": "Cel długoterminowy",
@@ -32,7 +32,7 @@
     "lastmod": "2026-10-23"
   },
   {
-    "path": "/about-us",
+    "path": "/o-nas",
     "title": "O serwisie i kalkulatorach finansowych | Oszczędzify",
     "description": "Poznaj Oszczędzify: kalkulatory obligacji skarbowych, regularnego oszczędzania i celów długoterminowych oraz ograniczenia prezentowanych obliczeń.",
     "name": "O serwisie Oszczędzify",

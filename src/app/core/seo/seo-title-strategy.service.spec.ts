@@ -23,13 +23,15 @@ describe("SEO during navigation", () => {
 
   it("updates metadata and schema between routes, excluding query and fragment from canonical", async () => {
     const harness = await RouterTestingHarness.create();
-    await harness.navigateByUrl("/calculators/treasury-bonds?count=100#form");
+    await harness.navigateByUrl(
+      "/kalkulatory/obligacje-skarbowe?count=100#form",
+    );
     expect(
       document
         .querySelector('meta[property="og:image"]')
         ?.getAttribute("content"),
     ).toBe(
-      "https://oszczedzify.org/brand/social/calculators-treasury-bonds.png",
+      "https://oszczedzify.org/brand/social/kalkulatory-obligacje-skarbowe.png",
     );
     expect(
       document
@@ -39,7 +41,7 @@ describe("SEO during navigation", () => {
     expect(document.title).toContain("Kalkulator obligacji skarbowych");
     expect(
       document.querySelector('link[rel="canonical"]')?.getAttribute("href"),
-    ).toBe("https://oszczedzify.org/calculators/treasury-bonds");
+    ).toBe("https://oszczedzify.org/kalkulatory/obligacje-skarbowe");
     expect(
       document.querySelector('meta[name="robots"]')?.getAttribute("content"),
     ).toBe("index, follow");
@@ -97,7 +99,7 @@ describe("SEO during navigation", () => {
   it("keeps noncanonical browser hosts noindex after client navigation", async () => {
     TestBed.overrideProvider(PLATFORM_ID, { useValue: "browser" });
     const harness = await RouterTestingHarness.create("/");
-    await harness.navigateByUrl("/calculators/regular-contribution");
+    await harness.navigateByUrl("/kalkulatory/regularne-oszczedzanie");
     expect(
       document.querySelector('meta[name="robots"]')?.getAttribute("content"),
     ).toBe("noindex, follow");

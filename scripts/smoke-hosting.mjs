@@ -85,7 +85,7 @@ for (const page of pages) {
   assert.equal(schema.url, `https://oszczedzify.org${page.path}`);
   if (preview)
     assert.equal(response.headers.get("x-robots-tag"), "noindex, follow");
-  if (page.path.endsWith("/treasury-bonds"))
+  if (page.path.endsWith("/obligacje-skarbowe"))
     assert.ok(html.includes(`Oferta zakupu: ${offer.label}`));
   if (page.path === "/") {
     for (const calculator of pages.filter((p) => p.type === "WebApplication"))
@@ -109,16 +109,35 @@ assert.equal(versionResponse.headers.get("cache-control"), "no-store");
 console.log(
   `PASS cache: ${immutableAssets.size} hashed assets immutable, HTML updatable, version.json no-store`,
 );
-for (const path of ["/calculators", "/calculators/"]) {
-  const { response } = await read(path);
-  assert.equal(response.status, 301);
-  assert.equal(
-    new URL(response.headers.get("location"), base).pathname,
-    "/calculators/treasury-bonds",
+const redirects = [
+  ["/calculators", "/kalkulatory/obligacje-skarbowe"],
+  ["/calculators/treasury-bonds", "/kalkulatory/obligacje-skarbowe"],
+  ["/calculators/regular-contribution", "/kalkulatory/regularne-oszczedzanie"],
+  ["/calculators/long-term-savings", "/kalkulatory/oszczedzanie-na-cel"],
+  ["/about-us", "/o-nas"],
+  ["/kalkulatory", "/kalkulatory/obligacje-skarbowe"],
+];
+for (const [source, destination] of redirects) {
+  for (const slash of ["", "/"]) {
+    const { response } = await read(`${source}${slash}?utm_source=migracja`);
+    assert.equal(response.status, 301, `${source}${slash}: permanent redirect`);
+    const location = new URL(response.headers.get("location"), base);
+    assert.equal(
+      location.pathname,
+      destination,
+      `${source}${slash}: direct canonical destination`,
+    );
+    assert.equal(
+      location.search,
+      "?utm_source=migracja",
+      `${source}${slash}: preserve query`,
+    );
+  }
+  console.log(
+    `PASS ${source}: 301 directly to ${destination}, query preserved`,
   );
-  console.log(`PASS ${path}: 301`);
 }
-for (const path of ["/about-us/", "/calculators/treasury-bonds/"]) {
+for (const path of ["/o-nas/", "/kalkulatory/obligacje-skarbowe/"]) {
   const { response } = await read(path);
   assert.equal(response.status, 301, `${path}: normalize trailing slash`);
   assert.equal(
@@ -129,7 +148,7 @@ for (const path of ["/about-us/", "/calculators/treasury-bonds/"]) {
 }
 for (const path of [
   "/nieistniejacy-artykul-etap-3",
-  "/calculators/missing",
+  "/kalkulatory/nieistniejacy",
   "/missing/deep/path",
   "/index.csr.html",
 ]) {
