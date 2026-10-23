@@ -7,6 +7,7 @@ const RegularContributionSchema = z.object({
   duration: z.preprocess(parseQueryNumber, z.number().int().min(1).max(100)),
   rate: z.preprocess(parseQueryNumber, z.number().min(0).max(1)),
   skipTax: queryBoolean,
+  ike: queryBoolean.optional(),
 });
 
 export type RegularContributionDTO = z.infer<typeof RegularContributionSchema>;

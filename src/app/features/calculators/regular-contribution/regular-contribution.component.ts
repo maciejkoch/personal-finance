@@ -34,6 +34,17 @@ export class RegularContributionComponent {
 
   data = this.#store.result;
   isLoading = this.#store.isLoading;
+  error = this.#store.error;
+  invalidate(next: RegularContributionRequest | null) {
+    const previous = this.#store.request();
+    if (
+      !next ||
+      (previous &&
+        (previous.ike !== next.ike || previous.skipTax !== next.skipTax))
+    ) {
+      this.#store.calculate(null);
+    }
+  }
 
   calculate(request: RegularContributionRequest) {
     this.#store.calculate(request);

@@ -13,6 +13,8 @@
     "build:staging": "node scripts/workspace.mjs build staging",
     "test": "ng test --watch=false",
     "test:functions": "npm --prefix functions test",
+    "test:regression": "npm run test:functions && npm test",
+    "test:mutations": "npm --prefix functions run build && node scripts/regression/check-mutations.mjs",
     "build:functions": "npm --prefix functions run build && node scripts/write-version.mjs functions",
     "emulators": "npm run build:functions && npx -y firebase-tools@15.34.1 emulators:start --only functions,hosting --project personal-finance-2ee61",
     "smoke:api": "node scripts/smoke-api.mjs",

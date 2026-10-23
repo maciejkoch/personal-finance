@@ -11,13 +11,74 @@ import { calculate as calculateTOS } from "./services/tos.service";
 import { TreasuryBondsSchemaDTO, validate } from "./treasury-bonds.dto";
 import { TREASURY_BONDS_OFFER } from "./treasury-bonds.consts";
 import { simplifyResult } from "./treasury-bonds.service";
+import { BondComparisonResponse } from "../contracts/bond-comparison";
+import {
+  availablePolishBonds,
+  effectiveSkipTax,
+  PolishBondType,
+} from "../markets/pl/polish-calculator-options";
+
+const calculators = {
+  ror: calculateROR,
+  dor: calculateDOR,
+  tos: calculateTOS,
+  coi: calculateCOI,
+  edo: calculateEDO,
+  ros: calculateROS,
+  rod: calculateROD,
+};
+
+export function calculateComparison(
+  dto: TreasuryBondsSchemaDTO,
+): BondComparisonResponse {
+  const skipTax = effectiveSkipTax(dto);
+  const params = {
+    inflation: dto.inflation,
+    referenceRate: dto.referenceRate,
+    savingsRate: dto.savingsRate,
+    wibor6m: dto.wibor6m,
+    skipTax,
+  };
+  const benchmark = calculateFutureValueForMonths(
+    dto.numberOfBonds * 100,
+    dto.month,
+    dto.inflation,
+  );
+  return {
+    contractVersion: 3,
+    calculationVersion: 2,
+    offerVersion: TREASURY_BONDS_OFFER.version,
+    marketId: "pl",
+    skipTax,
+    series: availablePolishBonds(dto).map((type: PolishBondType) => {
+      const values = simplifyResult(
+        calculators[type](dto.numberOfBonds, dto.month, params),
+      );
+      return {
+        instrumentId: type,
+        currency: "PLN",
+        points: Array.from({ length: dto.month }, (_, i) => ({
+          month: i + 1,
+          value: values[i + 1],
+        })),
+      };
+    }),
+    benchmark: Array.from({ length: dto.month }, (_, i) => ({
+      month: i + 1,
+      value: benchmark[i + 1],
+    })),
+  };
+}
 
 export function execute(request: Request, response: HttpResponse): void {
   const treasuryBonds = validate(request.query);
 
   if (treasuryBonds.success) {
     try {
-      const result = calculate(treasuryBonds.data);
+      const result =
+        treasuryBonds.data.contractVersion === 3
+          ? calculateComparison(treasuryBonds.data)
+          : calculate(treasuryBonds.data);
 
       response.status(200);
       response.send({ data: result });
@@ -39,8 +100,8 @@ export function calculate(dto: TreasuryBondsSchemaDTO) {
     referenceRate,
     savingsRate,
     wibor6m,
-    skipTax,
   } = dto;
+  const skipTax = effectiveSkipTax(dto);
 
   const amount = numberOfBonds * 100;
 

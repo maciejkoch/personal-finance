@@ -24,7 +24,7 @@
       <table class="table">
         <thead>
           <tr>
-            @for (column of columns; track $index) {
+            @for (column of columns(); track column.property) {
               @if (column.pinned) {
                 <th
                   scope="col"
@@ -47,7 +47,7 @@
         <tbody>
           @for (row of rows(); track $index) {
             <tr>
-              @for (column of columns; track $index) {
+              @for (column of columns(); track column.property) {
                 @if (column.pinned) {
                   <th
                     scope="row"

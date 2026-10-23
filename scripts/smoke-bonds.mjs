@@ -49,6 +49,52 @@ assert.equal(values[119].edo, 157.16);
 assert.equal(values[143].rod, 181.37);
 const withoutTax = await call({ month: "36", skipTax: "true" });
 assert.equal(withoutTax[35].tos, 113.79);
+for (const ike of [false, true]) {
+  for (const familyEligible of [false, true]) {
+    const comparisonQuery = {
+      ...query,
+      month: "36",
+      contractVersion: "3",
+      ike: String(ike),
+      familyEligible: String(familyEligible),
+      skipTax: "false",
+    };
+    const response = await fetch(
+      `${host}/calculateTreasuryBondsHttpFunction?${new URLSearchParams(comparisonQuery)}`,
+      {
+        headers: { Origin: "http://localhost:4200" },
+        signal: AbortSignal.timeout(30000),
+      },
+    );
+    assert.equal(response.status, 200);
+    const { data } = await response.json();
+    assert.equal(data.contractVersion, 3);
+    assert.equal(data.offerVersion, offer.version);
+    assert.equal(data.skipTax, ike);
+    const types = [
+      "ror",
+      "dor",
+      "tos",
+      "coi",
+      "edo",
+      ...(familyEligible && !ike ? ["ros", "rod"] : []),
+    ];
+    assert.deepEqual(
+      data.series.map((series) => series.instrumentId),
+      types,
+    );
+    for (const series of data.series) {
+      assert.equal(series.points.length, 36);
+      for (const [i, point] of series.points.entries()) {
+        assert.equal(point.month, i + 1);
+        assert.equal(
+          point.value,
+          (ike ? withoutTax : values)[i][series.instrumentId],
+        );
+      }
+    }
+  }
+}
 for (const overrides of [
   { month: "145" },
   { month: "1.5" },
@@ -60,5 +106,5 @@ for (const overrides of [
   await call(overrides, 400);
 }
 console.log(
-  `PASS bonds: ${offer.version}, maturity examples, skipTax, 6 invalid requests and CORS (${host})`,
+  `PASS bonds: ${offer.version}, legacy/v3, 4 IKE/800+ combinations, maturity examples, skipTax, 6 invalid requests and CORS (${host})`,
 );

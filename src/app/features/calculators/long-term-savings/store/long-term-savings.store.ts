@@ -1,40 +1,48 @@
-import { inject } from '@angular/core';
-import { tapResponse } from '@ngrx/operators';
-import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
-import { rxMethod } from '@ngrx/signals/rxjs-interop';
-import { pipe, switchMap, tap } from 'rxjs';
-import { LongTermSavingsDataService } from '../data/long-term-savings-data.service';
+import { inject } from "@angular/core";
+import { tapResponse } from "@ngrx/operators";
+import { patchState, signalStore, withMethods, withState } from "@ngrx/signals";
+import { rxMethod } from "@ngrx/signals/rxjs-interop";
+import { EMPTY, pipe, switchMap } from "rxjs";
+import { LongTermSavingsDataService } from "../data/long-term-savings-data.service";
 import {
   LongTermSavingsData,
   LongTermSavingsRequest,
-} from '../model/long-term-savings.model';
-
-type State = {
-  result: LongTermSavingsData | null;
-  isLoading: boolean;
-};
-
-const initialState: State = {
-  result: null,
-  isLoading: false,
-};
+} from "../model/long-term-savings.model";
 
 export const LongTermSavingsStore = signalStore(
-  withState(initialState),
-  withMethods((store, dataSservice = inject(LongTermSavingsDataService)) => ({
-    calculate: rxMethod<LongTermSavingsRequest>(
+  withState({
+    request: null as LongTermSavingsRequest | null,
+    result: null as LongTermSavingsData | null,
+    isLoading: false,
+    error: null as string | null,
+  }),
+  withMethods((store, service = inject(LongTermSavingsDataService)) => ({
+    calculate: rxMethod<LongTermSavingsRequest | null>(
       pipe(
-        tap(() => patchState(store, { isLoading: true })),
         switchMap((request) => {
-          return dataSservice.calculate(request).pipe(
+          if (!request) {
+            patchState(store, {
+              result: null,
+              isLoading: false,
+              error: null,
+              request: null,
+            });
+            return EMPTY;
+          }
+          patchState(store, { isLoading: true, error: null, request });
+          return service.calculate(request).pipe(
             tapResponse({
               next: (result) => patchState(store, { result }),
-              error: console.error,
+              error: () =>
+                patchState(store, {
+                  error:
+                    "Nie udało się obliczyć wyniku. Zmień ustawienia lub spróbuj ponownie.",
+                }),
               finalize: () => patchState(store, { isLoading: false }),
-            })
+            }),
           );
-        })
-      )
+        }),
+      ),
     ),
-  }))
+  })),
 );

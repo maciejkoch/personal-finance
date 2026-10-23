@@ -10,6 +10,7 @@ import { localStorageSignal } from "@shared/local-storage/use-local-storage";
 import { DelayedLoaderComponent } from "@shared/ui/delayed-loader/delayed-loader.component";
 import { z } from "zod";
 import { TreasuryBondsResult } from "../../model/treasury-bonds.model";
+import { bondValue, visibleBonds } from "../../model/bond-presentation";
 
 // TODO
 // Refactor this file:
@@ -79,27 +80,12 @@ export class TreasuryBondsResultsComponent {
           finalValue: {
             value: value.futureValue,
           },
-          ror: {
-            value: value.ror,
-          },
-          dor: {
-            value: value.dor,
-          },
-          tos: {
-            value: value.tos,
-          },
-          coi: {
-            value: value.coi,
-          },
-          edo: {
-            value: value.edo,
-          },
-          ros: {
-            value: value.ros,
-          },
-          rod: {
-            value: value.rod,
-          },
+          ...Object.fromEntries(
+            visibleBonds(results).map((bond) => [
+              bond.key,
+              { value: bondValue(value, bond.key) },
+            ]),
+          ),
         };
 
         const withClassification = this.classifyValues(row);
@@ -111,21 +97,20 @@ export class TreasuryBondsResultsComponent {
 
   useColors = localStorageSignal("treasury-bonds-use-colors", z.boolean());
 
-  columns = [
+  columns = computed<
+    { property: string; label: string; pinned?: boolean; wrap?: boolean }[]
+  >(() => [
     { property: "year", label: "Rok", pinned: true },
-    { property: "ror", label: "ROR (roczne)" },
-    { property: "dor", label: "DOR (2-latki)" },
-    { property: "tos", label: "TOS (3-latki)" },
-    { property: "coi", label: "COI (4-latki)" },
-    { property: "edo", label: "EDO (10-latki)" },
-    { property: "rod", label: "ROD (12-latki)" },
-    { property: "ros", label: "ROS (6-latki)" },
+    ...visibleBonds(this.results() ?? { activeBondTypes: [] }).map((bond) => ({
+      property: bond.key,
+      label: bond.label,
+    })),
     {
       property: "finalValue",
       label: "Wpłata powiększona o INFLACJĘ",
       wrap: true,
     },
-  ];
+  ]);
 
   loadingItems = Array.from({ length: 10 });
 
@@ -156,11 +141,17 @@ export class TreasuryBondsResultsComponent {
     const sortedNegatives = negatives.sort((a, b) => a.value - b.value);
 
     sortedPositives.forEach((item, index) => {
-      data[item.key].positive = 7 - index;
+      data[item.key].positive = Math.max(
+        1,
+        7 - Math.floor((index * 7) / Math.max(1, positives.length)),
+      );
     });
 
     sortedNegatives.forEach((item, index) => {
-      data[item.key].negative = 7 - index;
+      data[item.key].negative = Math.max(
+        1,
+        7 - Math.floor((index * 7) / Math.max(1, negatives.length)),
+      );
     });
 
     return data;

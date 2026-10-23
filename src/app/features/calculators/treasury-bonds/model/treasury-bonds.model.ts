@@ -6,6 +6,8 @@ export interface TreasuryBondsRequest {
   referenceRate: number[];
   savingsRate: number[];
   skipTax: boolean;
+  ike?: boolean;
+  familyEligible?: boolean;
 }
 
 export interface TreasuryBondsRecord {
@@ -16,8 +18,8 @@ export interface TreasuryBondsRecord {
   coi: number;
   tos: number;
   edo: number;
-  ros: number;
-  rod: number;
+  ros?: number;
+  rod?: number;
 
   futureValue: number;
 }
@@ -26,4 +28,5 @@ export interface TreasuryBondsResult extends TreasuryBondsRequest {
   values: TreasuryBondsRecord[];
   offerVersion: string;
   calculationVersion: number;
+  activeBondTypes?: import("@markets/pl/polish-calculator-options").PolishBondType[];
 }

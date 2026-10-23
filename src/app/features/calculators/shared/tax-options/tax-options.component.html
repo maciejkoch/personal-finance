@@ -1,0 +1,47 @@
+@if (ike(); as ikeField) {
+  <label class="flex items-center gap-3 mt-4">
+    <input
+      type="checkbox"
+      class="checkbox checkbox-primary"
+      [formField]="ikeField"
+    />
+    <span>Symuluj oszczędzanie w IKE</span>
+  </label>
+  <label
+    class="flex items-center gap-3 my-4"
+    [class.opacity-60]="ikeField().value()"
+  >
+    @if (ikeField().value()) {
+      <input
+        type="checkbox"
+        class="checkbox checkbox-primary"
+        checked
+        disabled
+      />
+    } @else {
+      <input
+        type="checkbox"
+        class="checkbox checkbox-primary"
+        [formField]="skipTax()"
+      />
+    }
+    <span>Pomiń podatek Belki</span>
+  </label>
+  @if (ikeField().value()) {
+    <p class="text-sm mb-3">
+      Po zaznaczeniu IKE kalkulator nie nalicza podatku Belki.
+    </p>
+  }
+} @else {
+  <label
+    class="flex items-center gap-3 my-4"
+    [class.opacity-60]="skipTax()().disabled()"
+  >
+    <input
+      type="checkbox"
+      class="checkbox checkbox-primary"
+      [formField]="skipTax()"
+    />
+    <span>Pomiń podatek Belki / symuluj IKE</span>
+  </label>
+}

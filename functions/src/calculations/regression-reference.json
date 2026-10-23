@@ -1,0 +1,1342 @@
+{
+  "offerVersion": "2026-10-v1",
+  "method": "Independent Decimal analytical checkpoints, not snapshots of application output. See scripts/regression/generate-reference.py and docs/TESTY-REGRESJI-KALKULATOROW.md.",
+  "bonds": [
+    {
+      "name": "ROR maturity, 1 bonds, skipTax=False",
+      "bond": "ROR",
+      "quantity": 1,
+      "month": 12,
+      "skipTax": false,
+      "inflation": [0.035],
+      "referenceRate": [0.04],
+      "savingsRate": [0],
+      "derivation": "Nominal principal + sum of rounded, individually taxed coupons; no cash interest.",
+      "expected": {
+        "maturity": true,
+        "valueAtEndOfMonth": 100.0,
+        "buyoutAtEndOfMonth": 100.0,
+        "balanceAtEndOfMonth": 3.12,
+        "profitAtEndOfMonth": 0.26,
+        "finalValueAtEndOfMath": 103.12,
+        "earlyBuyoutPenalty": 0,
+        "numberOfBonds": 1,
+        "nextNumberOfBonds": 1
+      }
+    },
+    {
+      "name": "ROR maturity, 1 bonds, skipTax=True",
+      "bond": "ROR",
+      "quantity": 1,
+      "month": 12,
+      "skipTax": true,
+      "inflation": [0.035],
+      "referenceRate": [0.04],
+      "savingsRate": [0],
+      "derivation": "Nominal principal + sum of rounded, individually taxed coupons; no cash interest.",
+      "expected": {
+        "maturity": true,
+        "valueAtEndOfMonth": 100.0,
+        "buyoutAtEndOfMonth": 100.0,
+        "balanceAtEndOfMonth": 3.96,
+        "profitAtEndOfMonth": 0.33,
+        "finalValueAtEndOfMath": 103.96,
+        "earlyBuyoutPenalty": 0,
+        "numberOfBonds": 1,
+        "nextNumberOfBonds": 1
+      }
+    },
+    {
+      "name": "ROR maturity, 100 bonds, skipTax=False",
+      "bond": "ROR",
+      "quantity": 100,
+      "month": 12,
+      "skipTax": false,
+      "inflation": [0.035],
+      "referenceRate": [0.04],
+      "savingsRate": [0],
+      "derivation": "Nominal principal + sum of rounded, individually taxed coupons; no cash interest.",
+      "expected": {
+        "maturity": true,
+        "valueAtEndOfMonth": 10000.0,
+        "buyoutAtEndOfMonth": 10000.0,
+        "balanceAtEndOfMonth": 320.76,
+        "profitAtEndOfMonth": 26.73,
+        "finalValueAtEndOfMath": 10320.76,
+        "earlyBuyoutPenalty": 0,
+        "numberOfBonds": 100,
+        "nextNumberOfBonds": 100
+      }
+    },
+    {
+      "name": "ROR maturity, 100 bonds, skipTax=True",
+      "bond": "ROR",
+      "quantity": 100,
+      "month": 12,
+      "skipTax": true,
+      "inflation": [0.035],
+      "referenceRate": [0.04],
+      "savingsRate": [0],
+      "derivation": "Nominal principal + sum of rounded, individually taxed coupons; no cash interest.",
+      "expected": {
+        "maturity": true,
+        "valueAtEndOfMonth": 10000.0,
+        "buyoutAtEndOfMonth": 10000.0,
+        "balanceAtEndOfMonth": 396.0,
+        "profitAtEndOfMonth": 33.0,
+        "finalValueAtEndOfMath": 10396.0,
+        "earlyBuyoutPenalty": 0,
+        "numberOfBonds": 100,
+        "nextNumberOfBonds": 100
+      }
+    },
+    {
+      "name": "DOR maturity, 1 bonds, skipTax=False",
+      "bond": "DOR",
+      "quantity": 1,
+      "month": 24,
+      "skipTax": false,
+      "inflation": [0.035],
+      "referenceRate": [0.04],
+      "savingsRate": [0],
+      "derivation": "Nominal principal + sum of rounded, individually taxed coupons; no cash interest.",
+      "expected": {
+        "maturity": true,
+        "valueAtEndOfMonth": 100.0,
+        "buyoutAtEndOfMonth": 100.0,
+        "balanceAtEndOfMonth": 6.72,
+        "profitAtEndOfMonth": 0.28,
+        "finalValueAtEndOfMath": 106.72,
+        "earlyBuyoutPenalty": 0,
+        "numberOfBonds": 1,
+        "nextNumberOfBonds": 1
+      }
+    },
+    {
+      "name": "DOR maturity, 1 bonds, skipTax=True",
+      "bond": "DOR",
+      "quantity": 1,
+      "month": 24,
+      "skipTax": true,
+      "inflation": [0.035],
+      "referenceRate": [0.04],
+      "savingsRate": [0],
+      "derivation": "Nominal principal + sum of rounded, individually taxed coupons; no cash interest.",
+      "expected": {
+        "maturity": true,
+        "valueAtEndOfMonth": 100.0,
+        "buyoutAtEndOfMonth": 100.0,
+        "balanceAtEndOfMonth": 8.4,
+        "profitAtEndOfMonth": 0.35,
+        "finalValueAtEndOfMath": 108.4,
+        "earlyBuyoutPenalty": 0,
+        "numberOfBonds": 1,
+        "nextNumberOfBonds": 1
+      }
+    },
+    {
+      "name": "DOR maturity, 100 bonds, skipTax=False",
+      "bond": "DOR",
+      "quantity": 100,
+      "month": 24,
+      "skipTax": false,
+      "inflation": [0.035],
+      "referenceRate": [0.04],
+      "savingsRate": [0],
+      "derivation": "Nominal principal + sum of rounded, individually taxed coupons; no cash interest.",
+      "expected": {
+        "maturity": true,
+        "valueAtEndOfMonth": 10000.0,
+        "buyoutAtEndOfMonth": 10000.0,
+        "balanceAtEndOfMonth": 680.4,
+        "profitAtEndOfMonth": 28.35,
+        "finalValueAtEndOfMath": 10680.4,
+        "earlyBuyoutPenalty": 0,
+        "numberOfBonds": 100,
+        "nextNumberOfBonds": 100
+      }
+    },
+    {
+      "name": "DOR maturity, 100 bonds, skipTax=True",
+      "bond": "DOR",
+      "quantity": 100,
+      "month": 24,
+      "skipTax": true,
+      "inflation": [0.035],
+      "referenceRate": [0.04],
+      "savingsRate": [0],
+      "derivation": "Nominal principal + sum of rounded, individually taxed coupons; no cash interest.",
+      "expected": {
+        "maturity": true,
+        "valueAtEndOfMonth": 10000.0,
+        "buyoutAtEndOfMonth": 10000.0,
+        "balanceAtEndOfMonth": 840.0,
+        "profitAtEndOfMonth": 35.0,
+        "finalValueAtEndOfMath": 10840.0,
+        "earlyBuyoutPenalty": 0,
+        "numberOfBonds": 100,
+        "nextNumberOfBonds": 100
+      }
+    },
+    {
+      "name": "TOS maturity, 1 bonds, skipTax=False",
+      "bond": "TOS",
+      "quantity": 1,
+      "month": 36,
+      "skipTax": false,
+      "inflation": [0.035],
+      "referenceRate": [0.04],
+      "savingsRate": [0],
+      "derivation": "100 × (1 + first rate) × (1 + later rate)^(years − 1), rounded per bond; tax on total redemption income.",
+      "expected": {
+        "maturity": true,
+        "valueAtEndOfMonth": 113.79,
+        "buyoutAtEndOfMonth": 111.16,
+        "balanceAtEndOfMonth": 0.0,
+        "profitAtEndOfMonth": 0.0,
+        "finalValueAtEndOfMath": 111.16,
+        "earlyBuyoutPenalty": 0,
+        "numberOfBonds": 1,
+        "nextNumberOfBonds": 1
+      }
+    },
+    {
+      "name": "TOS maturity, 1 bonds, skipTax=True",
+      "bond": "TOS",
+      "quantity": 1,
+      "month": 36,
+      "skipTax": true,
+      "inflation": [0.035],
+      "referenceRate": [0.04],
+      "savingsRate": [0],
+      "derivation": "100 × (1 + first rate) × (1 + later rate)^(years − 1), rounded per bond; tax on total redemption income.",
+      "expected": {
+        "maturity": true,
+        "valueAtEndOfMonth": 113.79,
+        "buyoutAtEndOfMonth": 113.79,
+        "balanceAtEndOfMonth": 0.0,
+        "profitAtEndOfMonth": 0.0,
+        "finalValueAtEndOfMath": 113.79,
+        "earlyBuyoutPenalty": 0,
+        "numberOfBonds": 1,
+        "nextNumberOfBonds": 1
+      }
+    },
+    {
+      "name": "TOS maturity, 100 bonds, skipTax=False",
+      "bond": "TOS",
+      "quantity": 100,
+      "month": 36,
+      "skipTax": false,
+      "inflation": [0.035],
+      "referenceRate": [0.04],
+      "savingsRate": [0],
+      "derivation": "100 × (1 + first rate) × (1 + later rate)^(years − 1), rounded per bond; tax on total redemption income.",
+      "expected": {
+        "maturity": true,
+        "valueAtEndOfMonth": 11379.0,
+        "buyoutAtEndOfMonth": 11116.99,
+        "balanceAtEndOfMonth": 0.0,
+        "profitAtEndOfMonth": 0.0,
+        "finalValueAtEndOfMath": 11116.99,
+        "earlyBuyoutPenalty": 0,
+        "numberOfBonds": 100,
+        "nextNumberOfBonds": 100
+      }
+    },
+    {
+      "name": "TOS maturity, 100 bonds, skipTax=True",
+      "bond": "TOS",
+      "quantity": 100,
+      "month": 36,
+      "skipTax": true,
+      "inflation": [0.035],
+      "referenceRate": [0.04],
+      "savingsRate": [0],
+      "derivation": "100 × (1 + first rate) × (1 + later rate)^(years − 1), rounded per bond; tax on total redemption income.",
+      "expected": {
+        "maturity": true,
+        "valueAtEndOfMonth": 11379.0,
+        "buyoutAtEndOfMonth": 11379.0,
+        "balanceAtEndOfMonth": 0.0,
+        "profitAtEndOfMonth": 0.0,
+        "finalValueAtEndOfMath": 11379.0,
+        "earlyBuyoutPenalty": 0,
+        "numberOfBonds": 100,
+        "nextNumberOfBonds": 100
+      }
+    },
+    {
+      "name": "COI maturity, 1 bonds, skipTax=False",
+      "bond": "COI",
+      "quantity": 1,
+      "month": 48,
+      "skipTax": false,
+      "inflation": [0.035],
+      "referenceRate": [0.04],
+      "savingsRate": [0],
+      "derivation": "Nominal principal + sum of rounded, individually taxed coupons; no cash interest.",
+      "expected": {
+        "maturity": true,
+        "valueAtEndOfMonth": 100.0,
+        "buyoutAtEndOfMonth": 100.0,
+        "balanceAtEndOfMonth": 15.99,
+        "profitAtEndOfMonth": 4.05,
+        "finalValueAtEndOfMath": 115.99,
+        "earlyBuyoutPenalty": 0,
+        "numberOfBonds": 1,
+        "nextNumberOfBonds": 1
+      }
+    },
+    {
+      "name": "COI maturity, 1 bonds, skipTax=True",
+      "bond": "COI",
+      "quantity": 1,
+      "month": 48,
+      "skipTax": true,
+      "inflation": [0.035],
+      "referenceRate": [0.04],
+      "savingsRate": [0],
+      "derivation": "Nominal principal + sum of rounded, individually taxed coupons; no cash interest.",
+      "expected": {
+        "maturity": true,
+        "valueAtEndOfMonth": 100.0,
+        "buyoutAtEndOfMonth": 100.0,
+        "balanceAtEndOfMonth": 19.75,
+        "profitAtEndOfMonth": 5.0,
+        "finalValueAtEndOfMath": 119.75,
+        "earlyBuyoutPenalty": 0,
+        "numberOfBonds": 1,
+        "nextNumberOfBonds": 1
+      }
+    },
+    {
+      "name": "COI maturity, 100 bonds, skipTax=False",
+      "bond": "COI",
+      "quantity": 100,
+      "month": 48,
+      "skipTax": false,
+      "inflation": [0.035],
+      "referenceRate": [0.04],
+      "savingsRate": [0],
+      "derivation": "Nominal principal + sum of rounded, individually taxed coupons; no cash interest.",
+      "expected": {
+        "maturity": true,
+        "valueAtEndOfMonth": 10000.0,
+        "buyoutAtEndOfMonth": 10000.0,
+        "balanceAtEndOfMonth": 1599.75,
+        "profitAtEndOfMonth": 405.0,
+        "finalValueAtEndOfMath": 11599.75,
+        "earlyBuyoutPenalty": 0,
+        "numberOfBonds": 100,
+        "nextNumberOfBonds": 100
+      }
+    },
+    {
+      "name": "COI maturity, 100 bonds, skipTax=True",
+      "bond": "COI",
+      "quantity": 100,
+      "month": 48,
+      "skipTax": true,
+      "inflation": [0.035],
+      "referenceRate": [0.04],
+      "savingsRate": [0],
+      "derivation": "Nominal principal + sum of rounded, individually taxed coupons; no cash interest.",
+      "expected": {
+        "maturity": true,
+        "valueAtEndOfMonth": 10000.0,
+        "buyoutAtEndOfMonth": 10000.0,
+        "balanceAtEndOfMonth": 1975.0,
+        "profitAtEndOfMonth": 500.0,
+        "finalValueAtEndOfMath": 11975.0,
+        "earlyBuyoutPenalty": 0,
+        "numberOfBonds": 100,
+        "nextNumberOfBonds": 100
+      }
+    },
+    {
+      "name": "EDO maturity, 1 bonds, skipTax=False",
+      "bond": "EDO",
+      "quantity": 1,
+      "month": 120,
+      "skipTax": false,
+      "inflation": [0.035],
+      "referenceRate": [0.04],
+      "savingsRate": [0],
+      "derivation": "100 × (1 + first rate) × (1 + later rate)^(years − 1), rounded per bond; tax on total redemption income.",
+      "expected": {
+        "maturity": true,
+        "valueAtEndOfMonth": 170.57,
+        "buyoutAtEndOfMonth": 157.16,
+        "balanceAtEndOfMonth": 0.0,
+        "profitAtEndOfMonth": 0.0,
+        "finalValueAtEndOfMath": 157.16,
+        "earlyBuyoutPenalty": 0,
+        "numberOfBonds": 1,
+        "nextNumberOfBonds": 1
+      }
+    },
+    {
+      "name": "EDO maturity, 1 bonds, skipTax=True",
+      "bond": "EDO",
+      "quantity": 1,
+      "month": 120,
+      "skipTax": true,
+      "inflation": [0.035],
+      "referenceRate": [0.04],
+      "savingsRate": [0],
+      "derivation": "100 × (1 + first rate) × (1 + later rate)^(years − 1), rounded per bond; tax on total redemption income.",
+      "expected": {
+        "maturity": true,
+        "valueAtEndOfMonth": 170.57,
+        "buyoutAtEndOfMonth": 170.57,
+        "balanceAtEndOfMonth": 0.0,
+        "profitAtEndOfMonth": 0.0,
+        "finalValueAtEndOfMath": 170.57,
+        "earlyBuyoutPenalty": 0,
+        "numberOfBonds": 1,
+        "nextNumberOfBonds": 1
+      }
+    },
+    {
+      "name": "EDO maturity, 100 bonds, skipTax=False",
+      "bond": "EDO",
+      "quantity": 100,
+      "month": 120,
+      "skipTax": false,
+      "inflation": [0.035],
+      "referenceRate": [0.04],
+      "savingsRate": [0],
+      "derivation": "100 × (1 + first rate) × (1 + later rate)^(years − 1), rounded per bond; tax on total redemption income.",
+      "expected": {
+        "maturity": true,
+        "valueAtEndOfMonth": 17057.0,
+        "buyoutAtEndOfMonth": 15716.17,
+        "balanceAtEndOfMonth": 0.0,
+        "profitAtEndOfMonth": 0.0,
+        "finalValueAtEndOfMath": 15716.17,
+        "earlyBuyoutPenalty": 0,
+        "numberOfBonds": 100,
+        "nextNumberOfBonds": 100
+      }
+    },
+    {
+      "name": "EDO maturity, 100 bonds, skipTax=True",
+      "bond": "EDO",
+      "quantity": 100,
+      "month": 120,
+      "skipTax": true,
+      "inflation": [0.035],
+      "referenceRate": [0.04],
+      "savingsRate": [0],
+      "derivation": "100 × (1 + first rate) × (1 + later rate)^(years − 1), rounded per bond; tax on total redemption income.",
+      "expected": {
+        "maturity": true,
+        "valueAtEndOfMonth": 17057.0,
+        "buyoutAtEndOfMonth": 17057.0,
+        "balanceAtEndOfMonth": 0.0,
+        "profitAtEndOfMonth": 0.0,
+        "finalValueAtEndOfMath": 17057.0,
+        "earlyBuyoutPenalty": 0,
+        "numberOfBonds": 100,
+        "nextNumberOfBonds": 100
+      }
+    },
+    {
+      "name": "ROS maturity, 1 bonds, skipTax=False",
+      "bond": "ROS",
+      "quantity": 1,
+      "month": 72,
+      "skipTax": false,
+      "inflation": [0.035],
+      "referenceRate": [0.04],
+      "savingsRate": [0],
+      "derivation": "100 × (1 + first rate) × (1 + later rate)^(years − 1), rounded per bond; tax on total redemption income.",
+      "expected": {
+        "maturity": true,
+        "valueAtEndOfMonth": 137.23,
+        "buyoutAtEndOfMonth": 130.15,
+        "balanceAtEndOfMonth": 0.0,
+        "profitAtEndOfMonth": 0.0,
+        "finalValueAtEndOfMath": 130.15,
+        "earlyBuyoutPenalty": 0,
+        "numberOfBonds": 1,
+        "nextNumberOfBonds": 1
+      }
+    },
+    {
+      "name": "ROS maturity, 1 bonds, skipTax=True",
+      "bond": "ROS",
+      "quantity": 1,
+      "month": 72,
+      "skipTax": true,
+      "inflation": [0.035],
+      "referenceRate": [0.04],
+      "savingsRate": [0],
+      "derivation": "100 × (1 + first rate) × (1 + later rate)^(years − 1), rounded per bond; tax on total redemption income.",
+      "expected": {
+        "maturity": true,
+        "valueAtEndOfMonth": 137.23,
+        "buyoutAtEndOfMonth": 137.23,
+        "balanceAtEndOfMonth": 0.0,
+        "profitAtEndOfMonth": 0.0,
+        "finalValueAtEndOfMath": 137.23,
+        "earlyBuyoutPenalty": 0,
+        "numberOfBonds": 1,
+        "nextNumberOfBonds": 1
+      }
+    },
+    {
+      "name": "ROS maturity, 100 bonds, skipTax=False",
+      "bond": "ROS",
+      "quantity": 100,
+      "month": 72,
+      "skipTax": false,
+      "inflation": [0.035],
+      "referenceRate": [0.04],
+      "savingsRate": [0],
+      "derivation": "100 × (1 + first rate) × (1 + later rate)^(years − 1), rounded per bond; tax on total redemption income.",
+      "expected": {
+        "maturity": true,
+        "valueAtEndOfMonth": 13723.0,
+        "buyoutAtEndOfMonth": 13015.63,
+        "balanceAtEndOfMonth": 0.0,
+        "profitAtEndOfMonth": 0.0,
+        "finalValueAtEndOfMath": 13015.63,
+        "earlyBuyoutPenalty": 0,
+        "numberOfBonds": 100,
+        "nextNumberOfBonds": 100
+      }
+    },
+    {
+      "name": "ROS maturity, 100 bonds, skipTax=True",
+      "bond": "ROS",
+      "quantity": 100,
+      "month": 72,
+      "skipTax": true,
+      "inflation": [0.035],
+      "referenceRate": [0.04],
+      "savingsRate": [0],
+      "derivation": "100 × (1 + first rate) × (1 + later rate)^(years − 1), rounded per bond; tax on total redemption income.",
+      "expected": {
+        "maturity": true,
+        "valueAtEndOfMonth": 13723.0,
+        "buyoutAtEndOfMonth": 13723.0,
+        "balanceAtEndOfMonth": 0.0,
+        "profitAtEndOfMonth": 0.0,
+        "finalValueAtEndOfMath": 13723.0,
+        "earlyBuyoutPenalty": 0,
+        "numberOfBonds": 100,
+        "nextNumberOfBonds": 100
+      }
+    },
+    {
+      "name": "ROD maturity, 1 bonds, skipTax=False",
+      "bond": "ROD",
+      "quantity": 1,
+      "month": 144,
+      "skipTax": false,
+      "inflation": [0.035],
+      "referenceRate": [0.04],
+      "savingsRate": [0],
+      "derivation": "100 × (1 + first rate) × (1 + later rate)^(years − 1), rounded per bond; tax on total redemption income.",
+      "expected": {
+        "maturity": true,
+        "valueAtEndOfMonth": 200.46,
+        "buyoutAtEndOfMonth": 181.37,
+        "balanceAtEndOfMonth": 0.0,
+        "profitAtEndOfMonth": 0.0,
+        "finalValueAtEndOfMath": 181.37,
+        "earlyBuyoutPenalty": 0,
+        "numberOfBonds": 1,
+        "nextNumberOfBonds": 1
+      }
+    },
+    {
+      "name": "ROD maturity, 1 bonds, skipTax=True",
+      "bond": "ROD",
+      "quantity": 1,
+      "month": 144,
+      "skipTax": true,
+      "inflation": [0.035],
+      "referenceRate": [0.04],
+      "savingsRate": [0],
+      "derivation": "100 × (1 + first rate) × (1 + later rate)^(years − 1), rounded per bond; tax on total redemption income.",
+      "expected": {
+        "maturity": true,
+        "valueAtEndOfMonth": 200.46,
+        "buyoutAtEndOfMonth": 200.46,
+        "balanceAtEndOfMonth": 0.0,
+        "profitAtEndOfMonth": 0.0,
+        "finalValueAtEndOfMath": 200.46,
+        "earlyBuyoutPenalty": 0,
+        "numberOfBonds": 1,
+        "nextNumberOfBonds": 1
+      }
+    },
+    {
+      "name": "ROD maturity, 100 bonds, skipTax=False",
+      "bond": "ROD",
+      "quantity": 100,
+      "month": 144,
+      "skipTax": false,
+      "inflation": [0.035],
+      "referenceRate": [0.04],
+      "savingsRate": [0],
+      "derivation": "100 × (1 + first rate) × (1 + later rate)^(years − 1), rounded per bond; tax on total redemption income.",
+      "expected": {
+        "maturity": true,
+        "valueAtEndOfMonth": 20046.0,
+        "buyoutAtEndOfMonth": 18137.26,
+        "balanceAtEndOfMonth": 0.0,
+        "profitAtEndOfMonth": 0.0,
+        "finalValueAtEndOfMath": 18137.26,
+        "earlyBuyoutPenalty": 0,
+        "numberOfBonds": 100,
+        "nextNumberOfBonds": 100
+      }
+    },
+    {
+      "name": "ROD maturity, 100 bonds, skipTax=True",
+      "bond": "ROD",
+      "quantity": 100,
+      "month": 144,
+      "skipTax": true,
+      "inflation": [0.035],
+      "referenceRate": [0.04],
+      "savingsRate": [0],
+      "derivation": "100 × (1 + first rate) × (1 + later rate)^(years − 1), rounded per bond; tax on total redemption income.",
+      "expected": {
+        "maturity": true,
+        "valueAtEndOfMonth": 20046.0,
+        "buyoutAtEndOfMonth": 20046.0,
+        "balanceAtEndOfMonth": 0.0,
+        "profitAtEndOfMonth": 0.0,
+        "finalValueAtEndOfMath": 20046.0,
+        "earlyBuyoutPenalty": 0,
+        "numberOfBonds": 100,
+        "nextNumberOfBonds": 100
+      }
+    },
+    {
+      "name": "COI year two with zero preceding inflation, 1 bonds, skipTax=False",
+      "bond": "COI",
+      "quantity": 1,
+      "month": 24,
+      "skipTax": false,
+      "inflation": [0, 0.1],
+      "referenceRate": [0.04],
+      "savingsRate": [0],
+      "derivation": "Year two rate = 0% previous inflation + issue margin; redemption fee deducted before tax. COI coupons remain separate from principal.",
+      "expected": {
+        "rate": 0.015,
+        "maturity": false,
+        "valueAtEndOfMonth": 100.0,
+        "buyoutAtEndOfMonth": 98.0,
+        "balanceAtEndOfMonth": 5.05,
+        "finalValueAtEndOfMath": 103.05,
+        "earlyBuyoutPenalty": 2.0
+      }
+    },
+    {
+      "name": "COI year two with zero preceding inflation, 1 bonds, skipTax=True",
+      "bond": "COI",
+      "quantity": 1,
+      "month": 24,
+      "skipTax": true,
+      "inflation": [0, 0.1],
+      "referenceRate": [0.04],
+      "savingsRate": [0],
+      "derivation": "Year two rate = 0% previous inflation + issue margin; redemption fee deducted before tax. COI coupons remain separate from principal.",
+      "expected": {
+        "rate": 0.015,
+        "maturity": false,
+        "valueAtEndOfMonth": 100.0,
+        "buyoutAtEndOfMonth": 98.0,
+        "balanceAtEndOfMonth": 6.25,
+        "finalValueAtEndOfMath": 104.25,
+        "earlyBuyoutPenalty": 2.0
+      }
+    },
+    {
+      "name": "COI year two with zero preceding inflation, 100 bonds, skipTax=False",
+      "bond": "COI",
+      "quantity": 100,
+      "month": 24,
+      "skipTax": false,
+      "inflation": [0, 0.1],
+      "referenceRate": [0.04],
+      "savingsRate": [0],
+      "derivation": "Year two rate = 0% previous inflation + issue margin; redemption fee deducted before tax. COI coupons remain separate from principal.",
+      "expected": {
+        "rate": 0.015,
+        "maturity": false,
+        "valueAtEndOfMonth": 10000.0,
+        "buyoutAtEndOfMonth": 9800.0,
+        "balanceAtEndOfMonth": 506.25,
+        "finalValueAtEndOfMath": 10306.25,
+        "earlyBuyoutPenalty": 200.0
+      }
+    },
+    {
+      "name": "COI year two with zero preceding inflation, 100 bonds, skipTax=True",
+      "bond": "COI",
+      "quantity": 100,
+      "month": 24,
+      "skipTax": true,
+      "inflation": [0, 0.1],
+      "referenceRate": [0.04],
+      "savingsRate": [0],
+      "derivation": "Year two rate = 0% previous inflation + issue margin; redemption fee deducted before tax. COI coupons remain separate from principal.",
+      "expected": {
+        "rate": 0.015,
+        "maturity": false,
+        "valueAtEndOfMonth": 10000.0,
+        "buyoutAtEndOfMonth": 9800.0,
+        "balanceAtEndOfMonth": 625.0,
+        "finalValueAtEndOfMath": 10425.0,
+        "earlyBuyoutPenalty": 200.0
+      }
+    },
+    {
+      "name": "EDO year two with zero preceding inflation, 1 bonds, skipTax=False",
+      "bond": "EDO",
+      "quantity": 1,
+      "month": 24,
+      "skipTax": false,
+      "inflation": [0, 0.1],
+      "referenceRate": [0.04],
+      "savingsRate": [0],
+      "derivation": "Year two rate = 0% previous inflation + issue margin; redemption fee deducted before tax. COI coupons remain separate from principal.",
+      "expected": {
+        "rate": 0.02,
+        "maturity": false,
+        "valueAtEndOfMonth": 107.46,
+        "buyoutAtEndOfMonth": 103.61,
+        "balanceAtEndOfMonth": 0.0,
+        "finalValueAtEndOfMath": 103.61,
+        "earlyBuyoutPenalty": 3.0
+      }
+    },
+    {
+      "name": "EDO year two with zero preceding inflation, 1 bonds, skipTax=True",
+      "bond": "EDO",
+      "quantity": 1,
+      "month": 24,
+      "skipTax": true,
+      "inflation": [0, 0.1],
+      "referenceRate": [0.04],
+      "savingsRate": [0],
+      "derivation": "Year two rate = 0% previous inflation + issue margin; redemption fee deducted before tax. COI coupons remain separate from principal.",
+      "expected": {
+        "rate": 0.02,
+        "maturity": false,
+        "valueAtEndOfMonth": 107.46,
+        "buyoutAtEndOfMonth": 104.46,
+        "balanceAtEndOfMonth": 0.0,
+        "finalValueAtEndOfMath": 104.46,
+        "earlyBuyoutPenalty": 3.0
+      }
+    },
+    {
+      "name": "EDO year two with zero preceding inflation, 100 bonds, skipTax=False",
+      "bond": "EDO",
+      "quantity": 100,
+      "month": 24,
+      "skipTax": false,
+      "inflation": [0, 0.1],
+      "referenceRate": [0.04],
+      "savingsRate": [0],
+      "derivation": "Year two rate = 0% previous inflation + issue margin; redemption fee deducted before tax. COI coupons remain separate from principal.",
+      "expected": {
+        "rate": 0.02,
+        "maturity": false,
+        "valueAtEndOfMonth": 10746.0,
+        "buyoutAtEndOfMonth": 10361.26,
+        "balanceAtEndOfMonth": 0.0,
+        "finalValueAtEndOfMath": 10361.26,
+        "earlyBuyoutPenalty": 300.0
+      }
+    },
+    {
+      "name": "EDO year two with zero preceding inflation, 100 bonds, skipTax=True",
+      "bond": "EDO",
+      "quantity": 100,
+      "month": 24,
+      "skipTax": true,
+      "inflation": [0, 0.1],
+      "referenceRate": [0.04],
+      "savingsRate": [0],
+      "derivation": "Year two rate = 0% previous inflation + issue margin; redemption fee deducted before tax. COI coupons remain separate from principal.",
+      "expected": {
+        "rate": 0.02,
+        "maturity": false,
+        "valueAtEndOfMonth": 10746.0,
+        "buyoutAtEndOfMonth": 10446.0,
+        "balanceAtEndOfMonth": 0.0,
+        "finalValueAtEndOfMath": 10446.0,
+        "earlyBuyoutPenalty": 300.0
+      }
+    },
+    {
+      "name": "ROS year two with zero preceding inflation, 1 bonds, skipTax=False",
+      "bond": "ROS",
+      "quantity": 1,
+      "month": 24,
+      "skipTax": false,
+      "inflation": [0, 0.1],
+      "referenceRate": [0.04],
+      "savingsRate": [0],
+      "derivation": "Year two rate = 0% previous inflation + issue margin; redemption fee deducted before tax. COI coupons remain separate from principal.",
+      "expected": {
+        "rate": 0.02,
+        "maturity": false,
+        "valueAtEndOfMonth": 107.1,
+        "buyoutAtEndOfMonth": 104.13,
+        "balanceAtEndOfMonth": 0.0,
+        "finalValueAtEndOfMath": 104.13,
+        "earlyBuyoutPenalty": 2.0
+      }
+    },
+    {
+      "name": "ROS year two with zero preceding inflation, 1 bonds, skipTax=True",
+      "bond": "ROS",
+      "quantity": 1,
+      "month": 24,
+      "skipTax": true,
+      "inflation": [0, 0.1],
+      "referenceRate": [0.04],
+      "savingsRate": [0],
+      "derivation": "Year two rate = 0% previous inflation + issue margin; redemption fee deducted before tax. COI coupons remain separate from principal.",
+      "expected": {
+        "rate": 0.02,
+        "maturity": false,
+        "valueAtEndOfMonth": 107.1,
+        "buyoutAtEndOfMonth": 105.1,
+        "balanceAtEndOfMonth": 0.0,
+        "finalValueAtEndOfMath": 105.1,
+        "earlyBuyoutPenalty": 2.0
+      }
+    },
+    {
+      "name": "ROS year two with zero preceding inflation, 100 bonds, skipTax=False",
+      "bond": "ROS",
+      "quantity": 100,
+      "month": 24,
+      "skipTax": false,
+      "inflation": [0, 0.1],
+      "referenceRate": [0.04],
+      "savingsRate": [0],
+      "derivation": "Year two rate = 0% previous inflation + issue margin; redemption fee deducted before tax. COI coupons remain separate from principal.",
+      "expected": {
+        "rate": 0.02,
+        "maturity": false,
+        "valueAtEndOfMonth": 10710.0,
+        "buyoutAtEndOfMonth": 10413.1,
+        "balanceAtEndOfMonth": 0.0,
+        "finalValueAtEndOfMath": 10413.1,
+        "earlyBuyoutPenalty": 200.0
+      }
+    },
+    {
+      "name": "ROS year two with zero preceding inflation, 100 bonds, skipTax=True",
+      "bond": "ROS",
+      "quantity": 100,
+      "month": 24,
+      "skipTax": true,
+      "inflation": [0, 0.1],
+      "referenceRate": [0.04],
+      "savingsRate": [0],
+      "derivation": "Year two rate = 0% previous inflation + issue margin; redemption fee deducted before tax. COI coupons remain separate from principal.",
+      "expected": {
+        "rate": 0.02,
+        "maturity": false,
+        "valueAtEndOfMonth": 10710.0,
+        "buyoutAtEndOfMonth": 10510.0,
+        "balanceAtEndOfMonth": 0.0,
+        "finalValueAtEndOfMath": 10510.0,
+        "earlyBuyoutPenalty": 200.0
+      }
+    },
+    {
+      "name": "ROD year two with zero preceding inflation, 1 bonds, skipTax=False",
+      "bond": "ROD",
+      "quantity": 1,
+      "month": 24,
+      "skipTax": false,
+      "inflation": [0, 0.1],
+      "referenceRate": [0.04],
+      "savingsRate": [0],
+      "derivation": "Year two rate = 0% previous inflation + issue margin; redemption fee deducted before tax. COI coupons remain separate from principal.",
+      "expected": {
+        "rate": 0.025,
+        "maturity": false,
+        "valueAtEndOfMonth": 108.24,
+        "buyoutAtEndOfMonth": 104.24,
+        "balanceAtEndOfMonth": 0.0,
+        "finalValueAtEndOfMath": 104.24,
+        "earlyBuyoutPenalty": 3.0
+      }
+    },
+    {
+      "name": "ROD year two with zero preceding inflation, 1 bonds, skipTax=True",
+      "bond": "ROD",
+      "quantity": 1,
+      "month": 24,
+      "skipTax": true,
+      "inflation": [0, 0.1],
+      "referenceRate": [0.04],
+      "savingsRate": [0],
+      "derivation": "Year two rate = 0% previous inflation + issue margin; redemption fee deducted before tax. COI coupons remain separate from principal.",
+      "expected": {
+        "rate": 0.025,
+        "maturity": false,
+        "valueAtEndOfMonth": 108.24,
+        "buyoutAtEndOfMonth": 105.24,
+        "balanceAtEndOfMonth": 0.0,
+        "finalValueAtEndOfMath": 105.24,
+        "earlyBuyoutPenalty": 3.0
+      }
+    },
+    {
+      "name": "ROD year two with zero preceding inflation, 100 bonds, skipTax=False",
+      "bond": "ROD",
+      "quantity": 100,
+      "month": 24,
+      "skipTax": false,
+      "inflation": [0, 0.1],
+      "referenceRate": [0.04],
+      "savingsRate": [0],
+      "derivation": "Year two rate = 0% previous inflation + issue margin; redemption fee deducted before tax. COI coupons remain separate from principal.",
+      "expected": {
+        "rate": 0.025,
+        "maturity": false,
+        "valueAtEndOfMonth": 10824.0,
+        "buyoutAtEndOfMonth": 10424.44,
+        "balanceAtEndOfMonth": 0.0,
+        "finalValueAtEndOfMath": 10424.44,
+        "earlyBuyoutPenalty": 300.0
+      }
+    },
+    {
+      "name": "ROD year two with zero preceding inflation, 100 bonds, skipTax=True",
+      "bond": "ROD",
+      "quantity": 100,
+      "month": 24,
+      "skipTax": true,
+      "inflation": [0, 0.1],
+      "referenceRate": [0.04],
+      "savingsRate": [0],
+      "derivation": "Year two rate = 0% previous inflation + issue margin; redemption fee deducted before tax. COI coupons remain separate from principal.",
+      "expected": {
+        "rate": 0.025,
+        "maturity": false,
+        "valueAtEndOfMonth": 10824.0,
+        "buyoutAtEndOfMonth": 10524.0,
+        "balanceAtEndOfMonth": 0.0,
+        "finalValueAtEndOfMath": 10524.0,
+        "earlyBuyoutPenalty": 300.0
+      }
+    },
+    {
+      "name": "TOS ACT/ACT in leap year, 1 bonds, skipTax=False",
+      "bond": "TOS",
+      "quantity": 1,
+      "month": 13,
+      "skipTax": false,
+      "inflation": [0.035],
+      "referenceRate": [0.04],
+      "savingsRate": [0],
+      "derivation": "Annex 2: round(104.40 × (1 + 0.044 × 31/366) − 1) per bond, then tax total income.",
+      "expected": {
+        "buyoutAtEndOfMonth": 103.06,
+        "finalValueAtEndOfMath": 103.06,
+        "earlyBuyoutPenalty": 1
+      }
+    },
+    {
+      "name": "ROR coupons and interest on cash, 1 bonds, skipTax=False",
+      "bond": "ROR",
+      "quantity": 1,
+      "month": 2,
+      "skipTax": false,
+      "inflation": [0.035],
+      "referenceRate": [0.04],
+      "savingsRate": [0.12],
+      "derivation": "Two net 0.33-per-bond coupons + one month of net interest on the first coupon; principal minus 0.50 fee, no tax refund on loss.",
+      "expected": {
+        "balanceAtEndOfMonth": 0.52,
+        "buyoutAtEndOfMonth": 99.5,
+        "finalValueAtEndOfMath": 100.02,
+        "earlyBuyoutPenalty": 0.5
+      }
+    },
+    {
+      "name": "TOS ACT/ACT in leap year, 1 bonds, skipTax=True",
+      "bond": "TOS",
+      "quantity": 1,
+      "month": 13,
+      "skipTax": true,
+      "inflation": [0.035],
+      "referenceRate": [0.04],
+      "savingsRate": [0],
+      "derivation": "Annex 2: round(104.40 × (1 + 0.044 × 31/366) − 1) per bond, then tax total income.",
+      "expected": {
+        "buyoutAtEndOfMonth": 103.79,
+        "finalValueAtEndOfMath": 103.79,
+        "earlyBuyoutPenalty": 1
+      }
+    },
+    {
+      "name": "ROR coupons and interest on cash, 1 bonds, skipTax=True",
+      "bond": "ROR",
+      "quantity": 1,
+      "month": 2,
+      "skipTax": true,
+      "inflation": [0.035],
+      "referenceRate": [0.04],
+      "savingsRate": [0.12],
+      "derivation": "Two net 0.33-per-bond coupons + one month of net interest on the first coupon; principal minus 0.50 fee, no tax refund on loss.",
+      "expected": {
+        "balanceAtEndOfMonth": 0.66,
+        "buyoutAtEndOfMonth": 99.5,
+        "finalValueAtEndOfMath": 100.16,
+        "earlyBuyoutPenalty": 0.5
+      }
+    },
+    {
+      "name": "TOS ACT/ACT in leap year, 100 bonds, skipTax=False",
+      "bond": "TOS",
+      "quantity": 100,
+      "month": 13,
+      "skipTax": false,
+      "inflation": [0.035],
+      "referenceRate": [0.04],
+      "savingsRate": [0],
+      "derivation": "Annex 2: round(104.40 × (1 + 0.044 × 31/366) − 1) per bond, then tax total income.",
+      "expected": {
+        "buyoutAtEndOfMonth": 10306.99,
+        "finalValueAtEndOfMath": 10306.99,
+        "earlyBuyoutPenalty": 100
+      }
+    },
+    {
+      "name": "ROR coupons and interest on cash, 100 bonds, skipTax=False",
+      "bond": "ROR",
+      "quantity": 100,
+      "month": 2,
+      "skipTax": false,
+      "inflation": [0.035],
+      "referenceRate": [0.04],
+      "savingsRate": [0.12],
+      "derivation": "Two net 0.33-per-bond coupons + one month of net interest on the first coupon; principal minus 0.50 fee, no tax refund on loss.",
+      "expected": {
+        "balanceAtEndOfMonth": 53.67,
+        "buyoutAtEndOfMonth": 9950.0,
+        "finalValueAtEndOfMath": 10003.67,
+        "earlyBuyoutPenalty": 50.0
+      }
+    },
+    {
+      "name": "TOS ACT/ACT in leap year, 100 bonds, skipTax=True",
+      "bond": "TOS",
+      "quantity": 100,
+      "month": 13,
+      "skipTax": true,
+      "inflation": [0.035],
+      "referenceRate": [0.04],
+      "savingsRate": [0],
+      "derivation": "Annex 2: round(104.40 × (1 + 0.044 × 31/366) − 1) per bond, then tax total income.",
+      "expected": {
+        "buyoutAtEndOfMonth": 10379.0,
+        "finalValueAtEndOfMath": 10379.0,
+        "earlyBuyoutPenalty": 100
+      }
+    },
+    {
+      "name": "ROR coupons and interest on cash, 100 bonds, skipTax=True",
+      "bond": "ROR",
+      "quantity": 100,
+      "month": 2,
+      "skipTax": true,
+      "inflation": [0.035],
+      "referenceRate": [0.04],
+      "savingsRate": [0.12],
+      "derivation": "Two net 0.33-per-bond coupons + one month of net interest on the first coupon; principal minus 0.50 fee, no tax refund on loss.",
+      "expected": {
+        "balanceAtEndOfMonth": 66.33,
+        "buyoutAtEndOfMonth": 9950.0,
+        "finalValueAtEndOfMath": 10016.33,
+        "earlyBuyoutPenalty": 50.0
+      }
+    }
+  ],
+  "regularContributions": [
+    {
+      "name": "1000/month for 1 years at 0, skipTax=False",
+      "input": {
+        "contribution": 1000.0,
+        "duration": 1,
+        "rate": 0.0,
+        "skipTax": false
+      },
+      "expected": {
+        "totalContribution": 12000.0,
+        "finalValue": 12000.0,
+        "totalInterest": 0.0,
+        "tax": 0.0
+      }
+    },
+    {
+      "name": "1000/month for 1 years at 0, skipTax=True",
+      "input": {
+        "contribution": 1000.0,
+        "duration": 1,
+        "rate": 0.0,
+        "skipTax": true
+      },
+      "expected": {
+        "totalContribution": 12000.0,
+        "finalValue": 12000.0,
+        "totalInterest": 0.0,
+        "tax": 0.0
+      }
+    },
+    {
+      "name": "1000/month for 2 years at 0.12, skipTax=False",
+      "input": {
+        "contribution": 1000.0,
+        "duration": 2,
+        "rate": 0.12,
+        "skipTax": false
+      },
+      "expected": {
+        "totalContribution": 24000.0,
+        "finalValue": 26973.46,
+        "totalInterest": 2973.46,
+        "tax": 564.96
+      }
+    },
+    {
+      "name": "1000/month for 2 years at 0.12, skipTax=True",
+      "input": {
+        "contribution": 1000.0,
+        "duration": 2,
+        "rate": 0.12,
+        "skipTax": true
+      },
+      "expected": {
+        "totalContribution": 24000.0,
+        "finalValue": 26973.46,
+        "totalInterest": 2973.46,
+        "tax": 0.0
+      }
+    },
+    {
+      "name": "500.01/month for 15 years at 0.05, skipTax=False",
+      "input": {
+        "contribution": 500.01,
+        "duration": 15,
+        "rate": 0.05,
+        "skipTax": false
+      },
+      "expected": {
+        "totalContribution": 90001.8,
+        "finalValue": 133647.14,
+        "totalInterest": 43645.34,
+        "tax": 8292.61
+      }
+    },
+    {
+      "name": "500.01/month for 15 years at 0.05, skipTax=True",
+      "input": {
+        "contribution": 500.01,
+        "duration": 15,
+        "rate": 0.05,
+        "skipTax": true
+      },
+      "expected": {
+        "totalContribution": 90001.8,
+        "finalValue": 133647.14,
+        "totalInterest": 43645.34,
+        "tax": 0.0
+      }
+    },
+    {
+      "name": "0.01/month for 100 years at 0.01, skipTax=False",
+      "input": {
+        "contribution": 0.01,
+        "duration": 100,
+        "rate": 0.01,
+        "skipTax": false
+      },
+      "expected": {
+        "totalContribution": 12.0,
+        "finalValue": 20.61,
+        "totalInterest": 8.61,
+        "tax": 1.64
+      }
+    },
+    {
+      "name": "0.01/month for 100 years at 0.01, skipTax=True",
+      "input": {
+        "contribution": 0.01,
+        "duration": 100,
+        "rate": 0.01,
+        "skipTax": true
+      },
+      "expected": {
+        "totalContribution": 12.0,
+        "finalValue": 20.61,
+        "totalInterest": 8.61,
+        "tax": 0.0
+      }
+    }
+  ],
+  "savings": [
+    {
+      "name": "goal 12000 in 1 years, inflation=0, rate=0, skipTax=False",
+      "input": {
+        "amount": 12000.0,
+        "duration": 1,
+        "inflation": 0.0,
+        "rate": 0.0,
+        "skipTax": false
+      },
+      "expected": {
+        "futureValue": 12000.0,
+        "monthlyContribution": 1000.0,
+        "totalContribution": 12000.0,
+        "finalValue": 12000.0,
+        "totalInterest": 0.0,
+        "tax": 0.0
+      }
+    },
+    {
+      "name": "goal 12000 in 1 years, inflation=0, rate=0, skipTax=True",
+      "input": {
+        "amount": 12000.0,
+        "duration": 1,
+        "inflation": 0.0,
+        "rate": 0.0,
+        "skipTax": true
+      },
+      "expected": {
+        "futureValue": 12000.0,
+        "monthlyContribution": 1000.0,
+        "totalContribution": 12000.0,
+        "finalValue": 12000.0,
+        "totalInterest": 0.0,
+        "tax": 0.0
+      }
+    },
+    {
+      "name": "goal 10000 in 2 years, inflation=0.03, rate=0.12, skipTax=False",
+      "input": {
+        "amount": 10000.0,
+        "duration": 2,
+        "inflation": 0.03,
+        "rate": 0.12,
+        "skipTax": false
+      },
+      "expected": {
+        "futureValue": 10609.0,
+        "monthlyContribution": 401.73,
+        "totalContribution": 9641.52,
+        "finalValue": 10836.05,
+        "totalInterest": 1194.53,
+        "tax": 226.96
+      }
+    },
+    {
+      "name": "goal 10000 in 2 years, inflation=0.03, rate=0.12, skipTax=True",
+      "input": {
+        "amount": 10000.0,
+        "duration": 2,
+        "inflation": 0.03,
+        "rate": 0.12,
+        "skipTax": true
+      },
+      "expected": {
+        "futureValue": 10609.0,
+        "monthlyContribution": 393.31,
+        "totalContribution": 9439.44,
+        "finalValue": 10608.93,
+        "totalInterest": 1169.49,
+        "tax": 0.0
+      }
+    },
+    {
+      "name": "goal 150000 in 15 years, inflation=0.035, rate=0.05, skipTax=False",
+      "input": {
+        "amount": 150000.0,
+        "duration": 15,
+        "inflation": 0.035,
+        "rate": 0.05,
+        "skipTax": false
+      },
+      "expected": {
+        "futureValue": 251302.32,
+        "monthlyContribution": 1002.39,
+        "totalContribution": 180430.2,
+        "finalValue": 267927.76,
+        "totalInterest": 87497.56,
+        "tax": 16624.54
+      }
+    },
+    {
+      "name": "goal 150000 in 15 years, inflation=0.035, rate=0.05, skipTax=True",
+      "input": {
+        "amount": 150000.0,
+        "duration": 15,
+        "inflation": 0.035,
+        "rate": 0.05,
+        "skipTax": true
+      },
+      "expected": {
+        "futureValue": 251302.32,
+        "monthlyContribution": 940.19,
+        "totalContribution": 169234.2,
+        "finalValue": 251302.39,
+        "totalInterest": 82068.19,
+        "tax": 0.0
+      }
+    },
+    {
+      "name": "goal 10000 in 100 years, inflation=0, rate=0, skipTax=False",
+      "input": {
+        "amount": 10000.0,
+        "duration": 100,
+        "inflation": 0.0,
+        "rate": 0.0,
+        "skipTax": false
+      },
+      "expected": {
+        "futureValue": 10000.0,
+        "monthlyContribution": 8.33,
+        "totalContribution": 9996.0,
+        "finalValue": 9996.0,
+        "totalInterest": 0.0,
+        "tax": 0.0
+      }
+    },
+    {
+      "name": "goal 10000 in 100 years, inflation=0, rate=0, skipTax=True",
+      "input": {
+        "amount": 10000.0,
+        "duration": 100,
+        "inflation": 0.0,
+        "rate": 0.0,
+        "skipTax": true
+      },
+      "expected": {
+        "futureValue": 10000.0,
+        "monthlyContribution": 8.33,
+        "totalContribution": 9996.0,
+        "finalValue": 9996.0,
+        "totalInterest": 0.0,
+        "tax": 0.0
+      }
+    }
+  ]
+}

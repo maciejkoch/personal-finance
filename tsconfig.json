@@ -17,6 +17,8 @@
       "@features/*": ["./src/app/features/*"],
       "@layout/*": ["./src/app/layout/*"],
       "@shared/*": ["./src/app/shared/*"],
+      "@contracts/*": ["./functions/src/contracts/*"],
+      "@markets/pl/*": ["./functions/src/markets/pl/*"],
       "@data/bond-offer": [
         "./functions/src/treasury-bonds/treasury-bonds.offer.json"
       ]

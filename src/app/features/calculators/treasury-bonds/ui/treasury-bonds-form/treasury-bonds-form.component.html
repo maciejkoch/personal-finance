@@ -84,17 +84,25 @@
       </div>
     </pfui-accordion-item>
   </pfui-accordion>
-  <label class="flex items-center gap-3 my-4">
+  <label class="flex items-center gap-3 my-4" [class.opacity-60]="model().ike">
     <input
       type="checkbox"
       class="checkbox checkbox-primary"
-      [formField]="form.skipTax"
+      [formField]="form.familyEligible"
     />
-    <span>Pomiń podatek 19% (scenariusz porównawczy)</span>
+    <span>Mam uprawnienia do zakupu obligacji rodzinnych (800+)</span>
   </label>
-  <p class="text-sm mb-3">
-    Ta opcja nie odwzorowuje wszystkich zasad IKE/IKZE.
-  </p>
+  @if (model().ike) {
+    <p class="text-sm">
+      Obligacje rodzinne ROS i ROD nie są dostępne w IKE-Obligacje.
+    </p>
+  } @else if (model().familyEligible) {
+    <p class="text-sm">
+      Zakup ROS i ROD wymaga dostępnego limitu świadczeń. Kalkulator nie
+      sprawdza limitu, także przy ponownym zakupie.
+    </p>
+  }
+  <pf-tax-options [ike]="form.ike" [skipTax]="form.skipTax" />
   @if (form().invalid()) {
     <p class="text-error mb-3" role="alert">
       Podaj całkowitą liczbę obligacji od 1 do 1 000 000 i okres od 1 do 12

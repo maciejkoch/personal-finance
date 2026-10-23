@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { map, Observable } from "rxjs";
 import { API_ENDPOINTS } from "@core/http/api-endpoints";
+import { adaptBondComparison } from "../model/bond-comparison-adapter";
 import {
   TreasuryBondsRequest,
   TreasuryBondsResult,
@@ -19,8 +20,11 @@ export class TreasuryBondsDataService {
     request: TreasuryBondsRequest,
   ): Observable<TreasuryBondsResult | null> {
     const host = this.#endpoints.treasuryBonds;
+    const comparison =
+      request.ike !== undefined || request.familyEligible !== undefined;
     const fromObject = {
       ...request, //
+      ...(comparison ? { contractVersion: 3 } : {}),
       inflation: JSON.stringify(request.inflation),
       wibor6m: JSON.stringify(request.wibor6m),
       referenceRate: JSON.stringify(request.referenceRate),
@@ -32,6 +36,7 @@ export class TreasuryBondsDataService {
       .get<{ data: TreasuryBondsResult }>(host, { params })
       .pipe(
         map((result) => {
+          if (comparison) return adaptBondComparison(result.data, request);
           if (
             result.data.offerVersion !== offer.version ||
             result.data.calculationVersion !== 2

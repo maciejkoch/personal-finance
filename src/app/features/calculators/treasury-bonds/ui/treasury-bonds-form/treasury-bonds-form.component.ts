@@ -7,6 +7,7 @@ import {
 } from "@angular/core";
 import {
   form,
+  disabled,
   FormField,
   max,
   min,
@@ -16,6 +17,8 @@ import {
 import { AccordionComponent } from "@shared/ui/accordion/accordion.component";
 import { AccordionItemComponent } from "@shared/ui/accordion/accordion-item/accordion-item.component";
 import { TreasuryBondsRequest } from "../../model/treasury-bonds.model";
+import { TaxOptionsComponent } from "../../../shared/tax-options/tax-options.component";
+import { effectiveSkipTax } from "@markets/pl/polish-calculator-options";
 import {
   BOND_STORAGE_KEY,
   BondFormValue,
@@ -26,12 +29,19 @@ import {
 
 @Component({
   selector: "pf-treasury-bonds-form",
-  imports: [FormField, AccordionComponent, AccordionItemComponent],
+  imports: [
+    FormField,
+    AccordionComponent,
+    AccordionItemComponent,
+    TaxOptionsComponent,
+  ],
   templateUrl: "./treasury-bonds-form.component.html",
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TreasuryBondsFormComponent {
   readonly changed = output<TreasuryBondsRequest>();
+  readonly pending = output<TreasuryBondsRequest | null>();
+  readonly optionsChanged = output<{ ike: boolean; familyEligible: boolean }>();
   readonly model = signal(this.load());
   readonly form = form(this.model, (path) => {
     required(path.numberOfBonds);
@@ -59,11 +69,18 @@ export class TreasuryBondsFormComponent {
     required(path.rate);
     min(path.rate, 0);
     max(path.rate, 100);
+    disabled(path.skipTax, { when: ({ valueOf }) => valueOf(path.ike) });
+    disabled(path.familyEligible, { when: ({ valueOf }) => valueOf(path.ike) });
   });
 
   constructor() {
     effect((onCleanup) => {
       const value = this.model();
+      this.pending.emit(this.form().valid() ? this.toRequest(value) : null);
+      this.optionsChanged.emit({
+        ike: value.ike,
+        familyEligible: value.familyEligible,
+      });
       if (!this.form().valid()) return;
       const timer = setTimeout(() => {
         try {
@@ -97,7 +114,9 @@ export class TreasuryBondsFormComponent {
       wibor6m: [0],
       referenceRate: [value.referenceRate / 100],
       savingsRate: [value.rate / 100],
-      skipTax: value.skipTax,
+      skipTax: effectiveSkipTax(value),
+      ike: value.ike,
+      familyEligible: value.familyEligible,
     };
   }
 }

@@ -1,0 +1,172 @@
+{
+  "baselineTests": 145,
+  "mutations": [
+    {
+      "name": "bond tax rounded down",
+      "file": "treasury-bonds/bond-simulation.js",
+      "sourceSha256": "26f11516174955746b5499a80b345a10040ae60b661f66305d180b34471837f0",
+      "detected": true,
+      "failures": 26,
+      "exampleFailingTests": [
+        "Independent calculator regression references ROR maturity, 1 bonds, skipTax=False",
+        "Independent calculator regression references DOR maturity, 1 bonds, skipTax=False",
+        "Independent calculator regression references TOS maturity, 1 bonds, skipTax=False"
+      ]
+    },
+    {
+      "name": "bond skipTax ignored",
+      "file": "treasury-bonds/bond-simulation.js",
+      "sourceSha256": "26f11516174955746b5499a80b345a10040ae60b661f66305d180b34471837f0",
+      "detected": true,
+      "failures": 29,
+      "exampleFailingTests": [
+        "Independent calculator regression references ROR maturity, 1 bonds, skipTax=True",
+        "Independent calculator regression references ROR maturity, 100 bonds, skipTax=True",
+        "Independent calculator regression references DOR maturity, 1 bonds, skipTax=True"
+      ]
+    },
+    {
+      "name": "redemption fee removed",
+      "file": "treasury-bonds/bond-simulation.js",
+      "sourceSha256": "26f11516174955746b5499a80b345a10040ae60b661f66305d180b34471837f0",
+      "detected": true,
+      "failures": 33,
+      "exampleFailingTests": [
+        "Independent calculator regression references COI year two with zero preceding inflation, 1 bonds, skipTax=False",
+        "Independent calculator regression references COI year two with zero preceding inflation, 1 bonds, skipTax=True",
+        "Independent calculator regression references COI year two with zero preceding inflation, 100 bonds, skipTax=False"
+      ]
+    },
+    {
+      "name": "redemption fee not deducted from taxable income",
+      "file": "treasury-bonds/bond-simulation.js",
+      "sourceSha256": "26f11516174955746b5499a80b345a10040ae60b661f66305d180b34471837f0",
+      "detected": true,
+      "failures": 14,
+      "exampleFailingTests": [
+        "Independent calculator regression references EDO year two with zero preceding inflation, 1 bonds, skipTax=False",
+        "Independent calculator regression references EDO year two with zero preceding inflation, 100 bonds, skipTax=False",
+        "Independent calculator regression references ROS year two with zero preceding inflation, 1 bonds, skipTax=False"
+      ]
+    },
+    {
+      "name": "capitalization removed",
+      "file": "treasury-bonds/bond-simulation.js",
+      "sourceSha256": "26f11516174955746b5499a80b345a10040ae60b661f66305d180b34471837f0",
+      "detected": true,
+      "failures": 38,
+      "exampleFailingTests": [
+        "Independent calculator regression references TOS maturity, 1 bonds, skipTax=False",
+        "Independent calculator regression references TOS maturity, 1 bonds, skipTax=True",
+        "Independent calculator regression references TOS maturity, 100 bonds, skipTax=False"
+      ]
+    },
+    {
+      "name": "coupon counted twice",
+      "file": "treasury-bonds/bond-simulation.js",
+      "sourceSha256": "26f11516174955746b5499a80b345a10040ae60b661f66305d180b34471837f0",
+      "detected": true,
+      "failures": 26,
+      "exampleFailingTests": [
+        "Independent calculator regression references ROR maturity, 1 bonds, skipTax=False",
+        "Independent calculator regression references ROR maturity, 1 bonds, skipTax=True",
+        "Independent calculator regression references ROR maturity, 100 bonds, skipTax=False"
+      ]
+    },
+    {
+      "name": "cash interest omitted",
+      "file": "treasury-bonds/bond-simulation.js",
+      "sourceSha256": "26f11516174955746b5499a80b345a10040ae60b661f66305d180b34471837f0",
+      "detected": true,
+      "failures": 3,
+      "exampleFailingTests": [
+        "Independent calculator regression references ROR coupons and interest on cash, 100 bonds, skipTax=False",
+        "Independent calculator regression references ROR coupons and interest on cash, 100 bonds, skipTax=True",
+        "Tax, reinvestment and conservation passes skipTax through HTTP calculation to coupons and savings"
+      ]
+    },
+    {
+      "name": "inflation taken one year too early",
+      "file": "treasury-bonds/bond-simulation.js",
+      "sourceSha256": "26f11516174955746b5499a80b345a10040ae60b661f66305d180b34471837f0",
+      "detected": true,
+      "failures": 18,
+      "exampleFailingTests": [
+        "Independent calculator regression references COI year two with zero preceding inflation, 1 bonds, skipTax=False",
+        "Independent calculator regression references COI year two with zero preceding inflation, 1 bonds, skipTax=True",
+        "Independent calculator regression references COI year two with zero preceding inflation, 100 bonds, skipTax=False"
+      ]
+    },
+    {
+      "name": "exchange discount removed",
+      "file": "treasury-bonds/bond-simulation.js",
+      "sourceSha256": "26f11516174955746b5499a80b345a10040ae60b661f66305d180b34471837f0",
+      "detected": true,
+      "failures": 1,
+      "exampleFailingTests": [
+        "Tax, reinvestment and conservation allows the last maturity coupon to participate in exchange, preserving leftover cash"
+      ]
+    },
+    {
+      "name": "last observation omitted",
+      "file": "treasury-bonds/bond-simulation.js",
+      "sourceSha256": "26f11516174955746b5499a80b345a10040ae60b661f66305d180b34471837f0",
+      "detected": true,
+      "failures": 70,
+      "exampleFailingTests": [
+        "Independent calculator regression references ROR maturity, 1 bonds, skipTax=False",
+        "Independent calculator regression references ROR maturity, 1 bonds, skipTax=True",
+        "Independent calculator regression references ROR maturity, 100 bonds, skipTax=False"
+      ]
+    },
+    {
+      "name": "zero scenario mistaken for missing data",
+      "file": "calculations/calculations.service.js",
+      "sourceSha256": "d75ea1fb8ede06509eb0252f7771956d3dc09d5f9289159e40901c8a8f27aa1d",
+      "detected": true,
+      "failures": 2,
+      "exampleFailingTests": [
+        "Calculator HTTP numerical regressions preserves zero and negative inflation, falls back to the last scenario and returns complete months",
+        "Tax, reinvestment and conservation preserves a zero inflation year in the purchasing-power benchmark"
+      ]
+    },
+    {
+      "name": "annuity payments moved to start of month",
+      "file": "calculations/calculations.service.js",
+      "sourceSha256": "d75ea1fb8ede06509eb0252f7771956d3dc09d5f9289159e40901c8a8f27aa1d",
+      "detected": true,
+      "failures": 23,
+      "exampleFailingTests": [
+        "Calculate should future value of series",
+        "Independent calculator regression references regular contributions: 1000/month for 2 years at 0.12, skipTax=False",
+        "Independent calculator regression references regular contributions: 1000/month for 2 years at 0.12, skipTax=True"
+      ]
+    },
+    {
+      "name": "savings goal skipTax ignored",
+      "file": "savings/savings.service.js",
+      "sourceSha256": "4f7f9e1ebe91d8196f7298eb60de29da07a53eaa257c82f55fe82be02ffb7236",
+      "detected": true,
+      "failures": 5,
+      "exampleFailingTests": [
+        "Independent calculator regression references savings goal: goal 10000 in 2 years, inflation=0.03, rate=0.12, skipTax=True",
+        "Independent calculator regression references savings goal: goal 150000 in 15 years, inflation=0.035, rate=0.05, skipTax=True",
+        "Independent calculator regression references skipping tax preserves gross growth but reduces the required contribution for a growing goal"
+      ]
+    },
+    {
+      "name": "regular contributions skipTax ignored",
+      "file": "regular-contributions/regular-contributions.service.js",
+      "sourceSha256": "e5df5c343090c13f646f8a39273fbd735de6f6a391b7c295729ca56ca6e48166",
+      "detected": true,
+      "failures": 8,
+      "exampleFailingTests": [
+        "Independent calculator regression references regular contributions: 1000/month for 2 years at 0.12, skipTax=True",
+        "Independent calculator regression references regular contributions: 500.01/month for 15 years at 0.05, skipTax=True",
+        "Independent calculator regression references regular contributions: 0.01/month for 100 years at 0.01, skipTax=True"
+      ]
+    }
+  ],
+  "detected": 14,
+  "total": 14
+}

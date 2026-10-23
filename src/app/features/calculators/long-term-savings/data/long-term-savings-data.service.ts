@@ -1,21 +1,22 @@
-import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import { effectiveSkipTax } from "@markets/pl/polish-calculator-options";
+import { HttpClient } from "@angular/common/http";
+import { inject, Injectable } from "@angular/core";
+import { map, Observable } from "rxjs";
 import { API_ENDPOINTS } from "@core/http/api-endpoints";
 import {
   LongTermSavingsData,
   LongTermSavingsRequest,
-} from '../model/long-term-savings.model';
+} from "../model/long-term-savings.model";
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class LongTermSavingsDataService {
   #httpClient = inject(HttpClient);
   #endpoints = inject(API_ENDPOINTS);
 
   calculate(
-    request: LongTermSavingsRequest
+    request: LongTermSavingsRequest,
   ): Observable<LongTermSavingsData | null> {
     const host = this.#endpoints.savings;
 
@@ -24,12 +25,18 @@ export class LongTermSavingsDataService {
 
     const url = `${host}?amount=${request.amount}&duration=${
       request.duration
-    }&inflation=${inflation / 100}&rate=${rate / 100}&skipTax=${
-      request.skipTax
-    }`;
+    }&inflation=${inflation / 100}&rate=${rate / 100}&skipTax=${effectiveSkipTax(
+      request,
+    )}${request.ike === undefined ? "" : `&ike=${request.ike}`}`;
 
     return this.#httpClient
       .get<{ data: LongTermSavingsData }>(url)
-      .pipe(map((result) => ({ ...result.data, ...request })));
+      .pipe(
+        map((result) => ({
+          ...result.data,
+          ...request,
+          skipTax: effectiveSkipTax(request),
+        })),
+      );
   }
 }

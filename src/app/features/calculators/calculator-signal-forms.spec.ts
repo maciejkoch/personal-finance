@@ -55,7 +55,10 @@ describe("Calculator Signal Forms", () => {
         'input[type="number"][placeholder="10"]',
       ).disabled,
     ).toBe(false);
-    expect(received).toHaveBeenLastCalledWith({ ...saved, skipRate: true });
+    expect(received).toHaveBeenLastCalledWith({
+      ...saved,
+      skipRate: true,
+    });
     component.model.update((value) => ({ ...value, skipRate: false }));
     await fixture.whenStable();
     expect(component.form.rate().disabled()).toBe(false);

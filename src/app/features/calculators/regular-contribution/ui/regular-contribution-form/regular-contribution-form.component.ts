@@ -16,19 +16,26 @@ import {
 } from "@angular/forms/signals";
 import { useLocalStorage } from "@shared/local-storage/use-local-storage";
 import { z } from "zod";
+import { TaxOptionsComponent } from "../../../shared/tax-options/tax-options.component";
 import { RegularContributionRequest } from "../../model/regular-contribution.model";
 
-const formSchema = z.object({
-  contribution: z.number(),
-  duration: z.number().int().min(1).max(100),
-  rate: z.number(),
-  skipRate: z.boolean(),
-  skipTax: z.boolean(),
-});
+const formSchema = z
+  .object({
+    ike: z.boolean().optional(),
+    contribution: z.number(),
+    duration: z.number().int().min(1).max(100),
+    rate: z.number(),
+    skipRate: z.boolean(),
+    skipTax: z.boolean(),
+  })
+  .transform(({ ike, ...values }) => ({
+    ...values,
+    skipTax: values.skipTax || ike === true,
+  }));
 
 @Component({
   selector: "pf-regular-contribution-form",
-  imports: [FormField],
+  imports: [FormField, TaxOptionsComponent],
   templateUrl: "./regular-contribution-form.component.html",
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -38,7 +45,8 @@ export class RegularContributionFormComponent {
     formSchema,
   );
   readonly changed = output<RegularContributionRequest>();
-  readonly model = signal<RegularContributionRequest>(
+  readonly pending = output<RegularContributionRequest | null>();
+  readonly model = signal(
     this.storage.load() ?? {
       contribution: 1000,
       duration: 15,
@@ -62,12 +70,15 @@ export class RegularContributionFormComponent {
     min(path.rate, 0);
     max(path.rate, 100);
     disabled(path.rate, { when: ({ valueOf }) => valueOf(path.skipRate) });
-    disabled(path.skipTax, { when: ({ valueOf }) => valueOf(path.skipRate) });
+    disabled(path.skipTax, {
+      when: ({ valueOf }) => valueOf(path.skipRate),
+    });
   });
 
   constructor() {
     effect((onCleanup) => {
       const request = this.model();
+      this.pending.emit(this.form().valid() ? request : null);
       if (!this.form().valid()) return;
       const timer = setTimeout(() => {
         this.storage.save(request);

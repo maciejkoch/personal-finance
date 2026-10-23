@@ -24,7 +24,7 @@
         </tr>
       </thead>
       <tbody>
-        @for (bond of bonds; track bond.series) {
+        @for (bond of bonds(); track bond.series) {
           <tr>
             <th scope="row">
               <a class="link" [href]="bond.source">{{ bond.series }}</a> ({{
@@ -89,14 +89,16 @@
     Wybierz liczbę obligacji i okres w pełnych latach od 1 do 12. Jedna
     obligacja ma nominał 100 zł. Następnie określ scenariusz inflacji, przyszłej
     stopy NBP i oprocentowania gotówki. Porównanie obejmuje ROR, DOR, TOS, COI,
-    EDO, ROS i ROD.
+    EDO, a po zaznaczeniu uprawnienia rodzinnego również ROS i ROD. W trybie IKE
+    obligacje rodzinne nie są dostępne.
   </p>
   <p>
-    Tabela i wykres pokazują wartość całej inwestycji w pełne rocznice, a nie
-    same odsetki. Kwotę na koniec wybranego okresu pokazuje również podsumowanie
-    wyników. Wyniki uwzględniają modelowy wykup, opłaty, podatek i wypłacone
-    wcześniej kupony. Przerywana linia na wykresie to kapitał powiększony o
-    założoną inflację — punkt odniesienia dla siły nabywczej.
+    Tabela i wykres liniowy pokazują wartość całej inwestycji w pełne rocznice,
+    a nie same odsetki. Wykres słupkowy porównuje kwoty na koniec wybranego
+    okresu. Kwotę końcową pokazuje również podsumowanie wyników. Wyniki
+    uwzględniają modelowy wykup, opłaty, podatek i wypłacone wcześniej kupony.
+    Przerywana linia na wykresie to kapitał powiększony o założoną inflację —
+    punkt odniesienia dla siły nabywczej.
   </p>
   <h3>Przykład: jedna TOS, wykup po 3 latach</h3>
   <p>
@@ -152,7 +154,12 @@
   </p>
   <div class="flex flex-col lg:flex-row gap-4 mb-5 pt-5" #scrollToContainer>
     <div class="w-full lg:w-2/5 relative">
-      <pf-treasury-bonds-form (changed)="calculate($event)" class="w-full" />
+      <pf-treasury-bonds-form
+        (changed)="calculate($event)"
+        (pending)="invalidate($event)"
+        (optionsChanged)="options.set($event)"
+        class="w-full"
+      />
     </div>
     <div class="w-full lg:w-3/5">
       <pf-treasury-bonds-results-description
@@ -164,6 +171,7 @@
   </div>
 
   @if (result(); as result) {
+    <pf-treasury-bonds-final-chart [data]="result" />
     <div class="w-full mb-5">
       <pf-treasury-bonds-results [results]="result" [loading]="loading()" />
     </div>

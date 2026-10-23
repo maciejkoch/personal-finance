@@ -6,6 +6,7 @@ export type LongTermSavingsRequest = {
   skipInflation: boolean;
   skipRate: boolean;
   skipTax: boolean;
+  ike?: boolean;
 };
 
 export type LongTermSavingsData = LongTermSavingsRequest & {

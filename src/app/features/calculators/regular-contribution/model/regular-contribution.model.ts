@@ -4,6 +4,7 @@ export type RegularContributionRequest = {
   rate: number;
   skipRate: boolean;
   skipTax: boolean;
+  ike?: boolean;
 };
 
 export type RegularContributionData = RegularContributionRequest & {

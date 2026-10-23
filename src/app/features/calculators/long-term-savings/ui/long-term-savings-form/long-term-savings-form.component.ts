@@ -16,21 +16,28 @@ import {
 } from "@angular/forms/signals";
 import { useLocalStorage } from "@shared/local-storage/use-local-storage";
 import { z } from "zod";
+import { TaxOptionsComponent } from "../../../shared/tax-options/tax-options.component";
 import { LongTermSavingsRequest } from "../../model/long-term-savings.model";
 
-const formSchema = z.object({
-  amount: z.number(),
-  duration: z.number().int().min(1).max(100),
-  inflation: z.number(),
-  skipInflation: z.boolean(),
-  rate: z.number(),
-  skipRate: z.boolean(),
-  skipTax: z.boolean(),
-});
+const formSchema = z
+  .object({
+    ike: z.boolean().optional(),
+    amount: z.number(),
+    duration: z.number().int().min(1).max(100),
+    inflation: z.number(),
+    skipInflation: z.boolean(),
+    rate: z.number(),
+    skipRate: z.boolean(),
+    skipTax: z.boolean(),
+  })
+  .transform(({ ike, ...values }) => ({
+    ...values,
+    skipTax: values.skipTax || ike === true,
+  }));
 
 @Component({
   selector: "pf-long-term-savings-form",
-  imports: [FormField],
+  imports: [FormField, TaxOptionsComponent],
   templateUrl: "./long-term-savings-form.component.html",
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -40,7 +47,8 @@ export class LongTermSavingsFormComponent {
     formSchema,
   );
   readonly changed = output<LongTermSavingsRequest>();
-  readonly model = signal<LongTermSavingsRequest>(
+  readonly pending = output<LongTermSavingsRequest | null>();
+  readonly model = signal(
     this.storage.load() ?? {
       amount: 150000,
       duration: 15,
@@ -72,12 +80,15 @@ export class LongTermSavingsFormComponent {
     min(path.rate, 0);
     max(path.rate, 100);
     disabled(path.rate, { when: ({ valueOf }) => valueOf(path.skipRate) });
-    disabled(path.skipTax, { when: ({ valueOf }) => valueOf(path.skipRate) });
+    disabled(path.skipTax, {
+      when: ({ valueOf }) => valueOf(path.skipRate),
+    });
   });
 
   constructor() {
     effect((onCleanup) => {
       const request = this.model();
+      this.pending.emit(this.form().valid() ? request : null);
       if (!this.form().valid()) return;
       const timer = setTimeout(() => {
         this.storage.save(request);

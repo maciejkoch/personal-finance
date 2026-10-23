@@ -1,4 +1,46 @@
 @layer components {
+  .formula {
+    margin-block: 1.5rem;
+    padding: 1.25rem;
+    border: 1px solid
+      color-mix(in oklab, var(--color-base-content) 18%, transparent);
+    border-radius: var(--radius-box);
+    background: var(--color-base-200);
+  }
+
+  .formula figcaption {
+    font-size: 0.875rem;
+    font-weight: 600;
+  }
+
+  .formula-equation {
+    overflow-x: auto;
+    padding-block: 1.25rem;
+  }
+
+  .formula-equation:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
+  .formula-equation math {
+    width: max-content;
+    min-width: 100%;
+    font-size: clamp(1.25rem, 2.5vw, 1.625rem);
+  }
+
+  .formula-legend {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.8;
+  }
+
+  .formula-legend var {
+    color: var(--color-secondary);
+    font-family: math;
+    font-size: 1rem;
+  }
+
   .brand-link {
     display: inline-flex;
     flex-shrink: 0;

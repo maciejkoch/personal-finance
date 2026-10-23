@@ -8,7 +8,11 @@
 @defer {
   <div class="flex flex-col lg:flex-row gap-4 mb-10">
     <div class="w-full lg:w-2/5" #formContainer>
-      <pf-long-term-savings-form (changed)="calculate($event)" class="w-full" />
+      <pf-long-term-savings-form
+        (changed)="calculate($event)"
+        (pending)="invalidate($event)"
+        class="w-full"
+      />
     </div>
     <div class="w-full lg:w-3/5">
       @if (data(); as data) {
@@ -43,18 +47,84 @@
   </p>
   <h3>Metoda obliczeń</h3>
   <p>
-    Wartość celu zwiększamy co roku o podaną inflację: cel przyszły = cel
-    dzisiejszy × (1 + inflacja)<sup>liczba lat</sup>. Pominięcie inflacji
+    Wartość celu zwiększamy co roku o podaną inflację. Pominięcie inflacji
     pozostawia cel w kwocie nominalnej. Inflacja i stopa zwrotu są założeniami,
     a nie prognozami serwisu.
   </p>
-  <p>
-    Zakładamy wpłaty na koniec miesiąca i kapitalizację miesięczną przy stopie
-    równej 1/12 stopy rocznej. Dla miesięcznej stopy i, liczby miesięcy n oraz
-    podatku t wyznaczamy wpłatę jako cel przyszły / ((1 − t) × ((1 + i)<sup
-      >n</sup
+  <figure class="formula not-prose">
+    <figcaption>Wartość celu po uwzględnieniu inflacji</figcaption>
+    <div
+      class="formula-equation"
+      tabindex="0"
+      role="region"
+      aria-label="Wzór na przyszłą wartość celu"
     >
-    − 1) / i + t × n). Przy zerowej stopie dzielimy cel przez liczbę miesięcy.
+      <math
+        display="block"
+        aria-label="Cel przyszły równa się cel dzisiejszy razy jeden plus roczna inflacja do potęgi liczby lat"
+      >
+        <mi>C</mi><mo>=</mo><msub><mi>C</mi><mn>0</mn></msub
+        ><mo>·</mo>
+        <msup
+          ><mrow><mo>(</mo><mn>1</mn><mo>+</mo><mi>π</mi><mo>)</mo></mrow
+          ><mi>L</mi></msup
+        >
+      </math>
+    </div>
+    <p class="formula-legend">
+      <var>C</var> — przyszła wartość celu; <var>C<sub>0</sub></var> —
+      dzisiejsza wartość celu; <var>π</var> — roczna inflacja (np. 3% = 0,03);
+      <var>L</var> — liczba lat.
+    </p>
+  </figure>
+  <p>
+    Zakładamy wpłaty na koniec miesiąca i kapitalizację miesięczną. Roczną stopę
+    zwrotu dzielimy przez 12. Miesięczną wpłatę wyznaczamy ze wzoru:
+  </p>
+  <figure class="formula not-prose">
+    <figcaption>Miesięczna wpłata potrzebna do osiągnięcia celu</figcaption>
+    <div
+      class="formula-equation"
+      tabindex="0"
+      role="region"
+      aria-label="Wzór na miesięczną wpłatę"
+    >
+      <math
+        display="block"
+        aria-label="Wpłata równa się cel przyszły podzielony przez sumę: jeden minus podatek razy iloraz jeden plus miesięczna stopa do potęgi liczby miesięcy minus jeden przez miesięczną stopę, oraz podatek razy liczba miesięcy"
+      >
+        <mi>W</mi><mo>=</mo>
+        <mfrac>
+          <mi>C</mi>
+          <mrow>
+            <mo>(</mo><mn>1</mn><mo>−</mo><mi>t</mi><mo>)</mo><mo>·</mo>
+            <mfrac>
+              <mrow
+                ><msup
+                  ><mrow
+                    ><mo>(</mo><mn>1</mn><mo>+</mo><mi>i</mi><mo>)</mo></mrow
+                  ><mi>n</mi></msup
+                ><mo>−</mo><mn>1</mn></mrow
+              >
+              <mi>i</mi>
+            </mfrac>
+            <mo>+</mo><mi>t</mi><mo>·</mo><mi>n</mi>
+          </mrow>
+        </mfrac>
+      </math>
+    </div>
+    <p class="formula-legend">
+      <var>W</var> — miesięczna wpłata; <var>C</var> — przyszła wartość celu;
+      <var>i</var> — miesięczna stopa zwrotu; <var>n</var> — liczba miesięcy;
+      <var>t</var> — stawka podatku (0,19 lub 0 przy pominięciu podatku).
+    </p>
+  </figure>
+  <p>
+    Przy zerowej stopie zwrotu dzielimy cel przez liczbę miesięcy:
+    <math
+      aria-label="Wpłata równa się cel przyszły podzielony przez liczbę miesięcy"
+      ><mi>W</mi><mo>=</mo><mfrac><mi>C</mi><mi>n</mi></mfrac></math
+    >.
   </p>
   <p>
     Podatek w modelu to 19% odsetek, rozliczone jednorazowo na koniec; możesz go
@@ -89,3 +159,7 @@
     <time datetime="2026-10-23">23.10.2026</time>.
   </p>
 </section>
+
+@if (error(); as message) {
+  <p class="alert alert-error my-4" role="alert">{{ message }}</p>
+}

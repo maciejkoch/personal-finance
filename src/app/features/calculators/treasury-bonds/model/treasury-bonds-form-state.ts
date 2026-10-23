@@ -8,6 +8,8 @@ export const bondFormSchema = z.object({
   referenceRate: z.number().finite().min(0).max(100),
   rate: z.number().finite().min(0).max(100),
   skipTax: z.boolean(),
+  ike: z.boolean(),
+  familyEligible: z.boolean(),
 });
 export type BondFormValue = z.infer<typeof bondFormSchema>;
 export const bondFormDefaults: BondFormValue = {
@@ -17,6 +19,8 @@ export const bondFormDefaults: BondFormValue = {
   referenceRate: 4,
   rate: 0,
   skipTax: false,
+  ike: false,
+  familyEligible: false,
 };
 export const BOND_STORAGE_KEY = "treasury-bonds-form";
 
@@ -26,9 +30,16 @@ export function readBondForm(serialized: string | null): BondFormValue {
     const saved = JSON.parse(serialized || "null");
     if (!saved || typeof saved !== "object" || Array.isArray(saved))
       return { ...bondFormDefaults };
-    if ("schemaVersion" in saved && saved.schemaVersion !== 2)
+    if (
+      "schemaVersion" in saved &&
+      saved.schemaVersion !== 2 &&
+      saved.schemaVersion !== 3
+    )
       return { ...bondFormDefaults };
-    const source = saved.schemaVersion === 2 ? saved.values : saved;
+    const source =
+      saved.schemaVersion === 2 || saved.schemaVersion === 3
+        ? saved.values
+        : saved;
     if (!source || typeof source !== "object") return { ...bondFormDefaults };
     const values = { ...bondFormDefaults };
     for (const key of Object.keys(
@@ -45,7 +56,7 @@ export function readBondForm(serialized: string | null): BondFormValue {
 
 export function serializeBondForm(values: BondFormValue): string {
   return JSON.stringify({
-    schemaVersion: 2,
+    schemaVersion: 3,
     offerVersion: offer.version,
     values,
   });

@@ -8,6 +8,7 @@ const SavingsSchema = z.object({
   inflation: z.preprocess(parseQueryNumber, z.number().min(0).max(1)),
   rate: z.preprocess(parseQueryNumber, z.number().min(0).max(1)),
   skipTax: queryBoolean,
+  ike: queryBoolean.optional(),
 });
 
 export type SavingsDTO = z.infer<typeof SavingsSchema>;

@@ -1,17 +1,18 @@
-import { CurrencyPipe, DecimalPipe } from '@angular/common';
+import { visibleBonds, bondValue } from "../../model/bond-presentation";
+import { CurrencyPipe, DecimalPipe } from "@angular/common";
 import {
   ChangeDetectionStrategy,
   Component,
   computed,
   input,
-} from '@angular/core';
+} from "@angular/core";
 import { DelayedLoaderComponent } from "@shared/ui/delayed-loader/delayed-loader.component";
-import { TreasuryBondsResult } from '../../model/treasury-bonds.model';
+import { TreasuryBondsResult } from "../../model/treasury-bonds.model";
 @Component({
-    selector: 'pf-treasury-bonds-results-description',
-    imports: [DecimalPipe, CurrencyPipe, DelayedLoaderComponent],
-    templateUrl: './treasury-bonds-results-description.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+  selector: "pf-treasury-bonds-results-description",
+  imports: [DecimalPipe, CurrencyPipe, DelayedLoaderComponent],
+  templateUrl: "./treasury-bonds-results-description.component.html",
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TreasuryBondsResultsDescriptionComponent {
   data = input<TreasuryBondsResult | null>();
@@ -24,16 +25,14 @@ export class TreasuryBondsResultsDescriptionComponent {
     }
 
     const last = results.values[results.values.length - 1];
-    const highestBond = Object.entries(last).reduce(
-      (acc, [key, value]) => {
-        if (key === 'month' || key === 'futureValue') {
-          return acc;
-        }
-
-        return value > acc.value ? { key, value } : acc;
+    const highestBond = visibleBonds(results).reduce(
+      (best, bond) => {
+        const value = bondValue(last, bond.key);
+        return value > best.value ? { key: bond.key, value } : best;
       },
-      { key: '', value: 0 }
+      { key: "", value: -Infinity },
     );
+    if (!highestBond.key) return;
 
     return {
       year: last.month / 12,

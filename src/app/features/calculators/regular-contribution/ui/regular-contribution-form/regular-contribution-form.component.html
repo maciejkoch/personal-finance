@@ -38,23 +38,16 @@
     />
   </label>
 
-  <label class="flex items-center mt-4">
+  <label class="flex items-center gap-3 mt-4">
     <input
       type="checkbox"
-      class="toggle toggle-primary"
+      class="checkbox checkbox-primary"
       [formField]="form.skipRate"
     />
-    <span class="ml-2">Pomiń stopę zwrotu</span>
+    <span>Pomiń stopę zwrotu</span>
   </label>
 
-  <label class="flex items-center mt-4">
-    <input
-      type="checkbox"
-      class="toggle toggle-primary"
-      [formField]="form.skipTax"
-    />
-    <span class="ml-2">Pomiń podatek Belki</span>
-  </label>
+  <pf-tax-options [skipTax]="form.skipTax" />
   @if (form().invalid()) {
     <p class="text-error mt-3" role="alert">
       Podaj poprawne wartości: kwota co najmniej 1 zł, okres w pełnych latach od

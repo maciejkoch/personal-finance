@@ -10,6 +10,7 @@
     <div class="w-full lg:w-2/5" #formContainer>
       <pf-regular-contribution-form
         (changed)="calculate($event)"
+        (pending)="invalidate($event)"
         class="w-full"
       />
     </div>
@@ -49,9 +50,45 @@
   <h3>Metoda obliczeń</h3>
   <p>
     Wpłaty trafiają na koniec każdego miesiąca. Roczną stopę nominalną dzielimy
-    przez 12, a odsetki kapitalizujemy co miesiąc. Przy wpłacie W, miesięcznej
-    stopie i i liczbie miesięcy n wartość brutto wynosi W × ((1 + i)<sup>n</sup>
-    − 1) / i. Dla zerowej stopy to W × n.
+    przez 12, a odsetki kapitalizujemy co miesiąc. Wartość zgromadzonych
+    oszczędności przed podatkiem obliczamy ze wzoru:
+  </p>
+  <figure class="formula not-prose">
+    <figcaption>Wartość oszczędności przed podatkiem</figcaption>
+    <div
+      class="formula-equation"
+      tabindex="0"
+      role="region"
+      aria-label="Wzór na wartość oszczędności"
+    >
+      <math
+        display="block"
+        aria-label="Wartość brutto równa się miesięczna wpłata razy iloraz: jeden plus miesięczna stopa do potęgi liczby miesięcy minus jeden, podzielone przez miesięczną stopę"
+      >
+        <mi>K</mi><mo>=</mo><mi>W</mi><mo>·</mo>
+        <mfrac>
+          <mrow
+            ><msup
+              ><mrow><mo>(</mo><mn>1</mn><mo>+</mo><mi>i</mi><mo>)</mo></mrow
+              ><mi>n</mi></msup
+            ><mo>−</mo><mn>1</mn></mrow
+          >
+          <mi>i</mi>
+        </mfrac>
+      </math>
+    </div>
+    <p class="formula-legend">
+      <var>K</var> — wartość oszczędności przed podatkiem; <var>W</var> —
+      miesięczna wpłata; <var>i</var> — miesięczna stopa zwrotu; <var>n</var> —
+      liczba miesięcy.
+    </p>
+  </figure>
+  <p>
+    Przy zerowej stopie zwrotu sumujemy same wpłaty:
+    <math
+      aria-label="Wartość oszczędności równa się miesięczna wpłata razy liczba miesięcy"
+      ><mi>K</mi><mo>=</mo><mi>W</mi><mo>·</mo><mi>n</mi></math
+    >.
   </p>
   <p>
     Podatek w modelu to 19% łącznych odsetek, odjęte na koniec oszczędzania.
@@ -90,3 +127,7 @@
     <time datetime="2026-10-23">23.10.2026</time>.
   </p>
 </section>
+
+@if (error(); as message) {
+  <p class="alert alert-error my-4" role="alert">{{ message }}</p>
+}

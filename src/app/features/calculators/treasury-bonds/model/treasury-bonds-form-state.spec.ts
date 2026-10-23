@@ -14,14 +14,16 @@ describe("Bond assumptions persistence", () => {
       rate: 2,
       skipTax: true,
     };
-    expect(readBondForm(JSON.stringify({ ...values, wibor6m: 5.84 }))).toEqual(
-      values,
-    );
+    expect(readBondForm(JSON.stringify({ ...values, wibor6m: 5.84 }))).toEqual({
+      ...values,
+      ike: false,
+      familyEligible: false,
+    });
     expect(
       readBondForm(
         JSON.stringify({ schemaVersion: 2, offerVersion: "older", values }),
       ),
-    ).toEqual(values);
+    ).toEqual({ ...values, ike: false, familyEligible: false });
   });
   it("repairs invalid fields independently and preserves valid ones", () => {
     expect(
@@ -52,9 +54,13 @@ describe("Bond assumptions persistence", () => {
     const values = { ...bondFormDefaults, inflation: -1, referenceRate: 0 };
     const saved = serializeBondForm(values);
     expect(JSON.parse(saved)).toMatchObject({
-      schemaVersion: 2,
+      schemaVersion: 3,
       offerVersion: "2026-10-v1",
     });
-    expect(readBondForm(saved)).toEqual(values);
+    expect(readBondForm(saved)).toEqual({
+      ...values,
+      ike: false,
+      familyEligible: false,
+    });
   });
 });

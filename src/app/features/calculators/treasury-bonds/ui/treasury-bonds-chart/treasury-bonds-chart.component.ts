@@ -20,6 +20,7 @@ import {
   type ChartItem,
 } from "chart.js";
 
+import { visibleBonds, bondValue } from "../../model/bond-presentation";
 import { TreasuryBondsResult } from "../../model/treasury-bonds.model";
 
 Chart.register(
@@ -43,7 +44,7 @@ export class TreasuryBondsChartComponent {
 
   data = input<TreasuryBondsResult>();
 
-  #chart: Chart | null = null;
+  #chart: Chart<"line", number[], number> | null = null;
 
   constructor() {
     inject(DestroyRef).onDestroy(() => this.#chart?.destroy());
@@ -58,98 +59,25 @@ export class TreasuryBondsChartComponent {
           this.#chart = this.#createChart();
         }
 
-        // TODO
-        // 1. Adjust colors and move to a separate file
-        // 2. make it generic (e.g loop over all bond types)
-        const labels = data.map((value) => value.month / 12);
-        const futureValue = data.map((value) => value.futureValue);
-        const ror = data.map((value) => value.ror);
-        const dor = data.map((value) => value.dor);
-        const tos = data.map((value) => value.tos);
-        const coi = data.map((value) => value.coi);
-        const edo = data.map((value) => value.edo);
-        const rod = data.map((value) => value.rod);
-        const ros = data.map((value) => value.ros);
-
-        const futureValueDataset = {
-          label: "Wpłaty powiększone o INFLACJĘ",
-          data: futureValue,
-          backgroundColor: "#e11d48",
-          borderColor: "#e11d48",
-          borderDash: [5, 5],
-          pointRadius: 0,
-        };
-
-        const rorDataset = {
-          label: "ROR (roczne)",
-          data: ror,
-          backgroundColor: "#9333ea",
-          borderColor: "#9333ea",
-          pointRadius: 0,
-        };
-
-        const dorDataset = {
-          label: "DOR (2-latki)",
-          data: dor,
-          backgroundColor: "#14b8a6",
-          borderColor: "#14b8a6",
-          pointRadius: 0,
-        };
-
-        const tosDataset = {
-          label: "TOS (3-latki)",
-          data: tos,
-          backgroundColor: "#84cc16",
-          borderColor: "#84cc16",
-          pointRadius: 0,
-        };
-
-        const coiDataset = {
-          label: "COI (4-latki)",
-          data: coi,
-          backgroundColor: "#84cc16",
-          borderColor: "#84cc16",
-          pointRadius: 0,
-        };
-
-        const edoDataset = {
-          label: "EDO (10-latki)",
-          data: edo,
-          backgroundColor: "#facc15",
-          borderColor: "#facc15",
-          pointRadius: 0,
-        };
-
-        const rodDataset = {
-          label: "ROD (12-latki)",
-          data: rod,
-          backgroundColor: "#64748b",
-          borderColor: "#64748b",
-          pointRadius: 0,
-        };
-
-        const rosDataset = {
-          label: "ROS (6-latki)",
-          data: ros,
-          backgroundColor: "#f43f5e",
-          borderColor: "#f43f5e",
-          pointRadius: 0,
-        };
-
-        const datasets = [
-          futureValueDataset,
-          rorDataset,
-          dorDataset,
-          tosDataset,
-          coiDataset,
-          edoDataset,
-          rodDataset,
-          rosDataset,
-        ];
-
+        const result = this.data()!;
         this.#chart.data = {
-          labels,
-          datasets,
+          labels: data.map((point) => point.month / 12),
+          datasets: [
+            {
+              label: "Wpłaty powiększone o INFLACJĘ",
+              data: data.map((point) => point.futureValue),
+              borderColor: "#e11d48",
+              borderDash: [5, 5],
+              pointRadius: 0,
+            },
+            ...visibleBonds(result).map((bond) => ({
+              label: bond.label,
+              data: data.map((point) => bondValue(point, bond.key)),
+              borderColor: bond.color,
+              backgroundColor: bond.color,
+              pointRadius: 0,
+            })),
+          ],
         };
 
         this.#chart.update();
@@ -158,38 +86,41 @@ export class TreasuryBondsChartComponent {
   }
 
   #createChart() {
-    return new Chart(this.canvas()?.nativeElement as ChartItem, {
-      type: "line",
-      data: {
-        labels: [],
-        datasets: [
-          {
-            data: [],
-          },
-        ],
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        interaction: {
-          intersect: false,
+    return new Chart<"line", number[], number>(
+      this.canvas()?.nativeElement as ChartItem,
+      {
+        type: "line",
+        data: {
+          labels: [],
+          datasets: [
+            {
+              data: [],
+            },
+          ],
         },
-        scales: {
-          x: {
-            display: true,
-            title: {
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          interaction: {
+            intersect: false,
+          },
+          scales: {
+            x: {
               display: true,
+              title: {
+                display: true,
+              },
+            },
+            y: {
+              display: true,
+              title: {
+                display: true,
+                text: "Wartość (zł)",
+              },
             },
           },
-          y: {
-            display: true,
-            title: {
-              display: true,
-              text: "Wartość (zł)",
-            },
-          },
         },
       },
-    });
+    );
   }
 }

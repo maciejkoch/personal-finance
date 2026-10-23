@@ -1,42 +1,48 @@
-import { inject } from '@angular/core';
-import { tapResponse } from '@ngrx/operators';
-import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
-import { rxMethod } from '@ngrx/signals/rxjs-interop';
-import { pipe, switchMap, tap } from 'rxjs';
-import { RegularContributionDataService } from '../data/regular-contribution-data.service';
+import { inject } from "@angular/core";
+import { tapResponse } from "@ngrx/operators";
+import { patchState, signalStore, withMethods, withState } from "@ngrx/signals";
+import { rxMethod } from "@ngrx/signals/rxjs-interop";
+import { EMPTY, pipe, switchMap } from "rxjs";
+import { RegularContributionDataService } from "../data/regular-contribution-data.service";
 import {
   RegularContributionData,
   RegularContributionRequest,
-} from '../model/regular-contribution.model';
-
-type State = {
-  result: RegularContributionData | null;
-  isLoading: boolean;
-};
-
-const initialState: State = {
-  result: null,
-  isLoading: false,
-};
+} from "../model/regular-contribution.model";
 
 export const RegularContributionStore = signalStore(
-  withState(initialState),
-  withMethods(
-    (store, dataSservice = inject(RegularContributionDataService)) => ({
-      calculate: rxMethod<RegularContributionRequest>(
-        pipe(
-          tap(() => patchState(store, { isLoading: true })),
-          switchMap((request) => {
-            return dataSservice.calculate(request).pipe(
-              tapResponse({
-                next: (result) => patchState(store, { result }),
-                error: console.error,
-                finalize: () => patchState(store, { isLoading: false }),
-              })
-            );
-          })
-        )
+  withState({
+    request: null as RegularContributionRequest | null,
+    result: null as RegularContributionData | null,
+    isLoading: false,
+    error: null as string | null,
+  }),
+  withMethods((store, service = inject(RegularContributionDataService)) => ({
+    calculate: rxMethod<RegularContributionRequest | null>(
+      pipe(
+        switchMap((request) => {
+          if (!request) {
+            patchState(store, {
+              result: null,
+              isLoading: false,
+              error: null,
+              request: null,
+            });
+            return EMPTY;
+          }
+          patchState(store, { isLoading: true, error: null, request });
+          return service.calculate(request).pipe(
+            tapResponse({
+              next: (result) => patchState(store, { result }),
+              error: () =>
+                patchState(store, {
+                  error:
+                    "Nie udało się obliczyć wyniku. Zmień ustawienia lub spróbuj ponownie.",
+                }),
+              finalize: () => patchState(store, { isLoading: false }),
+            }),
+          );
+        }),
       ),
-    })
-  )
+    ),
+  })),
 );

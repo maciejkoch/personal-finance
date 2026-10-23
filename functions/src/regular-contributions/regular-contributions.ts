@@ -3,15 +3,20 @@ import { HttpResponse, validationError } from "../http/query-validation";
 
 import { validate } from "./regular-contributions.dto";
 import { calculate } from "./regular-contributions.service";
+import { effectiveSkipTax } from "../markets/pl/polish-calculator-options";
 
 export function execute(request: Request, response: HttpResponse): void {
   const regularContribution = validate(request.query);
 
   if (regularContribution.success) {
     try {
-      const { contribution, duration, rate, skipTax } =
-        regularContribution.data;
-      const result = calculate(contribution, duration, rate, skipTax);
+      const { contribution, duration, rate } = regularContribution.data;
+      const result = calculate(
+        contribution,
+        duration,
+        rate,
+        effectiveSkipTax(regularContribution.data),
+      );
       response.status(200);
       response.send({ data: result });
     } catch (error) {

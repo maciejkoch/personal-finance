@@ -26,7 +26,7 @@ describe("Bond Signal Form API contract", () => {
       expect.objectContaining({ month: 144, skipTax: true, wibor6m: [0] }),
     );
     expect(JSON.parse(localStorage.getItem(BOND_STORAGE_KEY)!)).toMatchObject({
-      schemaVersion: 2,
+      schemaVersion: 3,
     });
   });
 

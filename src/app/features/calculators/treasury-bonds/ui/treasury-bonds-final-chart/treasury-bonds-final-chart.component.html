@@ -1,0 +1,31 @@
+@if (finalValue(); as value) {
+  <h2 class="text-xl font-medium mb-2">Porównanie na koniec okresu</h2>
+  <p class="text-sm mb-4">
+    Stan na koniec {{ value.month / 12 }}. roku.
+    {{
+      data().skipTax
+        ? "Wartości bez podatku, po opłatach."
+        : "Wartości po podatku i opłatach."
+    }}
+  </p>
+  <div class="relative w-full h-80 sm:h-96">
+    <canvas
+      #canvas
+      role="img"
+      aria-label="Porównanie końcowych wartości dostępnych typów obligacji. Przerywana linia oznacza kapitał powiększony o inflację. Szczegółowe kwoty są w ostatnim wierszu tabeli poniżej."
+    ></canvas>
+  </div>
+  <p class="flex items-center justify-center gap-2 text-sm mt-3 mb-6">
+    <span
+      class="w-8 shrink-0 border-t-2 border-dashed border-rose-600"
+      aria-hidden="true"
+    ></span>
+    <span>
+      Kapitał powiększony o inflację:
+      <strong>{{
+        value.futureValue | currency: "PLN" : "symbol" : "1.2-2"
+      }}</strong>
+      — próg zachowania siły nabywczej.
+    </span>
+  </p>
+}
