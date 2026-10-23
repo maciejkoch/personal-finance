@@ -1,6 +1,6 @@
 # Etap 10 — treści, linkowanie i wydajność
 
-Data: 23.10.2026. Baza: `5a2a0e9`, katalog roboczy był czysty. Lokalna partia gotowa do przeglądu; bez commita, pusha i wdrożenia. Etap pozostaje otwarty w zakresie nowych danych GSC i obserwacji po publikacji. [Wyniki maszynowe](baseline/2026-10-23-stage10-checks.json).
+Data: 23.10.2026. Baza: `5a2a0e9`, katalog roboczy był czysty. Partię opublikowano z commita `41c1a05`, a poprawkę tabeli z `76e165b`, po poleceniu użytkownika wykonania commita, pusha i deploya. [Kontrola produkcji](ETAP-10-WDROZENIE.md). Etap pozostaje otwarty w zakresie nowych danych GSC i obserwacji po publikacji. [Wyniki maszynowe](baseline/2026-10-23-stage10-checks.json).
 
 ## Treść i intencja stron
 
@@ -51,7 +51,7 @@ Porównanie lokalnych buildów tej samej bazy, Node 22.23.2, `--stats-json`; gzi
 | Wszystkie paczki JS, raw        | 1 121 110 B |         1 100 771 B |
 | Zestaw początkowy JS/CSS        |   456,74 kB |           458,50 kB |
 
-Treść i metadane zwiększają nieco zestaw początkowy, a optymalizacja dotyczy głównie kodu ładowanego później. Nie zmierzono jeszcze wyniku PSI po publikacji. Największy lazy chunk, zawierający m.in. Zod, pozostaje poza zakresem tej partii.
+Treść i metadane zwiększają nieco zestaw początkowy, a optymalizacja dotyczy głównie kodu ładowanego później. Wyniki dwóch pomiarów PSI po publikacji zapisano w [kontroli produkcji](ETAP-10-WDROZENIE.md). Największy lazy chunk, zawierający m.in. Zod, pozostaje poza zakresem tej partii.
 
 Trzy sekwencyjne żądania do każdego produkcyjnego API, ze stałymi danymi przykładowymi:
 
@@ -91,11 +91,11 @@ Przy tak małej próbie i po jednym dniu od naprawy odkrywania URL nie ma podsta
 
 Po uzyskaniu dostępu do GSC należy zapisać skuteczność 3 i 16 miesięcy według strony, zapytania i urządzenia, aktualizację raportu indeksowania, status sitemapy i inspekcję trzech kalkulatorów. Najpierw ocenić odkrywanie i indeksowanie, potem pozycje, a CTR porównywać dla podobnych zapytań i pozycji. Osobno zestawić obie strony obligacji dla wspólnych zapytań.
 
-Po poleceniu publikacji:
+Procedura publikacji i dalszego odbioru (publikację oraz kontrolę produkcji wykonano — [raport](ETAP-10-WDROZENIE.md)):
 
 1. Wdrożyć zmienioną treść `articleHttpFunction`, sprawdzić oba slugi i 404. Pozostałe Functions nie wymagają zmiany algorytmu.
 2. Opublikować sprawdzony Hosting i nagłówki. Sprawdzić `version.json`, formularze, oba wykresy, artykuły po bezpośrednim wejściu i nawigacji, cache oraz smoke SEO.
 3. Powtórzyć PSI w porównywalnych warunkach. Wyniku sprzed i po wdrożeniu nie traktować jako dowodu wpływu na ruch.
 4. Po 2–4 i 6–8 tygodniach porównać GSC i dostępne dane terenowe, notując opóźnienie raportów i sezonowość. Gdyby publikacja nastąpiła 23.10, okna kontroli przypadają 6–20.11 oraz 4–18.12.2026; przy innej dacie przesunąć je od dnia faktycznej publikacji.
 
-Nie utworzono automatyzacji monitoringu. Aktualne GSC, kontrola 390 px, publikacja oraz pomiary po publikacji pozostają otwarte.
+Nie utworzono automatyzacji monitoringu. Aktualne GSC, kontrola 390 px i długoterminowe porównania pozostają otwarte. Publikacja oraz dwa laboratoryjne pomiary po publikacji zostały wykonane.

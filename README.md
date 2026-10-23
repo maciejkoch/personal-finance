@@ -4,7 +4,7 @@ Kalkulatory finansowe w jednej aplikacji Angular CLI 22 oraz osobny backend Fire
 
 Etap 9 zrealizowano lokalnie: Functions SDK 7.4.0, Admin SDK 14.5.0, Zod 4.6.7 w obu częściach, Marked 18.1.1, Chart.js 4.6.1 i ESLint 10.13.0. Usunięto Lodash oraz nieużywane zależności; CLI Firebase jest przypięte do 15.34.1. [Raport etapu 9](docs/ETAP-9-RAPORT.md) zawiera testy, audyt i uzasadnienie override’ów Vite oraz parsera CSS. Na polecenie użytkownika opublikowano Functions i Hosting z commita `be222d7`, wraz z poprawką kontrastu menu mobilnego — [kontrola produkcji](docs/ETAP-9-WDROZENIE.md).
 
-Lokalna partia etapu 10 obejmuje opisy metod i przykłady trzech kalkulatorów, poprawiony poradnik o obligacjach, linkowanie oraz lżejsze wykresy i cache zasobów. [Raport etapu 10](docs/ETAP-10-RAPORT.md) zawiera pomiar PageSpeed, porównanie wielkości JS i otwarte punkty GSC. Zmiany nie zostały opublikowane.
+Etap 10 obejmuje opisy metod i przykłady trzech kalkulatorów, poprawiony poradnik o obligacjach, linkowanie oraz lżejsze wykresy i cache zasobów. Zmiany opublikowano 23.10.2026 z commita `41c1a05`, a poprawkę przewijania tabeli obligacji z `76e165b`. [Raport etapu 10](docs/ETAP-10-RAPORT.md) i [kontrola produkcji](docs/ETAP-10-WDROZENIE.md) zawierają pomiary, wyniki odbioru i otwarte punkty GSC.
 
 ## Uruchomienie lokalne
 

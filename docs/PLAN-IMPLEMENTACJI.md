@@ -8,7 +8,7 @@ Etap 4 wdrożono 22.10.2026 z commita `d7d8e90`; [raport zmian](ETAP-4-RAPORT.md
 Etapy 5–7 zaimplementowano i sprawdzono lokalnie 22.10.2026: [Angular 20](ETAP-5-RAPORT.md), [Angular 21](ETAP-6-RAPORT.md) i [Angular 22.2.3](ETAP-7-RAPORT.md). Na prośbę użytkownika kontynuowano do najnowszej stabilnej wersji bez osobnej publikacji wersji pośrednich; rozszerzono zakres o Signal Forms we wszystkich trzech kalkulatorach. Docelowy frontend działa zoneless, z Vitest. Użytkownik zatwierdził commit i push; Hosting etapów 5–7 opublikowano razem z etapem 8 — [kontrola produkcji](ETAP-8-WDROZENIE.md).
 Etap 8 zaimplementowano i sprawdzono lokalnie 22.10.2026: Tailwind 4.3.3, daisyUI 5.7.50, CSS-first i poprawki dostępności — [raport etapu 8](ETAP-8-RAPORT.md). Wykonano commit `e7e104e`, push i wdrożenie Hostingu — [kontrola produkcji](ETAP-8-WDROZENIE.md).
 Etap 9 (9a–9c) wykonano łącznie 22.10.2026: SDK Firebase, Zod 4, biblioteki i narzędzia — [raport etapu 9](ETAP-9-RAPORT.md). Po poprawce kontrastu menu mobilnego na polecenie użytkownika wykonano commit `be222d7`, push i publikację Functions oraz Hostingu; [kontrola produkcji](ETAP-9-WDROZENIE.md) przeszła. Etap 9 zakończono.
-Etap 10 rozpoczęto 23.10.2026. Przygotowano lokalną partię treści, linkowania i optymalizacji wykresów/cache oraz pomiar bazowy PageSpeed — [raport etapu 10](ETAP-10-RAPORT.md). Build, testy i odbiór lokalny przeszły. Aktualny odczyt GSC jest niedostępny z powodu braku uprawnień Computer Use do zalogowanej sesji Chrome; dobór fraz, ocena indeksowania i monitoring po publikacji pozostają otwarte. Nie wykonano commita, pusha ani wdrożenia.
+Etap 10 rozpoczęto 23.10.2026. Wykonano commit `41c1a05`, push i publikację funkcji artykułów oraz Hostingu. Na zgłoszenie użytkownika poprawiono przypięcie kolumn w tabeli obligacji, wykonano commit `76e165b`, push i kolejną publikację Hostingu. [Raport etapu 10](ETAP-10-RAPORT.md) i [kontrola produkcji](ETAP-10-WDROZENIE.md). Testy produkcyjne przeszły. Aktualny GSC, kontrola 390 px i długoterminowy monitoring pozostają otwarte.
 Wersje pakietów należy ponownie sprawdzić na początku odpowiedniego etapu.
 
 ## Sposób pracy
@@ -289,7 +289,7 @@ Wdrożenie: Functions i/lub Hosting według faktycznie zmienionej części.
 
 ### Etap 10 — treść i dalszy wzrost SEO
 
-Stan: lokalna partia zmian gotowa do przeglądu 23.10.2026; [raport](ETAP-10-RAPORT.md). Nie oznaczamy etapu jako zakończonego przed odczytem aktualnego GSC i pomiarami po publikacji. Zachowano oba adresy obligacji z wyraźnie rozdzielonymi intencjami; ewentualną konsolidację z 301 można rozważyć po zebraniu danych.
+Stan: partia treści i optymalizacji opublikowana 23.10.2026, wraz z poprawką tabeli; [raport](ETAP-10-RAPORT.md) i [kontrola produkcji](ETAP-10-WDROZENIE.md). Pomiar PageSpeed po publikacji wykonano dwukrotnie. Etap pozostaje otwarty do odczytu aktualnego GSC i długoterminowych porównań. Zachowano oba adresy obligacji z wyraźnie rozdzielonymi intencjami; ewentualną konsolidację z 301 można rozważyć po zebraniu danych.
 
 Zakres:
 

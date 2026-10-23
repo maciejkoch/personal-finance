@@ -1,0 +1,176 @@
+{
+  "checkedAt": "2026-10-23T08:28:23.919Z",
+  "frontend": {
+    "buildId": "76e165b-2026-10-23T08:27:14.636Z",
+    "commit": "76e165b58b87efa553e677342db31c6ae23944d9",
+    "dirty": false,
+    "builtAt": "2026-10-23T08:27:14.636Z",
+    "apiTarget": "production",
+    "offerVersion": "2026-10-v1",
+    "calculationVersion": 2,
+    "offerDataHash": "842b6e37a276a66bea362fca39fb13a1af3682af200a7824cbd1a964b232f0a8"
+  },
+  "articleBackend": {
+    "buildId": "41c1a05-2026-10-23T08:17:57.553Z",
+    "commit": "41c1a05016be62fe1c761abebd7f1d27b507a748",
+    "dirty": false,
+    "builtAt": "2026-10-23T08:17:57.553Z",
+    "apiTarget": "backend",
+    "offerVersion": "2026-10-v1",
+    "calculationVersion": 2,
+    "offerDataHash": "842b6e37a276a66bea362fca39fb13a1af3682af200a7824cbd1a964b232f0a8"
+  },
+  "assets": {
+    "count": 47,
+    "status200": true,
+    "bytesMatch": true,
+    "cache": true
+  },
+  "pages": {
+    "count": 7,
+    "bytesMatch": true
+  },
+  "api": {
+    "calculateSavingsHttpFunction": {
+      "status": 200,
+      "build": "be222d7-2026-10-22T19:13:53.660Z",
+      "ms": 288
+    },
+    "calculateRegularContributionHttpFunction": {
+      "status": 200,
+      "build": "be222d7-2026-10-22T19:13:53.660Z",
+      "ms": 239
+    },
+    "calculateTreasuryBondsHttpFunction": {
+      "status": 200,
+      "build": "be222d7-2026-10-22T19:13:53.660Z",
+      "ms": 177
+    }
+  },
+  "articles": [
+    {
+      "slug": "kalkulator-obligacji-skarbowych",
+      "status": 200,
+      "contentMatches": true,
+      "build": "41c1a05-2026-10-23T08:17:57.553Z"
+    },
+    {
+      "slug": "oszczedzaj-regularnie",
+      "status": 200,
+      "contentMatches": true,
+      "build": "41c1a05-2026-10-23T08:17:57.553Z"
+    }
+  ],
+  "missingArticleStatus": 404,
+  "hosting": {
+    "before": {
+      "release": "1792696650476000",
+      "version": "0133aaae92f3b24c",
+      "releaseTime": "2026-10-22T19:17:30.476Z"
+    },
+    "stage10": {
+      "release": "1792743600243000",
+      "version": "61f5253559dbb857",
+      "releaseTime": "2026-10-23T08:20:00.243Z"
+    },
+    "tableFix": {
+      "release": "1792744074261000",
+      "version": "44a4a37eb5997917",
+      "releaseTime": "2026-10-23T08:27:54.261Z"
+    }
+  },
+  "initialStage10Frontend": {
+    "buildId": "41c1a05-2026-10-23T08:15:54.343Z",
+    "commit": "41c1a05016be62fe1c761abebd7f1d27b507a748",
+    "dirty": false,
+    "builtAt": "2026-10-23T08:15:54.343Z",
+    "apiTarget": "production",
+    "offerVersion": "2026-10-v1",
+    "calculationVersion": 2,
+    "offerDataHash": "842b6e37a276a66bea362fca39fb13a1af3682af200a7824cbd1a964b232f0a8"
+  },
+  "cloudRunErrors": {
+    "checkedAt": "2026-10-23T08:22:34.528Z",
+    "errors": [],
+    "nextPage": false
+  },
+  "pageSpeedAfter": [
+    {
+      "url": "https://pagespeed.web.dev/analysis/https-oszczedzify-org-calculators-treasury-bonds/7tpb3m39hz?form_factor=mobile",
+      "capturedAt": "2026-10-23T10:20:43+02:00",
+      "performance": 88,
+      "lcpSeconds": 3.6,
+      "fcpSeconds": 1.4,
+      "tbtMs": 130,
+      "cls": 0.005,
+      "speedIndexSeconds": 3.1,
+      "lighthouse": "13.5.0",
+      "formFactor": "mobile",
+      "accessibility": 100,
+      "bestPractices": 100,
+      "seo": 100,
+      "fieldDataAvailable": false,
+      "unusedJavascriptKiB": 139,
+      "cacheSavingsKiB": 2
+    },
+    {
+      "url": "https://pagespeed.web.dev/analysis/https-oszczedzify-org-calculators-treasury-bonds/s7eip264lw?form_factor=mobile",
+      "capturedAt": "2026-10-23T10:21:56+02:00",
+      "performance": 97,
+      "lcpSeconds": 2.4,
+      "fcpSeconds": 0.8,
+      "tbtMs": 110,
+      "cls": 0.005,
+      "speedIndexSeconds": 1.8,
+      "lighthouse": "13.5.0",
+      "formFactor": "mobile",
+      "accessibility": 100,
+      "bestPractices": 100,
+      "seo": 100,
+      "fieldDataAvailable": false,
+      "unusedJavascriptKiB": 139,
+      "cacheSavingsKiB": 2
+    }
+  ],
+  "tableFix": {
+    "commit": "76e165b58b87efa553e677342db31c6ae23944d9",
+    "productionVerified": true,
+    "stickyHeaders": ["Rok"],
+    "viewportWidth": 1280,
+    "containerWidth": 979,
+    "before": {
+      "scrollLeft": 0,
+      "yearHeaderLeft": 278,
+      "yearValueLeft": 278,
+      "inflationHeaderLeft": 1206.796875,
+      "inflationValueLeft": 1206.796875
+    },
+    "after": {
+      "scrollLeft": 71.5,
+      "yearHeaderLeft": 278,
+      "yearValueLeft": 278,
+      "inflationHeaderLeft": 1135.296875,
+      "inflationValueLeft": 1135.296875
+    }
+  },
+  "operationalNotes": {
+    "connectorFunctionTarget": "Reported success without updating article; CLI fallback used",
+    "cliFunctions": "Function updated successfully; command ended on existing missing Artifact Registry cleanup policy",
+    "hosting": "Both CLI deployments succeeded",
+    "logging": "Connector error; direct Cloud Logging read returned no matching ERROR entries",
+    "calculatorFunctionsRedeployed": false
+  },
+  "browserQa": {
+    "regularContributionNet": 12480.3,
+    "articleClientNavigation": true,
+    "articleDirectEntry": true,
+    "consoleErrors": 0,
+    "tableHorizontalScroll": true,
+    "mobile390Verified": false
+  },
+  "remaining": [
+    "Fresh GSC reports",
+    "390 px viewport verification",
+    "Traffic and indexing comparisons after 2–4 and 6–8 weeks"
+  ]
+}
