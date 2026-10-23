@@ -15,6 +15,7 @@ Dokument uwzględnia końcową decyzję: osobne obliczenia i reguły dla rynków
 - Limit rodzinny pozostaje opisanym ograniczeniem, bez jego wyliczania.
 - Wzory w metodologii oszczędzania na cel i regularnych wpłat są zapisane w natywnym MathML: osobne bloki, ułamki, potęgi i legenda symboli. Nie dodano bibliotek; wzory są obecne po prerenderze i mają opisy dla czytników ekranu.
 - Stopka wskazuje rok 2026.
+- W obligacjach pod nagłówkiem są formularz i wyniki; tabela oferty zakupu, założenia i metodologia znajdują się poniżej wyników oraz wykresów.
 
 ## Granice architektury
 

@@ -1,4 +1,55 @@
 <pf-treasury-bonds-hero (clicked)="scrollToForm()" />
+<p class="my-4 text-sm">
+  Symulacja zakłada zakup {{ offer.saleFrom }}. Wartości na rocznice obejmują
+  hipotetyczny wcześniejszy wykup; nie odwzorowują terminów dyspozycji i
+  rozliczeń bankowych. Rozwiń opis, aby poznać metodę i ograniczenia.
+</p>
+
+@if (error(); as error) {
+  <p class="alert alert-error my-4" role="alert">{{ error }}</p>
+}
+
+@defer {
+  <p class="min-h-6 text-sm" role="status" aria-live="polite">
+    @if (loading()) {
+      Aktualizowanie wyników…
+    }
+  </p>
+  <div class="flex flex-col lg:flex-row gap-4 mb-5 pt-5" #scrollToContainer>
+    <div class="w-full lg:w-2/5 relative">
+      <pf-treasury-bonds-form
+        (changed)="calculate($event)"
+        (pending)="invalidate($event)"
+        (optionsChanged)="options.set($event)"
+        class="w-full"
+      />
+    </div>
+    <div class="w-full lg:w-3/5">
+      <pf-treasury-bonds-results-description
+        [data]="result()"
+        [loading]="loading()"
+        class="w-full"
+      />
+    </div>
+  </div>
+
+  @if (result(); as result) {
+    <pf-treasury-bonds-final-chart [data]="result" />
+    <div class="w-full mb-5">
+      <pf-treasury-bonds-results [results]="result" [loading]="loading()" />
+    </div>
+  }
+  @if (result(); as result) {
+    @defer (on viewport) {
+      <pf-treasury-bonds-chart [data]="result" />
+    } @placeholder {
+      <div class="min-h-[600px] flex items-center justify-center" role="status">
+        Wykres załaduje się po przewinięciu do tej części strony.
+      </div>
+    }
+  }
+}
+
 <section class="my-6" aria-labelledby="bond-offer-title">
   <h2 id="bond-offer-title" class="text-xl font-medium mb-3">
     Oferta zakupu: {{ offer.label }}
@@ -75,11 +126,7 @@
     limitu, również przy ponownym zakupie.
   </p>
 </section>
-<p class="my-4 text-sm">
-  Symulacja zakłada zakup {{ offer.saleFrom }}. Wartości na rocznice obejmują
-  hipotetyczny wcześniejszy wykup; nie odwzorowują terminów dyspozycji i
-  rozliczeń bankowych. Rozwiń opis, aby poznać metodę i ograniczenia.
-</p>
+
 <pf-treasury-bonds-how-to />
 <section class="prose max-w-none my-8" aria-labelledby="methodology-title">
   <h2 id="methodology-title">
@@ -141,48 +188,3 @@
     widnieje osobno nad tabelą.
   </p>
 </section>
-
-@if (error(); as error) {
-  <p class="alert alert-error my-4" role="alert">{{ error }}</p>
-}
-
-@defer {
-  <p class="min-h-6 text-sm" role="status" aria-live="polite">
-    @if (loading()) {
-      Aktualizowanie wyników…
-    }
-  </p>
-  <div class="flex flex-col lg:flex-row gap-4 mb-5 pt-5" #scrollToContainer>
-    <div class="w-full lg:w-2/5 relative">
-      <pf-treasury-bonds-form
-        (changed)="calculate($event)"
-        (pending)="invalidate($event)"
-        (optionsChanged)="options.set($event)"
-        class="w-full"
-      />
-    </div>
-    <div class="w-full lg:w-3/5">
-      <pf-treasury-bonds-results-description
-        [data]="result()"
-        [loading]="loading()"
-        class="w-full"
-      />
-    </div>
-  </div>
-
-  @if (result(); as result) {
-    <pf-treasury-bonds-final-chart [data]="result" />
-    <div class="w-full mb-5">
-      <pf-treasury-bonds-results [results]="result" [loading]="loading()" />
-    </div>
-  }
-  @if (result(); as result) {
-    @defer (on viewport) {
-      <pf-treasury-bonds-chart [data]="result" />
-    } @placeholder {
-      <div class="min-h-[600px] flex items-center justify-center" role="status">
-        Wykres załaduje się po przewinięciu do tej części strony.
-      </div>
-    }
-  }
-}
