@@ -10,10 +10,17 @@
       height="112"
     />
   </a>
-  <nav class="grid grid-flow-col gap-4">
-    <!-- Blog has been disabled for now -->
-    <!-- <a class="link link-hover" [routerLink]="'/'">Blog</a> -->
+  <nav
+    aria-label="Nawigacja w stopce"
+    class="flex flex-wrap justify-center gap-x-6 gap-y-3"
+  >
     <a class="link link-hover" [routerLink]="'/calculators'">Kalkulatory</a>
+    <a class="link link-hover" routerLink="/kalkulator-obligacji-skarbowych"
+      >Poradnik obligacji</a
+    >
+    <a class="link link-hover" routerLink="/oszczedzaj-regularnie"
+      >Poradnik oszczędzania</a
+    >
     <a class="link link-hover" [routerLink]="'/about-us'">O nas</a>
   </nav>
   <aside>

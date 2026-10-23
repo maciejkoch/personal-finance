@@ -17,8 +17,6 @@ export class NavigationComponent {
   desktop = input(false);
 
   items = [
-    // Blog has been disabled for now
-    // { link: '', label: 'Blog', directMatch: true },
     {
       link: "/calculators",
       directMatch: false,
@@ -39,6 +37,14 @@ export class NavigationComponent {
           label: "Regularne oszczędzanie",
         },
       ],
+    },
+    {
+      link: "/kalkulator-obligacji-skarbowych",
+      label: "Poradnik obligacji",
+    },
+    {
+      link: "/oszczedzaj-regularnie",
+      label: "Poradnik oszczędzania",
     },
     { link: "/about-us", label: "O nas" },
   ];
