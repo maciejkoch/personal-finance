@@ -1,6 +1,19 @@
 <form novalidate (submit)="$event.preventDefault()">
   <label class="flex flex-col w-full">
     <div class="flex justify-between items-center px-1 py-2">
+      <span class="text-sm">Kapitał początkowy</span>
+      <span class="text-xs">(zł)</span>
+    </div>
+    <input
+      type="number"
+      class="input input-primary w-full text-base px-4"
+      [formField]="form.initialCapital"
+      step="0.01"
+    />
+  </label>
+
+  <label class="flex flex-col w-full">
+    <div class="flex justify-between items-center px-1 py-2">
       <span class="text-sm">Twoja miesięczna składka</span>
       <span class="text-xs">(zł)</span>
     </div>
@@ -50,8 +63,9 @@
   <pf-tax-options [skipTax]="form.skipTax" />
   @if (form().invalid()) {
     <p class="text-error mt-3" role="alert">
-      Podaj poprawne wartości: kwota co najmniej 1 zł, okres w pełnych latach od
-      1 do 100, stopy procentowe od 0 do 100%.
+      Kapitał początkowy: 0–100 mln zł. Miesięczna wpłata: 0–1 mln zł; wpłata
+      lub kapitał początkowy musi być dodatni. Okres: 1–100 pełnych lat. Stopy
+      procentowe: 0–100%.
     </p>
   }
 </form>

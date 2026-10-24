@@ -16,7 +16,6 @@ const result: TreasuryBondsResult = {
   savingsRate: [0],
   wibor6m: [0],
   skipTax: false,
-  ike: false,
   familyEligible: false,
   offerVersion: "2026-10-v1",
   calculationVersion: 2,
@@ -58,7 +57,7 @@ describe("Bond selection during asynchronous recalculation", () => {
     expect(fixture.componentInstance.result()).toBe(result);
     await settle();
     expect(calculate).toHaveBeenCalledTimes(2);
-    form.form.ike().value.set(true);
+    form.form.skipTax().value.set(true);
     await fixture.whenStable();
     expect(fixture.componentInstance.result()).toBeNull();
     responses[1].next({ ...result, numberOfBonds: 101 });
@@ -66,9 +65,9 @@ describe("Bond selection during asynchronous recalculation", () => {
     expect(fixture.componentInstance.result()).toBeNull();
     await settle();
     expect(calculate).toHaveBeenLastCalledWith(
-      expect.objectContaining({ ike: true, skipTax: true }),
+      expect.objectContaining({ skipTax: true }),
     );
-    responses[2].next({ ...result, ike: true, skipTax: true });
+    responses[2].next({ ...result, skipTax: true });
     responses[2].complete();
     expect(fixture.componentInstance.result()?.skipTax).toBe(true);
     form.form.numberOfBonds().value.set(0);

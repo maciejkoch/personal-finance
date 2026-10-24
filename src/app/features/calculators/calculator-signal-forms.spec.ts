@@ -28,15 +28,57 @@ describe("Calculator Signal Forms", () => {
     });
   }
 
+  it("accepts starting capital without later payments and rejects amounts above the supported limits", async () => {
+    const fixture = TestBed.createComponent(RegularContributionFormComponent);
+    fixture.componentInstance.model.update((v) => ({
+      ...v,
+      initialCapital: 10000,
+      contribution: 0,
+    }));
+    await fixture.whenStable();
+    expect(fixture.componentInstance.form().valid()).toBe(true);
+    fixture.componentInstance.model.update((v) => ({
+      ...v,
+      initialCapital: 100000001,
+    }));
+    await fixture.whenStable();
+    expect(fixture.componentInstance.form().invalid()).toBe(true);
+  });
+
+  it("uses defaults for old saved assumptions rather than migrating them", async () => {
+    localStorage.setItem(
+      "regular-contribution-form",
+      JSON.stringify({
+        contribution: 999,
+        duration: 2,
+        rate: 5,
+        skipRate: false,
+        skipTax: true,
+      }),
+    );
+    const fixture = TestBed.createComponent(RegularContributionFormComponent);
+    await fixture.whenStable();
+    expect(fixture.componentInstance.model()).toMatchObject({
+      initialCapital: 0,
+      contribution: 1000,
+      duration: 15,
+      skipTax: false,
+    });
+  });
+
   it("restores regular contributions, emits the existing contract and preserves disabled values", async () => {
     const saved = {
+      initialCapital: 0,
       contribution: 500,
       duration: 2,
       rate: 5,
       skipRate: false,
       skipTax: true,
     };
-    localStorage.setItem("regular-contribution-form", JSON.stringify(saved));
+    localStorage.setItem(
+      "regular-contribution-form",
+      JSON.stringify({ schemaVersion: 1, values: saved }),
+    );
     const fixture = TestBed.createComponent(RegularContributionFormComponent);
     const component = fixture.componentInstance;
     const received = vi.fn();
@@ -86,13 +128,14 @@ describe("Calculator Signal Forms", () => {
       expect.objectContaining({ contribution: 600 }),
     );
     expect(
-      JSON.parse(localStorage.getItem("regular-contribution-form")!)
+      JSON.parse(localStorage.getItem("regular-contribution-form")!).values
         .contribution,
     ).toBe(600);
   });
 
   it("restores the savings goal and reacts to skip flags without losing assumptions", async () => {
     const saved = {
+      initialCapital: 0,
       amount: 10000,
       duration: 2,
       inflation: 3,
@@ -101,7 +144,10 @@ describe("Calculator Signal Forms", () => {
       skipRate: false,
       skipTax: false,
     };
-    localStorage.setItem("long-term-savings-form", JSON.stringify(saved));
+    localStorage.setItem(
+      "long-term-savings-form",
+      JSON.stringify({ schemaVersion: 1, values: saved }),
+    );
     const fixture = TestBed.createComponent(LongTermSavingsFormComponent);
     const component = fixture.componentInstance;
     const received = vi.fn();

@@ -1,0 +1,36 @@
+name: Application checks
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+concurrency:
+  group: checks-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            functions/package-lock.json
+      - run: npm ci
+      - run: npm --prefix functions ci
+      - run: npm run lint
+      - run: npm run lint:functions
+      - run: npm run test:regression
+      - run: npm run test:mutations
+      - run: python3 scripts/regression/generate-reference.py --check
+      - run: npm run build -- --stats-json
+      - run: npm run check:content
+      - run: npm run build:functions
+      - name: HTTP integration in isolated emulator
+        env:
+          OSZCZEDZIFY_EMULATOR_PROJECT: demo-oszczedzify
+        run: npx -y firebase-tools@15.34.1 emulators:exec --only functions --project demo-oszczedzify "npm run smoke:api -- --contracts && npm run smoke:bonds && node scripts/smoke-savings.mjs"

@@ -11,7 +11,7 @@ const offer = JSON.parse(
 );
 const host = process.argv.includes("--production")
   ? "https://us-central1-personal-finance-2ee61.cloudfunctions.net"
-  : "http://127.0.0.1:5001/personal-finance-2ee61/us-central1";
+  : `http://127.0.0.1:5001/${process.env.OSZCZEDZIFY_EMULATOR_PROJECT ?? "personal-finance-2ee61"}/us-central1`;
 const query = {
   numberOfBonds: "1",
   month: "144",
@@ -49,15 +49,14 @@ assert.equal(values[119].edo, 157.16);
 assert.equal(values[143].rod, 181.37);
 const withoutTax = await call({ month: "36", skipTax: "true" });
 assert.equal(withoutTax[35].tos, 113.79);
-for (const ike of [false, true]) {
+for (const skipTax of [false, true]) {
   for (const familyEligible of [false, true]) {
     const comparisonQuery = {
       ...query,
       month: "36",
       contractVersion: "3",
-      ike: String(ike),
+      skipTax: String(skipTax),
       familyEligible: String(familyEligible),
-      skipTax: "false",
     };
     const response = await fetch(
       `${host}/calculateTreasuryBondsHttpFunction?${new URLSearchParams(comparisonQuery)}`,
@@ -70,14 +69,14 @@ for (const ike of [false, true]) {
     const { data } = await response.json();
     assert.equal(data.contractVersion, 3);
     assert.equal(data.offerVersion, offer.version);
-    assert.equal(data.skipTax, ike);
+    assert.equal(data.skipTax, skipTax);
     const types = [
       "ror",
       "dor",
       "tos",
       "coi",
       "edo",
-      ...(familyEligible && !ike ? ["ros", "rod"] : []),
+      ...(familyEligible ? ["ros", "rod"] : []),
     ];
     assert.deepEqual(
       data.series.map((series) => series.instrumentId),
@@ -89,7 +88,7 @@ for (const ike of [false, true]) {
         assert.equal(point.month, i + 1);
         assert.equal(
           point.value,
-          (ike ? withoutTax : values)[i][series.instrumentId],
+          (skipTax ? withoutTax : values)[i][series.instrumentId],
         );
       }
     }
@@ -106,5 +105,5 @@ for (const overrides of [
   await call(overrides, 400);
 }
 console.log(
-  `PASS bonds: ${offer.version}, legacy/v3, 4 IKE/800+ combinations, maturity examples, skipTax, 6 invalid requests and CORS (${host})`,
+  `PASS bonds: ${offer.version}, legacy/v3, 4 tax/800+ combinations, maturity examples, skipTax, 6 invalid requests and CORS (${host})`,
 );

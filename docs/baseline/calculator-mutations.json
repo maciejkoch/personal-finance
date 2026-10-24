@@ -122,7 +122,7 @@
     {
       "name": "zero scenario mistaken for missing data",
       "file": "calculations/calculations.service.js",
-      "sourceSha256": "d75ea1fb8ede06509eb0252f7771956d3dc09d5f9289159e40901c8a8f27aa1d",
+      "sourceSha256": "95d08ba01dfd9efaaee91522120e117c1af8a028a528103f52ce36f7ba78e963",
       "detected": true,
       "failures": 2,
       "exampleFailingTests": [
@@ -133,9 +133,9 @@
     {
       "name": "annuity payments moved to start of month",
       "file": "calculations/calculations.service.js",
-      "sourceSha256": "d75ea1fb8ede06509eb0252f7771956d3dc09d5f9289159e40901c8a8f27aa1d",
+      "sourceSha256": "95d08ba01dfd9efaaee91522120e117c1af8a028a528103f52ce36f7ba78e963",
       "detected": true,
-      "failures": 23,
+      "failures": 24,
       "exampleFailingTests": [
         "Calculate should future value of series",
         "Independent calculator regression references regular contributions: 1000/month for 2 years at 0.12, skipTax=False",
@@ -145,7 +145,7 @@
     {
       "name": "savings goal skipTax ignored",
       "file": "savings/savings.service.js",
-      "sourceSha256": "4f7f9e1ebe91d8196f7298eb60de29da07a53eaa257c82f55fe82be02ffb7236",
+      "sourceSha256": "ae4ae562b27ab90b3d64c268e47a24ce980d60f3874a701a655c201ea89373f7",
       "detected": true,
       "failures": 5,
       "exampleFailingTests": [
@@ -155,11 +155,11 @@
       ]
     },
     {
-      "name": "regular contributions skipTax ignored",
-      "file": "regular-contributions/regular-contributions.service.js",
-      "sourceSha256": "e5df5c343090c13f646f8a39273fbd735de6f6a391b7c295729ca56ca6e48166",
+      "name": "portfolio skipTax ignored",
+      "file": "calculations/portfolio.js",
+      "sourceSha256": "de1e9f50e88a2b6d37283595b96a013bca75efa75e564dd3bd9f5df4cde5ba92",
       "detected": true,
-      "failures": 8,
+      "failures": 13,
       "exampleFailingTests": [
         "Independent calculator regression references regular contributions: 1000/month for 2 years at 0.12, skipTax=True",
         "Independent calculator regression references regular contributions: 500.01/month for 15 years at 0.05, skipTax=True",

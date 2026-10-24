@@ -1,0 +1,66 @@
+{
+  "reference": {
+    "cases": 60,
+    "maxGrossError": 0.00497890347000407
+  },
+  "regularExample": {
+    "contribution": 500,
+    "totalContribution": 12000,
+    "finalValue": 12592.96,
+    "totalInterest": 592.96,
+    "tax": 112.66
+  },
+  "savingsExample": {
+    "futureValue": 10609,
+    "monthlyContribution": 425.03,
+    "totalContribution": 10200.72,
+    "finalValue": 10704.77,
+    "totalInterest": 504.05,
+    "tax": 95.77
+  },
+  "nearZeroRate": {
+    "contribution": 1000,
+    "totalContribution": 12000,
+    "finalValue": 0,
+    "totalInterest": -12000,
+    "tax": -2280
+  },
+  "nearZeroGoal": {
+    "futureValue": 12000,
+    "monthlyContribution": 5263.16,
+    "totalContribution": 63157.92,
+    "finalValue": 0,
+    "totalInterest": -63157.92,
+    "tax": -12000
+  },
+  "overflowAccepted": true,
+  "overflow": {
+    "contribution": 1e+308,
+    "totalContribution": null,
+    "finalValue": null,
+    "totalInterest": null,
+    "tax": null
+  },
+  "ikeOneYear": [
+    {
+      "id": "ror",
+      "value": 10396
+    },
+    {
+      "id": "dor",
+      "value": 10350
+    },
+    {
+      "id": "tos",
+      "value": 10340
+    },
+    {
+      "id": "coi",
+      "value": 10275
+    },
+    {
+      "id": "edo",
+      "value": 10235
+    }
+  ]
+}

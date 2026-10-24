@@ -1,0 +1,6 @@
+npm notice run oszczedzify@0.0.0 smoke:api
+npm notice run node scripts/smoke-api.mjs --contracts
+PASS calculateSavingsHttpFunction + validation/CORS
+PASS calculateRegularContributionHttpFunction + validation/CORS
+PASS calculateTreasuryBondsHttpFunction + validation/CORS
+PASS articleHttpFunction + validation/CORS

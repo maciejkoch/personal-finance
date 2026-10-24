@@ -8,7 +8,6 @@ export const bondFormSchema = z.object({
   referenceRate: z.number().finite().min(0).max(100),
   rate: z.number().finite().min(0).max(100),
   skipTax: z.boolean(),
-  ike: z.boolean(),
   familyEligible: z.boolean(),
 });
 export type BondFormValue = z.infer<typeof bondFormSchema>;
@@ -19,36 +18,17 @@ export const bondFormDefaults: BondFormValue = {
   referenceRate: 4,
   rate: 0,
   skipTax: false,
-  ike: false,
   familyEligible: false,
 };
 export const BOND_STORAGE_KEY = "treasury-bonds-form";
 
-/** Preserve valid legacy assumptions individually; invalid fields use defaults. */
+/** Only the current complete format is accepted; old/invalid state uses defaults. */
 export function readBondForm(serialized: string | null): BondFormValue {
   try {
     const saved = JSON.parse(serialized || "null");
-    if (!saved || typeof saved !== "object" || Array.isArray(saved))
-      return { ...bondFormDefaults };
-    if (
-      "schemaVersion" in saved &&
-      saved.schemaVersion !== 2 &&
-      saved.schemaVersion !== 3
-    )
-      return { ...bondFormDefaults };
-    const source =
-      saved.schemaVersion === 2 || saved.schemaVersion === 3
-        ? saved.values
-        : saved;
-    if (!source || typeof source !== "object") return { ...bondFormDefaults };
-    const values = { ...bondFormDefaults };
-    for (const key of Object.keys(
-      bondFormSchema.shape,
-    ) as (keyof BondFormValue)[]) {
-      const parsed = bondFormSchema.shape[key].safeParse(source[key]);
-      if (parsed.success) Object.assign(values, { [key]: parsed.data });
-    }
-    return values;
+    if (saved?.schemaVersion !== 4) return { ...bondFormDefaults };
+    const result = bondFormSchema.safeParse(saved.values);
+    return result.success ? result.data : { ...bondFormDefaults };
   } catch {
     return { ...bondFormDefaults };
   }
@@ -56,7 +36,7 @@ export function readBondForm(serialized: string | null): BondFormValue {
 
 export function serializeBondForm(values: BondFormValue): string {
   return JSON.stringify({
-    schemaVersion: 3,
+    schemaVersion: 4,
     offerVersion: offer.version,
     values,
   });

@@ -6,6 +6,14 @@ Etap 9 zrealizowano lokalnie: Functions SDK 7.4.0, Admin SDK 14.5.0, Zod 4.6.7 w
 
 Etap 10 obejmuje opisy metod i przykłady trzech kalkulatorów, poprawiony poradnik o obligacjach, linkowanie oraz lżejsze wykresy i cache zasobów. Zmiany opublikowano 23.10.2026 z commita `41c1a05`, a poprawkę przewijania tabeli obligacji z `76e165b`. [Raport etapu 10](docs/ETAP-10-RAPORT.md) i [kontrola produkcji](docs/ETAP-10-WDROZENIE.md) zawierają pomiary, wyniki odbioru i otwarte punkty GSC.
 
+## Poprawki po review — 24.10.2026
+
+Oba kalkulatory oszczędzania obsługują kapitał początkowy (domyślnie 0 zł), z podziałem na wniesiony kapitał, późniejsze wpłaty i zysk. Stopy bliskie zeru są liczone stabilnie; limity obejmują 100 mln zł kapitału/celu, 1 mln zł miesięcznych wpłat i 1 bln zł wyniku. Ustawienia mają nowy format; stary zapis przywraca domyślne wartości.
+
+W formularzach jest wyłącznie opcja „Pomiń podatek Belki”. IKE opisano w wyjaśnieniach; nie jest osobnym modelem ani parametrem obliczeń. Kalkulatory pokazują przeliczanie i aktualność wyników, a błędy obliczeń oraz artykułów można ponowić. Kontrakty dwóch kalkulatorów są walidowane współdzielonymi schematami Zod. Kontrole lokalne uruchamia również workflow `.github/workflows/checks.yml`.
+
+Opis realizacji review: `docs/REVIEW-WDROZENIE-2026-10-24.md`.
+
 ## Uruchomienie lokalne
 
 Sprawdzony Node: 22.23.2, przypięty w `.nvmrc`. Konfiguracja Functions i emulator używają Node 22. Runtime Node 22 jest wdrożony na produkcji — zobacz [raport etapu 1](docs/ETAP-1-RAPORT.md).

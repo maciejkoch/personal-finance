@@ -16,22 +16,18 @@ import {
 } from "@angular/forms/signals";
 import { useLocalStorage } from "@shared/local-storage/use-local-storage";
 import { z } from "zod";
+import { CALCULATOR_LIMITS } from "@contracts/savings";
 import { TaxOptionsComponent } from "../../../shared/tax-options/tax-options.component";
 import { RegularContributionRequest } from "../../model/regular-contribution.model";
 
-const formSchema = z
-  .object({
-    ike: z.boolean().optional(),
-    contribution: z.number(),
-    duration: z.number().int().min(1).max(100),
-    rate: z.number(),
-    skipRate: z.boolean(),
-    skipTax: z.boolean(),
-  })
-  .transform(({ ike, ...values }) => ({
-    ...values,
-    skipTax: values.skipTax || ike === true,
-  }));
+const formSchema = z.object({
+  initialCapital: z.number().min(0).max(CALCULATOR_LIMITS.capital),
+  duration: z.number().int().min(1).max(100),
+  rate: z.number().min(0).max(100),
+  skipRate: z.boolean(),
+  skipTax: z.boolean(),
+  contribution: z.number().min(0).max(CALCULATOR_LIMITS.contribution),
+});
 
 @Component({
   selector: "pf-regular-contribution-form",
@@ -43,11 +39,13 @@ export class RegularContributionFormComponent {
   private readonly storage = useLocalStorage(
     "regular-contribution-form",
     formSchema,
+    1,
   );
   readonly changed = output<RegularContributionRequest>();
   readonly pending = output<RegularContributionRequest | null>();
   readonly model = signal(
     this.storage.load() ?? {
+      initialCapital: 0,
       contribution: 1000,
       duration: 15,
       rate: 10,
@@ -56,8 +54,20 @@ export class RegularContributionFormComponent {
     },
   );
   readonly form = form(this.model, (path) => {
+    required(path.initialCapital);
+    min(path.initialCapital, 0);
+    max(path.initialCapital, CALCULATOR_LIMITS.capital);
     required(path.contribution);
-    min(path.contribution, 1);
+    min(path.contribution, 0);
+    max(path.contribution, CALCULATOR_LIMITS.contribution);
+    validate(path.contribution, ({ value, valueOf }) =>
+      value() > 0 || valueOf(path.initialCapital) > 0
+        ? undefined
+        : {
+            kind: "emptyPortfolio",
+            message: "Podaj dodatnią wpłatę lub kapitał początkowy.",
+          },
+    );
     required(path.duration);
     min(path.duration, 1);
     max(path.duration, 100);

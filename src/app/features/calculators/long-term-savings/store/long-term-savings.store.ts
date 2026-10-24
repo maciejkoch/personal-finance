@@ -3,6 +3,7 @@ import { tapResponse } from "@ngrx/operators";
 import { patchState, signalStore, withMethods, withState } from "@ngrx/signals";
 import { rxMethod } from "@ngrx/signals/rxjs-interop";
 import { EMPTY, pipe, switchMap } from "rxjs";
+import { calculationError } from "../../shared/calculation-error";
 import { LongTermSavingsDataService } from "../data/long-term-savings-data.service";
 import {
   LongTermSavingsData,
@@ -14,35 +15,54 @@ export const LongTermSavingsStore = signalStore(
     request: null as LongTermSavingsRequest | null,
     result: null as LongTermSavingsData | null,
     isLoading: false,
+    isStale: false,
     error: null as string | null,
   }),
-  withMethods((store, service = inject(LongTermSavingsDataService)) => ({
-    calculate: rxMethod<LongTermSavingsRequest | null>(
+  withMethods((store, service = inject(LongTermSavingsDataService)) => {
+    const run = rxMethod<{
+      request: LongTermSavingsRequest | null;
+      fetch: boolean;
+    }>(
       pipe(
-        switchMap((request) => {
+        switchMap(({ request, fetch }) => {
           if (!request) {
             patchState(store, {
               result: null,
-              isLoading: false,
-              error: null,
               request: null,
+              isLoading: false,
+              isStale: false,
+              error: null,
             });
             return EMPTY;
           }
-          patchState(store, { isLoading: true, error: null, request });
+          patchState(store, {
+            request,
+            isLoading: true,
+            isStale: !!store.result(),
+            error: null,
+          });
+          // A form edit cancels the previous request immediately, including debounce.
+          if (!fetch) return EMPTY;
           return service.calculate(request).pipe(
             tapResponse({
-              next: (result) => patchState(store, { result }),
-              error: () =>
-                patchState(store, {
-                  error:
-                    "Nie udało się obliczyć wyniku. Zmień ustawienia lub spróbuj ponownie.",
-                }),
+              next: (result) => patchState(store, { result, isStale: false }),
+              error: (error) =>
+                patchState(store, { error: calculationError(error) }),
               finalize: () => patchState(store, { isLoading: false }),
             }),
           );
         }),
       ),
-    ),
-  })),
+    );
+    return {
+      prepare: (request: LongTermSavingsRequest | null) =>
+        run({ request, fetch: false }),
+      calculate: (request: LongTermSavingsRequest | null) =>
+        run({ request, fetch: true }),
+      retry: () => {
+        const request = store.request();
+        if (request) run({ request, fetch: true });
+      },
+    };
+  }),
 );

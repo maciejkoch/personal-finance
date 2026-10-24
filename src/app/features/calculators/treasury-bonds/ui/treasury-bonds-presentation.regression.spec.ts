@@ -184,12 +184,12 @@ describe("Bond presentation numerical regressions", () => {
     });
   }
 
-  for (const ike of [false, true])
+  for (const skipTax of [false, true])
     for (const familyEligible of [false, true]) {
-      it(`uses identical eligible types in all views: ${JSON.stringify({ ike, familyEligible })}`, async () => {
+      it(`uses identical eligible types in all views: ${JSON.stringify({ skipTax, familyEligible })}`, async () => {
         const input = structuredClone(result);
-        input.activeBondTypes = availablePolishBonds({ ike, familyEligible });
-        input.skipTax = ike;
+        input.activeBondTypes = availablePolishBonds({ familyEligible });
+        input.skipTax = skipTax;
         input.values[2].ros = 90000;
         input.values[2].rod = 80000;
         const table = TestBed.createComponent(TreasuryBondsResultsComponent);
@@ -208,7 +208,7 @@ describe("Bond presentation numerical regressions", () => {
           line.whenStable(),
           bar.whenStable(),
         ]);
-        const familyVisible = familyEligible && !ike;
+        const familyVisible = familyEligible;
         expect(table.nativeElement.querySelectorAll("thead th")).toHaveLength(
           familyVisible ? 9 : 7,
         );

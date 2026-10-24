@@ -1,40 +1,33 @@
 @if (data(); as data) {
-  <div class="flex items-center justify-center">
-    <div class="p-6 text-center lg:pr-10">
-      <p class="text-lg font-semibold mb-4">
-        Odkładając miesięcznie
-        <span class="font-bold text-secondary">{{ data.contribution }} zł</span
-        >, po
-        <span class="font-bold text-secondary">{{ data.duration }} latach</span
-        >, w symulacji uzyskasz
-        <span class="text-primary font-bold"
-          >{{ data.finalValue - data.tax | number }} zł</span
-        >.
-      </p>
-      @if (!data.skipRate) {
-        <p class="mb-2">
-          Uwzględniając stopę zwrotu w wysokości
-          <span class="font-bold text-secondary">{{ data.rate }}%</span>
-          zarobisz
-          <span class="font-bold text-secondary"
-            >{{ data.totalInterest | number }} zł</span
-          >
-          odsetek, suma wszystkich wpłat wyniesie
-          <span class="font-bold text-secondary"
-            >{{ data.totalContribution | number }} zł</span
-          >, a łączny kapitał
-          <span class="font-bold text-secondary"
-            >{{ data.finalValue | number }} zł</span
-          >
-          @if (!data.skipTax) {
-            , z czego będziesz musiał zapłacić podatek Belki w wysokości
-            <span class="font-bold text-secondary"
-              >{{ data.tax | number }} zł</span
-            >
-          }
-          .
-        </p>
-      }
-    </div>
+  <div class="p-6 text-center">
+    <p class="text-lg font-semibold mb-4">
+      Przy miesięcznej wpłacie
+      <strong>{{ data.contribution | number: "1.2-2" }} zł</strong>, po
+      {{ data.duration }} latach w symulacji uzyskasz
+      <strong class="text-primary"
+        >{{ data.netValue | number: "1.2-2" }} zł netto</strong
+      >.
+    </p>
+    <p class="mb-2">
+      Kapitał początkowy:
+      <strong>{{ data.initialCapital | number: "1.2-2" }} zł</strong>.
+      Późniejsze wpłaty:
+      <strong>{{ data.totalContribution | number: "1.2-2" }} zł</strong>.
+      Łącznie wniesione środki:
+      <strong>{{ data.totalDeposited | number: "1.2-2" }} zł</strong>.
+    </p>
+    <p class="mb-2">
+      Zysk brutto:
+      <strong>{{ data.totalInterest | number: "1.2-2" }} zł</strong>. Wartość
+      brutto: <strong>{{ data.finalValue | number: "1.2-2" }} zł</strong>.
+      Modelowy podatek: <strong>{{ data.tax | number: "1.2-2" }} zł</strong>.
+    </p>
+    <p>
+      Wartość netto po modelowym podatku:
+      <strong>{{ data.netValue | number: "1.2-2" }} zł</strong>.
+    </p>
+    @if (data.skipTax) {
+      <p class="text-sm mt-2">Podatek pominięto zgodnie z wybraną opcją.</p>
+    }
   </div>
 }

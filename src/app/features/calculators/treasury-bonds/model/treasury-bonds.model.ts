@@ -6,7 +6,6 @@ export interface TreasuryBondsRequest {
   referenceRate: number[];
   savingsRate: number[];
   skipTax: boolean;
-  ike?: boolean;
   familyEligible?: boolean;
 }
 

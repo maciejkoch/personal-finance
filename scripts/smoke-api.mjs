@@ -1,8 +1,10 @@
 import assert from "node:assert/strict";
 
-const project = "personal-finance-2ee61";
+const project =
+  process.env.OSZCZEDZIFY_EMULATOR_PROJECT ?? "personal-finance-2ee61";
 const local = `http://127.0.0.1:5001/${project}/us-central1`;
-const production = `https://us-central1-${project}.cloudfunctions.net`;
+const production =
+  "https://us-central1-personal-finance-2ee61.cloudfunctions.net";
 const compare = process.argv.includes("--compare-production");
 const productionOnly = process.argv.includes("--production");
 const contracts = process.argv.includes("--contracts");

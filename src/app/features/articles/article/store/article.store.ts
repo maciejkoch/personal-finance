@@ -1,37 +1,34 @@
-import { inject } from '@angular/core';
-import { tapResponse } from '@ngrx/operators';
-import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
-import { rxMethod } from '@ngrx/signals/rxjs-interop';
-import { pipe, switchMap, tap } from 'rxjs';
-import { ArticleDataService } from '../data/article-data.service';
-import { ArticleData, ArticleRequest } from '../model/article.model';
-
-type State = {
-  data: ArticleData | null;
-  isLoading: boolean;
-};
-
-const initialState: State = {
-  data: null,
-  isLoading: false,
-};
+import { inject } from "@angular/core";
+import { tapResponse } from "@ngrx/operators";
+import { patchState, signalStore, withMethods, withState } from "@ngrx/signals";
+import { rxMethod } from "@ngrx/signals/rxjs-interop";
+import { pipe, switchMap } from "rxjs";
+import { ArticleDataService } from "../data/article-data.service";
+import { ArticleData, ArticleRequest } from "../model/article.model";
 
 export const ArticleStore = signalStore(
-  withState(initialState),
+  withState({
+    data: null as ArticleData | null,
+    isLoading: false,
+    error: null as string | null,
+  }),
   withMethods((store, dataService = inject(ArticleDataService)) => ({
     fetch: rxMethod<ArticleRequest>(
       pipe(
-        tap(() => patchState(store, { isLoading: true })),
         switchMap((request) => {
+          patchState(store, { data: null, isLoading: true, error: null });
           return dataService.fetch(request).pipe(
             tapResponse({
               next: (data) => patchState(store, { data }),
-              error: console.error,
+              error: () =>
+                patchState(store, {
+                  error: "Nie udało się wczytać poradnika. Spróbuj ponownie.",
+                }),
               finalize: () => patchState(store, { isLoading: false }),
-            })
+            }),
           );
-        })
-      )
+        }),
+      ),
     ),
-  }))
+  })),
 );

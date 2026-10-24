@@ -36,7 +36,7 @@ describe("Local API routing", () => {
         wibor6m: [0.0584],
         savingsRate: [0.1],
       })
-      .subscribe();
+      .subscribe({ error: () => undefined });
     const request = http.expectOne(
       (r) => r.url === environment.apiEndpoints.treasuryBonds,
     );
@@ -58,11 +58,11 @@ describe("Local API routing", () => {
         skipRate: false,
         skipTax: false,
       })
-      .subscribe();
-    const request = http.expectOne((r) =>
-      r.url.startsWith(`${environment.apiEndpoints.savings}?`),
+      .subscribe({ error: () => undefined });
+    const request = http.expectOne(
+      (r) => r.url === environment.apiEndpoints.savings,
     );
-    expect(new URL(request.request.url).searchParams.get("rate")).toBe("0.05");
+    expect(request.request.params.get("rate")).toBe("0.05");
     request.flush({ data: {} });
   });
 
@@ -75,18 +75,18 @@ describe("Local API routing", () => {
         skipRate: true,
         skipTax: false,
       })
-      .subscribe();
-    const request = http.expectOne((r) =>
-      r.url.startsWith(`${environment.apiEndpoints.regularContribution}?`),
+      .subscribe({ error: () => undefined });
+    const request = http.expectOne(
+      (r) => r.url === environment.apiEndpoints.regularContribution,
     );
-    expect(new URL(request.request.url).searchParams.get("rate")).toBe("0");
+    expect(request.request.params.get("rate")).toBe("0");
     request.flush({ data: {} });
   });
 
   it("loads articles from the selected backend", () => {
     TestBed.inject(ArticleDataService)
       .fetch("kalkulator-obligacji-skarbowych")
-      .subscribe();
+      .subscribe({ error: () => undefined });
     const request = http.expectOne(
       `${environment.apiEndpoints.article}?slug=kalkulator-obligacji-skarbowych`,
     );

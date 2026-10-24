@@ -11,7 +11,6 @@ const request: TreasuryBondsRequest = {
   savingsRate: [0],
   wibor6m: [0],
   skipTax: false,
-  ike: false,
   familyEligible: false,
 };
 function response(): BondComparisonResponse {

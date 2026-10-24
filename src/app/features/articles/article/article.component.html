@@ -1,4 +1,17 @@
 <pfui-section-layout [links]="links" label="Menu poradników">
+  <div role="status" aria-live="polite">
+    @if (isLoading()) {
+      <p class="my-4">Ładowanie poradnika…</p>
+    }
+  </div>
+  @if (error(); as message) {
+    <div role="alert" class="alert alert-error my-4">
+      <p>{{ message }}</p>
+      <button type="button" class="btn btn-sm" (click)="retry()">
+        Spróbuj ponownie
+      </button>
+    </div>
+  }
   @if (content(); as content) {
     <div class="prose max-w-none" [innerHTML]="content.html"></div>
     @if (page(); as page) {

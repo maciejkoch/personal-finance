@@ -49,7 +49,7 @@ export class TreasuryBondsComponent {
   loading = this.#store.loading;
   error = this.#store.error;
   offer = offer;
-  options = signal({ ike: false, familyEligible: false });
+  options = signal({ familyEligible: false });
   bonds = computed(() => {
     const available = availablePolishBonds(this.options());
     return Object.values(offer.bonds).filter((bond) =>
@@ -62,8 +62,7 @@ export class TreasuryBondsComponent {
     if (
       !next ||
       (previous &&
-        (previous.ike !== next.ike ||
-          previous.skipTax !== next.skipTax ||
+        (previous.skipTax !== next.skipTax ||
           previous.familyEligible !== next.familyEligible))
     ) {
       this.#store.calculate(null);

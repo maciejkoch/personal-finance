@@ -26,6 +26,11 @@ export class ArticleComponent {
   page = computed(() => pages.find((page) => page.path === `/${this.slug()}`));
 
   content = this.#store.data;
+  isLoading = this.#store.isLoading;
+  error = this.#store.error;
+  retry() {
+    this.#store.fetch(this.slug());
+  }
 
   constructor() {
     this.#store.fetch(this.slug);

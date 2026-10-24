@@ -8,6 +8,6 @@ import { FieldTree, FormField } from "@angular/forms/signals";
   templateUrl: "./tax-options.component.html",
 })
 export class TaxOptionsComponent {
-  readonly ike = input<FieldTree<boolean>>();
+  readonly bonds = input(false);
   readonly skipTax = input.required<FieldTree<boolean>>();
 }

@@ -1,0 +1,35 @@
+npm notice run oszczedzify@0.0.0 build
+npm notice run node scripts/workspace.mjs build production --stats-json
+❯ Building...
+✔ Building...
+Initial chunk files | Names                                        |  Raw size | Estimated transfer size
+chunk-DC1Z-THw.js   | -                                            | 195.07 kB |                58.14 kB
+main-H6J7AJSO.js    | main                                         | 144.43 kB |                38.36 kB
+styles-7DHP4I63.css | styles                                       | 109.84 kB |                14.71 kB
+chunk-D8qHmA_j.js   | -                                            |  16.20 kB |                 5.05 kB
+
+                    | Initial total                                | 465.55 kB |               116.27 kB
+
+Lazy chunk files    | Names                                        |  Raw size | Estimated transfer size
+chunk-BYDT0v1z.js   | -                                            | 426.11 kB |                77.34 kB
+chunk-ClAu44at.js   | -                                            | 173.07 kB |                52.80 kB
+chunk-ikezZKue.js   | -                                            |  40.83 kB |                11.16 kB
+chunk-CAwZmoes.js   | -                                            |  30.11 kB |                 7.18 kB
+chunk-Dn4T0dsj.js   | treasury-bonds-component                     |  20.50 kB |                 7.14 kB
+chunk-Ct8L325h.js   | long-term-savings-component                  |   9.82 kB |                 3.76 kB
+chunk-C8FHl740.js   | regular-contribution-component               |   8.21 kB |                 3.35 kB
+chunk-CYM8BwIb.js   | treasury-bonds-form-component                |   6.68 kB |                 2.40 kB
+chunk-DeEkXnE-.js   | treasury-bonds-results-component             |   4.68 kB |                 1.93 kB
+chunk-CkVS5rc2.js   | long-term-savings-form-component             |   3.90 kB |                 1.56 kB
+chunk-1euFGa5G.js   | treasury-bonds-final-chart-component         |   3.35 kB |                 1.73 kB
+chunk-X1SNFBRV.js   | regular-contribution-form-component          |   3.34 kB |                 1.44 kB
+chunk-Ba2bJRNl.js   | home-component                               |   3.18 kB |                 1.35 kB
+chunk-Cou2uGp8.js   | treasury-bonds-results-description-component |   3.15 kB |                 1.42 kB
+chunk-CfAgGL3x.js   | -                                            |   3.00 kB |                 1.31 kB
+...and 13 more lazy chunks files. Use "--verbose" to show all the files.
+
+Prerendered 8 static routes.
+Application bundle generation complete. [5.213 seconds] - 2026-10-23T17:26:17.631Z
+
+Output location: /Users/maciejkoch/PRV projects/oszczdzify/dist/oszczedzify
+

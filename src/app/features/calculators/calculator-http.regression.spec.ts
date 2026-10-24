@@ -11,6 +11,24 @@ import { RegularContributionDataService } from "./regular-contribution/data/regu
 import { TreasuryBondsDataService } from "./treasury-bonds/data/treasury-bonds-data.service";
 import * as offer from "@data/bond-offer";
 
+function portfolio(years: number, skipTax: boolean) {
+  const tax = skipTax ? 0 : 19;
+  return {
+    initialCapital: 0,
+    totalContribution: 12000,
+    totalDeposited: 12000,
+    finalValue: 12100,
+    totalInterest: 100,
+    tax,
+    netValue: 12100 - tax,
+    valueYearPerYear: Array.from({ length: years }, (_, i) => ({
+      year: i + 1,
+      compoundedInteres: 12100,
+      totalContribution: 12000,
+    })),
+  };
+}
+
 describe("Calculator HTTP assumption regressions", () => {
   beforeEach(() =>
     TestBed.configureTestingModule({
@@ -34,6 +52,7 @@ describe("Calculator HTTP assumption regressions", () => {
     for (const skipRate of [false, true]) {
       it(`contributions sends effective rate and preserves tax preference: skipRate=${skipRate}, skipTax=${skipTax}`, () => {
         const request = {
+          initialCapital: 0,
           contribution: 500.01,
           duration: 2,
           rate: 6.25,
@@ -52,23 +71,25 @@ describe("Calculator HTTP assumption regressions", () => {
           "https://test.invalid",
         ).searchParams;
         expect(Object.fromEntries(query)).toEqual({
+          initialCapital: "0",
           contribution: "500.01",
           duration: "2",
           rate: skipRate ? "0" : "0.0625",
           skipTax: String(skipTax),
         });
+        const payload = portfolio(2, skipTax);
         pending.flush({
-          data: { finalValue: 12345.67, tax: skipTax ? 0 : 12.34 },
+          data: { ...payload, contribution: request.contribution },
         });
         expect(received).toHaveBeenCalledExactlyOnceWith({
           ...request,
-          finalValue: 12345.67,
-          tax: skipTax ? 0 : 12.34,
+          ...payload,
         });
       });
       for (const skipInflation of [false, true]) {
         it(`goal sends effective inflation and rate without losing preferences: ${JSON.stringify({ skipInflation, skipRate, skipTax })}`, () => {
           const request = {
+            initialCapital: 0,
             amount: 150000.01,
             duration: 15,
             inflation: 3.5,
@@ -89,19 +110,23 @@ describe("Calculator HTTP assumption regressions", () => {
             "https://test.invalid",
           ).searchParams;
           expect(Object.fromEntries(query)).toEqual({
+            initialCapital: "0",
             amount: "150000.01",
             duration: "15",
             inflation: skipInflation ? "0" : "0.035",
             rate: skipRate ? "0" : "0.0625",
             skipTax: String(skipTax),
           });
-          pending.flush({
-            data: { monthlyContribution: 1000.23, tax: skipTax ? 0 : 12.34 },
-          });
+          const payload = {
+            ...portfolio(15, skipTax),
+            futureValue: 150000.01,
+            monthlyContribution: 1000.23,
+            goalCoveredByInitialCapital: false,
+          };
+          pending.flush({ data: payload });
           expect(received).toHaveBeenCalledExactlyOnceWith({
             ...request,
-            monthlyContribution: 1000.23,
-            tax: skipTax ? 0 : 12.34,
+            ...payload,
           });
         });
       }
@@ -151,7 +176,7 @@ describe("Calculator HTTP assumption regressions", () => {
     });
   }
 
-  it("requests the new bond contract for IKE and accepts only the matching tax-free series", () => {
+  it("requests the bond contract with family eligibility and matching taxation", () => {
     const next = vi.fn();
     const request = {
       numberOfBonds: 1,
@@ -160,8 +185,7 @@ describe("Calculator HTTP assumption regressions", () => {
       referenceRate: [0],
       savingsRate: [0],
       wibor6m: [0],
-      skipTax: false,
-      ike: true,
+      skipTax: true,
       familyEligible: true,
     };
     TestBed.inject(TreasuryBondsDataService).calculate(request).subscribe(next);
@@ -169,7 +193,7 @@ describe("Calculator HTTP assumption regressions", () => {
       (r) => r.url === "/bonds",
     );
     expect(pending.request.params.get("contractVersion")).toBe("3");
-    expect(pending.request.params.get("ike")).toBe("true");
+    expect(pending.request.params.get("skipTax")).toBe("true");
     const points = Array.from({ length: 12 }, (_, i) => ({
       month: i + 1,
       value: 100,
@@ -182,20 +206,54 @@ describe("Calculator HTTP assumption regressions", () => {
         marketId: "pl",
         skipTax: true,
         benchmark: points,
-        series: ["ror", "dor", "tos", "coi", "edo"].map((instrumentId) => ({
-          instrumentId,
-          currency: "PLN",
-          points,
-        })),
+        series: ["ror", "dor", "tos", "coi", "edo", "ros", "rod"].map(
+          (instrumentId) => ({
+            instrumentId,
+            currency: "PLN",
+            points,
+          }),
+        ),
       },
     });
     expect(next).toHaveBeenCalledExactlyOnceWith(
       expect.objectContaining({
         skipTax: true,
-        activeBondTypes: ["ror", "dor", "tos", "coi", "edo"],
+        activeBondTypes: ["ror", "dor", "tos", "coi", "edo", "ros", "rod"],
       }),
     );
   });
+
+  for (const invalid of [
+    { netValue: null },
+    { finalValue: Infinity },
+    { netValue: 1 },
+    {
+      valueYearPerYear: [
+        { year: 2, compoundedInteres: 12100, totalContribution: 12000 },
+      ],
+    },
+  ]) {
+    it(`rejects invalid savings response ${JSON.stringify(invalid)}`, () => {
+      const next = vi.fn(),
+        error = vi.fn();
+      TestBed.inject(RegularContributionDataService)
+        .calculate({
+          contribution: 500,
+          duration: 2,
+          rate: 5,
+          skipRate: false,
+          skipTax: false,
+        })
+        .subscribe({ next, error });
+      TestBed.inject(HttpTestingController)
+        .expectOne((r) => r.url === "/contributions")
+        .flush({
+          data: { ...portfolio(2, false), contribution: 500, ...invalid },
+        });
+      expect(next).not.toHaveBeenCalled();
+      expect(error).toHaveBeenCalledOnce();
+    });
+  }
 
   it("rejects incompatible calculation versions even when the offer version matches", () => {
     const next = vi.fn(),

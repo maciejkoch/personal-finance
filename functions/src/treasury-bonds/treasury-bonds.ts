@@ -14,7 +14,6 @@ import { simplifyResult } from "./treasury-bonds.service";
 import { BondComparisonResponse } from "../contracts/bond-comparison";
 import {
   availablePolishBonds,
-  effectiveSkipTax,
   PolishBondType,
 } from "../markets/pl/polish-calculator-options";
 
@@ -31,7 +30,7 @@ const calculators = {
 export function calculateComparison(
   dto: TreasuryBondsSchemaDTO,
 ): BondComparisonResponse {
-  const skipTax = effectiveSkipTax(dto);
+  const skipTax = dto.skipTax;
   const params = {
     inflation: dto.inflation,
     referenceRate: dto.referenceRate,
@@ -101,7 +100,7 @@ export function calculate(dto: TreasuryBondsSchemaDTO) {
     savingsRate,
     wibor6m,
   } = dto;
-  const skipTax = effectiveSkipTax(dto);
+  const skipTax = dto.skipTax;
 
   const amount = numberOfBonds * 100;
 

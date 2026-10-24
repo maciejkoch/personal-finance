@@ -1,0 +1,10 @@
+npm notice run oszczedzify@0.0.0 check:content
+npm notice run node scripts/check-content.mjs
+PASS /: local content, dates and internal links
+PASS /kalkulatory/obligacje-skarbowe: local content, dates and internal links
+PASS /kalkulatory/regularne-oszczedzanie: local content, dates and internal links
+PASS /kalkulatory/oszczedzanie-na-cel: local content, dates and internal links
+PASS /o-nas: local content, dates and internal links
+PASS /oszczedzaj-regularnie: local content, dates and internal links
+PASS /kalkulator-obligacji-skarbowych: local content, dates and internal links
+PASS Marked remains server-only

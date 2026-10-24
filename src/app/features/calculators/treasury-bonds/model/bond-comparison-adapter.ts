@@ -1,9 +1,6 @@
 import { z } from "zod";
 import * as offer from "@data/bond-offer";
-import {
-  availablePolishBonds,
-  effectiveSkipTax,
-} from "@markets/pl/polish-calculator-options";
+import { availablePolishBonds } from "@markets/pl/polish-calculator-options";
 import {
   TreasuryBondsRecord,
   TreasuryBondsRequest,
@@ -37,7 +34,7 @@ export function adaptBondComparison(
   const data = responseSchema.parse(payload);
   const activeBondTypes = availablePolishBonds(request);
   if (
-    data.skipTax !== effectiveSkipTax(request) ||
+    data.skipTax !== request.skipTax ||
     data.series.length !== activeBondTypes.length ||
     data.series.some((series, i) => series.instrumentId !== activeBondTypes[i])
   ) {

@@ -1,20 +1,12 @@
+import type { RegularContributionResult } from "@contracts/savings";
 export type RegularContributionRequest = {
   contribution: number;
+  initialCapital?: number;
   duration: number;
   rate: number;
   skipRate: boolean;
   skipTax: boolean;
-  ike?: boolean;
 };
 
-export type RegularContributionData = RegularContributionRequest & {
-  finalValue: number;
-  tax: number;
-  totalContribution: number;
-  totalInterest: number;
-  valueYearPerYear: {
-    compoundedInteres: number;
-    totalContribution: number;
-    year: number;
-  }[];
-};
+export type RegularContributionData = RegularContributionRequest &
+  RegularContributionResult;

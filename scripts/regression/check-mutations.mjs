@@ -94,8 +94,8 @@ const mutations = [
   [
     "annuity payments moved to start of month",
     maths,
-    "const result = rate ? calculate() : calculateWithoutRate();",
-    "const result = rate ? calculate() * (1 + rate / F) : calculateWithoutRate();",
+    "return contribution * annuityFactor(years, rate);",
+    "return contribution * annuityFactor(years, rate) * (1 + rate / 12);",
   ],
   [
     "savings goal skipTax ignored",
@@ -104,10 +104,10 @@ const mutations = [
     "const tax = false ? 0 :",
   ],
   [
-    "regular contributions skipTax ignored",
-    "regular-contributions/regular-contributions.service.js",
-    "const tax = skipTax ? 0 :",
-    "const tax = false ? 0 :",
+    "portfolio skipTax ignored",
+    "calculations/portfolio.js",
+    "skipTax ? 0 :",
+    "false ? 0 :",
   ],
 ];
 

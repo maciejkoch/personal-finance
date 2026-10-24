@@ -5,6 +5,7 @@ import {
   inject,
   viewChild,
 } from "@angular/core";
+import { CalculationStatusComponent } from "../shared/calculation-status.component";
 import { RouterLink } from "@angular/router";
 import { scrollToElement } from "@shared/scroll/scroll-to-element";
 import { HeroComponent } from "@shared/ui/hero/hero.component";
@@ -18,6 +19,7 @@ import { LongTermSavingsFormComponent } from "./ui/long-term-savings-form/long-t
   selector: "pf-long-term-savings",
   imports: [
     RouterLink,
+    CalculationStatusComponent,
     HeroComponent,
     LongTermSavingsFormComponent,
     LongTermSavingsDescriptionComponent,
@@ -35,15 +37,12 @@ export class LongTermSavingsComponent {
   data = this.#store.result;
   isLoading = this.#store.isLoading;
   error = this.#store.error;
+  isStale = this.#store.isStale;
+  retry() {
+    this.#store.retry();
+  }
   invalidate(next: LongTermSavingsRequest | null) {
-    const previous = this.#store.request();
-    if (
-      !next ||
-      (previous &&
-        (previous.ike !== next.ike || previous.skipTax !== next.skipTax))
-    ) {
-      this.#store.calculate(null);
-    }
+    this.#store.prepare(next);
   }
 
   calculate(request: LongTermSavingsRequest) {

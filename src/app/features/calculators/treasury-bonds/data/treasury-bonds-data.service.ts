@@ -20,8 +20,7 @@ export class TreasuryBondsDataService {
     request: TreasuryBondsRequest,
   ): Observable<TreasuryBondsResult | null> {
     const host = this.#endpoints.treasuryBonds;
-    const comparison =
-      request.ike !== undefined || request.familyEligible !== undefined;
+    const comparison = request.familyEligible !== undefined;
     const fromObject = {
       ...request, //
       ...(comparison ? { contractVersion: 3 } : {}),

@@ -1,0 +1,6 @@
+npm notice run oszczedzify@0.0.0 lint
+npm notice run eslint "src/**/*.{ts,html}"
+npm notice run oszczedzify@0.0.0 lint:functions
+npm notice run npm --prefix functions run lint
+npm notice run lint
+npm notice run eslint src

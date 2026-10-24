@@ -1,29 +1,56 @@
-import { calculateFutureValueOfSeries, calculateMonthlyContribution, calculatePeriods, calculateTax, calculateTotalContribution, TAX } from '../calculations/calculations.service';
-import { calculateFutureValue } from '../calculations/inflation.service';
+import {
+  calculateCompoundInterest,
+  calculateMonthlyContribution,
+  calculateTax,
+  TAX,
+} from "../calculations/calculations.service";
+import { calculateFutureValue } from "../calculations/inflation.service";
+import { calculatePortfolio, roundMoney } from "../calculations/portfolio";
+import {
+  savingsResultSchema,
+  CALCULATOR_LIMITS,
+  type SavingsResult,
+} from "../contracts/savings";
 
-export function calculate(amount: number, years: number, inflation: number, rate: number, skipTax = false): unknown {
+export function calculate(
+  amount: number,
+  years: number,
+  inflation: number,
+  rate: number,
+  skipTax = false,
+  initialCapital = 0,
+): SavingsResult {
   const tax = skipTax ? 0 : TAX;
-  const periods = calculatePeriods(years);
-
-  const futureValue = +calculateFutureValue(amount, years, inflation).toFixed(2);
-  const monthlyContribution = +calculateMonthlyContribution(futureValue, years, rate, tax).toFixed(2);
-  const totalContribution = +calculateTotalContribution(monthlyContribution, years).toFixed(2);
-  const finalValue = +calculateFutureValueOfSeries(monthlyContribution, years, rate).toFixed(2);
-  const totalInterest = +(finalValue - totalContribution).toFixed(2);
-  const finalTax = +calculateTax(totalInterest, tax).toFixed(2);
-  const valueYearPerYear = periods.map((year) => ({
-    year,
-    compoundedInteres: +calculateFutureValueOfSeries(monthlyContribution, year, rate).toFixed(2),
-    totalContribution: +calculateTotalContribution(monthlyContribution, year).toFixed(2),
-  }));
-
-  return {
+  const futureValue = roundMoney(
+    calculateFutureValue(amount, years, inflation),
+  );
+  // Check the target before trying to solve the annuity (Infinity is not a target).
+  if (!Number.isFinite(futureValue) || futureValue > CALCULATOR_LIMITS.result)
+    throw new RangeError("Goal out of range");
+  const initialGross = calculateCompoundInterest(initialCapital, years, rate);
+  const initialNet =
+    initialGross - calculateTax(initialGross - initialCapital, tax);
+  const goalCoveredByInitialCapital = initialNet >= futureValue;
+  const monthlyContribution = roundMoney(
+    calculateMonthlyContribution(
+      Math.max(0, futureValue - initialNet),
+      years,
+      rate,
+      tax,
+    ),
+  );
+  if (monthlyContribution === 0 && !goalCoveredByInitialCapital)
+    throw new RangeError("Payment below cent precision");
+  return savingsResultSchema.parse({
+    ...calculatePortfolio(
+      monthlyContribution,
+      years,
+      rate,
+      skipTax,
+      initialCapital,
+    ),
     futureValue,
     monthlyContribution,
-    totalContribution,
-    finalValue,
-    totalInterest,
-    tax: finalTax,
-    valueYearPerYear,
-  };
+    goalCoveredByInitialCapital,
+  });
 }

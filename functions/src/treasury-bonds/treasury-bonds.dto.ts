@@ -26,7 +26,6 @@ const TreasuryBondsSchema = z.object({
   referenceRate: rates(0),
   savingsRate: rates(0),
   skipTax: queryBoolean,
-  ike: queryBoolean.optional(),
   familyEligible: queryBoolean.optional(),
   contractVersion: z.preprocess(parseQueryNumber, z.literal(3)).optional(),
 });

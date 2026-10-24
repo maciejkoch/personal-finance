@@ -1,0 +1,209 @@
+npm notice run oszczedzify@0.0.0 test:regression
+npm notice run npm run test:functions && npm test
+npm notice run oszczedzify@0.0.0 test:functions
+npm notice run npm --prefix functions test
+npm notice run test
+npm notice run npm run build && mocha "lib/**/*.test.js"
+npm notice run build
+npm notice run tsc
+
+
+  Calculate
+    ✔ should calculate monthly contribution
+    ✔ should calculate periods
+    ✔ should calculate tax
+    ✔ should calculate combound interes
+    ✔ should future value of series
+
+  Independent calculator regression references
+    ✔ requires an explicit review when the issue offer changes
+    ✔ ROR maturity, 1 bonds, skipTax=False
+    ✔ ROR maturity, 1 bonds, skipTax=True
+    ✔ ROR maturity, 100 bonds, skipTax=False
+    ✔ ROR maturity, 100 bonds, skipTax=True
+    ✔ DOR maturity, 1 bonds, skipTax=False
+    ✔ DOR maturity, 1 bonds, skipTax=True
+    ✔ DOR maturity, 100 bonds, skipTax=False
+    ✔ DOR maturity, 100 bonds, skipTax=True
+    ✔ TOS maturity, 1 bonds, skipTax=False
+    ✔ TOS maturity, 1 bonds, skipTax=True
+    ✔ TOS maturity, 100 bonds, skipTax=False
+    ✔ TOS maturity, 100 bonds, skipTax=True
+    ✔ COI maturity, 1 bonds, skipTax=False
+    ✔ COI maturity, 1 bonds, skipTax=True
+    ✔ COI maturity, 100 bonds, skipTax=False
+    ✔ COI maturity, 100 bonds, skipTax=True
+    ✔ EDO maturity, 1 bonds, skipTax=False
+    ✔ EDO maturity, 1 bonds, skipTax=True
+    ✔ EDO maturity, 100 bonds, skipTax=False
+    ✔ EDO maturity, 100 bonds, skipTax=True
+    ✔ ROS maturity, 1 bonds, skipTax=False
+    ✔ ROS maturity, 1 bonds, skipTax=True
+    ✔ ROS maturity, 100 bonds, skipTax=False
+    ✔ ROS maturity, 100 bonds, skipTax=True
+    ✔ ROD maturity, 1 bonds, skipTax=False
+    ✔ ROD maturity, 1 bonds, skipTax=True
+    ✔ ROD maturity, 100 bonds, skipTax=False
+    ✔ ROD maturity, 100 bonds, skipTax=True
+    ✔ COI year two with zero preceding inflation, 1 bonds, skipTax=False
+    ✔ COI year two with zero preceding inflation, 1 bonds, skipTax=True
+    ✔ COI year two with zero preceding inflation, 100 bonds, skipTax=False
+    ✔ COI year two with zero preceding inflation, 100 bonds, skipTax=True
+    ✔ EDO year two with zero preceding inflation, 1 bonds, skipTax=False
+    ✔ EDO year two with zero preceding inflation, 1 bonds, skipTax=True
+    ✔ EDO year two with zero preceding inflation, 100 bonds, skipTax=False
+    ✔ EDO year two with zero preceding inflation, 100 bonds, skipTax=True
+    ✔ ROS year two with zero preceding inflation, 1 bonds, skipTax=False
+    ✔ ROS year two with zero preceding inflation, 1 bonds, skipTax=True
+    ✔ ROS year two with zero preceding inflation, 100 bonds, skipTax=False
+    ✔ ROS year two with zero preceding inflation, 100 bonds, skipTax=True
+    ✔ ROD year two with zero preceding inflation, 1 bonds, skipTax=False
+    ✔ ROD year two with zero preceding inflation, 1 bonds, skipTax=True
+    ✔ ROD year two with zero preceding inflation, 100 bonds, skipTax=False
+    ✔ ROD year two with zero preceding inflation, 100 bonds, skipTax=True
+    ✔ TOS ACT/ACT in leap year, 1 bonds, skipTax=False
+    ✔ ROR coupons and interest on cash, 1 bonds, skipTax=False
+    ✔ TOS ACT/ACT in leap year, 1 bonds, skipTax=True
+    ✔ ROR coupons and interest on cash, 1 bonds, skipTax=True
+    ✔ TOS ACT/ACT in leap year, 100 bonds, skipTax=False
+    ✔ ROR coupons and interest on cash, 100 bonds, skipTax=False
+    ✔ TOS ACT/ACT in leap year, 100 bonds, skipTax=True
+    ✔ ROR coupons and interest on cash, 100 bonds, skipTax=True
+    ✔ regular contributions: 1000/month for 1 years at 0, skipTax=False
+    ✔ regular contributions: 1000/month for 1 years at 0, skipTax=True
+    ✔ regular contributions: 1000/month for 2 years at 0.12, skipTax=False
+    ✔ regular contributions: 1000/month for 2 years at 0.12, skipTax=True
+    ✔ regular contributions: 500.01/month for 15 years at 0.05, skipTax=False
+    ✔ regular contributions: 500.01/month for 15 years at 0.05, skipTax=True
+    ✔ regular contributions: 0.01/month for 100 years at 0.01, skipTax=False
+    ✔ regular contributions: 0.01/month for 100 years at 0.01, skipTax=True
+    ✔ savings goal: goal 12000 in 1 years, inflation=0, rate=0, skipTax=False
+    ✔ savings goal: goal 12000 in 1 years, inflation=0, rate=0, skipTax=True
+    ✔ savings goal: goal 10000 in 2 years, inflation=0.03, rate=0.12, skipTax=False
+    ✔ savings goal: goal 10000 in 2 years, inflation=0.03, rate=0.12, skipTax=True
+    ✔ savings goal: goal 150000 in 15 years, inflation=0.035, rate=0.05, skipTax=False
+    ✔ savings goal: goal 150000 in 15 years, inflation=0.035, rate=0.05, skipTax=True
+    ✔ savings goal: goal 10000 in 100 years, inflation=0, rate=0, skipTax=False
+    ✔ savings goal: goal 10000 in 100 years, inflation=0, rate=0, skipTax=True
+    ✔ skipping tax preserves gross growth but reduces the required contribution for a growing goal
+
+  Calculate inflation related values
+    ✔ should calculate future value
+    ✔ should calculate future value for month
+    ✔ should calculate future value for Month
+
+  Calculator HTTP numerical regressions
+    ✔ regular contributions: 1000/month for 1 years at 0, skipTax=False
+    ✔ regular contributions: 1000/month for 1 years at 0, skipTax=True
+    ✔ regular contributions: 1000/month for 2 years at 0.12, skipTax=False
+    ✔ regular contributions: 1000/month for 2 years at 0.12, skipTax=True
+    ✔ regular contributions: 500.01/month for 15 years at 0.05, skipTax=False
+    ✔ regular contributions: 500.01/month for 15 years at 0.05, skipTax=True
+    ✔ regular contributions: 0.01/month for 100 years at 0.01, skipTax=False
+    ✔ regular contributions: 0.01/month for 100 years at 0.01, skipTax=True
+    ✔ savings goal: goal 12000 in 1 years, inflation=0, rate=0, skipTax=False
+    ✔ savings goal: goal 12000 in 1 years, inflation=0, rate=0, skipTax=True
+    ✔ savings goal: goal 10000 in 2 years, inflation=0.03, rate=0.12, skipTax=False
+    ✔ savings goal: goal 10000 in 2 years, inflation=0.03, rate=0.12, skipTax=True
+    ✔ savings goal: goal 150000 in 15 years, inflation=0.035, rate=0.05, skipTax=False
+    ✔ savings goal: goal 150000 in 15 years, inflation=0.035, rate=0.05, skipTax=True
+    ✔ savings goal: goal 10000 in 100 years, inflation=0, rate=0, skipTax=False
+    ✔ savings goal: goal 10000 in 100 years, inflation=0, rate=0, skipTax=True
+    ✔ preserves zero and negative inflation, falls back to the last scenario and returns complete months
+    ✔ default and explicit false taxation are identical for old clients
+    ✔ returns an error for ambiguous boolean input without returning partial calculations
+
+  Zod 4 query validation and HTTP compatibility
+    ✔ savings: accepts old clients, numeric strings, zero rates and documented limits
+    ✔ savings: rejects malformed values, fractional periods and out-of-range rates
+    ✔ contribution: accepts old clients, numeric strings, zero rates and documented limits
+    ✔ contribution: rejects malformed values, fractional periods and out-of-range rates
+    ✔ validates inflation at both boundaries without coercing blank or structured input
+    ✔ returns a JSON error envelope with paths for all four endpoints
+    ✔ keeps calculation response envelopes and returns 400 instead of 500 for fractional years
+    ✔ renders both articles as HTML strings and distinguishes missing content from malformed slugs
+
+  Calculate regular contributions
+    ✔ should calculate
+
+  Calculate savings
+    ✔ should calculate savings
+
+  Bond HTTP contract and bounds
+    ✔ accepts old queries, adds defaults and preserves the values array contract
+    ✔ accepts month 1 and optional obsolete WIBOR, strictly parses skipTax
+    ✔ rejects fractional counts/months, oversized work and malformed scenario arrays
+    ✔ returns HTTP 400 for invalid query data and 200 for a supported old client
+
+  Tax, reinvestment and conservation
+    ✔ matches independent full-term product examples for all capitalizing types
+    ✔ rounds tax up and never returns negative tax
+    ✔ rounds the bond amount before scaling, but taxes the total payment
+    ✔ passes skipTax through HTTP calculation to coupons and savings
+    ✔ keeps redemption cash exactly once and does not re-buy at the terminal point
+    ✔ cannot create value through fees or count fallback and keeps snapshots independent of horizon
+    ✔ retains a locked annual rate and uses the preceding inflation scenario
+    ✔ preserves a zero inflation year in the purchasing-power benchmark
+    ✔ allows the last maturity coupon to participate in exchange, preserving leftover cash
+
+  COI October 2026
+    ✔ pays the annual coupon once and charges the fee after the first period
+    ✔ floors deflation at zero for indexation, without losing a zero scenario value
+
+  DOR October 2026
+    ✔ rounds a 0.345833 coupon per bond and applies the 0.70 PLN fee separately
+
+  EDO October 2026
+    ✔ compounds without annual tax and subtracts the fee before taxing redemption
+    ✔ does not charge the fee at ten-year maturity
+
+  ROD October 2026
+    ✔ is twelve years long and caps the fee at accrued interest
+
+  ROR October 2026
+    ✔ pays the 0.33 PLN first coupon, then charges 0.50 PLN after that coupon
+    ✔ uses the reference-rate scenario from month two without a tax refund on a loss
+
+  ROS October 2026
+    ✔ is six years long, capitalizes and has no discounted exchange
+
+  TOS October 2026
+    ✔ matches the explicit 113.79 PLN gross redemption in letter 97/2026 section 14
+    ✔ never indexes TOS to WIBOR, NBP or inflation
+    ✔ uses ACT/ACT and rounded N1 for an early redemption in a leap-year period
+
+  Polish calculator IKE and family options
+    ✔ filters the complete timeline without changing maths: {"ike":false,"familyEligible":false,"skipTax":false}
+    ✔ filters the complete timeline without changing maths: {"ike":false,"familyEligible":false,"skipTax":true}
+    ✔ filters the complete timeline without changing maths: {"ike":false,"familyEligible":true,"skipTax":false}
+    ✔ filters the complete timeline without changing maths: {"ike":false,"familyEligible":true,"skipTax":true}
+    ✔ filters the complete timeline without changing maths: {"ike":true,"familyEligible":false,"skipTax":false}
+    ✔ filters the complete timeline without changing maths: {"ike":true,"familyEligible":false,"skipTax":true}
+    ✔ filters the complete timeline without changing maths: {"ike":true,"familyEligible":true,"skipTax":false}
+    ✔ filters the complete timeline without changing maths: {"ike":true,"familyEligible":true,"skipTax":true}
+    ✔ supports legacy HTTP and the new series contract on the same endpoint
+    ✔ rejects malformed new flags and unsupported contract versions
+    ✔ savings: IKE gives exactly the manual tax-free result, even with skipTax=false
+    ✔ contributions: IKE gives exactly the manual tax-free result, even with skipTax=false
+
+  Treasury bonds params
+    ✔ should return proper values for given month
+
+
+  145 passing (639ms)
+
+npm notice run oszczedzify@0.0.0 test
+npm notice run ng test --watch=false
+❯ Building...
+✔ Building...
+Application bundle generation complete. [4.616 seconds] - 2026-10-23T17:24:14.238Z
+
+
+ RUN  v5.0.5 /Users/maciejkoch/PRV projects/oszczdzify
+
+
+ Test Files  18 passed (18)
+      Tests  102 passed (102)
+   Start at  19:24:14
+   Duration  7.19s (tests 50%, environment 37%, setup 7%, transform 3%, import 3%)
+

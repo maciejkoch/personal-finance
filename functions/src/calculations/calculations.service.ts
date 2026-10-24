@@ -1,8 +1,15 @@
 export const TAX = 0.19;
-const FREQUENCY_OF_COMPOUND = 12; // przeliczenie co miesiac
+const FREQUENCY_OF_COMPOUND = 12;
 
 export function calculatePeriods(years: number): number[] {
-  return [...Array(years).keys()].map((value) => value + 1);
+  return Array.from({ length: years }, (_, i) => i + 1);
+}
+
+/** Future value multiplier for end-of-month payments, continuous at zero. */
+export function annuityFactor(years: number, rate: number): number {
+  const i = rate / FREQUENCY_OF_COMPOUND;
+  const months = years * FREQUENCY_OF_COMPOUND;
+  return i === 0 ? months : Math.expm1(months * Math.log1p(i)) / i;
 }
 
 export function calculateMonthlyContribution(
@@ -11,17 +18,8 @@ export function calculateMonthlyContribution(
   rate: number,
   tax = TAX,
 ): number {
-  const F = FREQUENCY_OF_COMPOUND;
-
-  const monthlyRate = rate ? rate / F : 0;
-  const months = years * 12;
-  const base = monthlyRate
-    ? ((1 - tax) * (Math.pow(1 + monthlyRate, months) - 1)) / monthlyRate +
-      tax * months
-    : months;
-  const result = amount / base;
-
-  return result;
+  const base = (1 - tax) * annuityFactor(years, rate) + tax * years * 12;
+  return Math.max(0, amount) / base;
 }
 
 export function calculateCompoundInterest(
@@ -29,10 +27,7 @@ export function calculateCompoundInterest(
   years: number,
   rate: number,
 ): number {
-  const F = FREQUENCY_OF_COMPOUND;
-
-  const result = contribution * Math.pow(1 + rate / F, years * F);
-  return result;
+  return contribution * Math.exp(years * 12 * Math.log1p(rate / 12));
 }
 
 export function calculateFutureValueOfSeries(
@@ -40,28 +35,18 @@ export function calculateFutureValueOfSeries(
   years: number,
   rate: number,
 ): number {
-  const F = FREQUENCY_OF_COMPOUND;
-
-  const calculateWithoutRate = () => contribution * years * 12;
-  const calculate = () =>
-    (contribution * (Math.pow(1 + rate / F, F * years) - 1)) / (rate / F); //* (1 + rate / F); ostatnie mnozenie jesli dodatkowe wplaty sa na poczatku okresu
-
-  const result = rate ? calculate() : calculateWithoutRate();
-  return result;
+  return contribution * annuityFactor(years, rate);
 }
 
 export function calculateTotalContribution(
   contribution: number,
   years: number,
 ): number {
-  const months = years * 12;
-  const result = contribution * months;
-  return result;
+  return contribution * years * 12;
 }
 
-export function calculateTax(amount: number, tax = TAX) {
-  const result = amount * tax;
-  return result;
+export function calculateTax(amount: number, tax = TAX): number {
+  return Math.max(0, amount) * tax;
 }
 
 export function getNOrLastValue(values: number[] = [], n: number): number {

@@ -1,0 +1,19 @@
+npm notice run oszczedzify@0.0.0 test:mutations
+npm notice run npm --prefix functions run build && node scripts/regression/check-mutations.mjs
+npm notice run build
+npm notice run tsc
+DETECTED: bond tax rounded down (26 failed tests)
+DETECTED: bond skipTax ignored (29 failed tests)
+DETECTED: redemption fee removed (33 failed tests)
+DETECTED: redemption fee not deducted from taxable income (14 failed tests)
+DETECTED: capitalization removed (38 failed tests)
+DETECTED: coupon counted twice (26 failed tests)
+DETECTED: cash interest omitted (3 failed tests)
+DETECTED: inflation taken one year too early (18 failed tests)
+DETECTED: exchange discount removed (1 failed tests)
+DETECTED: last observation omitted (70 failed tests)
+DETECTED: zero scenario mistaken for missing data (2 failed tests)
+DETECTED: annuity payments moved to start of month (23 failed tests)
+DETECTED: savings goal skipTax ignored (5 failed tests)
+DETECTED: regular contributions skipTax ignored (8 failed tests)
+PASS: 14/14 deliberate mutations detected; 145 baseline tests pass.

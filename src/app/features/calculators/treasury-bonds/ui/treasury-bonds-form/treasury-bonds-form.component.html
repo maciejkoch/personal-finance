@@ -84,7 +84,7 @@
       </div>
     </pfui-accordion-item>
   </pfui-accordion>
-  <label class="flex items-center gap-3 my-4" [class.opacity-60]="model().ike">
+  <label class="flex items-center gap-3 my-4">
     <input
       type="checkbox"
       class="checkbox checkbox-primary"
@@ -92,17 +92,13 @@
     />
     <span>Mam uprawnienia do zakupu obligacji rodzinnych (800+)</span>
   </label>
-  @if (model().ike) {
-    <p class="text-sm">
-      Obligacje rodzinne ROS i ROD nie są dostępne w IKE-Obligacje.
-    </p>
-  } @else if (model().familyEligible) {
+  @if (model().familyEligible) {
     <p class="text-sm">
       Zakup ROS i ROD wymaga dostępnego limitu świadczeń. Kalkulator nie
       sprawdza limitu, także przy ponownym zakupie.
     </p>
   }
-  <pf-tax-options [ike]="form.ike" [skipTax]="form.skipTax" />
+  <pf-tax-options [bonds]="true" [skipTax]="form.skipTax" />
   @if (form().invalid()) {
     <p class="text-error mb-3" role="alert">
       Podaj całkowitą liczbę obligacji od 1 do 1 000 000 i okres od 1 do 12
