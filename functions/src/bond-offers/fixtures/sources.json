@@ -1,0 +1,86 @@
+{
+  "2026-09": {
+    "parserVersion": "letters-v1",
+    "observedAt": "2026-10-24T11:43:27.443Z",
+    "fetchedAt": "2026-10-24T11:43:37.108Z",
+    "sources": [
+      {
+        "type": "ROR",
+        "url": "https://www.obligacjeskarbowe.pl/media_files/ec193ea6-fcd0-497a-a328-a7d9b2cc9d06.pdf",
+        "sha256": "20cd98a40f44110e7a4b780c1093ceb062beba8b1c9dfcde502d255bfa4623b4"
+      },
+      {
+        "type": "DOR",
+        "url": "https://www.obligacjeskarbowe.pl/media_files/af0e7a4e-d836-465a-b7e9-8f26f727ff33.pdf",
+        "sha256": "1b99e597fd9bb6ba0b288cd091ce82f026773a772e8d71864ac4e0ed09840ce6"
+      },
+      {
+        "type": "TOS",
+        "url": "https://www.obligacjeskarbowe.pl/media_files/68f35a7e-781c-4fab-82af-3f87b2ef7294.pdf",
+        "sha256": "c8a75f67c45c7b6eaa2ee15e67f62f2ccfd6f3c0500b6c6925cb8e2c16993179"
+      },
+      {
+        "type": "COI",
+        "url": "https://www.obligacjeskarbowe.pl/media_files/21db12fd-35ec-4cbd-b3f4-28a9a7ae2c7e.pdf",
+        "sha256": "aa2a6bcf8b4c9ed332b75cdfb932adbe298ab3dc92168312aeee066e41969df6"
+      },
+      {
+        "type": "EDO",
+        "url": "https://www.obligacjeskarbowe.pl/media_files/9dc0862c-b074-481a-9e90-f28b14969fb9.pdf",
+        "sha256": "e0ad144c6922adeec7b64a84cd5989a6415db8784a856ad6550e89bd356f81b6"
+      },
+      {
+        "type": "ROS",
+        "url": "https://www.obligacjeskarbowe.pl/media_files/84817c16-3d45-497a-b933-c6c894ea29dc.pdf",
+        "sha256": "184cd0309f5c99d10986c8a743565e5d260a1b52fa2d945541a5fc05eedb3bfa"
+      },
+      {
+        "type": "ROD",
+        "url": "https://www.obligacjeskarbowe.pl/media_files/1fe0f15f-cbd2-4035-9359-edcdb54623d8.pdf",
+        "sha256": "34602f5998a7a9103174419d614bb0be3e4e3b829c026cc9f815c0e6386f5f11"
+      }
+    ]
+  },
+  "2026-10": {
+    "parserVersion": "letters-v1",
+    "observedAt": "2026-10-24T11:43:37.109Z",
+    "fetchedAt": "2026-10-24T11:43:46.468Z",
+    "sources": [
+      {
+        "type": "ROR",
+        "url": "https://www.obligacjeskarbowe.pl/media_files/f4e264bb-537d-4a7e-813e-e4f099ea0cc5.pdf",
+        "sha256": "fa9c85053f0e4a4a2f12e084b659af371ddb513feab664ae1ff42e988b522eb9"
+      },
+      {
+        "type": "DOR",
+        "url": "https://www.obligacjeskarbowe.pl/media_files/d4585b0f-349e-42b0-a399-a43051310cc3.pdf",
+        "sha256": "e6ebe6ba419157003065785769bf9086524a9572cd75cd90a8dcfe19a083431e"
+      },
+      {
+        "type": "TOS",
+        "url": "https://www.obligacjeskarbowe.pl/media_files/c15a26ae-de6e-4b89-a137-cb16687a7b0a.pdf",
+        "sha256": "7043bb72cf38a1a2f19eab88e5a5bde5a015334484a7643022b96df656919156"
+      },
+      {
+        "type": "COI",
+        "url": "https://www.obligacjeskarbowe.pl/media_files/e156037b-5b0c-40b8-85e1-0b205d4ac395.pdf",
+        "sha256": "eaf60857b6e32825e4f19254745d91b681826272ebf7a2fb358812665ace5c94"
+      },
+      {
+        "type": "EDO",
+        "url": "https://www.obligacjeskarbowe.pl/media_files/4f5f6353-fdcd-4b7e-b44f-63088098c534.pdf",
+        "sha256": "fb6e0ffa9ebc506a745ca52cc0e8290b13ac0844e11a8ca3c79df215f838cdf1"
+      },
+      {
+        "type": "ROS",
+        "url": "https://www.obligacjeskarbowe.pl/media_files/429484ab-572e-4c43-9f64-3ea8fea13437.pdf",
+        "sha256": "8392707166643812d6f84a6f7f3a4c65a87f18689eefc5fae4155b2650eab6de"
+      },
+      {
+        "type": "ROD",
+        "url": "https://www.obligacjeskarbowe.pl/media_files/03e2bc03-0128-49b7-be93-669ef058b7c5.pdf",
+        "sha256": "5abce44d3968a44323411a2369d36afa2fdeb937b71085d9a976395da2e7cb2e"
+      }
+    ]
+  }
+}

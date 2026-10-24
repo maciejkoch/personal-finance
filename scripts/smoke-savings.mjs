@@ -4,8 +4,8 @@ const expected = process.argv
   .find((arg) => arg.startsWith("--expect-sha="))
   ?.split("=")[1];
 const host = production
-  ? "https://us-central1-personal-finance-2ee61.cloudfunctions.net"
-  : `http://127.0.0.1:5001/${process.env.OSZCZEDZIFY_EMULATOR_PROJECT ?? "personal-finance-2ee61"}/us-central1`;
+  ? "https://europe-central2-personal-finance-2ee61.cloudfunctions.net"
+  : `http://127.0.0.1:5001/${process.env.OSZCZEDZIFY_EMULATOR_PROJECT ?? "personal-finance-2ee61"}/europe-central2`;
 async function call(endpoint, query, status = 200) {
   const response = await fetch(
     `${host}/${endpoint}?${new URLSearchParams(query)}`,
@@ -27,8 +27,8 @@ async function call(endpoint, query, status = 200) {
   const body = await response.json();
   return status === 200 ? body.data : body;
 }
-const regular = "calculateRegularContributionHttpFunction";
-const goal = "calculateSavingsHttpFunction";
+const regular = "calculateRegularContributionWarsaw";
+const goal = "calculateSavingsWarsaw";
 const base = {
   contribution: "0",
   initialCapital: "10000",

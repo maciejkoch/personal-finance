@@ -7,13 +7,13 @@ export interface ApiEndpoints {
   article: string;
 }
 
+const warsaw =
+  "https://europe-central2-personal-finance-2ee61.cloudfunctions.net";
 export const PRODUCTION_API_ENDPOINTS: ApiEndpoints = {
-  savings: "https://calculatesavingshttpfunction-4mtb3gtbjq-uc.a.run.app",
-  regularContribution:
-    "https://calculateregularcontributionhttpfunction-4mtb3gtbjq-uc.a.run.app",
-  treasuryBonds:
-    "https://calculatetreasurybondshttpfunction-4mtb3gtbjq-uc.a.run.app",
-  article: "https://articleHttpFunction-4mtb3gtbjq-uc.a.run.app",
+  savings: `${warsaw}/calculateSavingsWarsaw`,
+  regularContribution: `${warsaw}/calculateRegularContributionWarsaw`,
+  treasuryBonds: `${warsaw}/calculateTreasuryBondsWarsaw`,
+  article: `${warsaw}/articleWarsaw`,
 };
 
 export const API_ENDPOINTS = new InjectionToken<ApiEndpoints>("API_ENDPOINTS", {

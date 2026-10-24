@@ -1,3 +1,6 @@
+import { BondOffer } from "../contracts/bond-offer";
+import { OfferRepository, OfferError } from "../bond-offers/repository";
+import { simulateBond } from "./bond-simulation";
 import type { Request } from "firebase-functions/v2/https";
 import { HttpResponse, validationError } from "../http/query-validation";
 import { calculateFutureValueForMonths } from "../calculations/inflation.service";
@@ -29,6 +32,7 @@ const calculators = {
 
 export function calculateComparison(
   dto: TreasuryBondsSchemaDTO,
+  offer?: BondOffer,
 ): BondComparisonResponse {
   const skipTax = dto.skipTax;
   const params = {
@@ -44,14 +48,23 @@ export function calculateComparison(
     dto.inflation,
   );
   return {
-    contractVersion: 3,
+    contractVersion: offer ? 4 : 3,
+    ...(offer ? { offerId: dto.offerId } : {}),
     calculationVersion: 2,
-    offerVersion: TREASURY_BONDS_OFFER.version,
+    offerVersion: offer?.version ?? TREASURY_BONDS_OFFER.version,
     marketId: "pl",
     skipTax,
     series: availablePolishBonds(dto).map((type: PolishBondType) => {
       const values = simplifyResult(
-        calculators[type](dto.numberOfBonds, dto.month, params),
+        offer
+          ? simulateBond(
+              offer.bonds[type.toUpperCase() as keyof BondOffer["bonds"]],
+              dto.numberOfBonds,
+              dto.month,
+              params,
+              offer.saleFrom,
+            )
+          : calculators[type](dto.numberOfBonds, dto.month, params),
       );
       return {
         instrumentId: type,
@@ -69,21 +82,34 @@ export function calculateComparison(
   };
 }
 
-export function execute(request: Request, response: HttpResponse): void {
+export async function execute(
+  request: Request,
+  response: HttpResponse,
+): Promise<void> {
   const treasuryBonds = validate(request.query);
 
   if (treasuryBonds.success) {
     try {
       const result =
-        treasuryBonds.data.contractVersion === 3
-          ? calculateComparison(treasuryBonds.data)
-          : calculate(treasuryBonds.data);
+        treasuryBonds.data.contractVersion === 4
+          ? calculateComparison(
+              treasuryBonds.data,
+              await new OfferRepository().get(treasuryBonds.data.offerId!),
+            )
+          : treasuryBonds.data.contractVersion === 3
+            ? calculateComparison(treasuryBonds.data)
+            : calculate(treasuryBonds.data);
 
       response.status(200);
       response.send({ data: result });
     } catch (error) {
-      response.status(500);
-      response.send(error);
+      response.status(error instanceof OfferError ? error.status : 503);
+      response.send({
+        error:
+          error instanceof OfferError
+            ? error.message
+            : "Calculation unavailable",
+      });
     }
   } else {
     response.status(400);

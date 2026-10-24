@@ -18,10 +18,8 @@ function annualValue(values: number[], year: number): number {
   return values[Math.min(Math.max(year - 1, 0), values.length - 1)];
 }
 
-function dateAtMonth(month: number): number {
-  const [year, firstMonth] = TREASURY_BONDS_OFFER.saleFrom
-    .split("-")
-    .map(Number);
+function dateAtMonth(month: number, saleFrom: string): number {
+  const [year, firstMonth] = saleFrom.split("-").map(Number);
   return Date.UTC(year, firstMonth - 1 + month, 1);
 }
 
@@ -34,6 +32,7 @@ export function simulateBond(
   initialNumberOfBonds: number,
   maxMonth: number,
   params: CalculationParams,
+  saleFrom = TREASURY_BONDS_OFFER.saleFrom,
 ): TreasuryBondsResult {
   if (
     !Number.isInteger(initialNumberOfBonds) ||
@@ -85,9 +84,10 @@ export function simulateBond(
     const fraction =
       bond.paymentOfInterestInMonths === 1
         ? 1 / 12
-        : (dateAtMonth(month) - dateAtMonth(cycleStart + annualStart)) /
-          (dateAtMonth(cycleStart + annualStart + 12) -
-            dateAtMonth(cycleStart + annualStart));
+        : (dateAtMonth(month, saleFrom) -
+            dateAtMonth(cycleStart + annualStart, saleFrom)) /
+          (dateAtMonth(cycleStart + annualStart + 12, saleFrom) -
+            dateAtMonth(cycleStart + annualStart, saleFrom));
     const basis = capital;
     // TOS annex 2 rounds N(k-1), while the maturity formula rounds the final product.
     const earlyBasis = bond.indexation === "fixed" ? money(basis) : basis;

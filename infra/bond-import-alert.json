@@ -1,0 +1,21 @@
+{
+  "displayName": "Oszczędzify: bond import failure",
+  "combiner": "OR",
+  "enabled": true,
+  "conditions": [
+    {
+      "displayName": "Scheduled import error or timeout",
+      "conditionMatchedLog": {
+        "filter": "resource.type=\"cloud_run_revision\" resource.labels.service_name=\"syncbondoffers\" severity>=ERROR"
+      }
+    }
+  ],
+  "alertStrategy": {
+    "notificationRateLimit": { "period": "3600s" },
+    "autoClose": "604800s"
+  },
+  "documentation": {
+    "mimeType": "text/markdown",
+    "content": "Check bondImportStatus and Cloud Run logs. Failed imports preserve the last approved offer. Use docs/OBLIGACJE-AUTOMATYCZNE-WDROZENIE.md for dry-run, source review and rollback."
+  }
+}

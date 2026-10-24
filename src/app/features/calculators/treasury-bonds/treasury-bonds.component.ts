@@ -1,4 +1,8 @@
 import {
+  afterNextRender,
+  effect,
+  untracked,
+  DestroyRef,
   ChangeDetectionStrategy,
   Component,
   computed,
@@ -7,8 +11,9 @@ import {
   signal,
   viewChild,
 } from "@angular/core";
-import { RouterLink } from "@angular/router";
-import * as offer from "@data/bond-offer";
+import { ActivatedRoute, Router, RouterLink } from "@angular/router";
+import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
+import { BondOfferStore } from "./store/bond-offer.store";
 import { DecimalPipe } from "@angular/common";
 import { scrollToElement } from "@shared/scroll/scroll-to-element";
 import { availablePolishBonds } from "@markets/pl/polish-calculator-options";
@@ -36,7 +41,7 @@ import { TreasuryBondsResultsComponent } from "./ui/treasury-bonds-results/treas
     TreasuryBondsFinalChartComponent,
   ],
   templateUrl: "./treasury-bonds.component.html",
-  providers: [TreasuryBondsStore],
+  providers: [TreasuryBondsStore, BondOfferStore],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { class: "relative " },
 })
@@ -48,16 +53,70 @@ export class TreasuryBondsComponent {
   result = this.#store.result;
   loading = this.#store.loading;
   error = this.#store.error;
-  offer = offer;
+  offers = inject(BondOfferStore);
+  offer = this.offers.offer;
+  #route = inject(ActivatedRoute);
+  #router = inject(Router);
+  #destroyRef = inject(DestroyRef);
+  #lastRequest = signal<TreasuryBondsRequest | null>(null);
+  constructor() {
+    effect(() => {
+      const offer = this.offer();
+      const request = this.#lastRequest();
+      if (offer && request)
+        untracked(() =>
+          this.#store.calculate({ ...request, offerId: offer.offerId }),
+        );
+    });
+    afterNextRender(() => {
+      this.#route.queryParamMap
+        .pipe(takeUntilDestroyed(this.#destroyRef))
+        .subscribe((params) => {
+          this.#store.calculate(null);
+          this.offers.load(params.get("offerId"));
+        });
+    });
+  }
+  selectOffer(id: string) {
+    this.#store.calculate(null);
+    void this.#router.navigate([], {
+      relativeTo: this.#route,
+      queryParams: { offerId: id || null },
+      queryParamsHandling: "merge",
+    });
+  }
+  retryOffer() {
+    this.offers.load(this.#route.snapshot.queryParamMap.get("offerId"));
+  }
+  entries = computed(() => {
+    const entries = this.offers.catalog()?.entries ?? [];
+    const offer = this.offer();
+    return offer && !entries.some((entry) => entry.offerId === offer.offerId)
+      ? [
+          {
+            offerId: offer.offerId,
+            month: offer.month,
+            label: offer.label + " (wybrana wersja)",
+            saleFrom: offer.saleFrom,
+            saleTo: offer.saleTo,
+          },
+          ...entries,
+        ]
+      : entries;
+  });
+  selectedId() {
+    return this.#route.snapshot.queryParamMap.get("offerId") ?? "";
+  }
   options = signal({ familyEligible: false });
   bonds = computed(() => {
     const available = availablePolishBonds(this.options());
-    return Object.values(offer.bonds).filter((bond) =>
+    return Object.values(this.offer()?.bonds ?? {}).filter((bond) =>
       available.some((type) => type.toUpperCase() === bond.name),
     );
   });
 
   invalidate(next: TreasuryBondsRequest | null) {
+    if (!next) this.#lastRequest.set(null);
     const previous = this.#store.request();
     if (
       !next ||
@@ -70,7 +129,7 @@ export class TreasuryBondsComponent {
   }
 
   calculate(request: TreasuryBondsRequest) {
-    this.#store.calculate(request);
+    this.#lastRequest.set(request);
   }
 
   scrollToForm() {

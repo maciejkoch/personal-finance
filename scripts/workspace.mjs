@@ -28,7 +28,7 @@ if (target === "staging") {
     );
   }
   if (
-    base.hostname === "us-central1-personal-finance-2ee61.cloudfunctions.net" ||
+    base.hostname.endsWith("-personal-finance-2ee61.cloudfunctions.net") ||
     base.hostname.endsWith("-4mtb3gtbjq-uc.a.run.app")
   ) {
     throw new Error(
@@ -38,10 +38,10 @@ if (target === "staging") {
   const prefix = base.href.replace(/\/$/, "");
   const apiEndpoints = Object.fromEntries(
     Object.entries({
-      savings: "calculateSavingsHttpFunction",
-      regularContribution: "calculateRegularContributionHttpFunction",
-      treasuryBonds: "calculateTreasuryBondsHttpFunction",
-      article: "articleHttpFunction",
+      savings: "calculateSavingsWarsaw",
+      regularContribution: "calculateRegularContributionWarsaw",
+      treasuryBonds: "calculateTreasuryBondsWarsaw",
+      article: "articleWarsaw",
     }).map(([key, name]) => [key, `${prefix}/${name}`]),
   );
   writeFileSync(

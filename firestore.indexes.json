@@ -1,0 +1,12 @@
+{
+  "indexes": [],
+  "fieldOverrides": [
+    { "collectionGroup": "bondOffers", "fieldPath": "offer", "indexes": [] },
+    { "collectionGroup": "bondOffers", "fieldPath": "evidence", "indexes": [] },
+    {
+      "collectionGroup": "bondOfferCatalog",
+      "fieldPath": "entries",
+      "indexes": []
+    }
+  ]
+}

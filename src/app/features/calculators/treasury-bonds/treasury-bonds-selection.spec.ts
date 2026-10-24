@@ -1,6 +1,8 @@
 import { TestBed } from "@angular/core/testing";
 import { By } from "@angular/platform-browser";
-import { Subject } from "rxjs";
+import { provideRouter } from "@angular/router";
+import baseline from "@data/bond-offer";
+import { Subject, of } from "rxjs";
 import { vi } from "vitest";
 import { TreasuryBondsComponent } from "./treasury-bonds.component";
 import { TreasuryBondsFormComponent } from "./ui/treasury-bonds-form/treasury-bonds-form.component";
@@ -33,7 +35,21 @@ describe("Bond selection during asynchronous recalculation", () => {
     });
     TestBed.configureTestingModule({
       providers: [
-        { provide: TreasuryBondsDataService, useValue: { calculate } },
+        provideRouter([]),
+        {
+          provide: TreasuryBondsDataService,
+          useValue: {
+            calculate,
+            catalog: () =>
+              of({
+                entries: [],
+                currentOfferId: "seed",
+                stale: false,
+                nextCursor: null,
+              }),
+            offer: () => of({ ...baseline, offerId: "seed" }),
+          },
+        },
       ],
     });
     TestBed.overrideComponent(TreasuryBondsComponent, {

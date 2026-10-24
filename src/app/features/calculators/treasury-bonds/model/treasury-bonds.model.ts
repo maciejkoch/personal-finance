@@ -1,4 +1,5 @@
 export interface TreasuryBondsRequest {
+  offerId?: string;
   numberOfBonds: number;
   month: number;
   inflation: number[];

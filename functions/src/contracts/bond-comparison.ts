@@ -11,7 +11,8 @@ export interface BondSeries {
 }
 
 export interface BondComparisonResponse {
-  contractVersion: 3;
+  contractVersion: 3 | 4;
+  offerId?: string;
   calculationVersion: number;
   offerVersion: string;
   marketId: string;
