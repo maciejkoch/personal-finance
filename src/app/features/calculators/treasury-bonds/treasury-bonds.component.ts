@@ -11,15 +11,15 @@ import {
   signal,
   viewChild,
 } from "@angular/core";
-import { ActivatedRoute, Router, RouterLink } from "@angular/router";
+import { ActivatedRoute, Router, RouterLink, Scroll } from "@angular/router";
 import {
   takeUntilDestroyed,
   toObservable,
   toSignal,
 } from "@angular/core/rxjs-interop";
-import { mapTo, of, switchMap, timer } from "rxjs";
+import { filter, mapTo, of, switchMap, take, timer } from "rxjs";
 import { BondOfferStore } from "./store/bond-offer.store";
-import { DecimalPipe } from "@angular/common";
+import { DecimalPipe, ViewportScroller } from "@angular/common";
 import { scrollToElement } from "@shared/scroll/scroll-to-element";
 import { availablePolishBonds } from "@markets/pl/polish-calculator-options";
 import { TreasuryBondsRequest } from "./model/treasury-bonds.model";
@@ -72,6 +72,7 @@ export class TreasuryBondsComponent {
   offer = this.offers.offer;
   #route = inject(ActivatedRoute);
   #router = inject(Router);
+  #viewportScroller = inject(ViewportScroller);
   #destroyRef = inject(DestroyRef);
   #lastRequest = signal<TreasuryBondsRequest | null>(null);
   #reservedContentHeight = signal(0);
@@ -109,11 +110,23 @@ export class TreasuryBondsComponent {
     });
   }
   selectOffer(id: string) {
+    if (id === this.selectedId()) return;
+    const position = this.#viewportScroller.getScrollPosition();
+    const restoreScroll = this.#router.events
+      .pipe(
+        filter((event) => event instanceof Scroll),
+        take(1),
+      )
+      .subscribe(() => this.#viewportScroller.scrollToPosition(position));
     void this.#router.navigate([], {
       relativeTo: this.#route,
       queryParams: { offerId: id || null },
       queryParamsHandling: "merge",
       scroll: "manual",
+    }).then((navigated) => {
+      if (!navigated) restoreScroll.unsubscribe();
+    }, () => {
+      restoreScroll.unsubscribe();
     });
   }
   retryOffer() {
