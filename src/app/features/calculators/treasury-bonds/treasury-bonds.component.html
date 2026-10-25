@@ -44,6 +44,7 @@
     i stóp procentowych.
   </p>
 </div>
+<div #offerContent [style.min-height.px]="contentMinHeight()">
 @if (offer(); as offer) {
   <p class="my-4 text-sm">
     Symulacja zakłada zakup {{ offer.saleFrom }}. Wartości na rocznice obejmują
@@ -178,6 +179,7 @@
     </p>
   </section>
 }
+</div>
 
 <pf-treasury-bonds-how-to />
 <section class="prose max-w-none my-8" aria-labelledby="methodology-title">

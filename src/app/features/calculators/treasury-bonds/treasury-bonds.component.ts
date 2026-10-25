@@ -49,6 +49,8 @@ export class TreasuryBondsComponent {
   #store = inject(TreasuryBondsStore);
 
   scrollToContainer = viewChild<ElementRef>("scrollToContainer");
+  private readonly offerContent =
+    viewChild<ElementRef<HTMLElement>>("offerContent");
 
   result = this.#store.result;
   loading = this.#store.loading;
@@ -59,6 +61,18 @@ export class TreasuryBondsComponent {
   #router = inject(Router);
   #destroyRef = inject(DestroyRef);
   #lastRequest = signal<TreasuryBondsRequest | null>(null);
+  #reservedContentHeight = signal(0);
+  #targetOfferId = signal<string | null>(null);
+  contentMinHeight = computed(() => {
+    const target = this.#targetOfferId() ?? this.offers.catalog()?.currentOfferId;
+    if (!target || this.offers.error() || this.error()) return 0;
+    const ready =
+      !this.offers.loading() &&
+      !this.loading() &&
+      this.offer()?.offerId === target &&
+      this.result()?.offerId === target;
+    return ready ? 0 : this.#reservedContentHeight();
+  });
   constructor() {
     effect(() => {
       const offer = this.offer();
@@ -72,13 +86,16 @@ export class TreasuryBondsComponent {
       this.#route.queryParamMap
         .pipe(takeUntilDestroyed(this.#destroyRef))
         .subscribe((params) => {
+          this.#reservedContentHeight.set(
+            this.offerContent()?.nativeElement.offsetHeight ?? 0,
+          );
+          this.#targetOfferId.set(params.get("offerId"));
           this.#store.calculate(null);
           this.offers.load(params.get("offerId"));
         });
     });
   }
   selectOffer(id: string) {
-    this.#store.calculate(null);
     void this.#router.navigate([], {
       relativeTo: this.#route,
       queryParams: { offerId: id || null },
