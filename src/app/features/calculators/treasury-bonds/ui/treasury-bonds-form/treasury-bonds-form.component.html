@@ -99,6 +99,7 @@
     </p>
   }
   <pf-tax-options [bonds]="true" [skipTax]="form.skipTax" />
+  <ng-content select="[offer-selector]" />
   @if (form().invalid()) {
     <p class="text-error mb-3" role="alert">
       Podaj całkowitą liczbę obligacji od 1 do 1 000 000 i okres od 1 do 12

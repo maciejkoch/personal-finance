@@ -1,49 +1,4 @@
 <pf-treasury-bonds-hero (clicked)="scrollToForm()" />
-<div class="my-4">
-  <label for="offer-month" class="block mb-2">Miesiąc oferty</label>
-  <select
-    id="offer-month"
-    class="select select-bordered"
-    [value]="selectedId()"
-    (change)="selectOffer($any($event.target).value)"
-  >
-    <option value="">Aktualna oferta</option>
-    @for (entry of entries(); track entry.offerId) {
-      <option [value]="entry.offerId">
-        {{ entry.label
-        }}{{
-          entry.saleFrom > (offers.catalog()?.today ?? "9999")
-            ? " — nadchodząca"
-            : ""
-        }}
-      </option>
-    }
-  </select>
-  @if (offers.catalog()?.nextCursor) {
-    <button type="button" class="btn btn-sm ml-2" (click)="offers.more()">
-      Starsze miesiące
-    </button>
-  }
-  @if (offers.loading()) {
-    <p role="status">Ładowanie oferty…</p>
-  }
-  @if (offers.error(); as offerError) {
-    <p role="alert">{{ offerError }}</p>
-    <button type="button" class="btn btn-sm" (click)="retryOffer()">
-      Spróbuj ponownie
-    </button>
-  }
-  @if (offers.catalog()?.stale && !selectedId()) {
-    <p role="status">
-      Brak oferty na bieżący miesiąc. Pokazujemy ostatnią poprawną ofertę z
-      podanym okresem sprzedaży.
-    </p>
-  }
-  <p class="text-sm mt-2">
-    Wybór historycznej emisji nie zmienia Twojego scenariusza przyszłej inflacji
-    i stóp procentowych.
-  </p>
-</div>
 <div #offerContent [style.min-height.px]="contentMinHeight()">
 @if (offer(); as offer) {
   <p class="my-4 text-sm">
@@ -65,14 +20,58 @@
   </p>
   <div class="flex flex-col lg:flex-row gap-4 mb-5 pt-5" #scrollToContainer>
     <div class="w-full lg:w-2/5 relative">
-      <fieldset [disabled]="!offer() || offers.loading()">
-        <pf-treasury-bonds-form
-          (changed)="calculate($event)"
-          (pending)="invalidate($event)"
-          (optionsChanged)="options.set($event)"
-          class="w-full"
-        />
-      </fieldset>
+      <pf-treasury-bonds-form
+        (changed)="calculate($event)"
+        (pending)="invalidate($event)"
+        (optionsChanged)="options.set($event)"
+        class="w-full"
+      >
+        <div offer-selector class="my-4">
+          <label for="offer-month" class="block mb-2">Miesiąc oferty</label>
+          <select
+            id="offer-month"
+            class="select select-bordered w-full"
+            [value]="selectedId()"
+            (change)="selectOffer($any($event.target).value)"
+          >
+            <option value="">Aktualna oferta</option>
+            @for (entry of entries(); track entry.offerId) {
+              <option [value]="entry.offerId">
+                {{ entry.label
+                }}{{
+                  entry.saleFrom > (offers.catalog()?.today ?? "9999")
+                    ? " — nadchodząca"
+                    : ""
+                }}
+              </option>
+            }
+          </select>
+          @if (offers.catalog()?.nextCursor) {
+            <button type="button" class="btn btn-sm mt-2" (click)="offers.more()">
+              Starsze miesiące
+            </button>
+          }
+          @if (offers.loading()) {
+            <p role="status">Ładowanie oferty…</p>
+          }
+          @if (offers.error(); as offerError) {
+            <p role="alert">{{ offerError }}</p>
+            <button type="button" class="btn btn-sm" (click)="retryOffer()">
+              Spróbuj ponownie
+            </button>
+          }
+          @if (offers.catalog()?.stale && !selectedId()) {
+            <p role="status">
+              Brak oferty na bieżący miesiąc. Pokazujemy ostatnią poprawną ofertę
+              z podanym okresem sprzedaży.
+            </p>
+          }
+          <p class="text-sm mt-2">
+            Wybór historycznej emisji nie zmienia Twojego scenariusza przyszłej
+            inflacji i stóp procentowych.
+          </p>
+        </div>
+      </pf-treasury-bonds-form>
     </div>
     <div class="w-full lg:w-3/5">
       <pf-treasury-bonds-results-description

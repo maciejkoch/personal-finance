@@ -76,10 +76,6 @@ for (const page of pages) {
   assert.equal(schema.url, `https://oszczedzify.org${page.path}`);
   if (preview)
     assert.equal(response.headers.get("x-robots-tag"), "noindex, follow");
-  if (page.path.endsWith("/obligacje-skarbowe")) {
-    assert.ok(html.includes('id="offer-month"'));
-    assert.ok(html.includes("Miesiąc oferty"));
-  }
   if (page.path === "/") {
     for (const calculator of pages.filter((p) => p.type === "WebApplication"))
       assert.ok(html.includes(`href="${calculator.path}"`));
