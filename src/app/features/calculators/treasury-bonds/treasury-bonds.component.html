@@ -1,13 +1,5 @@
 <pf-treasury-bonds-hero (clicked)="scrollToForm()" />
 <div #offerContent [style.min-height.px]="contentMinHeight()">
-@if (offer(); as offer) {
-  <p class="my-4 text-sm">
-    Symulacja zakłada zakup {{ offer.saleFrom }}. Wartości na rocznice obejmują
-    hipotetyczny wcześniejszy wykup; nie odwzorowują terminów dyspozycji i
-    rozliczeń bankowych. Rozwiń opis, aby poznać metodę i ograniczenia.
-  </p>
-}
-
 @if (error(); as error) {
   <p class="alert alert-error my-4" role="alert">{{ error }}</p>
 }
@@ -64,6 +56,11 @@
             <p role="status">
               Brak oferty na bieżący miesiąc. Pokazujemy ostatnią poprawną ofertę
               z podanym okresem sprzedaży.
+            </p>
+          }
+          @if (offer(); as offer) {
+            <p class="text-sm mt-2">
+              Symulacja zakłada zakup {{ offer.saleFrom }}.
             </p>
           }
           <p class="text-sm mt-2">
