@@ -106,7 +106,7 @@ export const articleWarsaw = onRequest(warsaw, (request, response) => {
 });
 export const syncBondOffers = onSchedule(
   {
-    schedule: "0 8 * * *",
+    schedule: "0 8,20 * * *",
     timeZone: "Europe/Warsaw",
     region: "europe-central2",
     timeoutSeconds: 540,

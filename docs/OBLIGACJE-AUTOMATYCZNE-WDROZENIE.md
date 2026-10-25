@@ -86,7 +86,7 @@ GCLOUD_PROJECT=personal-finance-2ee61 npm run bonds:admin -- seed --write
 gcloud monitoring policies create --project=personal-finance-2ee61 --policy-from-file=infra/bond-import-alert.json --notification-channels=projects/personal-finance-2ee61/notificationChannels/CHANNEL_ID
 ```
 
-Dodatkowo utworzyć licznik sukcesów i alert braku wykonania przez 26 godzin:
+Dodatkowo utworzyć licznik sukcesów i alert braku wykonania przez 23,5 godziny:
 
 ```sh
 gcloud logging metrics create bond_import_success --project=personal-finance-2ee61 --description="Successful bond imports" --log-filter='resource.type="cloud_run_revision" resource.labels.service_name="syncbondoffers" jsonPayload.message="BOND_IMPORT_SUCCEEDED"'
@@ -117,7 +117,7 @@ node scripts/smoke-bond-offers.mjs --production
 
 Następnie `npm run deploy` przełącza frontend na stabilne adresy `europe-central2-...cloudfunctions.net`. Firebase Hosting pozostaje globalnym CDN. Sprawdzić ofertę, historię, źródła, formularz, błędy i wyniki na desktop/mobile. Nowy frontend wymaga bazy i zasianego katalogu — nie publikować go przed backendem.
 
-Wykonać rzeczywisty import w trybie dry-run, a potem `--write`. Po sprawdzeniu danych ustawić `BOND_IMPORT_ENABLED=true` i ponownie wdrożyć `syncBondOffers`. Harmonogram działa codziennie o 08:00 czasu Warszawy; publikacja nie jest natychmiastowa, tylko przy następnym udanym sprawdzeniu. Funkcja sprawdza bieżący i kolejny miesiąc. Maksymalnie dwa ponowienia zaplanowanego wywołania; sam transport ma timeouty i ograniczone próby. Nie ma potrzeby deploya przy zwykłej nowej ofercie.
+Wykonać rzeczywisty import w trybie dry-run, a potem `--write`. Po sprawdzeniu danych ustawić `BOND_IMPORT_ENABLED=true` i ponownie wdrożyć `syncBondOffers`. Harmonogram działa codziennie o 08:00 i 20:00 czasu Warszawy; publikacja nie jest natychmiastowa, tylko przy następnym udanym sprawdzeniu. Dwa uruchomienia dziennie zapewniają odstęp krótszy od maksymalnego okna 23,5 godziny obsługiwanego przez alert braku danych. Funkcja sprawdza bieżący i kolejny miesiąc. Maksymalnie dwa ponowienia zaplanowanego wywołania; sam transport ma timeouty i ograniczone próby. Nie ma potrzeby deploya przy zwykłej nowej ofercie.
 
 Stare funkcje w USA usunąć dopiero po okresie obserwacji ruchu i migracji klientów, w osobnym wdrożeniu usuwając także stare eksporty z kodu. Do tego czasu są celowo obecne w dwóch regionach. Wycofanie nowego hostingu przed ich usunięciem przywraca poprzedniego klienta. Sama baza i historia nie wymagają kasowania podczas rollbacku.
 

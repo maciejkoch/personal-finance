@@ -1,6 +1,6 @@
 # Miesięczna aktualizacja oferty obligacji
 
-Po wdrożeniu obsługi dynamicznych ofert źródłem UI i nowego kontraktu API v4 jest Firestore. Harmonogram sprawdza oficjalne listy codziennie o 08:00 czasu Warszawy. Kompletna, rozpoznana oferta jest zapisywana jako niezmienna wersja; zwykła zmiana stawek nie wymaga deploya. Nowe zasady naliczania wymagają osobnej zmiany i testów. Statyczny `treasury-bonds.offer.json` pozostaje ofertą startową i źródłem kompatybilności starych klientów.
+Po wdrożeniu obsługi dynamicznych ofert źródłem UI i nowego kontraktu API v4 jest Firestore. Harmonogram sprawdza oficjalne listy codziennie o 08:00 i 20:00 czasu Warszawy. Kompletna, rozpoznana oferta jest zapisywana jako niezmienna wersja; zwykła zmiana stawek nie wymaga deploya. Nowe zasady naliczania wymagają osobnej zmiany i testów. Statyczny `treasury-bonds.offer.json` pozostaje ofertą startową i źródłem kompatybilności starych klientów.
 
 Pełna procedura konfiguracji, włączenia harmonogramu, migracji do Warszawy, ręcznych importów, korekt i rollbacku: [Automatyczne oferty — wdrożenie](OBLIGACJE-AUTOMATYCZNE-WDROZENIE.md).
 

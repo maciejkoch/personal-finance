@@ -1,5 +1,5 @@
 {
-  "displayName": "Oszczędzify: no successful bond import for 26 hours",
+  "displayName": "Oszczędzify: no successful bond import for 23.5 hours",
   "combiner": "OR",
   "enabled": true,
   "conditions": [
@@ -7,7 +7,7 @@
       "displayName": "Successful import heartbeat absent",
       "conditionAbsent": {
         "filter": "resource.type=\"cloud_run_revision\" metric.type=\"logging.googleapis.com/user/bond_import_success\"",
-        "duration": "93600s",
+        "duration": "84600s",
         "aggregations": [
           {
             "alignmentPeriod": "3600s",
@@ -20,6 +20,6 @@
   ],
   "documentation": {
     "mimeType": "text/markdown",
-    "content": "No successful scheduled bond import for 26 hours. Check Cloud Scheduler, BOND_IMPORT_ENABLED and source/parser errors. This policy needs the bond_import_success logs-based counter and at least one successful run."
+    "content": "No successful scheduled bond import for 23.5 hours. Check Cloud Scheduler, BOND_IMPORT_ENABLED and source/parser errors. The schedule runs twice daily. This policy needs the bond_import_success logs-based counter and at least one successful run."
   }
 }

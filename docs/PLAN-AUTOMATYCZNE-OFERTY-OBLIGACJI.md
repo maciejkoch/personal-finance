@@ -6,7 +6,7 @@ Data: 2026-10-24. Status: plan bazowy; implementacja przygotowana na branchu `co
 
 Automatycznie wykrywać kolejne miesięczne oferty, zapisywać zweryfikowane wersje w Firestore i udostępniać je przez istniejący backend Firebase Functions. UI domyślnie pokazuje najnowszą obowiązującą ofertę, pozwalając wybrać miesiąc historyczny i opublikowaną ofertę nadchodzącą.
 
-- Sprawdzanie źródła codziennie o 08:00 w `Europe/Warsaw`; zapis tylko po wykryciu zmian. Przy sprawnym źródle nowa oferta pojawia się najpóźniej podczas następnego sprawdzenia, a nie natychmiast po publikacji.
+- Sprawdzanie źródła codziennie o 08:00 i 20:00 w `Europe/Warsaw`; zapis tylko po wykryciu zmian. Przy sprawnym źródle nowa oferta pojawia się najpóźniej podczas następnego sprawdzenia, a nie natychmiast po publikacji.
 - Zakres początkowy: siedem obecnie obsługiwanych typów ROR, DOR, TOS, COI, EDO, ROS, ROD. Dodanie OTS jest osobnym zadaniem.
 - Historyczna oferta oznacza symulację na parametrach danej emisji i założeniach użytkownika. Nie oznacza odtworzenia rzeczywistych historycznych stóp NBP ani inflacji.
 - Nowe stawki w obsługiwanym modelu mogą być publikowane automatycznie po walidacji. Nieznane zasady lub niepełne źródła wymagają wyjaśnienia i nie trafiają automatycznie do kalkulatora.
@@ -50,7 +50,7 @@ Warunek zakończenia: odczyt historii i atomowy, odporny na duplikaty zapis dzia
 2. Weryfikować kompletność siedmiu serii, zgodność miesiąca i okresów sprzedaży, jednostki procentów, terminy, marże, opłaty, kapitalizację oraz obsługiwane reguły. Nie kopiować brakujących pól z poprzedniego miesiąca bez potwierdzenia źródłowego.
 3. Przechowywać kopie źródeł w Cloud Storage, a ich odnośniki i SHA-256 przy wersji. Przy konfiguracji uwzględnić uprawnienia oraz retencję dziennika importów; historia opublikowanych ofert pozostaje trwała.
 4. Liczyć hash znormalizowanych danych niezależnie od czasu pobrania. Powtórne uruchomienie dla tej samej oferty nie tworzy kolejnej wersji. Zmiana pliku źródłowego przy identycznych parametrach jest zapisywana w audycie.
-5. Dodać funkcję `onSchedule` uruchamianą codziennie o 08:00 w `Europe/Warsaw`. Obsłużyć timeouty, ograniczone ponowienia i równoległe wywołania za pomocą idempotencji i transakcji.
+5. Dodać funkcję `onSchedule` uruchamianą codziennie o 08:00 i 20:00 w `Europe/Warsaw`. Obsłużyć timeouty, ograniczone ponowienia i równoległe wywołania za pomocą idempotencji i transakcji.
 6. Nie publikować niekompletnej oferty. Przy błędzie zachować ostatnią poprawną wersję i zapisać przyczynę; alertować o awarii importu i braku aktualnej oferty po rozpoczęciu miesiąca.
 7. Udostępnić narzędzie administracyjne z trybem dry-run do ponownego importu, korekt i importu wskazanego miesiąca, bez publicznego endpointu zapisu.
 8. Nowa poprawna oferta pojawia się jako nadchodząca. W dniu `saleFrom` staje się bieżąca przez wybór według dat, bez zależności od sukcesu kolejnego importu.
