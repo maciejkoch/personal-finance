@@ -1,15 +1,6 @@
 <pf-treasury-bonds-hero (clicked)="scrollToForm()" />
 <div #offerContent [style.min-height.px]="contentMinHeight()">
-@if (error(); as error) {
-  <p class="alert alert-error my-4" role="alert">{{ error }}</p>
-}
-
 @defer {
-  <p class="min-h-6 text-sm" role="status" aria-live="polite">
-    @if (showUpdating()) {
-      Aktualizowanie wyników…
-    }
-  </p>
   <div class="flex flex-col lg:flex-row gap-4 mb-5 pt-5" #scrollToContainer>
     <div class="w-full lg:w-2/5 relative">
       <pf-treasury-bonds-form
@@ -49,9 +40,6 @@
               Starsze miesiące
             </button>
           }
-          @if (offers.loading()) {
-            <p role="status">Ładowanie oferty…</p>
-          }
           @if (offers.error(); as offerError) {
             <p role="alert">{{ offerError }}</p>
             <button type="button" class="btn btn-sm" (click)="retryOffer()">
@@ -77,6 +65,12 @@
       </pf-treasury-bonds-form>
     </div>
     <div class="w-full lg:w-3/5">
+      <pf-calculation-status
+        [loading]="isLoading()"
+        [stale]="isStale()"
+        [error]="error()"
+        (retried)="retry()"
+      />
       <pf-treasury-bonds-results-description
         [data]="result()"
         [loading]="loading()"

@@ -27,10 +27,9 @@ export const RegularContributionStore = signalStore(
         switchMap(({ request, fetch }) => {
           if (!request) {
             patchState(store, {
-              result: null,
               request: null,
               isLoading: false,
-              isStale: false,
+              isStale: !!store.result(),
               error: null,
             });
             return EMPTY;

@@ -46,7 +46,7 @@ describe("Visible recalculation and recovery", () => {
     [LongTermSavingsComponent, LongTermSavingsDataService],
     [RegularContributionComponent, RegularContributionDataService],
   ] as const) {
-    it(`${component.name}: marks stale data immediately, cancels old requests, retries and clears invalid input`, async () => {
+    it(`${component.name}: keeps stale data visible, cancels old requests and retries`, async () => {
       const responses: Subject<
         LongTermSavingsData | RegularContributionData
       >[] = [];
@@ -81,9 +81,13 @@ describe("Visible recalculation and recovery", () => {
       fixture.componentInstance.invalidate(next);
       await fixture.whenStable();
       expect(fixture.componentInstance.data()).toEqual(result);
-      expect(fixture.nativeElement.textContent).toContain("Przeliczanie…");
+      expect(fixture.nativeElement.textContent).not.toContain(
+        "Aktualizowanie wyników…",
+      );
+      await new Promise((resolve) => setTimeout(resolve, 550));
+      await fixture.whenStable();
       expect(fixture.nativeElement.textContent).toContain(
-        "Wynik dla poprzednich ustawień",
+        "Aktualizowanie wyników…",
       );
       fixture.componentInstance.calculate(next);
       fixture.componentInstance.invalidate({ ...next, rate: 6 });
@@ -93,6 +97,9 @@ describe("Visible recalculation and recovery", () => {
       responses[2].error(new HttpErrorResponse({ status: 500 }));
       await fixture.whenStable();
       expect(fixture.componentInstance.isLoading()).toBe(false);
+      expect(fixture.nativeElement.textContent).toContain(
+        "Wynik dla poprzednich ustawień",
+      );
       expect(
         fixture.nativeElement.querySelector('[role="alert"]'),
       ).not.toBeNull();
@@ -105,7 +112,11 @@ describe("Visible recalculation and recovery", () => {
       expect(fixture.componentInstance.isStale()).toBe(false);
       fixture.componentInstance.invalidate(null);
       await fixture.whenStable();
-      expect(fixture.componentInstance.data()).toBeNull();
+      expect(fixture.componentInstance.data()).toMatchObject(next);
+      expect(fixture.componentInstance.isStale()).toBe(true);
+      expect(fixture.nativeElement.textContent).toContain(
+        "Wynik dla poprzednich ustawień",
+      );
     });
   }
 });

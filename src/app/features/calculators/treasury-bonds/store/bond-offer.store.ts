@@ -17,7 +17,7 @@ export const BondOfferStore = signalStore(
     load: rxMethod<string | null>(
       pipe(
         switchMap((id) => {
-          patchState(store, { offer: null, loading: true, error: null });
+          patchState(store, { loading: true, error: null });
           return data.catalog().pipe(
             switchMap((catalog) => {
               patchState(store, { catalog });
@@ -30,6 +30,7 @@ export const BondOfferStore = signalStore(
               next: (offer) => patchState(store, { offer, loading: false }),
               error: () =>
                 patchState(store, {
+                  offer: null,
                   loading: false,
                   error:
                     "Nie udało się pobrać wybranej oferty. Spróbuj ponownie lub wybierz inny miesiąc.",

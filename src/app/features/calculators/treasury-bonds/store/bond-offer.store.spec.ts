@@ -64,7 +64,8 @@ describe("Offer selection", () => {
     store.load(null);
     expect(store.offer()?.offerId).toBe("old");
     store.load("missing");
-    expect(store.offer()).toBeNull();
+    expect(store.offer()?.offerId).toBe("old");
+    expect(store.loading()).toBe(true);
     pending.error(new Error("404"));
     expect(store.error()).toBeTruthy();
     expect(store.offer()).toBeNull();

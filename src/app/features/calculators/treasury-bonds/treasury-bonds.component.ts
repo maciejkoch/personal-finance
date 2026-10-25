@@ -12,14 +12,11 @@ import {
   viewChild,
 } from "@angular/core";
 import { ActivatedRoute, Router, RouterLink, Scroll } from "@angular/router";
-import {
-  takeUntilDestroyed,
-  toObservable,
-  toSignal,
-} from "@angular/core/rxjs-interop";
-import { filter, mapTo, of, switchMap, take, timer } from "rxjs";
+import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
+import { filter, take } from "rxjs";
 import { BondOfferStore } from "./store/bond-offer.store";
 import { DecimalPipe, ViewportScroller } from "@angular/common";
+import { CalculationStatusComponent } from "../shared/calculation-status.component";
 import { scrollToElement } from "@shared/scroll/scroll-to-element";
 import { availablePolishBonds } from "@markets/pl/polish-calculator-options";
 import { TreasuryBondsRequest } from "./model/treasury-bonds.model";
@@ -37,6 +34,7 @@ import { TreasuryBondsResultsComponent } from "./ui/treasury-bonds-results/treas
   imports: [
     RouterLink,
     DecimalPipe,
+    CalculationStatusComponent,
     TreasuryBondsHeroComponent,
     TreasuryBondsHowToComponent,
     TreasuryBondsFormComponent,
@@ -59,14 +57,6 @@ export class TreasuryBondsComponent {
 
   result = this.#store.result;
   loading = this.#store.loading;
-  showUpdating = toSignal(
-    toObservable(this.loading).pipe(
-      switchMap((loading) =>
-        loading ? timer(500).pipe(mapTo(true)) : of(false),
-      ),
-    ),
-    { initialValue: false },
-  );
   error = this.#store.error;
   offers = inject(BondOfferStore);
   offer = this.offers.offer;
@@ -77,8 +67,22 @@ export class TreasuryBondsComponent {
   #lastRequest = signal<TreasuryBondsRequest | null>(null);
   #reservedContentHeight = signal(0);
   #targetOfferId = signal<string | null>(null);
+  #invalid = signal(false);
+  isLoading = computed(() => this.loading() || this.offers.loading());
+  isStale = computed(() => {
+    const result = this.result();
+    const target =
+      this.#targetOfferId() ?? this.offers.catalog()?.currentOfferId;
+    return (
+      !!result &&
+      (this.#invalid() ||
+        this.isLoading() ||
+        (!!target && result.offerId !== target))
+    );
+  });
   contentMinHeight = computed(() => {
-    const target = this.#targetOfferId() ?? this.offers.catalog()?.currentOfferId;
+    const target =
+      this.#targetOfferId() ?? this.offers.catalog()?.currentOfferId;
     if (!target || this.offers.error() || this.error()) return 0;
     const ready =
       !this.offers.loading() &&
@@ -91,10 +95,17 @@ export class TreasuryBondsComponent {
     effect(() => {
       const offer = this.offer();
       const request = this.#lastRequest();
-      if (offer && request)
+      const target =
+        this.#targetOfferId() ?? this.offers.catalog()?.currentOfferId;
+      if (offer && request && offer.offerId === target)
         untracked(() =>
           this.#store.calculate({ ...request, offerId: offer.offerId }),
         );
+    });
+    effect(() => {
+      if (this.offers.error() && !this.offer()) {
+        untracked(() => this.#store.calculate("clear"));
+      }
     });
     afterNextRender(() => {
       this.#route.queryParamMap
@@ -104,7 +115,7 @@ export class TreasuryBondsComponent {
             this.offerContent()?.nativeElement.offsetHeight ?? 0,
           );
           this.#targetOfferId.set(params.get("offerId"));
-          this.#store.calculate(null);
+          this.#store.calculate("prepare");
           this.offers.load(params.get("offerId"));
         });
     });
@@ -118,19 +129,31 @@ export class TreasuryBondsComponent {
         take(1),
       )
       .subscribe(() => this.#viewportScroller.scrollToPosition(position));
-    void this.#router.navigate([], {
-      relativeTo: this.#route,
-      queryParams: { offerId: id || null },
-      queryParamsHandling: "merge",
-      scroll: "manual",
-    }).then((navigated) => {
-      if (!navigated) restoreScroll.unsubscribe();
-    }, () => {
-      restoreScroll.unsubscribe();
-    });
+    void this.#router
+      .navigate([], {
+        relativeTo: this.#route,
+        queryParams: { offerId: id || null },
+        queryParamsHandling: "merge",
+        scroll: "manual",
+      })
+      .then(
+        (navigated) => {
+          if (!navigated) restoreScroll.unsubscribe();
+        },
+        () => {
+          restoreScroll.unsubscribe();
+        },
+      );
   }
   retryOffer() {
     this.offers.load(this.#route.snapshot.queryParamMap.get("offerId"));
+  }
+  retry() {
+    const offer = this.offer();
+    const request = this.#lastRequest();
+    if (offer && request) {
+      this.#store.calculate({ ...request, offerId: offer.offerId });
+    }
   }
   entries = computed(() => {
     const entries = this.offers.catalog()?.entries ?? [];
@@ -160,15 +183,12 @@ export class TreasuryBondsComponent {
   });
 
   invalidate(next: TreasuryBondsRequest | null) {
-    if (!next) this.#lastRequest.set(null);
-    const previous = this.#store.request();
-    if (
-      !next ||
-      (previous &&
-        (previous.skipTax !== next.skipTax ||
-          previous.familyEligible !== next.familyEligible))
-    ) {
+    this.#invalid.set(!next);
+    if (!next) {
+      this.#lastRequest.set(null);
       this.#store.calculate(null);
+    } else {
+      this.#store.calculate("prepare");
     }
   }
 
