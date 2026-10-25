@@ -1,0 +1,13 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // bondOffers: immutable offer + evidence, createdAt, withdrawn.
+    // bondOfferCatalog/months: month -> approved revision summary.
+    // bondImportStatus: last import outcome per month.
+    // bondImportRuns: successful source manifests, deduplicated by PDF hashes.
+    // Only server Admin SDK/IAM accesses these documents. HTTP is the public API.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

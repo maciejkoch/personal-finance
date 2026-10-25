@@ -1,6 +1,8 @@
 import { TestBed } from "@angular/core/testing";
 import { By } from "@angular/platform-browser";
-import { Subject } from "rxjs";
+import { provideRouter } from "@angular/router";
+import baseline from "@data/bond-offer";
+import { Subject, of } from "rxjs";
 import { vi } from "vitest";
 import { TreasuryBondsComponent } from "./treasury-bonds.component";
 import { TreasuryBondsFormComponent } from "./ui/treasury-bonds-form/treasury-bonds-form.component";
@@ -23,7 +25,7 @@ const result: TreasuryBondsResult = {
 };
 
 describe("Bond selection during asynchronous recalculation", () => {
-  it("keeps results for an amount edit but cancels and clears them immediately for a different tax/eligibility selection", async () => {
+  it("keeps results visible during amount, checkbox and invalid edits", async () => {
     localStorage.clear();
     const responses: Subject<TreasuryBondsResult>[] = [];
     const calculate = vi.fn(() => {
@@ -33,7 +35,21 @@ describe("Bond selection during asynchronous recalculation", () => {
     });
     TestBed.configureTestingModule({
       providers: [
-        { provide: TreasuryBondsDataService, useValue: { calculate } },
+        provideRouter([]),
+        {
+          provide: TreasuryBondsDataService,
+          useValue: {
+            calculate,
+            catalog: () =>
+              of({
+                entries: [],
+                currentOfferId: "seed",
+                stale: false,
+                nextCursor: null,
+              }),
+            offer: () => of({ ...baseline, offerId: "seed" }),
+          },
+        },
       ],
     });
     TestBed.overrideComponent(TreasuryBondsComponent, {
@@ -59,10 +75,10 @@ describe("Bond selection during asynchronous recalculation", () => {
     expect(calculate).toHaveBeenCalledTimes(2);
     form.form.skipTax().value.set(true);
     await fixture.whenStable();
-    expect(fixture.componentInstance.result()).toBeNull();
+    expect(fixture.componentInstance.result()).toBe(result);
     responses[1].next({ ...result, numberOfBonds: 101 });
     responses[1].complete();
-    expect(fixture.componentInstance.result()).toBeNull();
+    expect(fixture.componentInstance.result()).toBe(result);
     await settle();
     expect(calculate).toHaveBeenLastCalledWith(
       expect.objectContaining({ skipTax: true }),
@@ -70,10 +86,18 @@ describe("Bond selection during asynchronous recalculation", () => {
     responses[2].next({ ...result, skipTax: true });
     responses[2].complete();
     expect(fixture.componentInstance.result()?.skipTax).toBe(true);
+    form.form.familyEligible().value.set(true);
+    await fixture.whenStable();
+    expect(fixture.componentInstance.result()?.skipTax).toBe(true);
+    await settle();
+    responses[3].next({ ...result, skipTax: true, familyEligible: true });
+    responses[3].complete();
+    expect(fixture.componentInstance.result()?.familyEligible).toBe(true);
     form.form.numberOfBonds().value.set(0);
     await fixture.whenStable();
     await settle();
-    expect(fixture.componentInstance.result()).toBeNull();
-    expect(calculate).toHaveBeenCalledTimes(3);
+    expect(fixture.componentInstance.result()?.familyEligible).toBe(true);
+    expect(fixture.componentInstance.isStale()).toBe(true);
+    expect(calculate).toHaveBeenCalledTimes(4);
   });
 });

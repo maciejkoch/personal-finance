@@ -8,15 +8,6 @@ const pages = JSON.parse(
     "utf8",
   ),
 );
-const offer = JSON.parse(
-  readFileSync(
-    new URL(
-      "../functions/src/treasury-bonds/treasury-bonds.offer.json",
-      import.meta.url,
-    ),
-    "utf8",
-  ),
-);
 const read = async (path) => {
   const response = await fetch(new URL(path, base), {
     redirect: "manual",
@@ -85,8 +76,6 @@ for (const page of pages) {
   assert.equal(schema.url, `https://oszczedzify.org${page.path}`);
   if (preview)
     assert.equal(response.headers.get("x-robots-tag"), "noindex, follow");
-  if (page.path.endsWith("/obligacje-skarbowe"))
-    assert.ok(html.includes(`Oferta zakupu: ${offer.label}`));
   if (page.path === "/") {
     for (const calculator of pages.filter((p) => p.type === "WebApplication"))
       assert.ok(html.includes(`href="${calculator.path}"`));

@@ -48,3 +48,9 @@ firebase-debug.log
 .build-metadata/
 public/version.json
 src/environments/environment.staging.local.ts
+
+# Emulator diagnostics and local Functions configuration
+firestore-debug.log
+ui-debug.log
+functions/.env*
+!functions/.env.example

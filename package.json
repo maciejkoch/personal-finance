@@ -16,7 +16,7 @@
     "test:regression": "npm run test:functions && npm test",
     "test:mutations": "npm --prefix functions run build && node scripts/regression/check-mutations.mjs",
     "build:functions": "npm --prefix functions run build && node scripts/write-version.mjs functions",
-    "emulators": "npm run build:functions && npx -y firebase-tools@15.34.1 emulators:start --only functions,hosting --project personal-finance-2ee61",
+    "emulators": "npm run build:functions && npx -y firebase-tools@15.34.1 emulators:start --only functions,hosting,firestore --project personal-finance-2ee61",
     "smoke:api": "node scripts/smoke-api.mjs",
     "deploy:functions": "npx -y firebase-tools@15.34.1 deploy --only functions --project personal-finance-2ee61",
     "smoke:bonds": "node scripts/smoke-bonds.mjs",
@@ -24,7 +24,9 @@
     "preview:prepare": "node scripts/prepare-hosting-preview.mjs",
     "lint": "eslint \"src/**/*.{ts,html}\"",
     "lint:functions": "npm --prefix functions run lint",
-    "check:content": "node scripts/check-content.mjs"
+    "check:content": "node scripts/check-content.mjs",
+    "bonds:admin": "npm --prefix functions run build && node scripts/bond-offers.mjs",
+    "test:offers:emulator": "npm --prefix functions run build && npx -y firebase-tools@15.34.1 emulators:exec --only firestore --project demo-oszczedzify \"node scripts/test-bond-offers-emulator.mjs\""
   },
   "private": true,
   "dependencies": {

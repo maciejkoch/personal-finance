@@ -2,9 +2,9 @@ import assert from "node:assert/strict";
 
 const project =
   process.env.OSZCZEDZIFY_EMULATOR_PROJECT ?? "personal-finance-2ee61";
-const local = `http://127.0.0.1:5001/${project}/us-central1`;
+const local = `http://127.0.0.1:5001/${project}/europe-central2`;
 const production =
-  "https://us-central1-personal-finance-2ee61.cloudfunctions.net";
+  "https://europe-central2-personal-finance-2ee61.cloudfunctions.net";
 const compare = process.argv.includes("--compare-production");
 const productionOnly = process.argv.includes("--production");
 const contracts = process.argv.includes("--contracts");
@@ -14,7 +14,7 @@ if (compare && productionOnly) {
 const base = productionOnly ? production : local;
 const cases = [
   [
-    "calculateSavingsHttpFunction",
+    "calculateSavingsWarsaw",
     {
       amount: "10000",
       duration: "12",
@@ -24,11 +24,11 @@ const cases = [
     },
   ],
   [
-    "calculateRegularContributionHttpFunction",
+    "calculateRegularContributionWarsaw",
     { contribution: "500", duration: "12", rate: "0.05", skipTax: "false" },
   ],
   [
-    "calculateTreasuryBondsHttpFunction",
+    "calculateTreasuryBondsWarsaw",
     {
       numberOfBonds: "100",
       month: "24",
@@ -38,7 +38,7 @@ const cases = [
       savingsRate: "[0.1]",
     },
   ],
-  ["articleHttpFunction", { slug: "kalkulator-obligacji-skarbowych" }],
+  ["articleWarsaw", { slug: "kalkulator-obligacji-skarbowych" }],
 ];
 
 async function call(host, name, params) {
@@ -60,7 +60,7 @@ async function call(host, name, params) {
     assert.ok(build && build !== "unknown", `${name}: missing build metadata`);
   }
   const body = await response.json();
-  if (name === "articleHttpFunction") assert.match(body.html, /<h[1-6][ >]/);
+  if (name === "articleWarsaw") assert.match(body.html, /<h[1-6][ >]/);
   else
     assert.ok(
       body.data && typeof body.data === "object",
@@ -106,27 +106,27 @@ async function checkContracts(host, name) {
   if (host !== local) return;
   const params = cases.find(([endpoint]) => endpoint === name)[1];
   const malformed = {
-    calculateSavingsHttpFunction: [
+    calculateSavingsWarsaw: [
       { duration: "1.5" },
       { duration: "101" },
       { inflation: "" },
       { rate: "1.01" },
       { skipTax: "yes" },
     ],
-    calculateRegularContributionHttpFunction: [
+    calculateRegularContributionWarsaw: [
       { duration: "1.5" },
       { duration: "101" },
       { contribution: "0" },
       { rate: "" },
       { skipTax: "yes" },
     ],
-    calculateTreasuryBondsHttpFunction: [
+    calculateTreasuryBondsWarsaw: [
       { month: "1.5" },
       { month: "145" },
       { inflation: "not-json" },
       { skipTax: "yes" },
     ],
-    articleHttpFunction: [{ slug: "../README" }, { slug: "" }],
+    articleWarsaw: [{ slug: "../README" }, { slug: "" }],
   }[name];
   const queries = malformed.map(
     (overrides) => new URLSearchParams({ ...params, ...overrides }),

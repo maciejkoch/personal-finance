@@ -10,8 +10,8 @@ const offer = JSON.parse(
   ),
 );
 const host = process.argv.includes("--production")
-  ? "https://us-central1-personal-finance-2ee61.cloudfunctions.net"
-  : `http://127.0.0.1:5001/${process.env.OSZCZEDZIFY_EMULATOR_PROJECT ?? "personal-finance-2ee61"}/us-central1`;
+  ? "https://europe-central2-personal-finance-2ee61.cloudfunctions.net"
+  : `http://127.0.0.1:5001/${process.env.OSZCZEDZIFY_EMULATOR_PROJECT ?? "personal-finance-2ee61"}/europe-central2`;
 const query = {
   numberOfBonds: "1",
   month: "144",
@@ -21,7 +21,7 @@ const query = {
 };
 async function call(overrides = {}, status = 200) {
   const response = await fetch(
-    `${host}/calculateTreasuryBondsHttpFunction?${new URLSearchParams({ ...query, ...overrides })}`,
+    `${host}/calculateTreasuryBondsWarsaw?${new URLSearchParams({ ...query, ...overrides })}`,
     {
       headers: { Origin: "http://localhost:4200" },
       signal: AbortSignal.timeout(30000),
@@ -59,7 +59,7 @@ for (const skipTax of [false, true]) {
       familyEligible: String(familyEligible),
     };
     const response = await fetch(
-      `${host}/calculateTreasuryBondsHttpFunction?${new URLSearchParams(comparisonQuery)}`,
+      `${host}/calculateTreasuryBondsWarsaw?${new URLSearchParams(comparisonQuery)}`,
       {
         headers: { Origin: "http://localhost:4200" },
         signal: AbortSignal.timeout(30000),

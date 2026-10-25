@@ -91,6 +91,30 @@ describe("Bond recalculation", () => {
     expect(store.loading()).toBe(false);
   });
 
+  it("prepares a new request without removing the displayed result", () => {
+    const store = showInitialResult();
+    store.calculate({ ...request, month: 24 });
+    store.calculate("prepare");
+    expect(store.result()).toBe(result);
+    expect(store.loading()).toBe(true);
+    responses[1].next({ ...result, month: 24 });
+    responses[1].complete();
+    expect(store.result()).toBe(result);
+    store.calculate({ ...request, month: 36 });
+    responses[2].next({ ...result, month: 36 });
+    responses[2].complete();
+    expect(store.result()?.month).toBe(36);
+  });
+
+  it("preserves results for invalid input but clears them when the offer fails", () => {
+    const store = showInitialResult();
+    store.calculate(null);
+    expect(store.result()).toBe(result);
+    expect(store.loading()).toBe(false);
+    store.calculate("clear");
+    expect(store.result()).toBeNull();
+  });
+
   it("keeps previous results on failure and labels them as previous calculations", () => {
     const store = showInitialResult();
     store.calculate(request);

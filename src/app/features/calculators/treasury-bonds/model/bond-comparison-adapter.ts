@@ -12,9 +12,10 @@ const point = z.object({
   value: z.number().finite(),
 });
 const responseSchema = z.object({
-  contractVersion: z.literal(3),
+  contractVersion: z.union([z.literal(3), z.literal(4)]),
+  offerId: z.string().optional(),
   calculationVersion: z.literal(2),
-  offerVersion: z.literal(offer.version),
+  offerVersion: z.string(),
   marketId: z.literal("pl"),
   skipTax: z.boolean(),
   series: z.array(
@@ -32,6 +33,15 @@ export function adaptBondComparison(
   request: TreasuryBondsRequest,
 ): TreasuryBondsResult {
   const data = responseSchema.parse(payload);
+  if (
+    request.offerId
+      ? data.contractVersion !== 4 ||
+        data.offerId !== request.offerId ||
+        data.offerVersion !== request.offerId
+      : data.contractVersion !== 3 || data.offerVersion !== offer.version
+  ) {
+    throw new Error("Incompatible bond offer version");
+  }
   const activeBondTypes = availablePolishBonds(request);
   if (
     data.skipTax !== request.skipTax ||

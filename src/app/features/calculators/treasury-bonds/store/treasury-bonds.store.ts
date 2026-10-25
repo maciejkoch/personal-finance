@@ -26,12 +26,24 @@ const initialState: State = {
 export const TreasuryBondsStore = signalStore(
   withState(initialState),
   withMethods((store, dataSservice = inject(TreasuryBondsDataService)) => ({
-    calculate: rxMethod<TreasuryBondsRequest | null>(
+    calculate: rxMethod<TreasuryBondsRequest | "prepare" | "clear" | null>(
       pipe(
         switchMap((request) => {
-          if (!request) {
+          if (request === "clear") {
             patchState(store, {
               result: null,
+              loading: false,
+              error: null,
+              request: null,
+            });
+            return EMPTY;
+          }
+          if (request === "prepare") {
+            patchState(store, { loading: true, error: null, request: null });
+            return EMPTY;
+          }
+          if (!request) {
+            patchState(store, {
               loading: false,
               error: null,
               request: null,

@@ -1,5 +1,4 @@
 import { z } from "zod";
-import * as offer from "@data/bond-offer";
 
 export const bondFormSchema = z.object({
   numberOfBonds: z.number().int().min(1).max(1000000),
@@ -37,7 +36,6 @@ export function readBondForm(serialized: string | null): BondFormValue {
 export function serializeBondForm(values: BondFormValue): string {
   return JSON.stringify({
     schemaVersion: 4,
-    offerVersion: offer.version,
     values,
   });
 }

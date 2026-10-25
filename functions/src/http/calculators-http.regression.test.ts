@@ -6,7 +6,10 @@ import { execute as savings } from "../savings/savings";
 import { execute as contribution } from "../regular-contributions/regular-contributions";
 import reference from "../calculations/regression-reference.json";
 
-function call(handler: typeof bonds, query: Record<string, string>) {
+async function call(
+  handler: (request: Request, response: HttpResponse) => void | Promise<void>,
+  query: Record<string, string>,
+) {
   let status = 200;
   let body: unknown;
   const response = {
@@ -19,7 +22,7 @@ function call(handler: typeof bonds, query: Record<string, string>) {
       return this;
     },
   } as HttpResponse;
-  handler({ query } as Request, response);
+  await handler({ query } as Request, response);
   // Exercise the actual JSON wire representation, not class instances.
   return { status, body: JSON.parse(JSON.stringify(body)) };
 }
@@ -30,14 +33,14 @@ describe("Calculator HTTP numerical regressions", () => {
     ["savings goal", reference.savings],
   ] as const) {
     for (const testCase of cases) {
-      it(`${endpoint}: ${testCase.name}`, () => {
+      it(`${endpoint}: ${testCase.name}`, async () => {
         const query = Object.fromEntries(
           Object.entries(testCase.input).map(([key, value]) => [
             key,
             String(value),
           ]),
         );
-        const response = call(
+        const response = await call(
           endpoint === "savings goal" ? savings : contribution,
           query,
         );
@@ -62,8 +65,8 @@ describe("Calculator HTTP numerical regressions", () => {
     savingsRate: "[0]",
   };
 
-  it("preserves zero and negative inflation, falls back to the last scenario and returns complete months", () => {
-    const response = call(bonds, query);
+  it("preserves zero and negative inflation, falls back to the last scenario and returns complete months", async () => {
+    const response = await call(bonds, query);
     strictEqual(response.status, 200);
     strictEqual(response.body.data.offerVersion, reference.offerVersion);
     strictEqual(response.body.data.calculationVersion, 2);
@@ -103,15 +106,15 @@ describe("Calculator HTTP numerical regressions", () => {
     }
   });
 
-  it("default and explicit false taxation are identical for old clients", () => {
+  it("default and explicit false taxation are identical for old clients", async () => {
     deepStrictEqual(
-      call(bonds, query),
-      call(bonds, { ...query, skipTax: "false", wibor6m: "[0]" }),
+      await call(bonds, query),
+      await call(bonds, { ...query, skipTax: "false", wibor6m: "[0]" }),
     );
   });
 
-  it("returns an error for ambiguous boolean input without returning partial calculations", () => {
-    const response = call(bonds, { ...query, skipTax: "TRUE" });
+  it("returns an error for ambiguous boolean input without returning partial calculations", async () => {
+    const response = await call(bonds, { ...query, skipTax: "TRUE" });
     strictEqual(response.status, 400);
     strictEqual(response.body.data, undefined);
     strictEqual(response.body.name, "ZodError");
