@@ -12,7 +12,12 @@ import {
   viewChild,
 } from "@angular/core";
 import { ActivatedRoute, Router, RouterLink } from "@angular/router";
-import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
+import {
+  takeUntilDestroyed,
+  toObservable,
+  toSignal,
+} from "@angular/core/rxjs-interop";
+import { mapTo, of, switchMap, timer } from "rxjs";
 import { BondOfferStore } from "./store/bond-offer.store";
 import { DecimalPipe } from "@angular/common";
 import { scrollToElement } from "@shared/scroll/scroll-to-element";
@@ -54,6 +59,14 @@ export class TreasuryBondsComponent {
 
   result = this.#store.result;
   loading = this.#store.loading;
+  showUpdating = toSignal(
+    toObservable(this.loading).pipe(
+      switchMap((loading) =>
+        loading ? timer(500).pipe(mapTo(true)) : of(false),
+      ),
+    ),
+    { initialValue: false },
+  );
   error = this.#store.error;
   offers = inject(BondOfferStore);
   offer = this.offers.offer;
