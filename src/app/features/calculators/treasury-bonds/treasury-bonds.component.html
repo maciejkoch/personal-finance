@@ -26,9 +26,12 @@
             [value]="selectedId()"
             (change)="selectOffer($any($event.target).value)"
           >
-            <option value="">Aktualna oferta</option>
+            <option value="" [selected]="!selectedId()">Aktualna oferta</option>
             @for (entry of entries(); track entry.offerId) {
-              <option [value]="entry.offerId">
+              <option
+                [value]="entry.offerId"
+                [selected]="selectedId() === entry.offerId"
+              >
                 {{ entry.label
                 }}{{
                   entry.saleFrom > (offers.catalog()?.today ?? "9999")
