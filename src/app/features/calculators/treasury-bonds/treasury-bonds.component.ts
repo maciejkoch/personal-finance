@@ -113,6 +113,7 @@ export class TreasuryBondsComponent {
       relativeTo: this.#route,
       queryParams: { offerId: id || null },
       queryParamsHandling: "merge",
+      scroll: "manual",
     });
   }
   retryOffer() {
