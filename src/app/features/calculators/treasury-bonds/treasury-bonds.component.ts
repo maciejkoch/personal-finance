@@ -149,7 +149,7 @@ export class TreasuryBondsComponent {
       : entries;
   });
   selectedId() {
-    return this.#route.snapshot.queryParamMap.get("offerId") ?? "";
+    return this.#targetOfferId() ?? "";
   }
   options = signal({ familyEligible: false });
   bonds = computed(() => {

@@ -22,15 +22,18 @@
           <label for="offer-month" class="block mb-2">Miesiąc oferty</label>
           <select
             id="offer-month"
-            class="select select-bordered w-full"
+            class="select select-bordered w-full bg-slate-700 border-primary/70 focus:border-primary"
             [value]="selectedId()"
             (change)="selectOffer($any($event.target).value)"
           >
-            <option value="" [selected]="!selectedId()">Aktualna oferta</option>
+            <option value="" [selected]="!selectedId()" class="bg-slate-700">
+              Aktualna oferta
+            </option>
             @for (entry of entries(); track entry.offerId) {
               <option
                 [value]="entry.offerId"
                 [selected]="selectedId() === entry.offerId"
+                class="bg-slate-700"
               >
                 {{ entry.label
                 }}{{
