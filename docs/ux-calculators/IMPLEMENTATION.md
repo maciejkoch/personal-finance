@@ -2,6 +2,8 @@
 
 26.10.2026 · branch `codex/calculators-ux-review`.
 
+Późniejsza publikacja na polecenie użytkownika i kontrola produkcji: [PRODUCTION.md](PRODUCTION.md).
+
 ## Zakres
 
 Wszystkie trzy kalkulatory mają układ „Obok wyniku”: formularz po lewej, podsumowanie i główny wykres po prawej; poniżej 1024 px jedna kolumna. Zachowano istniejące menu aplikacji i motyw `pf`.
