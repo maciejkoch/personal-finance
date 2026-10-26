@@ -15,7 +15,7 @@ import { mapTo, of, switchMap, timer } from "rxjs";
       role="status"
       aria-live="polite"
       aria-atomic="true"
-      class="mb-3 min-h-6"
+      [class.mb-3]="showLoading() || (stale() && !loading())"
     >
       @if (showLoading()) {
         <p class="flex items-center gap-2">

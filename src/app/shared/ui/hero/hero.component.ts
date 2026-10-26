@@ -1,6 +1,9 @@
+import { HeroStateService } from "./hero-state.service";
 import {
   ChangeDetectionStrategy,
   Component,
+  DestroyRef,
+  inject,
   input,
   output,
   signal,
@@ -22,18 +25,28 @@ export class HeroComponent {
 
   clicked = output<void>();
 
-  expanded = signal(true);
+  private readonly sharedState = inject(HeroStateService, { optional: true });
+  readonly expanded = this.sharedState?.expanded ?? signal(true);
+  private scrollTimer: ReturnType<typeof setTimeout> | undefined;
+
+  constructor() {
+    inject(DestroyRef).onDestroy(() => clearTimeout(this.scrollTimer));
+  }
 
   toggle(value?: boolean) {
     if (!this.expandable()) {
       return;
     }
 
+    clearTimeout(this.scrollTimer);
     this.expanded.update((expanded) => value ?? !expanded);
   }
 
   handleClick() {
     this.toggle(false);
-    setTimeout(() => this.clicked.emit(), this.ANIMATION_DURATION);
+    this.scrollTimer = setTimeout(
+      () => this.clicked.emit(),
+      this.ANIMATION_DURATION,
+    );
   }
 }

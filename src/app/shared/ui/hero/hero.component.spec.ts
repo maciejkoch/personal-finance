@@ -33,4 +33,13 @@ describe("Calculator hero start action", () => {
     fixture.componentInstance.toggle(false);
     expect(fixture.componentInstance.expanded()).toBe(false);
   });
+  it("cancels a delayed scroll when leaving the page before the collapse ends", async () => {
+    const fixture = TestBed.createComponent(HeroComponent);
+    await fixture.whenStable();
+    const emit = vi.spyOn(fixture.componentInstance.clicked, "emit");
+    fixture.componentInstance.handleClick();
+    fixture.destroy();
+    await new Promise((resolve) => setTimeout(resolve, 350));
+    expect(emit).not.toHaveBeenCalled();
+  });
 });

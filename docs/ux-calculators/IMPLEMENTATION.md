@@ -18,7 +18,7 @@ Wszystkie trzy kalkulatory mają układ „Obok wyniku”: formularz po lewej, p
 - Błędy pozostają oparte na istniejącym Signal Forms; komunikaty pokazano przy odpowiednich polach, z powiązaniem `aria-describedby`. Błąd dodatkowego pola automatycznie ujawnia jego panel.
 - Główny wynik jest wyraźną kwotą z krótkim kontekstem i dwoma parametrami pomocniczymi. Pełne rozliczenie zachowano w szczegółach. W obligacjach zachowano próg siły nabywczej i nadwyżkę/niedobór.
 - Wykres końcowy obligacji ma poziome słupki i dokładne kwoty dostępne także bez hovera. Przebieg roczny zajmuje pełną szerokość w osobnym panelu; ma natywne checkboxy serii, odrębne wzory linii i widoczne punkty dla jednorocznego okresu.
-- Wykres oszczędzania przedstawia wartość brutto i wniesione środki jako dwie linie. Dane roczne pochodzą z istniejącej odpowiedzi; dodano punkt początkowego kapitału oraz dostępny klawiaturą odczyt roku. Rozliczenie kapitału, wpłat, zysku i podatku pozostało w szczegółach.
+- Wykres oszczędzania przedstawia kapitał początkowy, późniejsze wpłaty i zysk brutto jako skumulowane słupki, wraz z kolumną „Start”. Dane roczne pochodzą z istniejącej odpowiedzi; dostępny klawiaturą odczyt roku pokazuje dokładne wartości. Rozliczenie kapitału, wpłat, zysku i podatku pozostało w szczegółach.
 - Na telefonie skróty „Zobacz wynik” i „Zmień założenia” przewijają stronę bez zmiany trasy. Link IKE prowadzi do pełnej, wspólnej metodologii i ujawnia jej panel.
 - Pełne wzory, przykłady, ograniczenia i źródła są zachowane w HTML prerenderowanym; panele nie usuwają treści z dokumentu.
 
@@ -44,3 +44,13 @@ Zrzuty z tego lokalnego odbioru:
 - [Regularne oszczędzanie — desktop](desktop-regular.png)
 
 Źródła decyzji projektowych i wcześniejsze mockupy są w [REVIEW.md](REVIEW.md).
+
+## Korekty po odbiorze — 26.10.2026
+
+- W celu długoterminowym i regularnym oszczędzaniu wykres liniowy zastąpiono skumulowanymi słupkami. Kapitał początkowy ma własny kolor i stałą wysokość w każdym roku; wpłaty i zysk brutto stanowią pozostałe warstwy. Kolumna „Start” oraz odczyt roku zerowego pokazują sam kapitał początkowy. Wyłączono animację słupków, aby nowe wyniki i zmiany rozmiaru były widoczne od razu.
+- Hero współdzieli stan w obrębie sekcji kalkulatorów. Po „Rozpocznij” pozostaje zwinięte przy zmianie kalkulatora; ręczne rozwinięcie także obowiązuje na kolejnych trasach. Nowe wejście do sekcji lub przeładowanie strony zaczyna od rozwiniętego hero. Opóźniony scroll jest anulowany przy opuszczeniu strony.
+- We wszystkich trzech formularzach nagłówek „Założenia główne” wyrównano z „Twój wynik”, a górną krawędź głównego fieldsetu z kartą wyniku. Usunięto stałą pustą przestrzeń z nieaktywnego komunikatu ładowania; komunikaty nadal są dostępne w live region.
+- Kontrola w przeglądarce: wszystkie trzy trasy, nawigacja ze zwiniętym i rozwiniętym hero, odczyt „Start”, telefony 390 i 320 px bez poziomego overflow po zakończeniu zmiany rozmiaru. Zweryfikowano też cel pokryty samym kapitałem początkowym.
+- Weryfikacja: **123/123 testy, 27 plików**, lint, produkcyjny build, prerender ośmiu tras i kontrola treści. Logika obliczeń i backend pozostają bez zmian. Ta korekta nie została jeszcze wdrożona na produkcję.
+
+Zrzuty po korekcie: [wyrównanie obligacji](aligned-bonds-desktop.png), [wykres na desktopie](stacked-savings-desktop.png), [wykres na telefonie](stacked-savings-mobile.png).

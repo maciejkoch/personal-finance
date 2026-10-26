@@ -317,7 +317,7 @@ describe("Bond presentation numerical regressions", () => {
     expect(dataset).toMatchObject({ hidden: true, pointRadius: 4 });
   });
 
-  it("keeps gross savings distinct from deposited capital and updates the accessible year readout", async () => {
+  it("separates starting capital, later payments and gross profit, including Start and the accessible year readout", async () => {
     const fixture = TestBed.createComponent(SavingsGrowthChartComponent);
     const input = {
       initialCapital: 500,
@@ -335,9 +335,28 @@ describe("Bond presentation numerical regressions", () => {
     fixture.componentRef.setInput("data", input);
     await fixture.whenStable();
     const chart = charts.instances[0];
-    expect(chart.data.labels).toEqual([0, 1, 2]);
-    expect(chart.data.datasets[0].data).toEqual([500, 5500, 11000]);
-    expect(chart.data.datasets[1].data).toEqual([500, 5500, 10500]);
+    expect(
+      (fixture.nativeElement.querySelector("select") as HTMLSelectElement)
+        .value,
+    ).toBe("2");
+    expect(chart.type).toBe("bar");
+    expect(chart.data.labels).toEqual(["Start", "1", "2"]);
+    expect(chart.data.datasets[0].data).toEqual([500, 500, 500]);
+    expect(chart.data.datasets[1].data).toEqual([0, 5000, 10000]);
+    expect(chart.data.datasets[2].data).toEqual([0, 0, 500]);
+    expect(
+      chart.data.datasets
+        .map((dataset) => dataset.data[2])
+        .reduce((sum, value) => Number(sum) + Number(value), 0),
+    ).toBe(input.finalValue);
+    fixture.componentInstance.selectedYear.set(0);
+    await fixture.whenStable();
+    expect(fixture.componentInstance.selectedPoint()).toMatchObject({
+      year: 0,
+      compoundedInteres: 500,
+      totalContribution: 0,
+      interest: 0,
+    });
     const year: HTMLSelectElement =
       fixture.nativeElement.querySelector("select");
     year.value = "1";
@@ -351,6 +370,33 @@ describe("Bond presentation numerical regressions", () => {
     });
     await fixture.whenStable();
     expect(fixture.componentInstance.selectedPoint()?.year).toBe(1);
-    expect(chart.data.labels).toEqual([0, 1]);
+    expect(chart.data.labels).toEqual(["Start", "1"]);
+    expect(
+      (fixture.nativeElement.querySelector("select") as HTMLSelectElement)
+        .value,
+    ).toBe("1");
+  });
+  it("shows zero starting capital and zero profit without inflating the sum of the stacked bars", async () => {
+    const fixture = TestBed.createComponent(SavingsGrowthChartComponent);
+    fixture.componentRef.setInput("data", {
+      initialCapital: 0,
+      totalContribution: 6000,
+      totalDeposited: 6000,
+      finalValue: 6000,
+      totalInterest: 0,
+      tax: 0,
+      netValue: 6000,
+      valueYearPerYear: [
+        { year: 1, compoundedInteres: 6000, totalContribution: 6000 },
+      ],
+    });
+    await fixture.whenStable();
+    expect(
+      charts.instances[0].data.datasets.map((dataset) => dataset.data),
+    ).toEqual([
+      [0, 0],
+      [0, 6000],
+      [0, 0],
+    ]);
   });
 });

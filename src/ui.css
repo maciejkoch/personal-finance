@@ -227,8 +227,9 @@
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 0.5rem;
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
   }
+  .calculator-form-title,
   .calculator-result-heading h2,
   .calculator-chart h2 {
     font-size: 1.125rem;
