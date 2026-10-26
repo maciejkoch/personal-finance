@@ -1,4 +1,8 @@
-import { provideHttpClient, withFetch } from "@angular/common/http";
+import {
+  provideHttpClient,
+  withFetch,
+  withInterceptors,
+} from "@angular/common/http";
 import { ApplicationConfig, LOCALE_ID } from "@angular/core";
 import {
   provideClientHydration,
@@ -12,6 +16,7 @@ import {
   withRouterConfig,
   withViewTransitions,
 } from "@angular/router";
+import { appCheckInterceptor } from "./core/http/app-check.interceptor";
 import { appRoutes } from "./app.routes";
 import { API_ENDPOINTS } from "@core/http/api-endpoints";
 import { environment } from "../environments/environment";
@@ -40,6 +45,6 @@ export const appConfig: ApplicationConfig = {
       withViewTransitions(),
       withComponentInputBinding(),
     ),
-    provideHttpClient(withFetch()),
+    provideHttpClient(withFetch(), withInterceptors([appCheckInterceptor])),
   ],
 };

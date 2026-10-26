@@ -26,7 +26,8 @@
     "lint:functions": "npm --prefix functions run lint",
     "check:content": "node scripts/check-content.mjs",
     "bonds:admin": "npm --prefix functions run build && node scripts/bond-offers.mjs",
-    "test:offers:emulator": "npm --prefix functions run build && npx -y firebase-tools@15.34.1 emulators:exec --only firestore --project demo-oszczedzify \"node scripts/test-bond-offers-emulator.mjs\""
+    "test:offers:emulator": "npm --prefix functions run build && npx -y firebase-tools@15.34.1 emulators:exec --only firestore --project demo-oszczedzify \"node scripts/test-bond-offers-emulator.mjs\"",
+    "test:app-check:emulator": "npm run build:functions && APP_CHECK_MODE=enforce npx -y firebase-tools@15.34.1 emulators:exec --only functions --project demo-oszczedzify \"node scripts/smoke-app-check.mjs\""
   },
   "private": true,
   "dependencies": {
@@ -41,6 +42,7 @@
     "@ngrx/operators": "^22.0.1",
     "@ngrx/signals": "^22.0.1",
     "chart.js": "4.6.1",
+    "firebase": "12.18.0",
     "rxjs": "7.8.2",
     "zod": "4.6.7"
   },
@@ -73,6 +75,8 @@
     },
     "@tailwindcss/typography": {
       "postcss-selector-parser": "6.1.5"
-    }
+    },
+    "@firebase/app": "0.16.1",
+    "@firebase/app-compat": "0.5.17"
   }
 }

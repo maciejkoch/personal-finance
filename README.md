@@ -116,3 +116,5 @@ Projekt produkcyjny: `personal-finance-2ee61`. Etapy 5–8 wdrożono do Hostingu
 Preview Hosting nie tworzy backendu staging. Obecny CORS Functions dopuszcza localhost i domeny produkcyjne; nowy adres preview wymaga jawnej konfiguracji dozwolonego originu albo osobnego backendu staging. Podgląd techniczny można w tym czasie wykonywać lokalnie.
 
 Przed publikacją zapisz bieżący release Hosting, kod i konfigurację Functions oraz identyfikatory buildów. Hosting można przywrócić do poprzedniego wydania. Powrót Functions polega na ponownym wdrożeniu zachowanego kodu na wspieranym runtime.
+
+Plan, konfiguracja i procedura aktywacji Firebase App Check: [docs/FIREBASE-APP-CHECK.md](docs/FIREBASE-APP-CHECK.md).
