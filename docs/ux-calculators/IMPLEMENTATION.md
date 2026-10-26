@@ -6,7 +6,7 @@ Późniejsza publikacja na polecenie użytkownika i kontrola produkcji: [PRODUCT
 
 ## Korekta po informacji zwrotnej — hero
 
-Przywrócono wcześniejsze hero wszystkich trzech kalkulatorów: przycisk „Rozpocznij” zwija opis i po animacji przewija do głównych założeń; nagłówek pozwala ponownie rozwinąć opis. Nowy układ formularzy, paneli i wykresów pozostaje zachowany. Jawne polecenie zwinięcia nie otwiera już przypadkowo zamkniętego hero. Regresję działania przycisku i ponownego rozwijania pokrywają dwa testy. Po tej korekcie przechodzi 120/120 testów, lint, produkcyjny build i kontrola treści. Korekta nie jest częścią wydania `a872f0a` opisanego w PRODUCTION.md i nie została jeszcze wdrożona na produkcję.
+Przywrócono wcześniejsze hero wszystkich trzech kalkulatorów: przycisk „Rozpocznij” zwija opis i po animacji przewija do głównych założeń; nagłówek pozwala ponownie rozwinąć opis. Nowy układ formularzy, paneli i wykresów pozostaje zachowany. Jawne polecenie zwinięcia nie otwiera już przypadkowo zamkniętego hero. Regresję działania przycisku i ponownego rozwijania pokrywają dwa testy. Po tej korekcie przechodzi 120/120 testów, lint, produkcyjny build i kontrola treści. Korektę wdrożono następnie na osobne polecenie użytkownika z commita `cd769fb`; szczegóły nowego wydania są w PRODUCTION.md.
 
 ## Zakres
 

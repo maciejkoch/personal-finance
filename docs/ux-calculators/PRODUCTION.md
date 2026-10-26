@@ -2,6 +2,23 @@
 
 Na polecenie użytkownika wdrożono wyłącznie Firebase Hosting projektu `personal-finance-2ee61` z brancha `codex/calculators-ux-review`. PR #3 pozostaje osobnym krokiem przeglądu; publikacja nie scala brancha.
 
+## Aktualizacja: przywrócenie hero
+
+Na kolejne polecenie użytkownika opublikowano poprawkę przywracającą przycisk „Rozpocznij”, zwijanie opisu hero i przewijanie do głównych założeń we wszystkich trzech kalkulatorach.
+
+- Commit: `cd769fb5ba4c975d6f53871e1c9096d573ed3df4`.
+- Build: `cd769fb-2026-10-26T10:05:40.274Z`, `dirty: false`, API production.
+- Hosting version: `1743b743273c66f9`, release `1793009177969000`.
+- Publikacja: 26.10.2026, 11:06:17 Europe/Warsaw (10:06:17 UTC).
+- Punkt rollbacku: version `3f15af39c14e173a`, release `1793005987092000`.
+- Świeży build, prerender, check:content i produkcyjny smoke:hosting przeszły; publiczny version.json jest identyczny z lokalnym artefaktem. Przed wdrożeniem poprawka przeszła 120 testów i lint.
+- W rzeczywistej przeglądarce potwierdzono kliknięcie „Rozpocznij” na każdej z trzech stron: `aria-expanded=false`, a formularz po przewinięciu zaczyna się 64 px od góry, pod nagłówkiem aplikacji. Brak błędów konsoli w sprawdzonej sesji.
+- Publikowano tylko Hosting, przypiętym CLI 15.34.1, z włączoną weryfikacją TLS. Backend i App Check pozostawiono bez zmian.
+
+![Przywrócone hero na produkcji](production-hero.png)
+
+## Pierwsza publikacja UI
+
 ## Opublikowany artefakt
 
 - Commit źródeł: `a872f0ad726221bcad89bb2df2dc6ccfda1279bf`.
