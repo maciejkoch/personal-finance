@@ -4,6 +4,15 @@
     "cleanUrls": true,
     "headers": [
       {
+        "source": "/app-check.json",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "no-store"
+          }
+        ]
+      },
+      {
         "source": "/version.json",
         "headers": [
           {

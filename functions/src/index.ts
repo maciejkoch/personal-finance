@@ -3,7 +3,10 @@ import { logger } from "firebase-functions";
 import { syncOffers } from "./bond-offers/importer";
 import { serveOffers } from "./bond-offers/http";
 import cors from "cors";
+import { checkAppRequest } from "./http/app-check";
 import { setGlobalOptions } from "firebase-functions/v2";
+import type { Request } from "firebase-functions/v2/https";
+import type { Response } from "express";
 import { onRequest } from "firebase-functions/v2/https";
 import { buildId } from "./build-info";
 import { execute as executeArticle } from "./articles/articles";
@@ -27,12 +30,25 @@ const options: cors.CorsOptions = {
   exposedHeaders: ["X-Oszczedzify-Build"],
 };
 
+// Preflight completes in CORS before token verification. All HTTP aliases share this gate.
+function checkedCors(
+  request: Request,
+  response: Response,
+  next: () => unknown,
+): void {
+  cors(options)(request, response, () => {
+    void checkAppRequest(request, response).then((allowed) => {
+      if (allowed) next();
+    });
+  });
+}
+
 // Keep CORS in our middleware, including when emulator debug features are on.
 export const calculateSavingsHttpFunction = onRequest(
   { cors: false },
   (request, response) => {
     response.setHeader("X-Oszczedzify-Build", buildId);
-    cors(options)(request, response, () => executeSavings(request, response));
+    checkedCors(request, response, () => executeSavings(request, response));
   },
 );
 
@@ -40,7 +56,7 @@ export const calculateRegularContributionHttpFunction = onRequest(
   { cors: false },
   (request, response) => {
     response.setHeader("X-Oszczedzify-Build", buildId);
-    cors(options)(request, response, () =>
+    checkedCors(request, response, () =>
       executeRegularContributions(request, response),
     );
   },
@@ -50,7 +66,7 @@ export const calculateTreasuryBondsHttpFunction = onRequest(
   { cors: false },
   (request, response) => {
     response.setHeader("X-Oszczedzify-Build", buildId);
-    cors(options)(request, response, () =>
+    checkedCors(request, response, () =>
       executeTreasuryBonds(request, response),
     );
   },
@@ -60,7 +76,7 @@ export const articleHttpFunction = onRequest(
   { cors: false },
   (request, response) => {
     response.setHeader("X-Oszczedzify-Build", buildId);
-    cors(options)(request, response, () => executeArticle(request, response));
+    checkedCors(request, response, () => executeArticle(request, response));
   },
 );
 
@@ -68,13 +84,13 @@ export const articleHttpFunction = onRequest(
 const warsaw = { cors: false as const, region: "europe-central2" };
 export const calculateSavingsWarsaw = onRequest(warsaw, (request, response) => {
   response.setHeader("X-Oszczedzify-Build", buildId);
-  cors(options)(request, response, () => executeSavings(request, response));
+  checkedCors(request, response, () => executeSavings(request, response));
 });
 export const calculateRegularContributionWarsaw = onRequest(
   warsaw,
   (request, response) => {
     response.setHeader("X-Oszczedzify-Build", buildId);
-    cors(options)(request, response, () =>
+    checkedCors(request, response, () =>
       executeRegularContributions(request, response),
     );
   },
@@ -84,7 +100,7 @@ export const calculateTreasuryBondsWarsaw = onRequest(
   (request, response) => {
     response.setHeader("Cache-Control", "no-store");
     response.setHeader("X-Oszczedzify-Build", buildId);
-    cors(options)(request, response, () => {
+    checkedCors(request, response, () => {
       if (request.method !== "GET") {
         response.status(405).send({ error: "GET required" });
         return;
@@ -102,7 +118,7 @@ export const calculateTreasuryBondsWarsaw = onRequest(
 );
 export const articleWarsaw = onRequest(warsaw, (request, response) => {
   response.setHeader("X-Oszczedzify-Build", buildId);
-  cors(options)(request, response, () => executeArticle(request, response));
+  checkedCors(request, response, () => executeArticle(request, response));
 });
 export const syncBondOffers = onSchedule(
   {
