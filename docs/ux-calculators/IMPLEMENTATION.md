@@ -51,6 +51,6 @@ Zrzuty z tego lokalnego odbioru:
 - Hero współdzieli stan w obrębie sekcji kalkulatorów. Po „Rozpocznij” pozostaje zwinięte przy zmianie kalkulatora; ręczne rozwinięcie także obowiązuje na kolejnych trasach. Nowe wejście do sekcji lub przeładowanie strony zaczyna od rozwiniętego hero. Opóźniony scroll jest anulowany przy opuszczeniu strony.
 - We wszystkich trzech formularzach nagłówek „Założenia główne” wyrównano z „Twój wynik”, a górną krawędź głównego fieldsetu z kartą wyniku. Usunięto stałą pustą przestrzeń z nieaktywnego komunikatu ładowania; komunikaty nadal są dostępne w live region.
 - Kontrola w przeglądarce: wszystkie trzy trasy, nawigacja ze zwiniętym i rozwiniętym hero, odczyt „Start”, telefony 390 i 320 px bez poziomego overflow po zakończeniu zmiany rozmiaru. Zweryfikowano też cel pokryty samym kapitałem początkowym.
-- Weryfikacja: **123/123 testy, 27 plików**, lint, produkcyjny build, prerender ośmiu tras i kontrola treści. Logika obliczeń i backend pozostają bez zmian. Ta korekta nie została jeszcze wdrożona na produkcję.
+- Weryfikacja: **123/123 testy, 27 plików**, lint, produkcyjny build, prerender ośmiu tras i kontrola treści. Logika obliczeń i backend pozostają bez zmian. Korektę wdrożono później na polecenie użytkownika — szczegóły w [PRODUCTION.md](PRODUCTION.md).
 
 Zrzuty po korekcie: [wyrównanie obligacji](aligned-bonds-desktop.png), [wykres na desktopie](stacked-savings-desktop.png), [wykres na telefonie](stacked-savings-mobile.png).

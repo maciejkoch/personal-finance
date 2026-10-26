@@ -2,6 +2,22 @@
 
 Na polecenie użytkownika wdrożono wyłącznie Firebase Hosting projektu `personal-finance-2ee61` z brancha `codex/calculators-ux-review`. PR #3 pozostaje osobnym krokiem przeglądu; publikacja nie scala brancha.
 
+## Aktualizacja: słupki oszczędzania, nawigacja i wyrównanie
+
+Na kolejne polecenie użytkownika opublikowano skumulowane słupki kapitału początkowego, wpłat i zysku, wspólny stan hero podczas zmiany kalkulatorów oraz wyrównane nagłówki i karty bez pustego miejsca nad wynikiem.
+
+- Commit źródeł: `6b6c11edafb24fecc84cf41e0fdf99d26af19d0e`.
+- Build: `6b6c11e-2026-10-26T15:49:42.293Z`, `dirty: false`, API production.
+- Hosting version: `2ba4aae874dc5928`, release `1793029813862000`.
+- Publikacja: 26.10.2026, 16:50:13 Europe/Warsaw (15:50:13 UTC).
+- Punkt rollbacku: version `1743b743273c66f9`, release `1793009177969000`.
+- Świeży produkcyjny build, prerender ośmiu tras, check:content i produkcyjny smoke:hosting przeszły. Publiczne version.json i app-check.json są identyczne z lokalnym artefaktem. Przed publikacją poprawki przeszły 123/123 testy frontendowe i lint.
+- W przeglądarce potwierdzono wyrównanie nagłówków obligacji (obie pozycje 324 px) i zerową wysokość pustego komunikatu statusu. „Rozpocznij” zwija hero; przejścia obligacje → regularne oszczędzanie → cel zachowują zwinięcie.
+- Produkcyjne API zwróciło wyniki wszystkich trzech kalkulatorów. Dla przykładowych 10 000 zł na start i 500 zł miesięcznie przez pięć lat przy 10% wykres regularnego oszczędzania pokazuje trzy warstwy, a odczyt „Start” zwraca sam kapitał 10 000 zł bez wpłat i zysku. Sprawdzono też cel pokryty kapitałem początkowym. W tej sesji brak błędów konsoli.
+- Publikowano wyłącznie Hosting, przypiętym CLI 15.34.1 z włączoną weryfikacją TLS. Backend i App Check pozostają bez zmian. PR #3 nie został scalony.
+
+![Słupki i wyrównanie na produkcji](production-stacked-savings.png)
+
 ## Aktualizacja: przywrócenie hero
 
 Na kolejne polecenie użytkownika opublikowano poprawkę przywracającą przycisk „Rozpocznij”, zwijanie opisu hero i przewijanie do głównych założeń we wszystkich trzech kalkulatorach.
