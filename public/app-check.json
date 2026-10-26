@@ -1,3 +1,9 @@
 {
-  "mode": "off"
+  "mode": "monitor",
+  "siteKey": "6LdjFQEuAAAAAK6SEFf_yjeZdhI6MIIJ0_EAGcU8",
+  "firebase": {
+    "apiKey": "AIzaSyDmmTKP-FkDrHcCD6eR02FJXxS_E5iUm78",
+    "appId": "1:850956574248:web:e8f8affa8457cfe578df1d",
+    "projectId": "personal-finance-2ee61"
+  }
 }
