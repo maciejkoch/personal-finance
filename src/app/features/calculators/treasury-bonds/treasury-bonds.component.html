@@ -1,241 +1,294 @@
-<pf-treasury-bonds-hero (clicked)="scrollToForm()" />
+<pf-treasury-bonds-hero class="block mb-6" (clicked)="scrollToForm()" />
+<div class="calculator-mobile-links">
+  <button type="button" class="link" (click)="scrollToResult()">
+    Zobacz wynik ↓
+  </button>
+</div>
 <div #offerContent [style.min-height.px]="contentMinHeight()">
-@defer {
-  <div class="flex flex-col lg:flex-row gap-4 mb-5 pt-5" #scrollToContainer>
-    <div class="w-full lg:w-2/5 relative">
-      <pf-treasury-bonds-form
-        (changed)="calculate($event)"
-        (pending)="invalidate($event)"
-        (optionsChanged)="options.set($event)"
-        class="w-full"
-      >
-        <div offer-selector class="my-4">
-          <label for="offer-month" class="block mb-2">Miesiąc oferty</label>
-          <select
-            id="offer-month"
-            class="select select-bordered w-full bg-slate-700 border-primary/70 focus:border-primary"
-            [value]="selectedId()"
-            (change)="selectOffer($any($event.target).value)"
-          >
-            <option value="" [selected]="!selectedId()" class="bg-slate-700">
-              Aktualna oferta
-            </option>
-            @for (entry of entries(); track entry.offerId) {
-              <option
-                [value]="entry.offerId"
-                [selected]="selectedId() === entry.offerId"
-                class="bg-slate-700"
-              >
-                {{ entry.label
-                }}{{
-                  entry.saleFrom > (offers.catalog()?.today ?? "9999")
-                    ? " — nadchodząca"
-                    : ""
-                }}
+  @defer {
+    <div class="calculator-workspace" #scrollToContainer>
+      <div class="calculator-form-column" id="bonds-form">
+        <pf-treasury-bonds-form
+          (changed)="calculate($event)"
+          (pending)="invalidate($event)"
+          (optionsChanged)="options.set($event)"
+          class="w-full"
+        >
+          <div offer-selector class="my-4">
+            <label for="offer-month" class="block mb-2">Miesiąc oferty</label>
+            <select
+              id="offer-month"
+              class="select w-full calculator-select"
+              [value]="selectedId()"
+              (change)="selectOffer($any($event.target).value)"
+            >
+              <option value="" [selected]="!selectedId()">
+                Aktualna oferta
               </option>
+              @for (entry of entries(); track entry.offerId) {
+                <option
+                  [value]="entry.offerId"
+                  [selected]="selectedId() === entry.offerId"
+                >
+                  {{ entry.label
+                  }}{{
+                    entry.saleFrom > (offers.catalog()?.today ?? "9999")
+                      ? " — nadchodząca"
+                      : ""
+                  }}
+                </option>
+              }
+            </select>
+            @if (offers.catalog()?.nextCursor) {
+              <button
+                type="button"
+                class="btn btn-sm mt-2"
+                (click)="offers.more()"
+              >
+                Starsze miesiące
+              </button>
             }
-          </select>
-          @if (offers.catalog()?.nextCursor) {
-            <button type="button" class="btn btn-sm mt-2" (click)="offers.more()">
-              Starsze miesiące
-            </button>
-          }
-          @if (offers.error(); as offerError) {
-            <p role="alert">{{ offerError }}</p>
-            <button type="button" class="btn btn-sm" (click)="retryOffer()">
-              Spróbuj ponownie
-            </button>
-          }
-          @if (offers.catalog()?.stale && !selectedId()) {
-            <p role="status">
-              Brak oferty na bieżący miesiąc. Pokazujemy ostatnią poprawną ofertę
-              z podanym okresem sprzedaży.
-            </p>
-          }
-          @if (offer(); as offer) {
+            @if (offers.error(); as offerError) {
+              <p role="alert">{{ offerError }}</p>
+              <button type="button" class="btn btn-sm" (click)="retryOffer()">
+                Spróbuj ponownie
+              </button>
+            }
+            @if (offers.catalog()?.stale && !selectedId()) {
+              <p role="status">
+                Brak oferty na bieżący miesiąc. Pokazujemy ostatnią poprawną
+                ofertę z podanym okresem sprzedaży.
+              </p>
+            }
+            @if (offer(); as offer) {
+              <p class="text-sm mt-2">
+                Symulacja zakłada zakup {{ offer.saleFrom }}.
+              </p>
+            }
             <p class="text-sm mt-2">
-              Symulacja zakłada zakup {{ offer.saleFrom }}.
+              Wybór historycznej emisji nie zmienia Twojego scenariusza
+              przyszłej inflacji i stóp procentowych.
             </p>
-          }
-          <p class="text-sm mt-2">
-            Wybór historycznej emisji nie zmienia Twojego scenariusza przyszłej
-            inflacji i stóp procentowych.
-          </p>
-        </div>
-      </pf-treasury-bonds-form>
-    </div>
-    <div class="w-full lg:w-3/5">
-      <pf-calculation-status
-        [loading]="isLoading()"
-        [stale]="isStale()"
-        [error]="error()"
-        (retried)="retry()"
-      />
-      <pf-treasury-bonds-results-description
-        [data]="result()"
-        [loading]="loading()"
-        class="w-full"
-      />
-    </div>
-  </div>
-
-  @if (result(); as result) {
-    <pf-treasury-bonds-final-chart [data]="result" />
-    <div class="w-full mb-5">
-      <pf-treasury-bonds-results [results]="result" [loading]="loading()" />
-    </div>
-  }
-  @if (result(); as result) {
-    @defer (on viewport) {
-      <pf-treasury-bonds-chart [data]="result" />
-    } @placeholder {
-      <div class="min-h-[600px] flex items-center justify-center" role="status">
-        Wykres załaduje się po przewinięciu do tej części strony.
+          </div>
+        </pf-treasury-bonds-form>
       </div>
+      <section
+        class="calculator-result-column"
+        #resultContainer
+        id="bonds-result"
+        aria-label="Wynik symulacji"
+      >
+        <div class="calculator-result-heading">
+          <h2>Twój wynik</h2>
+          <button type="button" class="link lg:hidden" (click)="scrollToForm()">
+            Zmień założenia ↑
+          </button>
+        </div>
+        <pf-calculation-status
+          [loading]="isLoading()"
+          [stale]="isStale()"
+          [error]="error()"
+          (retried)="retry()"
+        />
+        <pf-treasury-bonds-results-description
+          [data]="result()"
+          [loading]="loading()"
+          class="w-full"
+        />
+        @if (result(); as result) {
+          <section class="calculator-chart" aria-label="Porównanie końcowe">
+            <pf-treasury-bonds-final-chart [data]="result" />
+          </section>
+        }
+      </section>
+    </div>
+
+    @if (result(); as result) {
+      <pf-calculator-panel
+        label="Przebieg inwestycji"
+        panelKey="bonds-history"
+        summary="Wartość w kolejnych latach, po podatku i opłatach zgodnie z ustawieniem"
+        class="block my-5"
+      >
+        @defer (on viewport) {
+          <pf-treasury-bonds-chart [data]="result" />
+        } @placeholder {
+          <div
+            class="min-h-[600px] flex items-center justify-center"
+            role="status"
+          >
+            Wykres załaduje się po przewinięciu do tej części strony.
+          </div>
+        }
+      </pf-calculator-panel>
+      <pf-calculator-panel
+        label="Szczegóły wyniku"
+        panelKey="bonds-details"
+        summary="Tabela roczna dla wszystkich wybranych typów obligacji"
+        class="block my-5"
+      >
+        <pf-treasury-bonds-results [results]="result" [loading]="loading()" />
+      </pf-calculator-panel>
     }
   }
-}
 
-@if (offer(); as offer) {
-  <section class="my-6" aria-labelledby="bond-offer-title">
-    <h2 id="bond-offer-title" class="text-xl font-medium mb-3">
-      Oferta zakupu: {{ offer.label }}
-    </h2>
-    <p class="mb-3">
-      Sprzedaż: {{ offer.saleFrom }} – {{ offer.saleTo }}. Warunki zweryfikowano
-      {{ offer.verifiedAt }} w listach emisyjnych Ministerstwa Finansów. Stopy
-      podano w skali roku.
-    </p>
-    <div
-      class="overflow-x-auto"
-      tabindex="0"
-      role="region"
-      aria-label="Warunki emisji obligacji"
+  @if (offer(); as offer) {
+    <pf-calculator-panel
+      label="Warunki wybranej oferty"
+      panelKey="bonds-offer"
+      [summary]="offer.label"
+      class="block my-5"
     >
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">Seria i okres</th>
-            <th scope="col">Pierwszy okres</th>
-            <th scope="col">Kolejne okresy</th>
-            <th scope="col">Wypłata odsetek</th>
-            <th scope="col">Opłata za wcześniejszy wykup / szt.</th>
-          </tr>
-        </thead>
-        <tbody>
-          @for (bond of bonds(); track bond.series) {
-            <tr>
-              <th scope="row">
-                <a class="link" [href]="bond.source">{{ bond.series }}</a> ({{
-                  bond.maturityInMonths
-                }}
-                mies.)
-              </th>
-              <td>
-                {{ bond.firstPeriodRate * 100 | number: "1.2-2" }}% ({{
-                  bond.rateUpdateInMonths === 1
-                    ? "1. miesiąc"
-                    : bond.indexation === "fixed"
-                      ? "całe 3 lata"
-                      : "1. rok"
-                }})
-              </td>
-              <td>
-                {{
-                  bond.indexation === "fixed"
-                    ? "Stałe oprocentowanie"
-                    : bond.indexation === "inflation"
-                      ? "Inflacja"
-                      : "Stopa NBP"
-                }}
-                @if (bond.indexation !== "fixed") {
-                  + {{ bond.margin * 100 | number: "1.2-2" }} p.p.
-                }
-              </td>
-              <td>
-                {{
-                  bond.paymentOfInterestInMonths === 1
-                    ? "Co miesiąc"
-                    : bond.paymentOfInterestInMonths === 12
-                      ? "Co rok"
-                      : "Przy wykupie; kapitalizacja co rok"
-                }}
-              </td>
-              <td>{{ bond.earlyBuyoutCost | number: "1.2-2" }} zł</td>
-            </tr>
-          }
-        </tbody>
-      </table>
-    </div>
-    <p class="mt-3">
-      ROS to obligacje rodzinne 6-letnie, ROD — 12-letnie. Zakup wymaga
-      uprawnienia do 800+ i dostępnego limitu świadczeń pomniejszonego o
-      wcześniejsze zakupy obligacji rodzinnych. Kalkulator nie sprawdza tego
-      limitu, również przy ponownym zakupie.
-    </p>
-  </section>
-}
+      <section class="my-6" aria-labelledby="bond-offer-title">
+        <h2 id="bond-offer-title" class="text-xl font-medium mb-3">
+          Oferta zakupu: {{ offer.label }}
+        </h2>
+        <p class="mb-3">
+          Sprzedaż: {{ offer.saleFrom }} – {{ offer.saleTo }}. Warunki
+          zweryfikowano {{ offer.verifiedAt }} w listach emisyjnych Ministerstwa
+          Finansów. Stopy podano w skali roku.
+        </p>
+        <div
+          class="overflow-x-auto"
+          tabindex="0"
+          role="region"
+          aria-label="Warunki emisji obligacji"
+        >
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Seria i okres</th>
+                <th scope="col">Pierwszy okres</th>
+                <th scope="col">Kolejne okresy</th>
+                <th scope="col">Wypłata odsetek</th>
+                <th scope="col">Opłata za wcześniejszy wykup / szt.</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (bond of bonds(); track bond.series) {
+                <tr>
+                  <th scope="row">
+                    <a class="link" [href]="bond.source">{{ bond.series }}</a>
+                    ({{ bond.maturityInMonths }}
+                    mies.)
+                  </th>
+                  <td>
+                    {{ bond.firstPeriodRate * 100 | number: "1.2-2" }}% ({{
+                      bond.rateUpdateInMonths === 1
+                        ? "1. miesiąc"
+                        : bond.indexation === "fixed"
+                          ? "całe 3 lata"
+                          : "1. rok"
+                    }})
+                  </td>
+                  <td>
+                    {{
+                      bond.indexation === "fixed"
+                        ? "Stałe oprocentowanie"
+                        : bond.indexation === "inflation"
+                          ? "Inflacja"
+                          : "Stopa NBP"
+                    }}
+                    @if (bond.indexation !== "fixed") {
+                      + {{ bond.margin * 100 | number: "1.2-2" }} p.p.
+                    }
+                  </td>
+                  <td>
+                    {{
+                      bond.paymentOfInterestInMonths === 1
+                        ? "Co miesiąc"
+                        : bond.paymentOfInterestInMonths === 12
+                          ? "Co rok"
+                          : "Przy wykupie; kapitalizacja co rok"
+                    }}
+                  </td>
+                  <td>{{ bond.earlyBuyoutCost | number: "1.2-2" }} zł</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-3">
+          ROS to obligacje rodzinne 6-letnie, ROD — 12-letnie. Zakup wymaga
+          uprawnienia do 800+ i dostępnego limitu świadczeń pomniejszonego o
+          wcześniejsze zakupy obligacji rodzinnych. Kalkulator nie sprawdza tego
+          limitu, również przy ponownym zakupie.
+        </p>
+      </section>
+    </pf-calculator-panel>
+  }
 </div>
 
-<pf-treasury-bonds-how-to />
-<section class="prose max-w-none my-8" aria-labelledby="methodology-title">
-  <h2 id="methodology-title">
-    Jak korzystać z kalkulatora obligacji skarbowych?
-  </h2>
-  <p>
-    Wybierz liczbę obligacji i okres w pełnych latach od 1 do 12. Jedna
-    obligacja ma nominał 100 zł. Następnie określ scenariusz inflacji, przyszłej
-    stopy NBP i oprocentowania gotówki. Porównanie obejmuje ROR, DOR, TOS, COI,
-    EDO, a po zaznaczeniu uprawnienia rodzinnego również ROS i ROD. Opcja „Pomiń
-    podatek Belki” pokazuje uproszczony scenariusz bez podatku; zasady rachunku
-    IKE-Obligacje opisano w sekcji „Założenia i sposób obliczeń”.
-  </p>
-  <p>
-    Tabela i wykres liniowy pokazują wartość całej inwestycji w pełne rocznice,
-    a nie same odsetki. Wykres słupkowy porównuje kwoty na koniec wybranego
-    okresu. Kwotę końcową pokazuje również podsumowanie wyników. Wyniki
-    uwzględniają modelowy wykup, opłaty, podatek i wypłacone wcześniej kupony.
-    Przerywana linia na wykresie to kapitał powiększony o założoną inflację —
-    punkt odniesienia dla siły nabywczej.
-  </p>
-  <h3>Przykład: jedna TOS, wykup po 3 latach</h3>
-  <p>
-    Dla serii
-    <a
-      href="https://www.obligacjeskarbowe.pl/media_files/c15a26ae-de6e-4b89-a137-cb16687a7b0a.pdf"
-      >TOS1029</a
-    >
-    z oferty październik 2026, przy oprocentowaniu 4,40% rocznie i rocznej
-    kapitalizacji, 100 zł daje 113,79 zł brutto. Podatek zaokrąglony w górę do
-    grosza wynosi 2,63 zł, więc wynik netto to 111,16 zł. W terminie
-    zapadalności nie ma opłaty za wcześniejszy wykup. Przykład nie zakłada
-    ponownego zakupu.
-  </p>
-  <h3>Jak czytać scenariusze?</h3>
-  <p>
-    Wysoka kwota końcowa nie musi oznaczać największego realnego zysku ani
-    najlepszego dopasowania do terminu wydatku. Zmieniaj przyszłe stopy i
-    inflację, a także sprawdź koszt wcześniejszego zakończenia. Indeksacja
-    inflacją zaczyna się od drugiego roku i nie gwarantuje zachowania siły
-    nabywczej po podatku i opłatach. Pełne zasady reinwestowania i ograniczenia
-    dat wyceny opisano w sekcji „Założenia i sposób obliczeń”.
-  </p>
-  <p>
-    O różnicach między COI i EDO przeczytasz w
-    <a routerLink="/kalkulator-obligacji-skarbowych"
-      >poradniku obligacji indeksowanych inflacją</a
-    >. Do planowania kolejnych wpłat użyj
-    <a routerLink="/kalkulatory/regularne-oszczedzanie"
-      >kalkulatora regularnego oszczędzania</a
-    >, a do wyznaczenia wpłaty —
-    <a routerLink="/kalkulatory/oszczedzanie-na-cel"
-      >kalkulatora oszczędzania na cel</a
-    >.
-  </p>
-  <p class="text-sm">
-    Źródła parametrów: listy emisyjne podlinkowane w tabeli oferty. Opiekun
-    treści: <a routerLink="/o-nas">Oszczędzify</a>. Aktualizacja opisu:
-    <time datetime="2026-10-24">24.10.2026</time>. Data weryfikacji oferty
-    widnieje osobno nad tabelą.
-  </p>
-</section>
+<pf-calculator-panel
+  label="Jak liczymy i co warto wiedzieć"
+  panelKey="bonds-method"
+  summary="Metoda, ograniczenia, przykłady i IKE"
+  class="block my-6"
+>
+  <pf-treasury-bonds-how-to />
+  <section class="prose max-w-none my-8" aria-labelledby="methodology-title">
+    <h2 id="methodology-title">
+      Jak korzystać z kalkulatora obligacji skarbowych?
+    </h2>
+    <p>
+      Wybierz liczbę obligacji i okres w pełnych latach od 1 do 12. Jedna
+      obligacja ma nominał 100 zł. Następnie określ scenariusz inflacji,
+      przyszłej stopy NBP i oprocentowania gotówki. Porównanie obejmuje ROR,
+      DOR, TOS, COI, EDO, a po zaznaczeniu uprawnienia rodzinnego również ROS i
+      ROD. Opcja „Pomiń podatek Belki” pokazuje uproszczony scenariusz bez
+      podatku; zasady rachunku IKE-Obligacje opisano w sekcji „Jak liczymy i co
+      warto wiedzieć”.
+    </p>
+    <p>
+      Tabela i wykres liniowy pokazują wartość całej inwestycji w pełne
+      rocznice, a nie same odsetki. Wykres słupkowy porównuje kwoty na koniec
+      wybranego okresu. Kwotę końcową pokazuje również podsumowanie wyników.
+      Wyniki uwzględniają modelowy wykup, opłaty, podatek i wypłacone wcześniej
+      kupony. Przerywana linia na wykresie to kapitał powiększony o założoną
+      inflację — punkt odniesienia dla siły nabywczej.
+    </p>
+    <h3>Przykład: jedna TOS, wykup po 3 latach</h3>
+    <p>
+      Dla serii
+      <a
+        href="https://www.obligacjeskarbowe.pl/media_files/c15a26ae-de6e-4b89-a137-cb16687a7b0a.pdf"
+        >TOS1029</a
+      >
+      z oferty październik 2026, przy oprocentowaniu 4,40% rocznie i rocznej
+      kapitalizacji, 100 zł daje 113,79 zł brutto. Podatek zaokrąglony w górę do
+      grosza wynosi 2,63 zł, więc wynik netto to 111,16 zł. W terminie
+      zapadalności nie ma opłaty za wcześniejszy wykup. Przykład nie zakłada
+      ponownego zakupu.
+    </p>
+    <h3>Jak czytać scenariusze?</h3>
+    <p>
+      Wysoka kwota końcowa nie musi oznaczać największego realnego zysku ani
+      najlepszego dopasowania do terminu wydatku. Zmieniaj przyszłe stopy i
+      inflację, a także sprawdź koszt wcześniejszego zakończenia. Indeksacja
+      inflacją zaczyna się od drugiego roku i nie gwarantuje zachowania siły
+      nabywczej po podatku i opłatach. Pełne zasady reinwestowania i
+      ograniczenia dat wyceny opisano w sekcji „Jak liczymy i co warto
+      wiedzieć”.
+    </p>
+    <p>
+      O różnicach między COI i EDO przeczytasz w
+      <a routerLink="/kalkulator-obligacji-skarbowych"
+        >poradniku obligacji indeksowanych inflacją</a
+      >. Do planowania kolejnych wpłat użyj
+      <a routerLink="/kalkulatory/regularne-oszczedzanie"
+        >kalkulatora regularnego oszczędzania</a
+      >, a do wyznaczenia wpłaty —
+      <a routerLink="/kalkulatory/oszczedzanie-na-cel"
+        >kalkulatora oszczędzania na cel</a
+      >.
+    </p>
+    <p class="text-sm">
+      Źródła parametrów: listy emisyjne podlinkowane w tabeli oferty. Opiekun
+      treści: <a routerLink="/o-nas">Oszczędzify</a>. Aktualizacja opisu:
+      <time datetime="2026-10-24">24.10.2026</time>. Data weryfikacji oferty
+      widnieje osobno nad tabelą.
+    </p>
+  </section>
+
+  <pf-tax-explanation [bonds]="true" />
+</pf-calculator-panel>

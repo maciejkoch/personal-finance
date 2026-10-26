@@ -1,3 +1,4 @@
+import { HeroComponent } from "@shared/ui/hero/hero.component";
 import {
   ChangeDetectionStrategy,
   Component,
@@ -8,7 +9,8 @@ import {
 import { CalculationStatusComponent } from "../shared/calculation-status.component";
 import { RouterLink } from "@angular/router";
 import { scrollToElement } from "@shared/scroll/scroll-to-element";
-import { HeroComponent } from "@shared/ui/hero/hero.component";
+import { CalculatorPanelComponent } from "../shared/calculator-panel.component";
+import { TaxExplanationComponent } from "../shared/tax-explanation.component";
 import { RegularContributionRequest } from "./model/regular-contribution.model";
 import { RegularContributionStore } from "./store/regular-contribution.store";
 import { RegularContributionChartComponent } from "./ui/regular-contribution-chart/regular-contribution-chart.component";
@@ -18,9 +20,11 @@ import { RegularContributionFormComponent } from "./ui/regular-contribution-form
 @Component({
   selector: "pf-regular-contribution",
   imports: [
+    HeroComponent,
     RouterLink,
     CalculationStatusComponent,
-    HeroComponent,
+    CalculatorPanelComponent,
+    TaxExplanationComponent,
     RegularContributionFormComponent,
     RegularContributionDescriptionComponent,
     RegularContributionChartComponent,
@@ -47,6 +51,13 @@ export class RegularContributionComponent {
 
   calculate(request: RegularContributionRequest) {
     this.#store.calculate(request);
+  }
+
+  readonly resultContainer =
+    viewChild<ElementRef<HTMLElement>>("resultContainer");
+  scrollToResult() {
+    const target = this.resultContainer();
+    if (target) scrollToElement(target.nativeElement);
   }
 
   scrollToForm() {

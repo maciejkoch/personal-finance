@@ -1,20 +1,39 @@
 <pfui-hero
+  class="block mb-6"
   title="Kalkulator oszczędzania na cel"
   text="Sprawdź, ile odkładać co miesiąc, aby osiągnąć cel. Uwzględnij zakładaną inflację, stopę zwrotu i modelowy podatek, a potem porównaj kilka scenariuszy."
   buttonLabel="Rozpocznij"
   (clicked)="scrollToForm()"
 />
-
+<div class="calculator-mobile-links">
+  <button type="button" class="link" (click)="scrollToResult()">
+    Zobacz wynik ↓
+  </button>
+</div>
 @defer {
-  <div class="flex flex-col lg:flex-row gap-4 mb-10">
-    <div class="w-full lg:w-2/5" #formContainer>
+  <div class="calculator-workspace">
+    <div
+      class="calculator-form-column"
+      id="long-term-savings-form"
+      #formContainer
+    >
       <pf-long-term-savings-form
         (changed)="calculate($event)"
         (pending)="invalidate($event)"
-        class="w-full"
       />
     </div>
-    <div class="w-full lg:w-3/5">
+    <section
+      class="calculator-result-column"
+      #resultContainer
+      id="long-term-savings-result"
+      aria-label="Wynik symulacji"
+    >
+      <div class="calculator-result-heading">
+        <h2>Twój wynik</h2>
+        <button type="button" class="link lg:hidden" (click)="scrollToForm()">
+          Zmień założenia ↑
+        </button>
+      </div>
       <pf-calculation-status
         [loading]="isLoading()"
         [stale]="isStale()"
@@ -23,157 +42,164 @@
       />
       <div [attr.aria-busy]="isLoading()">
         @if (data(); as data) {
-          <pf-long-term-savings-description [data]="data" class="w-full" />
+          <pf-long-term-savings-description [data]="data">
+            <section
+              class="calculator-chart"
+              aria-label="Przebieg oszczędzania"
+            >
+              <h2>Przebieg oszczędzania</h2>
+              @defer (on viewport) {
+                <pf-long-term-savings-chart [data]="data" />
+              } @placeholder {
+                <div class="calculator-chart-placeholder" role="status">
+                  Ładowanie wykresu…
+                </div>
+              }
+            </section>
+          </pf-long-term-savings-description>
         }
       </div>
-    </div>
+    </section>
   </div>
 } @placeholder {
-  <div class="min-h-[480px] lg:min-h-[400px]" role="status">
-    Ładowanie formularza…
-  </div>
+  <div class="min-h-[480px]" role="status">Ładowanie formularza…</div>
 }
-
-<div class="min-h-[400px] my-8">
-  @if (data(); as data) {
-    @defer (on viewport) {
-      <pf-long-term-savings-chart [data]="data" />
-    } @placeholder {
-      <div class="min-h-[400px] flex items-center justify-center" role="status">
-        Wykres załaduje się po przewinięciu do tej części strony.
-      </div>
-    }
-  }
-</div>
-
-<section class="prose max-w-none my-8" aria-labelledby="methodology-title">
-  <h2 id="methodology-title">Jak obliczyć miesięczną wpłatę na cel?</h2>
-  <p>
-    Wpisz kapitał początkowy (domyślnie 0 zł), dzisiejszą wartość celu, pełną
-    liczbę lat, zakładaną roczną inflację i stopę zwrotu. Kalkulator obliczy
-    przyszłą wartość celu oraz stałą miesięczną wpłatę potrzebną do jej
-    osiągnięcia po modelowym podatku.
-  </p>
-  <h3>Metoda obliczeń</h3>
-  <p>
-    Wartość celu zwiększamy co roku o podaną inflację. Pominięcie inflacji
-    pozostawia cel w kwocie nominalnej. Inflacja i stopa zwrotu są założeniami,
-    a nie prognozami serwisu.
-  </p>
-  <figure class="formula not-prose">
-    <figcaption>Wartość celu po uwzględnieniu inflacji</figcaption>
-    <div
-      class="formula-equation"
-      tabindex="0"
-      role="region"
-      aria-label="Wzór na przyszłą wartość celu"
-    >
-      <math
-        display="block"
-        aria-label="Cel przyszły równa się cel dzisiejszy razy jeden plus roczna inflacja do potęgi liczby lat"
+<pf-calculator-panel
+  label="Jak liczymy i co warto wiedzieć"
+  panelKey="long-term-savings-method"
+  summary="Metoda, ograniczenia, przykłady i IKE"
+  class="my-6 block"
+>
+  <section class="prose max-w-none my-8" aria-labelledby="methodology-title">
+    <h2 id="methodology-title">Jak obliczyć miesięczną wpłatę na cel?</h2>
+    <p>
+      Wpisz kapitał początkowy (domyślnie 0 zł), dzisiejszą wartość celu, pełną
+      liczbę lat, zakładaną roczną inflację i stopę zwrotu. Kalkulator obliczy
+      przyszłą wartość celu oraz stałą miesięczną wpłatę potrzebną do jej
+      osiągnięcia po modelowym podatku.
+    </p>
+    <h3>Metoda obliczeń</h3>
+    <p>
+      Wartość celu zwiększamy co roku o podaną inflację. Pominięcie inflacji
+      pozostawia cel w kwocie nominalnej. Inflacja i stopa zwrotu są
+      założeniami, a nie prognozami serwisu.
+    </p>
+    <figure class="formula not-prose">
+      <figcaption>Wartość celu po uwzględnieniu inflacji</figcaption>
+      <div
+        class="formula-equation"
+        tabindex="0"
+        role="region"
+        aria-label="Wzór na przyszłą wartość celu"
       >
-        <mi>C</mi><mo>=</mo><msub><mi>C</mi><mn>0</mn></msub
-        ><mo>·</mo>
-        <msup
-          ><mrow><mo>(</mo><mn>1</mn><mo>+</mo><mi>π</mi><mo>)</mo></mrow
-          ><mi>L</mi></msup
+        <math
+          display="block"
+          aria-label="Cel przyszły równa się cel dzisiejszy razy jeden plus roczna inflacja do potęgi liczby lat"
         >
-      </math>
-    </div>
-    <p class="formula-legend">
-      <var>C</var> — przyszła wartość celu; <var>C<sub>0</sub></var> —
-      dzisiejsza wartość celu; <var>π</var> — roczna inflacja (np. 3% = 0,03);
-      <var>L</var> — liczba lat.
+          <mi>C</mi><mo>=</mo><msub><mi>C</mi><mn>0</mn></msub
+          ><mo>·</mo>
+          <msup
+            ><mrow><mo>(</mo><mn>1</mn><mo>+</mo><mi>π</mi><mo>)</mo></mrow
+            ><mi>L</mi></msup
+          >
+        </math>
+      </div>
+      <p class="formula-legend">
+        <var>C</var> — przyszła wartość celu; <var>C<sub>0</sub></var> —
+        dzisiejsza wartość celu; <var>π</var> — roczna inflacja (np. 3% = 0,03);
+        <var>L</var> — liczba lat.
+      </p>
+    </figure>
+    <p>
+      Zakładamy wpłaty na koniec miesiąca i kapitalizację miesięczną. Roczną
+      stopę zwrotu dzielimy przez 12. Przyszłą wartość kapitału początkowego po
+      modelowym podatku odejmujemy od celu. Pozostałą kwotę oznaczamy jako D;
+      jeśli wynik jest ujemny, D wynosi zero. Miesięczną wpłatę wyznaczamy ze
+      wzoru:
     </p>
-  </figure>
-  <p>
-    Zakładamy wpłaty na koniec miesiąca i kapitalizację miesięczną. Roczną stopę
-    zwrotu dzielimy przez 12. Przyszłą wartość kapitału początkowego po
-    modelowym podatku odejmujemy od celu. Pozostałą kwotę oznaczamy jako D;
-    jeśli wynik jest ujemny, D wynosi zero. Miesięczną wpłatę wyznaczamy ze
-    wzoru:
-  </p>
-  <figure class="formula not-prose">
-    <figcaption>Miesięczna wpłata potrzebna do osiągnięcia celu</figcaption>
-    <div
-      class="formula-equation"
-      tabindex="0"
-      role="region"
-      aria-label="Wzór na miesięczną wpłatę"
-    >
-      <math
-        display="block"
-        aria-label="Wpłata równa się pozostała kwota celu D podzielona przez sumę: jeden minus podatek razy iloraz jeden plus miesięczna stopa do potęgi liczby miesięcy minus jeden przez miesięczną stopę, oraz podatek razy liczba miesięcy"
+    <figure class="formula not-prose">
+      <figcaption>Miesięczna wpłata potrzebna do osiągnięcia celu</figcaption>
+      <div
+        class="formula-equation"
+        tabindex="0"
+        role="region"
+        aria-label="Wzór na miesięczną wpłatę"
       >
-        <mi>W</mi><mo>=</mo>
-        <mfrac>
-          <mi>D</mi>
-          <mrow>
-            <mo>(</mo><mn>1</mn><mo>−</mo><mi>t</mi><mo>)</mo><mo>·</mo>
-            <mfrac>
-              <mrow
-                ><msup
-                  ><mrow
-                    ><mo>(</mo><mn>1</mn><mo>+</mo><mi>i</mi><mo>)</mo></mrow
-                  ><mi>n</mi></msup
-                ><mo>−</mo><mn>1</mn></mrow
-              >
-              <mi>i</mi>
-            </mfrac>
-            <mo>+</mo><mi>t</mi><mo>·</mo><mi>n</mi>
-          </mrow>
-        </mfrac>
-      </math>
-    </div>
-    <p class="formula-legend">
-      <var>W</var> — miesięczna wpłata; <var>D</var> — brakująca kwota celu po
-      uwzględnieniu przyszłego kapitału początkowego netto; <var>i</var> —
-      miesięczna stopa zwrotu; <var>n</var> — liczba miesięcy; <var>t</var> —
-      stawka podatku (0,19 lub 0 przy pominięciu podatku).
+        <math
+          display="block"
+          aria-label="Wpłata równa się pozostała kwota celu D podzielona przez sumę: jeden minus podatek razy iloraz jeden plus miesięczna stopa do potęgi liczby miesięcy minus jeden przez miesięczną stopę, oraz podatek razy liczba miesięcy"
+        >
+          <mi>W</mi><mo>=</mo>
+          <mfrac>
+            <mi>D</mi>
+            <mrow>
+              <mo>(</mo><mn>1</mn><mo>−</mo><mi>t</mi><mo>)</mo><mo>·</mo>
+              <mfrac>
+                <mrow
+                  ><msup
+                    ><mrow
+                      ><mo>(</mo><mn>1</mn><mo>+</mo><mi>i</mi><mo>)</mo></mrow
+                    ><mi>n</mi></msup
+                  ><mo>−</mo><mn>1</mn></mrow
+                >
+                <mi>i</mi>
+              </mfrac>
+              <mo>+</mo><mi>t</mi><mo>·</mo><mi>n</mi>
+            </mrow>
+          </mfrac>
+        </math>
+      </div>
+      <p class="formula-legend">
+        <var>W</var> — miesięczna wpłata; <var>D</var> — brakująca kwota celu po
+        uwzględnieniu przyszłego kapitału początkowego netto; <var>i</var> —
+        miesięczna stopa zwrotu; <var>n</var> — liczba miesięcy; <var>t</var> —
+        stawka podatku (0,19 lub 0 przy pominięciu podatku).
+      </p>
+    </figure>
+    <p>
+      Przy zerowej stopie zwrotu dzielimy brakującą kwotę celu przez liczbę
+      miesięcy:
+      <math
+        aria-label="Wpłata równa się brakująca kwota celu podzielona przez liczbę miesięcy"
+        ><mi>W</mi><mo>=</mo><mfrac><mi>D</mi><mi>n</mi></mfrac></math
+      >.
     </p>
-  </figure>
-  <p>
-    Przy zerowej stopie zwrotu dzielimy brakującą kwotę celu przez liczbę
-    miesięcy:
-    <math
-      aria-label="Wpłata równa się brakująca kwota celu podzielona przez liczbę miesięcy"
-      ><mi>W</mi><mo>=</mo><mfrac><mi>D</mi><mi>n</mi></mfrac></math
-    >.
-  </p>
-  <p>
-    Kapitał początkowy traktujemy jako wniesione pieniądze; wcześniejszych
-    zysków nie rozliczamy. Podatek w modelu to 19% odsetek, rozliczone
-    jednorazowo na koniec; możesz go pominąć w scenariuszu. Kwoty na wykresie i
-    łączny kapitał w opisie są przed podatkiem. Wpłatę zaokrąglamy do groszy,
-    więc końcowy wynik netto może nieznacznie różnić się od celu.
-  </p>
-  <h3>Przykład: dzisiejszy cel 10 000 zł za 2 lata</h3>
-  <p>
-    Przy kapitale początkowym 0 zł i inflacji 3% rocznie przyszły cel wynosi 10
-    609 zł. Przy stopie zwrotu 5% i modelowym podatku potrzebna wpłata to 425,03
-    zł miesięcznie. Po pominięciu inflacji i stopy zwrotu potrzeba 416,67 zł
-    miesięcznie.
-  </p>
-  <h3>Co ogranicza wynik?</h3>
-  <p>
-    Kapitał początkowy jest inwestowany od początku symulacji. Nie uwzględniamy
-    zmiennych wpłat, prowizji, strat ani zmian stóp i inflacji w czasie. Inny
-    harmonogram pobierania podatku zmieni wynik. Osobisty wzrost kosztu danego
-    celu może różnić się od ogólnej inflacji.
-  </p>
-  <p>
-    Masz już ustaloną wpłatę? Sprawdź
-    <a routerLink="/kalkulatory/regularne-oszczedzanie"
-      >ile uzbierasz przy regularnym oszczędzaniu</a
-    >. Jeśli rozważasz detaliczne obligacje, porównaj
-    <a routerLink="/kalkulatory/obligacje-skarbowe"
-      >wyniki obligacji skarbowych</a
-    >.
-  </p>
-  <p class="text-sm">
-    Źródło metody: procent składany i wartość przyszła renty płatnej z dołu, z
-    opisanym powyżej uproszczeniem podatku. Opiekun treści:
-    <a routerLink="/o-nas">Oszczędzify</a>. Aktualizacja opisu:
-    <time datetime="2026-10-24">24.10.2026</time>.
-  </p>
-</section>
+    <p>
+      Kapitał początkowy traktujemy jako wniesione pieniądze; wcześniejszych
+      zysków nie rozliczamy. Podatek w modelu to 19% odsetek, rozliczone
+      jednorazowo na koniec; możesz go pominąć w scenariuszu. Kwoty na wykresie
+      i łączny kapitał w opisie są przed podatkiem. Wpłatę zaokrąglamy do
+      groszy, więc końcowy wynik netto może nieznacznie różnić się od celu.
+    </p>
+    <h3>Przykład: dzisiejszy cel 10 000 zł za 2 lata</h3>
+    <p>
+      Przy kapitale początkowym 0 zł i inflacji 3% rocznie przyszły cel wynosi
+      10 609 zł. Przy stopie zwrotu 5% i modelowym podatku potrzebna wpłata to
+      425,03 zł miesięcznie. Po pominięciu inflacji i stopy zwrotu potrzeba
+      416,67 zł miesięcznie.
+    </p>
+    <h3>Co ogranicza wynik?</h3>
+    <p>
+      Kapitał początkowy jest inwestowany od początku symulacji. Nie
+      uwzględniamy zmiennych wpłat, prowizji, strat ani zmian stóp i inflacji w
+      czasie. Inny harmonogram pobierania podatku zmieni wynik. Osobisty wzrost
+      kosztu danego celu może różnić się od ogólnej inflacji.
+    </p>
+    <p>
+      Masz już ustaloną wpłatę? Sprawdź
+      <a routerLink="/kalkulatory/regularne-oszczedzanie"
+        >ile uzbierasz przy regularnym oszczędzaniu</a
+      >. Jeśli rozważasz detaliczne obligacje, porównaj
+      <a routerLink="/kalkulatory/obligacje-skarbowe"
+        >wyniki obligacji skarbowych</a
+      >.
+    </p>
+    <p class="text-sm">
+      Źródło metody: procent składany i wartość przyszła renty płatnej z dołu, z
+      opisanym powyżej uproszczeniem podatku. Opiekun treści:
+      <a routerLink="/o-nas">Oszczędzify</a>. Aktualizacja opisu:
+      <time datetime="2026-10-24">24.10.2026</time>.
+    </p>
+    <pf-tax-explanation />
+  </section>
+</pf-calculator-panel>

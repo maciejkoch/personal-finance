@@ -1,20 +1,39 @@
 <pfui-hero
+  class="block mb-6"
   title="Kalkulator regularnego oszczędzania"
   text="Oblicz, ile uzbierasz, wpłacając co miesiąc stałą kwotę. Porównaj sumę wpłat, odsetki i wynik po modelowym podatku przy własnej stopie zwrotu."
   buttonLabel="Rozpocznij"
   (clicked)="scrollToForm()"
 />
-
+<div class="calculator-mobile-links">
+  <button type="button" class="link" (click)="scrollToResult()">
+    Zobacz wynik ↓
+  </button>
+</div>
 @defer {
-  <div class="flex flex-col lg:flex-row gap-4 mb-10">
-    <div class="w-full lg:w-2/5" #formContainer>
+  <div class="calculator-workspace">
+    <div
+      class="calculator-form-column"
+      id="regular-contribution-form"
+      #formContainer
+    >
       <pf-regular-contribution-form
         (changed)="calculate($event)"
         (pending)="invalidate($event)"
-        class="w-full"
       />
     </div>
-    <div class="w-full lg:w-3/5">
+    <section
+      class="calculator-result-column"
+      #resultContainer
+      id="regular-contribution-result"
+      aria-label="Wynik symulacji"
+    >
+      <div class="calculator-result-heading">
+        <h2>Twój wynik</h2>
+        <button type="button" class="link lg:hidden" (click)="scrollToForm()">
+          Zmień założenia ↑
+        </button>
+      </div>
       <pf-calculation-status
         [loading]="isLoading()"
         [stale]="isStale()"
@@ -23,128 +42,137 @@
       />
       <div [attr.aria-busy]="isLoading()">
         @if (data(); as data) {
-          <pf-regular-contribution-description [data]="data" class="w-full" />
+          <pf-regular-contribution-description [data]="data">
+            <section
+              class="calculator-chart"
+              aria-label="Przebieg oszczędzania"
+            >
+              <h2>Przebieg oszczędzania</h2>
+              @defer (on viewport) {
+                <pf-regular-contribution-chart [data]="data" />
+              } @placeholder {
+                <div class="calculator-chart-placeholder" role="status">
+                  Ładowanie wykresu…
+                </div>
+              }
+            </section>
+          </pf-regular-contribution-description>
         }
       </div>
-    </div>
+    </section>
   </div>
 } @placeholder {
-  <div class="min-h-[480px] lg:min-h-[400px]" role="status">
-    Ładowanie formularza…
-  </div>
+  <div class="min-h-[480px]" role="status">Ładowanie formularza…</div>
 }
-
-<div class="min-h-[400px] my-8">
-  @if (data(); as data) {
-    @defer (on viewport) {
-      <pf-regular-contribution-chart [data]="data" />
-    } @placeholder {
-      <div class="min-h-[400px] flex items-center justify-center" role="status">
-        Wykres załaduje się po przewinięciu do tej części strony.
+<pf-calculator-panel
+  label="Jak liczymy i co warto wiedzieć"
+  panelKey="regular-contribution-method"
+  summary="Metoda, ograniczenia, przykłady i IKE"
+  class="my-6 block"
+>
+  <section class="prose max-w-none my-8" aria-labelledby="methodology-title">
+    <h2 id="methodology-title">
+      Jak działa kalkulator regularnego oszczędzania?
+    </h2>
+    <p>
+      Podaj kapitał początkowy (domyślnie 0 zł), miesięczną wpłatę, pełną liczbę
+      lat i zakładaną roczną stopę zwrotu. Kalkulator pokazuje sumę wpłat,
+      odsetki oraz kwotę po modelowym podatku. Wszystkie wyniki są scenariuszem
+      dla Twoich założeń.
+    </p>
+    <h3>Metoda obliczeń</h3>
+    <p>
+      Kapitał początkowy pracuje od początku symulacji. Późniejsze wpłaty
+      trafiają na koniec każdego miesiąca. Roczną stopę nominalną dzielimy przez
+      12, a odsetki kapitalizujemy co miesiąc. Wartość zgromadzonych
+      oszczędności przed podatkiem obliczamy ze wzoru:
+    </p>
+    <figure class="formula not-prose">
+      <figcaption>Wartość oszczędności przed podatkiem</figcaption>
+      <div
+        class="formula-equation"
+        tabindex="0"
+        role="region"
+        aria-label="Wzór na wartość oszczędności"
+      >
+        <math
+          display="block"
+          aria-label="Wartość brutto równa się przyszła wartość kapitału początkowego plus miesięczna wpłata razy iloraz: jeden plus miesięczna stopa do potęgi liczby miesięcy minus jeden, podzielone przez miesięczną stopę"
+        >
+          <mi>K</mi><mo>=</mo><msub><mi>K</mi><mn>0</mn></msub
+          ><mo>·</mo
+          ><msup
+            ><mrow><mo>(</mo><mn>1</mn><mo>+</mo><mi>i</mi><mo>)</mo></mrow
+            ><mi>n</mi></msup
+          ><mo>+</mo><mi>W</mi><mo>·</mo>
+          <mfrac>
+            <mrow
+              ><msup
+                ><mrow><mo>(</mo><mn>1</mn><mo>+</mo><mi>i</mi><mo>)</mo></mrow
+                ><mi>n</mi></msup
+              ><mo>−</mo><mn>1</mn></mrow
+            >
+            <mi>i</mi>
+          </mfrac>
+        </math>
       </div>
-    }
-  }
-</div>
-
-<section class="prose max-w-none my-8" aria-labelledby="methodology-title">
-  <h2 id="methodology-title">
-    Jak działa kalkulator regularnego oszczędzania?
-  </h2>
-  <p>
-    Podaj kapitał początkowy (domyślnie 0 zł), miesięczną wpłatę, pełną liczbę
-    lat i zakładaną roczną stopę zwrotu. Kalkulator pokazuje sumę wpłat, odsetki
-    oraz kwotę po modelowym podatku. Wszystkie wyniki są scenariuszem dla Twoich
-    założeń.
-  </p>
-  <h3>Metoda obliczeń</h3>
-  <p>
-    Kapitał początkowy pracuje od początku symulacji. Późniejsze wpłaty trafiają
-    na koniec każdego miesiąca. Roczną stopę nominalną dzielimy przez 12, a
-    odsetki kapitalizujemy co miesiąc. Wartość zgromadzonych oszczędności przed
-    podatkiem obliczamy ze wzoru:
-  </p>
-  <figure class="formula not-prose">
-    <figcaption>Wartość oszczędności przed podatkiem</figcaption>
-    <div
-      class="formula-equation"
-      tabindex="0"
-      role="region"
-      aria-label="Wzór na wartość oszczędności"
-    >
+      <p class="formula-legend">
+        <var>K</var> — wartość oszczędności przed podatkiem;
+        <var>K<sub>0</sub></var> — kapitał początkowy; <var>W</var> — miesięczna
+        wpłata; <var>i</var> — miesięczna stopa zwrotu; <var>n</var> — liczba
+        miesięcy.
+      </p>
+    </figure>
+    <p>
+      Przy zerowej stopie zwrotu sumujemy kapitał początkowy i późniejsze
+      wpłaty:
       <math
-        display="block"
-        aria-label="Wartość brutto równa się przyszła wartość kapitału początkowego plus miesięczna wpłata razy iloraz: jeden plus miesięczna stopa do potęgi liczby miesięcy minus jeden, podzielone przez miesięczną stopę"
+        aria-label="Wartość oszczędności równa się kapitał początkowy plus miesięczna wpłata razy liczba miesięcy"
       >
         <mi>K</mi><mo>=</mo><msub><mi>K</mi><mn>0</mn></msub
-        ><mo>·</mo
-        ><msup
-          ><mrow><mo>(</mo><mn>1</mn><mo>+</mo><mi>i</mi><mo>)</mo></mrow
-          ><mi>n</mi></msup
-        ><mo>+</mo><mi>W</mi><mo>·</mo>
-        <mfrac>
-          <mrow
-            ><msup
-              ><mrow><mo>(</mo><mn>1</mn><mo>+</mo><mi>i</mi><mo>)</mo></mrow
-              ><mi>n</mi></msup
-            ><mo>−</mo><mn>1</mn></mrow
-          >
-          <mi>i</mi>
-        </mfrac>
-      </math>
-    </div>
-    <p class="formula-legend">
-      <var>K</var> — wartość oszczędności przed podatkiem;
-      <var>K<sub>0</sub></var> — kapitał początkowy; <var>W</var> — miesięczna
-      wpłata; <var>i</var> — miesięczna stopa zwrotu; <var>n</var> — liczba
-      miesięcy.
+        ><mo>+</mo><mi>W</mi><mo>·</mo><mi>n</mi> </math
+      >.
     </p>
-  </figure>
-  <p>
-    Przy zerowej stopie zwrotu sumujemy kapitał początkowy i późniejsze wpłaty:
-    <math
-      aria-label="Wartość oszczędności równa się kapitał początkowy plus miesięczna wpłata razy liczba miesięcy"
-    >
-      <mi>K</mi><mo>=</mo><msub><mi>K</mi><mn>0</mn></msub
-      ><mo>+</mo><mi>W</mi><mo>·</mo><mi>n</mi> </math
-    >.
-  </p>
-  <p>
-    Kapitał początkowy traktujemy jako wniesione pieniądze; wcześniejszych
-    zysków nie rozliczamy. Podatek w modelu to 19% łącznych odsetek, odjęte na
-    koniec oszczędzania. Wykres pokazuje wartości przed podatkiem. Rachunek z
-    podatkiem pobieranym przy każdej kapitalizacji da inny wynik. Opcja
-    pominięcia podatku służy porównaniu scenariuszy; nie potwierdza zwolnienia
-    podatkowego.
-  </p>
-  <h3>Przykład: 500 zł miesięcznie przez 2 lata</h3>
-  <p>
-    Przy kapitale początkowym 0 zł i stopie 5% rocznie suma wpłat wynosi 12 000
-    zł, wartość brutto 12 592,96 zł, modelowy podatek 112,66 zł, a wynik netto
-    12 480,30 zł. Przy stopie 0% wynik to 12 000 zł.
-  </p>
-  <h3>Co ogranicza wynik?</h3>
-  <p>
-    Model zakłada stałe wpłaty i stałą stopę przez cały okres, bez przerw,
-    strat, prowizji i inflacji. Nie wybiera produktu finansowego ani nie
-    gwarantuje zwrotu. Możesz podać kapitał początkowy inwestowany na początku
-    symulacji, również bez późniejszych wpłat. Kwoty końcowe zaokrąglamy do
-    groszy.
-  </p>
-  <p>
-    Chcesz wyliczyć potrzebną wpłatę? Użyj
-    <a routerLink="/kalkulatory/oszczedzanie-na-cel"
-      >kalkulatora oszczędzania na cel</a
-    >. Warunki konkretnych emisji porównasz w
-    <a routerLink="/kalkulatory/obligacje-skarbowe"
-      >kalkulatorze obligacji skarbowych</a
-    >. Wskazówki dotyczące budżetu znajdziesz w
-    <a routerLink="/oszczedzaj-regularnie">poradniku regularnego oszczędzania</a
-    >.
-  </p>
-  <p class="text-sm">
-    Źródło metody: wzór wartości przyszłej renty płatnej z dołu, z opisanym
-    powyżej uproszczeniem podatku. Opiekun treści:
-    <a routerLink="/o-nas">Oszczędzify</a>. Aktualizacja opisu:
-    <time datetime="2026-10-24">24.10.2026</time>.
-  </p>
-</section>
+    <p>
+      Kapitał początkowy traktujemy jako wniesione pieniądze; wcześniejszych
+      zysków nie rozliczamy. Podatek w modelu to 19% łącznych odsetek, odjęte na
+      koniec oszczędzania. Wykres pokazuje wartości przed podatkiem. Rachunek z
+      podatkiem pobieranym przy każdej kapitalizacji da inny wynik. Opcja
+      pominięcia podatku służy porównaniu scenariuszy; nie potwierdza zwolnienia
+      podatkowego.
+    </p>
+    <h3>Przykład: 500 zł miesięcznie przez 2 lata</h3>
+    <p>
+      Przy kapitale początkowym 0 zł i stopie 5% rocznie suma wpłat wynosi 12
+      000 zł, wartość brutto 12 592,96 zł, modelowy podatek 112,66 zł, a wynik
+      netto 12 480,30 zł. Przy stopie 0% wynik to 12 000 zł.
+    </p>
+    <h3>Co ogranicza wynik?</h3>
+    <p>
+      Model zakłada stałe wpłaty i stałą stopę przez cały okres, bez przerw,
+      strat, prowizji i inflacji. Nie wybiera produktu finansowego ani nie
+      gwarantuje zwrotu. Możesz podać kapitał początkowy inwestowany na początku
+      symulacji, również bez późniejszych wpłat. Kwoty końcowe zaokrąglamy do
+      groszy.
+    </p>
+    <p>
+      Chcesz wyliczyć potrzebną wpłatę? Użyj
+      <a routerLink="/kalkulatory/oszczedzanie-na-cel"
+        >kalkulatora oszczędzania na cel</a
+      >. Warunki konkretnych emisji porównasz w
+      <a routerLink="/kalkulatory/obligacje-skarbowe"
+        >kalkulatorze obligacji skarbowych</a
+      >. Wskazówki dotyczące budżetu znajdziesz w
+      <a routerLink="/oszczedzaj-regularnie"
+        >poradniku regularnego oszczędzania</a
+      >.
+    </p>
+    <p class="text-sm">
+      Źródło metody: wzór wartości przyszłej renty płatnej z dołu, z opisanym
+      powyżej uproszczeniem podatku. Opiekun treści:
+      <a routerLink="/o-nas">Oszczędzify</a>. Aktualizacja opisu:
+      <time datetime="2026-10-24">24.10.2026</time>.
+    </p>
+    <pf-tax-explanation />
+  </section>
+</pf-calculator-panel>

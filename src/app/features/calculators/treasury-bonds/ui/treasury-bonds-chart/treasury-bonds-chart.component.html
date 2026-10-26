@@ -1,8 +1,35 @@
 <h2 class="text-xl font-medium mb-4">Wykres wartości inwestycji</h2>
-<div class="relative w-full min-h-[600px]">
+<fieldset class="fieldset calculator-fieldset mb-4">
+  <legend class="fieldset-legend">Serie na wykresie</legend>
+  <div class="flex flex-wrap gap-x-5 gap-y-1">
+    @for (bond of displayedBonds(); track bond.key) {
+      <label class="calculator-check"
+        ><input
+          type="checkbox"
+          class="checkbox checkbox-sm"
+          [checked]="!hiddenSeries().includes(bond.key)"
+          (change)="toggleSeries(bond.key)"
+        /><span [style.color]="bond.color">{{ bond.label }}</span></label
+      >
+    }
+    <label class="calculator-check"
+      ><input
+        type="checkbox"
+        class="checkbox checkbox-sm"
+        [checked]="!hiddenSeries().includes('inflation')"
+        (change)="toggleSeries('inflation')"
+      /><span>Próg inflacji</span></label
+    >
+  </div>
+</fieldset>
+<div class="relative w-full h-[360px] sm:h-[440px]">
   <canvas
     #canvas
     role="img"
-    aria-label="Wartości inwestycji według typu obligacji. Szczegółowe kwoty są dostępne w tabeli powyżej."
+    aria-label="Wartości inwestycji według typu obligacji. Szczegółowe kwoty są dostępne w tabeli w sekcji Szczegóły wyniku."
   ></canvas>
 </div>
+<p class="text-sm mt-3">
+  Wybierz serie powyżej. Dotknij wykresu, aby odczytać kwoty. Pełny odczyt
+  dostępny jest także w tabeli szczegółów wyniku.
+</p>

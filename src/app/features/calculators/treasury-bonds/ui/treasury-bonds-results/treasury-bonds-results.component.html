@@ -7,14 +7,17 @@
 
 <pfui-delayed-loader [loading]="loading() && !results()">
   <div content>
-    <label class="flex items-center">
-      <input
-        type="checkbox"
-        class="toggle toggle-primary"
-        [(ngModel)]="useColors"
-      />
-      <span class="ml-2">Wyróżnij różnice</span>
-    </label>
+    <fieldset class="fieldset calculator-fieldset mb-4">
+      <legend class="fieldset-legend">Widok tabeli</legend>
+      <label class="calculator-check">
+        <input
+          type="checkbox"
+          class="toggle toggle-primary"
+          [(ngModel)]="useColors"
+        />
+        <span class="ml-2">Wyróżnij różnice</span>
+      </label>
+    </fieldset>
     <div
       class="overflow-x-auto"
       tabindex="0"

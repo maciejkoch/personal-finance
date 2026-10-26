@@ -1,0 +1,193 @@
+<div id="osz-ux" class="viz-dotted-background"><div class="osz-product osz-mobile" data-layout="side"></div></div>
+<style>
+#osz-ux .osz-stage{min-height:1190px}
+#osz-ux .osz-product{--osz-bg:light-dark(#f7f8fa,#151b27);--osz-panel:light-dark(#fff,#1b2331);--osz-field:light-dark(#f7f8fa,#151c29);--osz-ink:light-dark(#202c3b,#d9dfe7);--osz-muted:light-dark(#586577,#a7b4c7);--osz-line:light-dark(#d8dee8,#354153);--osz-orange:light-dark(#9a4e10,#e9a259);--osz-blue:light-dark(#176c97,#62b9de);background:var(--osz-bg);color:var(--osz-ink);font:400 14px/1.55 system-ui,sans-serif;border-radius:16px;overflow:clip;min-height:1170px;max-width:100%;margin:auto}
+#osz-ux *{box-sizing:border-box}
+#osz-ux .osz-header{display:flex;align-items:center;gap:30px;padding:18px 26px;border-bottom:1px solid var(--osz-line);padding-right:110px;flex-wrap:wrap}
+#osz-ux .osz-brand{font-size:21px;letter-spacing:-.8px;font-weight:600}#osz-ux .osz-brand span{color:var(--osz-orange)}
+#osz-ux .osz-global{display:flex;gap:20px;color:var(--osz-muted);font-size:13px}
+#osz-ux .osz-main{padding:24px 26px 32px}
+#osz-ux .osz-route{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:22px;color:var(--osz-muted);font-size:12px}
+#osz-ux select,#osz-ux input,#osz-ux button{font:inherit;color:var(--osz-ink)}
+#osz-ux .osz-picker{background:var(--osz-panel);border:1px solid var(--osz-line);border-radius:8px;padding:9px;max-width:100%}
+#osz-ux h1{font-size:27px;line-height:1.2;letter-spacing:-.7px;margin:0 0 9px;font-weight:600}
+#osz-ux h2{font-size:17px;font-weight:600;margin:0}#osz-ux p{margin:8px 0}
+#osz-ux .osz-intro{color:var(--osz-muted);max-width:660px;margin-bottom:24px}
+#osz-ux .osz-workspace{display:grid;grid-template-columns:minmax(260px, .85fr) minmax(0,1.5fr);gap:24px;align-items:start}
+#osz-ux .osz-form{min-width:0;display:grid;gap:12px}#osz-ux fieldset{min-width:0;margin:0;border:1px solid var(--osz-line);border-radius:12px;padding:16px;background:var(--osz-panel)}
+#osz-ux legend{font-size:15px;font-weight:600;padding:0 6px}
+#osz-ux .osz-fields{display:grid;gap:13px}#osz-ux .osz-label{display:grid;gap:6px;font-size:13px}
+#osz-ux .osz-input{display:flex;align-items:center;gap:8px;border:1px solid var(--osz-line);border-radius:7px;background:var(--osz-field);padding:0 12px;min-height:44px}
+#osz-ux .osz-input:focus-within{outline:2px solid var(--osz-orange);outline-offset:2px}
+#osz-ux .osz-input input{min-width:0;width:100%;background:transparent;border:0;padding:9px 0;font-size:16px}#osz-ux .osz-input span{color:var(--osz-muted);font-size:12px;white-space:nowrap}
+#osz-ux .osz-hint{color:var(--osz-muted);font-size:12px}#osz-ux .osz-check{display:flex;align-items:flex-start;gap:10px;min-height:36px;padding:6px 0;font-size:13px}#osz-ux input[type=checkbox]{width:18px;height:18px;accent-color:var(--osz-orange);flex-shrink:0;margin-top:2px}
+#osz-ux .osz-group{border:1px solid var(--osz-line);background:var(--osz-panel);border-radius:12px}#osz-ux summary{padding:14px 16px;cursor:pointer;min-height:48px;font-weight:500}#osz-ux summary small{display:block;color:var(--osz-muted);font-size:12px;font-weight:400;margin-left:17px}
+#osz-ux .osz-group-body{padding:0 16px 16px}#osz-ux .osz-reset{background:transparent;border:1px solid var(--osz-line);border-radius:8px;min-height:44px;padding:8px 12px;cursor:pointer}
+#osz-ux .osz-result{min-width:0}#osz-ux .osz-result-top{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:14px}#osz-ux .osz-state{font-size:12px;color:var(--osz-muted)}
+#osz-ux .osz-key{background:var(--osz-panel);border-radius:12px;border:1px solid var(--osz-line);padding:22px;margin-bottom:16px}#osz-ux .osz-key-label{color:var(--osz-muted);font-size:13px}#osz-ux .osz-value{font-size:34px;letter-spacing:-1px;font-weight:500;color:var(--osz-orange);margin:3px 0;line-height:1.3;font-variant-numeric:tabular-nums}
+#osz-ux .osz-metrics{display:grid;grid-template-columns:1fr 1fr;gap:18px;border-top:1px solid var(--osz-line);margin-top:18px;padding-top:16px}#osz-ux .osz-metrics span{display:block;color:var(--osz-muted);font-size:12px}#osz-ux .osz-metrics strong{font-weight:500;font-size:16px}
+#osz-ux .osz-chart{padding:16px 0}#osz-ux .osz-chart-heading{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px}#osz-ux .osz-bars{display:grid;gap:13px}#osz-ux .osz-bar-row{display:grid;grid-template-columns:40px 1fr 95px;align-items:center;gap:10px;font-size:12px}#osz-ux .osz-track{height:17px;background:var(--osz-field);border-radius:3px;overflow:hidden}#osz-ux .osz-fill{height:100%;background:var(--osz-blue)}#osz-ux .osz-bar-row:first-child .osz-fill{background:var(--osz-orange)}
+#osz-ux .osz-chart svg{width:100%;height:210px;display:block;overflow:visible}#osz-ux .osz-chart text{fill:var(--osz-muted);font:12px system-ui}#osz-ux .osz-chart .osz-grid-line{stroke:var(--osz-line);stroke-width:1}#osz-ux .osz-line{fill:none;stroke:var(--osz-orange);stroke-width:3}#osz-ux .osz-deposit{fill:none;stroke:var(--osz-blue);stroke-width:2;stroke-dasharray:6 5}
+#osz-ux .osz-legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--osz-muted)}#osz-ux .osz-swatch{display:inline-block;width:14px;height:3px;background:var(--osz-orange);vertical-align:middle;margin-right:5px}#osz-ux .osz-swatch-blue{background:var(--osz-blue)}
+#osz-ux .osz-secondary{margin-top:20px;display:grid;gap:10px}#osz-ux .osz-secondary .osz-group{background:transparent}#osz-ux table{width:100%;border-collapse:collapse;font-size:12px}#osz-ux th,#osz-ux td{text-align:left;padding:10px 5px;border-bottom:1px solid var(--osz-line);font-weight:400}#osz-ux td:last-child{text-align:right;font-variant-numeric:tabular-nums}
+#osz-ux .osz-table-tools{margin-bottom:8px}#osz-ux .osz-foot{margin-top:26px;padding-top:14px;border-top:1px solid var(--osz-line);font-size:12px;color:var(--osz-muted)}
+#osz-ux [data-layout=top] .osz-workspace{grid-template-columns:1fr}#osz-ux [data-layout=top] .osz-form{grid-template-columns:1.25fr 1fr 1fr;align-items:start}#osz-ux [data-layout=top] .osz-fields{gap:10px}#osz-ux [data-layout=top] .osz-result-content{display:grid;grid-template-columns:1fr 1fr;gap:24px}#osz-ux [data-layout=top] .osz-reset{grid-column:1/-1;justify-self:start}#osz-ux [hidden]{display:none!important}
+#osz-ux .osz-mobile{max-width:390px}#osz-ux .osz-mobile .osz-main{padding:20px 16px}#osz-ux .osz-mobile .osz-header{padding:16px}#osz-ux .osz-mobile .osz-global{display:none}#osz-ux .osz-mobile .osz-workspace,#osz-ux .osz-mobile .osz-form,#osz-ux .osz-mobile .osz-result-content{grid-template-columns:1fr}#osz-ux .osz-mobile h1{font-size:24px}
+@media(max-width:700px){#osz-ux .osz-workspace,#osz-ux [data-layout=top] .osz-form,#osz-ux [data-layout=top] .osz-result-content{grid-template-columns:1fr}#osz-ux .osz-main{padding:20px 16px}#osz-ux .osz-global{display:none}#osz-ux .osz-header{padding:18px 16px}#osz-ux h1{font-size:24px}#osz-ux .osz-value{font-size:30px}}
+#osz-ux .osz-product{--osz-green:light-dark(#307653,#88c79c);--osz-purple:light-dark(#7658a5,#b8a0dd);--osz-pink:light-dark(#a24f77,#df94b8);min-height:0}
+#osz-ux .osz-stage{min-height:0}
+#osz-ux .osz-secondary{margin-top:28px}
+#osz-ux .osz-history{background:var(--osz-panel)}
+#osz-ux .osz-history .osz-group-body{padding:0 20px 20px}
+#osz-ux .osz-history summary{padding:18px 20px}
+#osz-ux .osz-live-plot{min-width:0}
+#osz-ux .osz-live-plot svg{display:block;width:100%;height:240px}
+#osz-ux .osz-live-plot text{fill:var(--osz-muted);font:12px system-ui}
+#osz-ux .osz-live-plot .osz-grid-line{stroke:var(--osz-line);stroke-width:1}
+#osz-ux .osz-series-controls{display:flex;gap:14px;flex-wrap:wrap;border:0;border-radius:0;background:transparent;padding:0 0 16px}
+#osz-ux .osz-series-controls legend{font-size:12px;font-weight:400;color:var(--osz-muted);padding:0 0 6px}
+#osz-ux .osz-series-controls label{display:flex;align-items:center;gap:6px;min-height:44px;font-size:13px}
+#osz-ux .osz-series-controls input{margin:0}
+#osz-ux .osz-series-controls i,#osz-ux .osz-series-name i{display:inline-block;width:9px;height:9px;border-radius:50%;flex-shrink:0}
+#osz-ux .osz-series-name{display:flex;align-items:center;gap:5px}
+#osz-ux .osz-bar-row{grid-template-columns:48px minmax(20px,1fr) 88px}
+#osz-ux .osz-bar-row>span:last-child{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+#osz-ux .osz-inflation{border-top:1px solid var(--osz-line);padding-top:16px;font-size:13px}
+#osz-ux .osz-inflation strong{display:block;font-size:17px;font-weight:500;margin-top:3px}
+#osz-ux .osz-chart-readout{display:flex;align-items:center;gap:12px;color:var(--osz-muted);font-size:12px;flex-wrap:wrap;padding-top:8px}
+#osz-ux .osz-chart-readout select{min-height:44px;min-width:68px;font-size:16px}
+#osz-ux .osz-point-value{font-size:12px;color:var(--osz-ink);line-height:1.8;font-variant-numeric:tabular-nums}
+#osz-ux .osz-jumps{display:none;margin-bottom:16px}
+#osz-ux .osz-jumps button,#osz-ux .osz-back{background:transparent;border:0;color:var(--osz-blue);padding:8px 0;min-height:44px;font-size:13px;cursor:pointer}
+#osz-ux .osz-back{display:none}
+#osz-ux .osz-mobile .osz-jumps,#osz-ux .osz-mobile .osz-back{display:block}
+#osz-ux .osz-mobile .osz-metrics{gap:14px}
+#osz-ux .osz-mobile .osz-result-top{align-items:center}
+#osz-ux .osz-mobile .osz-result-top .osz-state{width:100%;order:3}
+#osz-ux .osz-mobile .osz-check{min-height:44px}
+#osz-ux .osz-mobile .osz-picker{min-height:44px;font-size:16px;min-width:0}
+#osz-ux .osz-mobile .osz-chart{padding-top:10px}
+#osz-ux .osz-mobile .osz-history .osz-group-body{padding-inline:14px}
+#osz-ux .osz-mobile .osz-header{justify-content:space-between}
+#osz-ux .osz-mobile .osz-brand{font-size:22px}
+#osz-ux .osz-mobile .osz-main{padding-top:16px}
+#osz-ux .osz-mobile .osz-route{margin-bottom:18px;gap:8px}
+#osz-ux .osz-mobile h1{font-size:25px}
+#osz-ux .osz-mobile .osz-form{gap:10px}
+#osz-ux .osz-mobile .osz-intro{font-size:13px;margin-bottom:10px}
+#osz-ux .osz-mobile .osz-key{padding:18px}
+#osz-ux .osz-mobile .osz-global{display:none}
+@media(max-width:700px){#osz-ux .osz-jumps,#osz-ux .osz-back{display:block}#osz-ux .osz-check{min-height:44px}#osz-ux .osz-picker{font-size:16px}}
+
+</style>
+<script>
+(()=>{
+const root=document.getElementById('osz-ux');
+const data={
+ bonds:{title:'Kalkulator obligacji skarbowych',intro:'Porównaj obligacje przy tych samych założeniach inflacji, stóp i podatku.',main:[['Liczba obligacji','100','szt.'],['Okres inwestycji','3','lata']],extra:[['Szacowana inflacja','3','% / rok'],['Przyszła stopa NBP','4','% / rok'],['Oprocentowanie wypłaconych środków','0','% / rok']],extraSummary:'Inflacja 3% · NBP 4% · gotówka 0%',label:'Przykładowy wynik TOS po podatku i opłatach',value:'11 116,00 zł',context:'100 obligacji TOS1029 · wykup po 3 latach',metric1:['Zainwestowano','10 000,00 zł'],metric2:['Zysk netto','1 116,00 zł']},
+ goal:{title:'Kalkulator oszczędzania na cel',intro:'Sprawdź, ile odkładać co miesiąc, aby osiągnąć cel w wybranym terminie.',main:[['Kapitał początkowy','0','zł'],['Dzisiejsza wartość celu','10000','zł'],['Okres oszczędzania','2','lata']],extra:[['Szacowana inflacja','3','% / rok'],['Stopa zwrotu','5','% / rok']],extraSummary:'Inflacja 3% · stopa zwrotu 5%',label:'Potrzebna miesięczna wpłata',value:'425,03 zł',context:'Cel po uwzględnieniu inflacji: 10 609,00 zł',metric1:['Kapitał początkowy','0,00 zł'],metric2:['Późniejsze wpłaty','10 200,72 zł']},
+ regular:{title:'Kalkulator regularnego oszczędzania',intro:'Zobacz, ile uzbierasz dzięki stałym wpłatom i zakładanej stopie zwrotu.',main:[['Kapitał początkowy','0','zł'],['Miesięczna wpłata','500','zł'],['Okres oszczędzania','2','lata']],extra:[['Stopa zwrotu','5','% / rok']],extraSummary:'Stopa zwrotu 5%',label:'Oszczędności po modelowym podatku',value:'12 480,30 zł',context:'500 zł miesięcznie · 2 lata oszczędzania',metric1:['Łącznie wniesione środki','12 000,00 zł'],metric2:['Zysk netto','480,30 zł']}
+};
+const field=([name,value,unit],i)=>`<label class="osz-label">${name}<span class="osz-input"><input aria-label="${name}" type="number" value="${value}" step="any" data-number="${i}"><span>${unit}</span></span></label>`;
+const check=(text,attr='')=>`<label class="osz-check"><input type="checkbox" ${attr}><span>${text}</span></label>`;
+// Presentation-only enhancement shared by the mobile and desktop mockups.
+function decorate(product, key) {
+  const mobile = product.classList.contains('osz-mobile');
+  product.setAttribute('aria-label', mobile ? 'Telefon — układ obok wyniku' : 'Desktop — układ obok wyniku');
+  const secondary = product.querySelector('.osz-secondary');
+  product.querySelector('.osz-workspace').after(secondary);
+  const jumps = document.createElement('div');
+  jumps.className = 'osz-jumps';
+  jumps.innerHTML = '<button type="button" data-jump-result>Zobacz wynik ↓</button>';
+  product.querySelector('.osz-intro').after(jumps);
+  jumps.querySelector('button').addEventListener('click', () => product.querySelector('.osz-result').scrollIntoView({block:'start'}));
+  const back = document.createElement('button');
+  back.type = 'button';
+  back.className = 'osz-back';
+  back.textContent = 'Zmień założenia ↑';
+  back.addEventListener('click', () => product.querySelector('form').scrollIntoView({block:'start'}));
+  product.querySelector('.osz-result-top').append(back);
+  const tax = product.querySelector('[data-tax]').closest('details');
+  if (mobile) tax.open = false;
+  const chart = product.querySelector('.osz-chart');
+  if (key !== 'bonds') {
+    const old = chart.querySelector('svg');
+    const plot = document.createElement('div');
+    plot.className = 'osz-live-plot';
+    old.replaceWith(plot);
+    const samples = key === 'regular' ? [0,6140,12592.96] : [0,5219,10704.77];
+    drawPlot(plot, [
+      {name:'Wartość brutto',values:samples,color:'var(--osz-orange)'},
+      {name:'Wniesione środki',values:key==='regular'?[0,6000,12000]:[0,5100.36,10200.72],color:'var(--osz-blue)',dash:'6 4'}
+    ], 2, 0, 15000);
+    return;
+  }
+  const series = [
+    {name:'TOS',values:[10000,10356,10728,11116],color:'var(--osz-orange)'},
+    {name:'COI',values:[10000,10385,10698,11012],color:'var(--osz-blue)',dash:'7 3'},
+    {name:'EDO',values:[10000,10210,10555,10924],color:'var(--osz-green)',dash:'2 3'},
+    {name:'ROR',values:[10000,10251,10506,10765],color:'var(--osz-purple)',dash:'9 3 2 3'},
+    {name:'DOR',values:[10000,10269,10542,10820],color:'var(--osz-pink)',dash:'4 3'}
+  ];
+  chart.querySelector('.osz-bars').innerHTML=series.map(s=>`<div class="osz-bar-row"><span class="osz-series-name"><i style="background:${s.color}"></i>${s.name}</span><div class="osz-track"><div class="osz-fill" style="width:${s.values[3]/12000*100}%;background:${s.color}"></div></div><span>${money(s.values[3])}</span></div>`).join('');
+  chart.querySelector('.osz-hint').textContent='Dane ilustracyjne do oceny wykresu · nie jest to aktualny ranking.';
+  const inflation=document.createElement('p');
+  inflation.className='osz-inflation';
+  inflation.innerHTML='Próg zachowania siły nabywczej <strong>10 927,27 zł</strong><br><span class="osz-hint">Przy założonej inflacji 3% rocznie.</span>';
+  product.querySelector('.osz-key').append(inflation);
+  const details=document.createElement('details');
+  details.className='osz-group osz-history';
+  details.open=true;
+  details.innerHTML='<summary>Przebieg inwestycji<small>Wartość po podatku i opłatach w kolejnych latach</small></summary><div class="osz-group-body"><fieldset class="osz-series-controls"><legend>Serie na wykresie</legend>'+series.map((s,i)=>`<label><input type="checkbox" checked data-series="${i}"><i style="background:${s.color}"></i>${s.name}</label>`).join('')+'</fieldset><div class="osz-live-plot"></div><p class="osz-hint">Dane ilustracyjne · wybierz rok pod wykresem, aby odczytać wartości. Linie mają różne kolory i wzory.</p><p class="osz-point-value" role="status">TOS · koniec 3. roku · 11 116,00 zł</p></div>';
+  secondary.prepend(details);
+  const plot=details.querySelector('.osz-live-plot');
+  const renderPlot=()=>drawPlot(plot,series.filter((_,i)=>details.querySelector(`[data-series="${i}"]`).checked),3,10000,12000,details.querySelector('.osz-point-value'));
+  renderPlot();
+  details.querySelectorAll('input').forEach(input=>input.addEventListener('change',renderPlot));
+  details.addEventListener('toggle',()=>{if(details.open)renderPlot();});
+}
+function money(value){return value.toLocaleString('pl-PL',{minimumFractionDigits:2,maximumFractionDigits:2})+' zł';}
+function drawPlot(target,series,years,min,max,output){
+  if(target._resize)target._resize.disconnect();
+  const paint=()=>{
+    const width=Math.max(220,Math.round(target.getBoundingClientRect().width||320));
+    const height=240,left=48,right=16,top=20,bottom=36;
+    const x=i=>left+(width-left-right)*i/years;
+    const y=v=>top+(height-top-bottom)*(1-(v-min)/(max-min));
+    const rows=[min,(min+max)/2,max];
+    const ticks=Array.from({length:years+1},(_,i)=>i);
+    target.innerHTML=`<svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="img" aria-label="Poglądowy wykres: ${series.map(s=>s.name).join(', ')||'brak wybranych serii'}. Wartości w tysiącach złotych."><title>Wartość inwestycji w kolejnych latach — dane ilustracyjne</title>${rows.map(v=>`<path class="osz-grid-line" d="M${left} ${y(v)}H${width-right}"/><text x="${left-8}" y="${y(v)+4}" text-anchor="end">${v/1000} tys.</text>`).join('')}${ticks.map(i=>`<text x="${x(i)}" y="${height-12}" text-anchor="${i===0?'start':i===years?'end':'middle'}">${i===0?'Start':i===1?'1 rok':i+' lata'}</text>`).join('')}${series.map(s=>`<path fill="none" stroke="${s.color}" stroke-width="2.5" stroke-dasharray="${s.dash||''}" d="${s.values.map((v,i)=>(i?'L':'M')+x(i)+' '+y(v)).join(' ')}"/>`).join('')}</svg>`;
+    const control=document.createElement('label');
+    control.className='osz-chart-readout';
+    control.innerHTML='Odczyt dla roku <select aria-label="Rok odczytu wykresu" class="osz-picker">'+ticks.slice(1).map(i=>`<option value="${i}">${i}</option>`).join('')+'</select>';
+    const select=control.querySelector('select');
+    select.value=String(target._year||years);
+    const status=output||document.createElement('p');
+    status.className='osz-point-value';status.setAttribute('role','status');
+    const update=()=>{target._year=Number(select.value);status.textContent=series.length?series.map(s=>s.name+': '+money(s.values[target._year])).join(' · '):'Wybierz co najmniej jedną serię.';};
+    select.addEventListener('change',update);
+    target.append(control);
+    if(!output)target.append(status);
+    update();
+  };
+  paint();
+  if(typeof ResizeObserver!=='undefined'){target._resize=new ResizeObserver(paint);target._resize.observe(target);}
+}
+
+function render(product,key='bonds'){
+const d=data[key],bond=key==='bonds';
+product.innerHTML=`<header class="osz-header"><div class="osz-brand">oszczędzify<span>.</span></div><nav class="osz-global" aria-label="Nawigacja główna"><span>Kalkulatory</span><span>Poradniki</span><span>O nas</span></nav></header><main class="osz-main"><div class="osz-route"><span>Kalkulatory /</span><select class="osz-picker" aria-label="Wybierz kalkulator"><option value="bonds">Obligacje skarbowe</option><option value="goal">Oszczędzanie na cel</option><option value="regular">Regularne oszczędzanie</option></select></div><h1>${d.title}</h1><p class="osz-intro">${d.intro}</p><div class="osz-workspace"><form class="osz-form" aria-label="Założenia kalkulatora"><fieldset><legend>Założenia główne</legend><div class="osz-fields">${d.main.map(field).join('')}${bond?'<p class="osz-hint">1 obligacja = 100 zł · łącznie 10 000 zł</p><label class="osz-label">Miesiąc oferty<select class="osz-picker" aria-label="Miesiąc oferty"><option>Październik 2026 · aktualna</option><option>Wrzesień 2026 · historyczna</option></select></label><p class="osz-hint">Zakup w symulacji: 01.10.2026</p>':''}</div></fieldset><details class="osz-group"><summary>Założenia dodatkowe<small>${d.extraSummary}</small></summary><div class="osz-group-body osz-fields">${d.extra.map((f,i)=>field(f,'extra'+i)+(key==='goal'&&i===0?check('Pomiń inflację','data-skip="extra0"'):'')+(key!=='bonds'&&f[0]==='Stopa zwrotu'?check('Pomiń stopę zwrotu',`data-skip="extra${i}"`):'')).join('')}<p class="osz-hint">Wartości są Twoim scenariuszem, nie prognozą.</p></div></details><details class="osz-group" open><summary>${bond?'Podatek i uprawnienia':'Podatek'}<small>Podatek uwzględniony${bond?' · bez ROS/ROD':''}</small></summary><div class="osz-group-body">${check('Pomiń podatek Belki','data-tax') }<p class="osz-hint">Scenariusz bez podatku nie potwierdza prawa do zwolnienia.</p>${bond?check('Mam uprawnienia do obligacji rodzinnych (800+)','data-family')+'<p class="osz-hint" data-family-hint hidden>Kalkulator nie sprawdza dostępnego limitu świadczeń dla ROS i ROD.</p>':''}</div></details>${bond?'<button type="reset" class="osz-reset">Przywróć aktualne ustawienia domyślne</button>':''}</form><section class="osz-result" aria-label="Wynik symulacji"><div class="osz-result-top"><h2>Twój wynik</h2><span class="osz-state" role="status">Przykładowa symulacja · mockup</span></div><div class="osz-result-content"><div class="osz-key"><div class="osz-key-label">${d.label}</div><div class="osz-value">${d.value}</div><p class="osz-hint">${d.context}</p><div class="osz-metrics"><div><span>${d.metric1[0]}</span><strong>${d.metric1[1]}</strong></div><div><span>${d.metric2[0]}</span><strong>${d.metric2[1]}</strong></div></div></div><div class="osz-chart"><div class="osz-chart-heading"><h2>${bond?'Porównanie kwot końcowych':'Przebieg oszczędzania'}</h2></div>${bond?`<div class="osz-bars" role="img" aria-label="Poglądowy układ wykresu porównującego obligacje; długości słupków nie są obliczeniami">${['TOS','COI','EDO','ROR','DOR'].map((name,i)=>`<div class="osz-bar-row"><span>${name}</span><div class="osz-track"><div class="osz-fill" style="width:${[94,89,87,81,83][i]}%"></div></div><span>${i===0?'11 116,00 zł':'—'}</span></div>`).join('')}</div><p class="osz-hint">Układ poglądowy; wartości pozostałych serii po obliczeniu.</p>`:`<svg viewBox="0 0 450 210" role="img" aria-label="Poglądowy wykres wzrostu oszczędności przed podatkiem, od 0 do 2 lat"><path class="osz-grid-line" d="M45 20H435 M45 95H435 M45 170H435"/><text x="0" y="24">15 tys.</text><text x="0" y="99">7,5 tys.</text><text x="26" y="174">0</text><path class="osz-deposit" d="M45 170L435 50"/><path class="osz-line" d="M45 170 Q235 115 435 44"/><text x="45" y="200">Start</text><text x="225" y="200">1 rok</text><text x="405" y="200">2 lata</text></svg><div class="osz-legend"><span><i class="osz-swatch"></i>Wartość brutto</span><span><i class="osz-swatch osz-swatch-blue"></i>Wniesione środki</span></div><p class="osz-hint">Wykres poglądowy · podatek odejmowany na koniec.</p>`}</div></div><div class="osz-secondary"><details class="osz-group"><summary>Szczegóły wyniku<small>${bond?'Tabela roczna i przebieg inwestycji':'Kapitał, wpłaty, odsetki i podatek'}</small></summary><div class="osz-group-body">${bond?'<fieldset class="osz-table-tools"><legend>Widok tabeli</legend>'+check('Wyróżnij różnice','data-colors')+'</fieldset><table><thead><tr><th>Rok</th><th>TOS · netto</th></tr></thead><tbody><tr><td>3</td><td>11 116,00 zł</td></tr></tbody></table><p class="osz-hint">W implementacji: wszystkie serie i wykres roczny.</p>':'<table><tbody>'+[[d.metric1[0],d.metric1[1]],[d.metric2[0],d.metric2[1]],['Modelowy podatek',key==='regular'?'112,66 zł':'95,77 zł'],['Wartość brutto',key==='regular'?'12 592,96 zł':'10 704,77 zł']].map(r=>`<tr><th scope="row">${r[0]}</th><td>${r[1]}</td></tr>`).join('')+'</tbody></table>'}</div></details>${bond?'<details class="osz-group"><summary>Warunki wybranej oferty<small>Październik 2026 · źródła i parametry emisji</small></summary><div class="osz-group-body"><table><thead><tr><th>Seria</th><th>Stopa roczna</th><th>Odsetki</th></tr></thead><tbody><tr><td>TOS1029</td><td>4,40%</td><td>Przy wykupie</td></tr></tbody></table><p class="osz-hint">W implementacji: pełna tabela warunków i źródła MF.</p></div></details>':''}<details class="osz-group"><summary>Jak liczymy i co warto wiedzieć<small>Metoda, ograniczenia, przykłady i IKE</small></summary><div class="osz-group-body"><h2>Metoda obliczeń</h2><p>${bond?'Wartość całej inwestycji po modelowym wykupie, opłatach i podatku.':'Wpłaty na koniec miesiąca, kapitalizacja miesięczna. Podatek 19% od odsetek rozliczany na koniec.'}</p><h2>Ograniczenia i IKE</h2><p>Stałe założenia nie gwarantują wyniku. Pominięcie podatku nie odwzorowuje wszystkich zasad i kosztów IKE.</p></div></details></div></section></div><footer class="osz-foot">Przykładowe dane do oceny układu. Edycja pól pokazuje stan nieaktualnego wyniku; mockup nie wykonuje obliczeń.</footer></main>`;
+decorate(product,key);
+const picker=product.querySelector('select[aria-label="Wybierz kalkulator"]');picker.value=key;picker.addEventListener('change',()=>render(product,picker.value));
+const form=product.querySelector('form');form.addEventListener('submit',e=>e.preventDefault());form.addEventListener('change',e=>{
+const status=product.querySelector('.osz-state');status.textContent='Założenia zmienione · wynik przykładowy';
+if(e.target.matches('[data-skip]')){const input=form.querySelector(`[data-number="${e.target.dataset.skip}"]`);input.disabled=e.target.checked;}
+if(e.target.matches('[data-family]'))form.querySelector('[data-family-hint]').hidden=!e.target.checked;
+const tax=form.querySelector('[data-tax]');const family=form.querySelector('[data-family]');tax.closest('details').querySelector('small').textContent=(tax.checked?'Podatek pominięty':'Podatek uwzględniony')+(bond?(family.checked?' · z ROS/ROD':' · bez ROS/ROD'):'');
+});
+form.addEventListener('reset',e=>{e.preventDefault();render(product,key);});
+product.querySelector('[data-colors]')?.addEventListener('change',e=>{product.querySelectorAll('td').forEach(td=>td.style.color=e.target.checked?'var(--osz-orange)':'');});
+}
+root.querySelectorAll('.osz-product').forEach(product=>{render(product);if(globalThis.Tweak&&product.classList.contains('osz-mobile')){const state={width:390};const tweak=new Tweak({container:product,onChange:()=>product.style.maxWidth=state.width+'px'});tweak.addSlider(state,'width',{label:'Szerokość telefonu',min:320,max:430,step:10,unit:'px'});}});
+})();
+</script>

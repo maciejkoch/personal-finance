@@ -1,3 +1,4 @@
+import { HeroStateService } from "@shared/ui/hero/hero-state.service";
 import { ChangeDetectionStrategy, Component } from "@angular/core";
 import { RouterOutlet } from "@angular/router";
 import { CALCULATOR_LINKS } from "@core/navigation/section-links";
@@ -6,6 +7,7 @@ import { SectionLayoutComponent } from "@shared/ui/section-layout/section-layout
 @Component({
   selector: "pf-calculators-shell",
   imports: [RouterOutlet, SectionLayoutComponent],
+  providers: [HeroStateService],
   templateUrl: "./calculators-shell.component.html",
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { class: "w-full" },
