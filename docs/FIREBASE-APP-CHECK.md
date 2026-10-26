@@ -54,3 +54,5 @@ Najpierw przestaw **wszystkie** funkcje HTTP na `APP_CHECK_MODE=monitor` (lub `o
 - [Tokeny w żądaniach do własnego backendu](https://firebase.google.com/docs/app-check/web/custom-resource)
 - [Weryfikacja Admin SDK dla własnego backendu](https://firebase.google.com/docs/app-check/custom-resource-backend)
 - [Debug provider](https://firebase.google.com/docs/app-check/web/debug-provider)
+
+Raport z aktywacji na produkcji: [APP-CHECK-WDROZENIE-2026-10-26.md](APP-CHECK-WDROZENIE-2026-10-26.md).
