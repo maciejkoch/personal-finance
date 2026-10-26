@@ -13,6 +13,13 @@ import {
   selector: "pfui-hero",
   imports: [],
   templateUrl: "./hero.component.html",
+  host: { "[class.hero-interactive]": "interactive()" },
+  styles: `
+    :host(:not(.hero-interactive)) .expandable,
+    :host(:not(.hero-interactive)) .swap > * {
+      transition: none;
+    }
+  `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeroComponent {
@@ -27,6 +34,7 @@ export class HeroComponent {
 
   private readonly sharedState = inject(HeroStateService, { optional: true });
   readonly expanded = this.sharedState?.expanded ?? signal(true);
+  readonly interactive = signal(false);
   private scrollTimer: ReturnType<typeof setTimeout> | undefined;
 
   constructor() {
@@ -39,6 +47,7 @@ export class HeroComponent {
     }
 
     clearTimeout(this.scrollTimer);
+    this.interactive.set(true);
     this.expanded.update((expanded) => value ?? !expanded);
   }
 

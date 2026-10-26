@@ -54,3 +54,9 @@ Zrzuty z tego lokalnego odbioru:
 - Weryfikacja: **123/123 testy, 27 plików**, lint, produkcyjny build, prerender ośmiu tras i kontrola treści. Logika obliczeń i backend pozostają bez zmian. Korektę wdrożono później na polecenie użytkownika — szczegóły w [PRODUCTION.md](PRODUCTION.md).
 
 Zrzuty po korekcie: [wyrównanie obligacji](aligned-bonds-desktop.png), [wykres na desktopie](stacked-savings-desktop.png), [wykres na telefonie](stacked-savings-mobile.png).
+
+### Animacja rozwiniętego hero przy zmianie kalkulatora
+
+Zachowanie stanu nie wystarczało: nowa instancja hero nadal miała aktywne przejścia CSS, a router uruchamiał globalny efekt View Transition. Przejścia wewnątrz sekcji kalkulatorów pomijają teraz ten efekt. Animacje wysokości i ikony hero są włączane dopiero przez kliknięcie jego strzałki lub „Rozpocznij”, osobno w każdej instancji. Pierwszy render po zmianie trasy ma od razu docelową wysokość.
+
+Weryfikacja: 124/124 testy w 28 plikach, lint i produkcyjny build. Nowy test wykorzystuje rzeczywiste snapshoty routera i potwierdza pomijanie przejść między kalkulatorami oraz zachowanie efektu przy przejściu do innej sekcji. W przeglądarce dla trzech kalkulatorów potwierdzono `transitionDuration: 0s` po nawigacji w stanie rozwiniętym oraz `0.3s` po ręcznym przełączeniu hero.

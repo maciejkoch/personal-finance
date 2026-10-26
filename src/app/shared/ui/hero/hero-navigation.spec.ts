@@ -46,15 +46,19 @@ describe("Hero while switching calculators", () => {
       harness.routeDebugElement!.query(By.directive(HeroComponent))
         .componentInstance as HeroComponent;
     expect(hero().expanded()).toBe(true);
+    expect(hero().interactive()).toBe(false);
     const first = hero();
     first.toggle(false);
+    expect(first.interactive()).toBe(true);
     await harness.navigateByUrl("/kalkulatory/regularne-oszczedzanie");
     expect(hero()).not.toBe(first);
     expect(hero().expanded()).toBe(false);
+    expect(hero().interactive()).toBe(false);
     await harness.navigateByUrl("/kalkulatory/obligacje-skarbowe");
     expect(hero().expanded()).toBe(false);
     hero().toggle(true);
     await harness.navigateByUrl("/kalkulatory/oszczedzanie-na-cel");
     expect(hero().expanded()).toBe(true);
+    expect(hero().interactive()).toBe(false);
   });
 });
