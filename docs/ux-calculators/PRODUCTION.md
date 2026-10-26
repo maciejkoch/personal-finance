@@ -2,6 +2,17 @@
 
 Na polecenie użytkownika wdrożono wyłącznie Firebase Hosting projektu `personal-finance-2ee61` z brancha `codex/calculators-ux-review`. PR #3 pozostaje osobnym krokiem przeglądu; publikacja nie scala brancha.
 
+## Aktualizacja: hero bez animacji wejścia, z zachowanym fade
+
+- Commit: `e0afb123ef987a327e1afa66484a57b57b87c365`; build `e0afb12-2026-10-26T15:59:32.999Z`, `dirty: false`, API production.
+- Hosting version `89ccf29bb2e79282`, release `1793030409551000`, publikacja 26.10.2026 o 17:00:09 Europe/Warsaw (16:00:09 UTC).
+- Animacja wysokości i ikony hero jest aktywowana wyłącznie przez kliknięcie użytkownika. Nowa instancja przy zmianie kalkulatora od razu ma docelowy stan. Zachowano oryginalny fade `withViewTransitions()`.
+- Próbne pominięcie fade z commita `cb84a2f` (version `9d00a82541d943cb`, release `1793030201606000`) wycofano po uwadze użytkownika o miganiu. Poprzedni punkt rollbacku obejmujący komplet korekt wykresu i wyrównania: version `2ba4aae874dc5928`, release `1793029813862000`.
+- 123/123 testy, lint, świeży build, prerender ośmiu tras, check:content i smoke:hosting przeszły. Publiczny version.json jest identyczny z artefaktem. W przeglądarce sprawdzono trzy trasy z rozwiniętym hero (`transitionDuration: 0s`); ręczne przełączenie zachowuje `0.3s`.
+- Wdrożono wyłącznie Hosting przypiętym CLI z włączoną weryfikacją TLS.
+
+![Hero po zmianie kalkulatora](production-hero-no-entry-animation.png)
+
 ## Aktualizacja: słupki oszczędzania, nawigacja i wyrównanie
 
 Na kolejne polecenie użytkownika opublikowano skumulowane słupki kapitału początkowego, wpłat i zysku, wspólny stan hero podczas zmiany kalkulatorów oraz wyrównane nagłówki i karty bez pustego miejsca nad wynikiem.
