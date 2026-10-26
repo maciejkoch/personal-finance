@@ -4,6 +4,7 @@ export interface SectionLink {
 }
 
 export const CALCULATOR_LINKS: readonly SectionLink[] = [
+  { label: "FIRE — niezależność finansowa", link: "/kalkulatory/fire" },
   { label: "Obligacje skarbowe", link: "/kalkulatory/obligacje-skarbowe" },
   { label: "Cel długoterminowy", link: "/kalkulatory/oszczedzanie-na-cel" },
   {
