@@ -1,3 +1,4 @@
+import { CalculatorPanelComponent } from "../../../shared/calculator-panel.component";
 import {
   ChangeDetectionStrategy,
   Component,
@@ -33,7 +34,7 @@ const formSchema = z.object({
 
 @Component({
   selector: "pf-long-term-savings-form",
-  imports: [FormField, TaxOptionsComponent],
+  imports: [FormField, TaxOptionsComponent, CalculatorPanelComponent],
   templateUrl: "./long-term-savings-form.component.html",
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

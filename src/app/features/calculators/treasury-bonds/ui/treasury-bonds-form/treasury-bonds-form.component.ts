@@ -1,3 +1,4 @@
+import { CalculatorPanelComponent } from "../../../shared/calculator-panel.component";
 import {
   ChangeDetectionStrategy,
   Component,
@@ -13,8 +14,6 @@ import {
   required,
   validate,
 } from "@angular/forms/signals";
-import { AccordionComponent } from "@shared/ui/accordion/accordion.component";
-import { AccordionItemComponent } from "@shared/ui/accordion/accordion-item/accordion-item.component";
 import { TreasuryBondsRequest } from "../../model/treasury-bonds.model";
 import { TaxOptionsComponent } from "../../../shared/tax-options/tax-options.component";
 import {
@@ -27,12 +26,7 @@ import {
 
 @Component({
   selector: "pf-treasury-bonds-form",
-  imports: [
-    FormField,
-    AccordionComponent,
-    AccordionItemComponent,
-    TaxOptionsComponent,
-  ],
+  imports: [FormField, CalculatorPanelComponent, TaxOptionsComponent],
   templateUrl: "./treasury-bonds-form.component.html",
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

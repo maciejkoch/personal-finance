@@ -1,3 +1,4 @@
+import { SavingsGrowthChartComponent } from "../../shared/savings-growth-chart.component";
 import { TestBed } from "@angular/core/testing";
 import { vi } from "vitest";
 import type { ChartConfiguration, ChartData } from "chart.js";
@@ -179,7 +180,9 @@ describe("Bond presentation numerical regressions", () => {
         year: 2,
         futureValue: 60000,
       });
-      expect(summary.nativeElement.textContent).toContain("niedobór");
+      expect(summary.nativeElement.textContent.toLowerCase()).toContain(
+        "niedobór",
+      );
       expect(input).toEqual({ ...result, skipTax }); // consumers must not mutate results
     });
   }
@@ -254,7 +257,9 @@ describe("Bond presentation numerical regressions", () => {
       expect(fixture.componentInstance.highestBond()?.bond).toBe(
         key.toUpperCase(),
       );
-      expect(fixture.nativeElement.textContent).toContain("nadwyżka");
+      expect(fixture.nativeElement.textContent.toLowerCase()).toContain(
+        "nadwyżka",
+      );
     });
   }
 
@@ -291,5 +296,61 @@ describe("Bond presentation numerical regressions", () => {
     bar.destroy();
     for (const instance of instances)
       expect(instance.destroy).toHaveBeenCalledOnce();
+  });
+  it("shows a one-year bond point and hides a series without changing its values", async () => {
+    const fixture = TestBed.createComponent(TreasuryBondsChartComponent);
+    const input = structuredClone(result);
+    input.month = 12;
+    input.values = [input.values[1]];
+    fixture.componentRef.setInput("data", input);
+    await fixture.whenStable();
+    const chart = charts.instances[0];
+    const before = structuredClone(chart.data);
+    fixture.componentInstance.toggleSeries("tos");
+    await fixture.whenStable();
+    const dataset = chart.data.datasets.find((item) =>
+      item.label?.startsWith("TOS"),
+    )!;
+    expect(dataset.data).toEqual(
+      before.datasets.find((item) => item.label?.startsWith("TOS"))!.data,
+    );
+    expect(dataset).toMatchObject({ hidden: true, pointRadius: 4 });
+  });
+
+  it("keeps gross savings distinct from deposited capital and updates the accessible year readout", async () => {
+    const fixture = TestBed.createComponent(SavingsGrowthChartComponent);
+    const input = {
+      initialCapital: 500,
+      totalContribution: 10000,
+      totalDeposited: 10500,
+      finalValue: 11000,
+      totalInterest: 500,
+      tax: 95,
+      netValue: 10905,
+      valueYearPerYear: [
+        { year: 1, compoundedInteres: 5500, totalContribution: 5000 },
+        { year: 2, compoundedInteres: 11000, totalContribution: 10000 },
+      ],
+    };
+    fixture.componentRef.setInput("data", input);
+    await fixture.whenStable();
+    const chart = charts.instances[0];
+    expect(chart.data.labels).toEqual([0, 1, 2]);
+    expect(chart.data.datasets[0].data).toEqual([500, 5500, 11000]);
+    expect(chart.data.datasets[1].data).toEqual([500, 5500, 10500]);
+    const year: HTMLSelectElement =
+      fixture.nativeElement.querySelector("select");
+    year.value = "1";
+    year.dispatchEvent(new Event("change"));
+    await fixture.whenStable();
+    expect(fixture.componentInstance.selectedPoint()?.year).toBe(1);
+    fixture.componentInstance.selectedYear.set(2);
+    fixture.componentRef.setInput("data", {
+      ...input,
+      valueYearPerYear: input.valueYearPerYear.slice(0, 1),
+    });
+    await fixture.whenStable();
+    expect(fixture.componentInstance.selectedPoint()?.year).toBe(1);
+    expect(chart.data.labels).toEqual([0, 1]);
   });
 });

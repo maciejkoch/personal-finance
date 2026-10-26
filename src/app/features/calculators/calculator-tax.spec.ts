@@ -10,7 +10,7 @@ describe("Single tax preference", () => {
     LongTermSavingsFormComponent,
     TreasuryBondsFormComponent,
   ]) {
-    it(`${component.name} has a reversible tax option and an explanatory disclosure`, async () => {
+    it(`${component.name} has a reversible tax option and a link to the methodology explanation`, async () => {
       const fixture = TestBed.createComponent(
         component as typeof RegularContributionFormComponent,
       );
@@ -23,7 +23,9 @@ describe("Single tax preference", () => {
         fixture.nativeElement.querySelector("pf-tax-options label").textContent,
       ).toContain("Pomiń podatek Belki");
       expect(
-        fixture.nativeElement.querySelector("pf-tax-options details"),
+        fixture.nativeElement.querySelector(
+          'pf-tax-options a[href$="#ike-explanation"]',
+        ),
       ).not.toBeNull();
       controls[0].click();
       await fixture.whenStable();

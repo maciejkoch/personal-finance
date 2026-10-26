@@ -1,33 +1,63 @@
 @if (data(); as data) {
-  <div class="p-6 text-center">
-    <p class="text-lg font-semibold mb-4">
-      Przy miesięcznej wpłacie
-      <strong>{{ data.contribution | number: "1.2-2" }} zł</strong>, po
-      {{ data.duration }} latach w symulacji uzyskasz
-      <strong class="text-primary"
-        >{{ data.netValue | number: "1.2-2" }} zł netto</strong
-      >.
-    </p>
-    <p class="mb-2">
-      Kapitał początkowy:
-      <strong>{{ data.initialCapital | number: "1.2-2" }} zł</strong>.
-      Późniejsze wpłaty:
-      <strong>{{ data.totalContribution | number: "1.2-2" }} zł</strong>.
-      Łącznie wniesione środki:
-      <strong>{{ data.totalDeposited | number: "1.2-2" }} zł</strong>.
-    </p>
-    <p class="mb-2">
-      Zysk brutto:
-      <strong>{{ data.totalInterest | number: "1.2-2" }} zł</strong>. Wartość
-      brutto: <strong>{{ data.finalValue | number: "1.2-2" }} zł</strong>.
-      Modelowy podatek: <strong>{{ data.tax | number: "1.2-2" }} zł</strong>.
-    </p>
+  <div class="calculator-summary">
+    <p class="calculator-key-label">Oszczędności po modelowym podatku</p>
+    <p class="calculator-key-value">{{ data.netValue | number: "1.2-2" }} zł</p>
     <p>
-      Wartość netto po modelowym podatku:
-      <strong>{{ data.netValue | number: "1.2-2" }} zł</strong>.
+      Przy miesięcznej wpłacie {{ data.contribution | number: "1.2-2" }} zł, po
+      {{ data.duration }}
+      {{ data.duration === 1 ? "roku" : "latach" }} oszczędzania.
     </p>
+    <dl class="calculator-metrics">
+      <div>
+        <dt>Wniesione środki</dt>
+        <dd>{{ data.totalDeposited | number: "1.2-2" }} zł</dd>
+      </div>
+      <div>
+        <dt>Zysk netto</dt>
+        <dd>{{ data.netValue - data.totalDeposited | number: "1.2-2" }} zł</dd>
+      </div>
+    </dl>
     @if (data.skipTax) {
-      <p class="text-sm mt-2">Podatek pominięto zgodnie z wybraną opcją.</p>
+      <p class="text-sm">Podatek pominięto zgodnie z wybraną opcją.</p>
     }
   </div>
+  <ng-content />
+  <pf-calculator-panel
+    label="Szczegóły wyniku"
+    panelKey="regular-contribution-details"
+    summary="Kapitał, wpłaty, odsetki i podatek"
+  >
+    <table class="table calculator-breakdown">
+      <tbody>
+        <tr>
+          <th scope="row">Kapitał początkowy</th>
+          <td>{{ data.initialCapital | number: "1.2-2" }} zł</td>
+        </tr>
+        <tr>
+          <th scope="row">Późniejsze wpłaty</th>
+          <td>{{ data.totalContribution | number: "1.2-2" }} zł</td>
+        </tr>
+        <tr>
+          <th scope="row">Łącznie wniesione środki</th>
+          <td>{{ data.totalDeposited | number: "1.2-2" }} zł</td>
+        </tr>
+        <tr>
+          <th scope="row">Zysk brutto</th>
+          <td>{{ data.totalInterest | number: "1.2-2" }} zł</td>
+        </tr>
+        <tr>
+          <th scope="row">Wartość brutto</th>
+          <td>{{ data.finalValue | number: "1.2-2" }} zł</td>
+        </tr>
+        <tr>
+          <th scope="row">Modelowy podatek</th>
+          <td>{{ data.tax | number: "1.2-2" }} zł</td>
+        </tr>
+        <tr>
+          <th scope="row">Wartość netto po modelowym podatku</th>
+          <td>{{ data.netValue | number: "1.2-2" }} zł</td>
+        </tr>
+      </tbody>
+    </table>
+  </pf-calculator-panel>
 }

@@ -13,33 +13,4 @@
   Opcja pokazuje wynik bez podatku od zysków kapitałowych. Służy porównaniu
   scenariuszy i nie potwierdza prawa do zwolnienia podatkowego.
 </p>
-<details class="text-sm mb-4">
-  <summary class="cursor-pointer">Jak to się ma do IKE?</summary>
-  <div class="mt-2 space-y-2">
-    <p>
-      Wynik bez podatku może pomóc orientacyjnie ocenić korzyść podatkową IKE.
-      Zwolnienie przy wypłacie wymaga spełnienia ustawowych warunków wieku i
-      historii wpłat. Kalkulator nie sprawdza tych warunków ani limitów wpłat i
-      nie uwzględnia kosztów prowadzenia IKE.
-    </p>
-    @if (bonds()) {
-      <p>
-        Pominięcie podatku zachowuje modelowe opłaty za wcześniejszy wykup,
-        sposób reinwestowania i założone oprocentowanie wypłaconych środków. W
-        IKE-Obligacje odsetki automatycznie kupują kolejne obligacje według
-        dyspozycji nabywania obligacji skarbowych (DNOS), a wolna gotówka nie
-        jest oprocentowana. Przy wypłacie spełniającej warunki zwolnienia lub
-        wypłacie transferowej nie pobiera się opłaty za wcześniejszy wykup;
-        wcześniejszy zwrot podlega podatkowi i opłatom.
-      </p>
-      <p>Obligacje rodzinne ROS i ROD nie są dostępne w IKE-Obligacje.</p>
-    }
-    <p>
-      Sprawdź
-      <a class="link" href="https://www.obligacjeskarbowe.pl/ike/"
-        >zasady IKE-Obligacje</a
-      >. Rzeczywisty wynik zależy od warunków rachunku i sposobu zakończenia
-      oszczędzania.
-    </p>
-  </div>
-</details>
+<a [href]="helpHref()" class="link text-sm">Jak to się ma do IKE?</a>

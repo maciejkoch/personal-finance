@@ -1,85 +1,75 @@
-<pfui-accordion class="mt-6 block">
-  <pfui-accordion-item [hasBorder]="false" [opened]="false">
-    <span title>Założenia i sposób obliczeń</span>
-    <div content class="prose max-w-none">
-      <h2>Oferta i przyszłe założenia</h2>
-      <p>
-        Parametry wybranej oferty pokazano w tabeli poniżej kalkulatora.
-        Inflacja, przyszła stopa NBP oraz oprocentowanie wypłaconych środków są
-        Twoimi założeniami,
-        a nie prognozą ani gwarancją. Ostatnia podana wartość obowiązuje w
-        kolejnych latach. Ujemna inflacja obniża próg zachowania siły nabywczej;
-        indeksacja obligacji przyjmuje co najmniej zerową inflację, do której
-        dodaje marżę.
-      </p>
-      <p>
-        TOS ma stałą stopę przez trzy lata i nie zależy od WIBOR. ROR/DOR
-        zmieniają stopę co miesiąc, a COI/EDO/ROS/ROD co rok. Dla indeksacji
-        rocznej przyjmujemy inflację z poprzedniego roku symulacji.
-      </p>
-      <h2>Wycena i podatek</h2>
-      <p>
-        Symulacja zakłada zakup pierwszego dnia miesiąca oferty i wycenę w
-        miesięczne rocznice, po wypłacie należnych kuponów. Odsetki za niepełny
-        rok wylicza według rzeczywistej liczby dni okresu. Tabela i wykres
-        pokazują wartości na koniec pełnych lat: środki po hipotetycznym wykupie
-        wraz z wypłaconymi wcześniej odsetkami. To wartość całej inwestycji, nie
-        sam zysk.
-      </p>
-      <p>
-        Wcześniejszy wykup pomniejsza należność o opłatę z listu emisyjnego. Dla
-        TOS/EDO/ROS/ROD opłata nie przekracza narosłych odsetek. Dla ROR/DOR/COI
-        ochrona obejmuje pierwszy okres odsetkowy; po wypłacie kuponu opłata
-        może pomniejszyć kapitał. Kupon już wypłacony nie pokrywa tej opłaty. W
-        terminie zapadalności opłata wynosi zero.
-      </p>
-      <p>
-        Należność za jedną obligację jest zaokrąglana do groszy przed
-        przemnożeniem przez liczbę sztuk. Podatek 19% od dodatniego dochodu z
-        całej wypłaty zaokrąglamy w górę do grosza. Uwzględniamy opłatę i
-        dyskonto zakupu; strata nie powoduje zwrotu podatku. Przy kapitalizacji
-        rocznej podatek jest odroczony do wypłaty.
-      </p>
-      <h2>Scenariusz bez podatku a IKE</h2>
-      <p>
-        Opcja „Pomiń podatek Belki” pokazuje uproszczony wynik bez podatku.
-        Zachowuje modelowe opłaty za wcześniejszy wykup, sposób reinwestowania i
-        założone oprocentowanie wypłaconych środków. Może pomóc orientacyjnie
-        ocenić korzyść podatkową IKE, ale nie odwzorowuje rozliczenia tego
-        rachunku. Nie sprawdzamy limitów wpłat ani ustawowych warunków wieku i
-        historii wpłat wymaganych do zwolnienia przy wypłacie.
-      </p>
-      <p>
-        W IKE-Obligacje odsetki są automatycznie przeznaczane na zakup kolejnych
-        obligacji według dyspozycji nabywania obligacji skarbowych (DNOS), a
-        wolna gotówka nie jest oprocentowana. Przy wypłacie spełniającej warunki
-        zwolnienia lub wypłacie transferowej nie pobiera się opłaty za
-        wcześniejszy wykup. Wcześniejszy zwrot podlega podatkowi i opłatom.
-        Koszty prowadzenia IKE nie są uwzględnione w wynikach. Obligacje
-        rodzinne ROS i ROD nie są dostępne w IKE-Obligacje. Sprawdź
-        <a href="https://www.obligacjeskarbowe.pl/ike/">zasady IKE-Obligacje</a
-        >.
-      </p>
-      <h2>Ponowny zakup i ograniczenia</h2>
-      <p>
-        Po zapadalności zakładamy ponowny zakup tego samego typu z zachowaniem
-        dzisiejszych warunków. Przyszłe oferty nie są znane. Środki z wykupu
-        kupują obligacje po cenie zamiany z bieżącej oferty (99,90 zł dla
-        ROR/DOR/TOS/COI/EDO); pozostała gotówka kupuje po 100 zł. ROS/ROD nie
-        mają dyskonta zamiany. Kupujemy wyłącznie pełne sztuki. Reszta i
-        wypłacone kupony pracują według założonej stopy, z miesięcznym
-        podatkiem, o ile nie wybrano jego pominięcia. W końcowym punkcie wyceny
-        środki pozostają gotówką.
-      </p>
-      <p>
-        Nie odwzorowujemy kalendarza dni roboczych, dat ustalenia praw,
-        pięciodniowego rozliczenia ani ograniczenia dyspozycji wykupu: po 7
-        dniach od zakupu i najpóźniej 20 dni przed zapadalnością. Wycena na
-        rocznicę jest hipotetyczna; faktyczna kwota i dzień przelewu zależą od
-        dat dyspozycji. Nie uwzględniamy opłat rachunków IKE/IKZE ani limitu
-        dostępności obligacji rodzinnych. OTS 3-miesięczne nie są objęte
-        porównaniem.
-      </p>
-    </div>
-  </pfui-accordion-item>
-</pfui-accordion>
+<div class="prose max-w-none">
+  <h2>Oferta i przyszłe założenia</h2>
+  <p>
+    Parametry wybranej oferty pokazano w tabeli poniżej kalkulatora. Inflacja,
+    przyszła stopa NBP oraz oprocentowanie wypłaconych środków są Twoimi
+    założeniami, a nie prognozą ani gwarancją. Ostatnia podana wartość
+    obowiązuje w kolejnych latach. Ujemna inflacja obniża próg zachowania siły
+    nabywczej; indeksacja obligacji przyjmuje co najmniej zerową inflację, do
+    której dodaje marżę.
+  </p>
+  <p>
+    TOS ma stałą stopę przez trzy lata i nie zależy od WIBOR. ROR/DOR zmieniają
+    stopę co miesiąc, a COI/EDO/ROS/ROD co rok. Dla indeksacji rocznej
+    przyjmujemy inflację z poprzedniego roku symulacji.
+  </p>
+  <h2>Wycena i podatek</h2>
+  <p>
+    Symulacja zakłada zakup pierwszego dnia miesiąca oferty i wycenę w
+    miesięczne rocznice, po wypłacie należnych kuponów. Odsetki za niepełny rok
+    wylicza według rzeczywistej liczby dni okresu. Tabela i wykres pokazują
+    wartości na koniec pełnych lat: środki po hipotetycznym wykupie wraz z
+    wypłaconymi wcześniej odsetkami. To wartość całej inwestycji, nie sam zysk.
+  </p>
+  <p>
+    Wcześniejszy wykup pomniejsza należność o opłatę z listu emisyjnego. Dla
+    TOS/EDO/ROS/ROD opłata nie przekracza narosłych odsetek. Dla ROR/DOR/COI
+    ochrona obejmuje pierwszy okres odsetkowy; po wypłacie kuponu opłata może
+    pomniejszyć kapitał. Kupon już wypłacony nie pokrywa tej opłaty. W terminie
+    zapadalności opłata wynosi zero.
+  </p>
+  <p>
+    Należność za jedną obligację jest zaokrąglana do groszy przed przemnożeniem
+    przez liczbę sztuk. Podatek 19% od dodatniego dochodu z całej wypłaty
+    zaokrąglamy w górę do grosza. Uwzględniamy opłatę i dyskonto zakupu; strata
+    nie powoduje zwrotu podatku. Przy kapitalizacji rocznej podatek jest
+    odroczony do wypłaty.
+  </p>
+  <h2>Scenariusz bez podatku a IKE</h2>
+  <p>
+    Opcja „Pomiń podatek Belki” pokazuje uproszczony wynik bez podatku.
+    Zachowuje modelowe opłaty za wcześniejszy wykup, sposób reinwestowania i
+    założone oprocentowanie wypłaconych środków. Może pomóc orientacyjnie ocenić
+    korzyść podatkową IKE, ale nie odwzorowuje rozliczenia tego rachunku. Nie
+    sprawdzamy limitów wpłat ani ustawowych warunków wieku i historii wpłat
+    wymaganych do zwolnienia przy wypłacie.
+  </p>
+  <p>
+    W IKE-Obligacje odsetki są automatycznie przeznaczane na zakup kolejnych
+    obligacji według dyspozycji nabywania obligacji skarbowych (DNOS), a wolna
+    gotówka nie jest oprocentowana. Przy wypłacie spełniającej warunki
+    zwolnienia lub wypłacie transferowej nie pobiera się opłaty za wcześniejszy
+    wykup. Wcześniejszy zwrot podlega podatkowi i opłatom. Koszty prowadzenia
+    IKE nie są uwzględnione w wynikach. Obligacje rodzinne ROS i ROD nie są
+    dostępne w IKE-Obligacje. Sprawdź
+    <a href="https://www.obligacjeskarbowe.pl/ike/">zasady IKE-Obligacje</a>.
+  </p>
+  <h2>Ponowny zakup i ograniczenia</h2>
+  <p>
+    Po zapadalności zakładamy ponowny zakup tego samego typu z zachowaniem
+    dzisiejszych warunków. Przyszłe oferty nie są znane. Środki z wykupu kupują
+    obligacje po cenie zamiany z bieżącej oferty (99,90 zł dla
+    ROR/DOR/TOS/COI/EDO); pozostała gotówka kupuje po 100 zł. ROS/ROD nie mają
+    dyskonta zamiany. Kupujemy wyłącznie pełne sztuki. Reszta i wypłacone kupony
+    pracują według założonej stopy, z miesięcznym podatkiem, o ile nie wybrano
+    jego pominięcia. W końcowym punkcie wyceny środki pozostają gotówką.
+  </p>
+  <p>
+    Nie odwzorowujemy kalendarza dni roboczych, dat ustalenia praw,
+    pięciodniowego rozliczenia ani ograniczenia dyspozycji wykupu: po 7 dniach
+    od zakupu i najpóźniej 20 dni przed zapadalnością. Wycena na rocznicę jest
+    hipotetyczna; faktyczna kwota i dzień przelewu zależą od dat dyspozycji. Nie
+    uwzględniamy opłat rachunków IKE/IKZE ani limitu dostępności obligacji
+    rodzinnych. OTS 3-miesięczne nie są objęte porównaniem.
+  </p>
+</div>

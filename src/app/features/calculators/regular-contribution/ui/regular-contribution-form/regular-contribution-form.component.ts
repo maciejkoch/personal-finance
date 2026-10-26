@@ -1,3 +1,4 @@
+import { CalculatorPanelComponent } from "../../../shared/calculator-panel.component";
 import {
   ChangeDetectionStrategy,
   Component,
@@ -31,7 +32,7 @@ const formSchema = z.object({
 
 @Component({
   selector: "pf-regular-contribution-form",
-  imports: [FormField, TaxOptionsComponent],
+  imports: [FormField, TaxOptionsComponent, CalculatorPanelComponent],
   templateUrl: "./regular-contribution-form.component.html",
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

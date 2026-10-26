@@ -8,13 +8,25 @@
         : "Wartości po podatku i opłatach."
     }}
   </p>
-  <div class="relative w-full h-80 sm:h-96">
+  <div class="relative w-full h-80">
     <canvas
       #canvas
       role="img"
       aria-label="Porównanie końcowych wartości dostępnych typów obligacji. Przerywana linia oznacza kapitał powiększony o inflację. Szczegółowe kwoty są w ostatnim wierszu tabeli poniżej."
     ></canvas>
   </div>
+  <dl class="calculator-final-values">
+    @for (bond of displayedBonds(); track bond.key) {
+      <div>
+        <dt>{{ bond.label }}</dt>
+        <dd>
+          {{
+            bondValue(value, bond.key) | currency: "PLN" : "symbol" : "1.2-2"
+          }}
+        </dd>
+      </div>
+    }
+  </dl>
   <p class="flex items-center justify-center gap-2 text-sm mt-3 mb-6">
     <span
       class="w-8 shrink-0 border-t-2 border-dashed border-rose-600"

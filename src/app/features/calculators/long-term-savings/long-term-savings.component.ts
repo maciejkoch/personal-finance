@@ -8,7 +8,8 @@ import {
 import { CalculationStatusComponent } from "../shared/calculation-status.component";
 import { RouterLink } from "@angular/router";
 import { scrollToElement } from "@shared/scroll/scroll-to-element";
-import { HeroComponent } from "@shared/ui/hero/hero.component";
+import { CalculatorPanelComponent } from "../shared/calculator-panel.component";
+import { TaxExplanationComponent } from "../shared/tax-explanation.component";
 import { LongTermSavingsRequest } from "./model/long-term-savings.model";
 import { LongTermSavingsStore } from "./store/long-term-savings.store";
 import { LongTermSavingsChartComponent } from "./ui/long-term-savings-chart/long-term-savings-chart.component";
@@ -20,7 +21,8 @@ import { LongTermSavingsFormComponent } from "./ui/long-term-savings-form/long-t
   imports: [
     RouterLink,
     CalculationStatusComponent,
-    HeroComponent,
+    CalculatorPanelComponent,
+    TaxExplanationComponent,
     LongTermSavingsFormComponent,
     LongTermSavingsDescriptionComponent,
     LongTermSavingsChartComponent,
@@ -47,6 +49,13 @@ export class LongTermSavingsComponent {
 
   calculate(request: LongTermSavingsRequest) {
     this.#store.calculate(request);
+  }
+
+  readonly resultContainer =
+    viewChild<ElementRef<HTMLElement>>("resultContainer");
+  scrollToResult() {
+    const target = this.resultContainer();
+    if (target) scrollToElement(target.nativeElement);
   }
 
   scrollToForm() {

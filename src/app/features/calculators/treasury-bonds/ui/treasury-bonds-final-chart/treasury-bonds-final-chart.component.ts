@@ -49,6 +49,8 @@ const currency = new Intl.NumberFormat("pl-PL", {
 export class TreasuryBondsFinalChartComponent {
   data = input.required<TreasuryBondsResult>();
   canvas = viewChild<ElementRef<HTMLCanvasElement>>("canvas");
+  readonly bondValue = bondValue;
+  readonly displayedBonds = computed(() => visibleBonds(this.data()));
   finalValue = computed(() =>
     this.data().values.find((value) => value.month === this.data().month),
   );
@@ -76,7 +78,7 @@ export class TreasuryBondsFinalChartComponent {
             pointRadius: 0,
             pointHoverRadius: 0,
             pointHitRadius: 0,
-            xAxisID: "inflation",
+            yAxisID: "inflation",
             order: 0,
           },
           {
@@ -87,7 +89,7 @@ export class TreasuryBondsFinalChartComponent {
             data: bonds.map((bond) => bondValue(value, bond.key)),
             backgroundColor: bonds.map((bond) => bond.color),
             borderRadius: 4,
-            maxBarThickness: 80,
+            maxBarThickness: 28,
             order: 1,
           },
         ],
@@ -104,28 +106,34 @@ export class TreasuryBondsFinalChartComponent {
         type: "bar",
         data,
         options: {
+          indexAxis: "y",
           responsive: true,
           maintainAspectRatio: false,
           animation: false,
           interaction: { mode: "nearest", intersect: true },
           scales: {
-            x: {
+            y: {
               grid: { display: false },
               ticks: { autoSkip: false, color: textColor },
             },
-            // Extend the reference line to both edges of the plot.
+            // Extend the inflation threshold to both ends of the category axis.
             inflation: {
-              axis: "x",
+              axis: "y",
               type: "category",
               display: false,
               offset: false,
             },
-            y: {
+            x: {
               beginAtZero: true,
               title: { display: true, text: "Wartość (zł)", color: textColor },
               ticks: {
                 color: textColor,
-                callback: (value) => Number(value).toLocaleString("pl-PL"),
+                maxTicksLimit: 4,
+                callback: (value) =>
+                  new Intl.NumberFormat("pl-PL", {
+                    notation: "compact",
+                    maximumFractionDigits: 1,
+                  }).format(Number(value)),
               },
             },
           },
@@ -134,7 +142,7 @@ export class TreasuryBondsFinalChartComponent {
             tooltip: {
               callbacks: {
                 label: (context) =>
-                  `${context.dataset.label}: ${currency.format(context.parsed.y ?? 0)}`,
+                  `${context.dataset.label}: ${currency.format(context.parsed.x ?? 0)}`,
               },
             },
           },

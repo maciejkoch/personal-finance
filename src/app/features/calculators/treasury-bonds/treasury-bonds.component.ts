@@ -24,7 +24,8 @@ import { TreasuryBondsStore } from "./store/treasury-bonds.store";
 import { TreasuryBondsChartComponent } from "./ui/treasury-bonds-chart/treasury-bonds-chart.component";
 import { TreasuryBondsFinalChartComponent } from "./ui/treasury-bonds-final-chart/treasury-bonds-final-chart.component";
 import { TreasuryBondsFormComponent } from "./ui/treasury-bonds-form/treasury-bonds-form.component";
-import { TreasuryBondsHeroComponent } from "./ui/treasury-bonds-hero/treasury-bonds-hero.component";
+import { CalculatorPanelComponent } from "../shared/calculator-panel.component";
+import { TaxExplanationComponent } from "../shared/tax-explanation.component";
 import { TreasuryBondsHowToComponent } from "./ui/treasury-bonds-how-to/treasury-bonds-how-to.component";
 import { TreasuryBondsResultsDescriptionComponent } from "./ui/treasury-bonds-results-description/treasury-bonds-results-description.component";
 import { TreasuryBondsResultsComponent } from "./ui/treasury-bonds-results/treasury-bonds-results.component";
@@ -35,7 +36,8 @@ import { TreasuryBondsResultsComponent } from "./ui/treasury-bonds-results/treas
     RouterLink,
     DecimalPipe,
     CalculationStatusComponent,
-    TreasuryBondsHeroComponent,
+    CalculatorPanelComponent,
+    TaxExplanationComponent,
     TreasuryBondsHowToComponent,
     TreasuryBondsFormComponent,
     TreasuryBondsResultsDescriptionComponent,
@@ -194,6 +196,13 @@ export class TreasuryBondsComponent {
 
   calculate(request: TreasuryBondsRequest) {
     this.#lastRequest.set(request);
+  }
+
+  readonly resultContainer =
+    viewChild<ElementRef<HTMLElement>>("resultContainer");
+  scrollToResult() {
+    const target = this.resultContainer();
+    if (target) scrollToElement(target.nativeElement);
   }
 
   scrollToForm() {

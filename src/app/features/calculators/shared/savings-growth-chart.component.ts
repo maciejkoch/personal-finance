@@ -1,7 +1,10 @@
+import { DecimalPipe } from "@angular/common";
 import {
   afterRenderEffect,
   ChangeDetectionStrategy,
   Component,
+  computed,
+  signal,
   DestroyRef,
   ElementRef,
   inject,
@@ -12,8 +15,9 @@ import {
   Chart,
   CategoryScale,
   LinearScale,
-  BarController,
-  BarElement,
+  LineController,
+  LineElement,
+  PointElement,
   Legend,
   Tooltip,
 } from "chart.js";
@@ -22,8 +26,9 @@ import type { PortfolioResult } from "@contracts/savings";
 Chart.register(
   CategoryScale,
   LinearScale,
-  BarController,
-  BarElement,
+  LineController,
+  LineElement,
+  PointElement,
   Legend,
   Tooltip,
 );
@@ -31,24 +36,66 @@ Chart.register(
 @Component({
   selector: "pf-savings-growth-chart",
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [DecimalPipe],
   template: `
     <p class="text-sm mb-3">
-      Wartość brutto — przed podatkiem. Wykres rozdziela kapitał początkowy,
-      późniejsze wpłaty i zysk.
+      Wartość brutto — przed podatkiem, w porównaniu z wniesionymi środkami.
+      Wynik netto podano w podsumowaniu.
     </p>
-    <div class="relative w-full min-h-[400px]">
+    <div class="relative w-full h-[320px] sm:h-[360px]">
       <canvas
         #canvas
         role="img"
-        aria-label="Wykres kapitału początkowego, późniejszych wpłat i zysku brutto w kolejnych latach. Wynik netto podano w podsumowaniu."
+        aria-label="Wykres wartości brutto i wniesionych środków w kolejnych latach. Dokładne wartości dostępne są w odczycie pod wykresem."
       ></canvas>
     </div>
+    <fieldset class="fieldset calculator-fieldset mt-4">
+      <legend class="fieldset-legend">Odczyt wykresu</legend>
+      <label class="calculator-field"
+        >Rok oszczędzania
+        <select
+          class="select w-full calculator-select"
+          [value]="selectedPoint()?.year"
+          (change)="selectedYear.set(+$any($event.target).value)"
+        >
+          @for (point of data().valueYearPerYear; track point.year) {
+            <option [value]="point.year">{{ point.year }}</option>
+          }
+        </select>
+      </label>
+      @if (selectedPoint(); as point) {
+        <dl class="calculator-metrics" aria-live="polite">
+          <div>
+            <dt>Wartość brutto</dt>
+            <dd>{{ point.compoundedInteres | number: "1.2-2" }} zł</dd>
+          </div>
+          <div>
+            <dt>Wniesione środki</dt>
+            <dd>
+              {{
+                data().initialCapital + point.totalContribution
+                  | number: "1.2-2"
+              }}
+              zł
+            </dd>
+          </div>
+        </dl>
+      }
+    </fieldset>
   `,
 })
 export class SavingsGrowthChartComponent {
   readonly data = input.required<PortfolioResult>();
   readonly canvas = viewChild<ElementRef<HTMLCanvasElement>>("canvas");
-  #chart: Chart<"bar", number[], number> | undefined;
+  readonly selectedYear = signal<number | null>(null);
+  readonly selectedPoint = computed(() => {
+    const points = this.data().valueYearPerYear;
+    return (
+      points.find((point) => point.year === this.selectedYear()) ??
+      points.at(-1)
+    );
+  });
+  #chart: Chart<"line", number[], number> | undefined;
 
   constructor() {
     inject(DestroyRef).onDestroy(() => this.#chart?.destroy());
@@ -57,29 +104,32 @@ export class SavingsGrowthChartComponent {
       if (!canvas) return;
       const result = this.data();
       const data = {
-        labels: result.valueYearPerYear.map((p) => p.year),
+        labels: [0, ...result.valueYearPerYear.map((p) => p.year)],
         datasets: [
           {
-            label: "Kapitał początkowy",
-            data: result.valueYearPerYear.map(() => result.initialCapital),
-            backgroundColor: "#6366f1",
-          },
-          {
-            label: "Późniejsze wpłaty",
-            data: result.valueYearPerYear.map((p) => p.totalContribution),
-            backgroundColor: "#d97706",
-          },
-          {
-            label: "Zysk brutto",
-            data: result.valueYearPerYear.map((p) =>
-              Math.max(
-                0,
-                p.compoundedInteres -
-                  p.totalContribution -
-                  result.initialCapital,
+            label: "Wartość brutto",
+            data: [
+              result.initialCapital,
+              ...result.valueYearPerYear.map(
+                (point) => point.compoundedInteres,
               ),
-            ),
-            backgroundColor: "#0ea5e9",
+            ],
+            borderColor: "#e9a259",
+            backgroundColor: "#e9a259",
+            pointRadius: 0,
+          },
+          {
+            label: "Wniesione środki",
+            data: [
+              result.initialCapital,
+              ...result.valueYearPerYear.map(
+                (point) => result.initialCapital + point.totalContribution,
+              ),
+            ],
+            borderColor: "#62b9de",
+            backgroundColor: "#62b9de",
+            borderDash: [6, 4],
+            pointRadius: 0,
           },
         ],
       };
@@ -88,25 +138,42 @@ export class SavingsGrowthChartComponent {
         this.#chart.update();
         return;
       }
+      const textColor = getComputedStyle(canvas).color;
       this.#chart = new Chart(canvas, {
-        type: "bar",
+        type: "line",
         data,
         options: {
           responsive: true,
           maintainAspectRatio: false,
           scales: {
-            x: { stacked: true, title: { text: "Lata", display: true } },
+            x: {
+              ticks: { color: textColor, maxTicksLimit: 6 },
+              title: { text: "Lata", display: true, color: textColor },
+            },
             y: {
-              stacked: true,
-              title: { text: "Wartość brutto (zł)", display: true },
+              ticks: {
+                color: textColor,
+                maxTicksLimit: 5,
+                callback: (value) =>
+                  new Intl.NumberFormat("pl-PL", {
+                    notation: "compact",
+                    maximumFractionDigits: 1,
+                  }).format(Number(value)),
+              },
+              title: {
+                text: "Wartość brutto (zł)",
+                display: true,
+                color: textColor,
+              },
             },
           },
           interaction: { intersect: false, mode: "index" },
           plugins: {
+            legend: { labels: { color: textColor, boxWidth: 14, padding: 12 } },
             tooltip: {
               callbacks: {
-                footer: (items) =>
-                  `Suma brutto: ${items.reduce((sum, item) => sum + (item.parsed.y ?? 0), 0).toLocaleString("pl-PL")} zł`,
+                label: (context) =>
+                  `${context.dataset.label}: ${(context.parsed.y ?? 0).toLocaleString("pl-PL", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} zł`,
               },
             },
           },

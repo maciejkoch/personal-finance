@@ -1,111 +1,216 @@
-<form novalidate (submit)="$event.preventDefault()">
-  <pfui-accordion>
-    <pfui-accordion-item [opened]="true">
-      <span title>Założenia główne</span>
-      <div content>
-        <label class="flex flex-col w-full">
-          <div class="flex justify-between items-center px-1 py-2">
-            <span class="text-sm">Liczba obligacji</span>
-            <span class="text-xs">(x 100zł)</span>
-          </div>
+<form class="calculator-form" novalidate (submit)="$event.preventDefault()">
+  <fieldset class="fieldset calculator-fieldset">
+    <legend class="fieldset-legend">Założenia główne</legend>
+    <label class="calculator-field" for="treasury-bonds-numberOfBonds">
+      <span>Liczba obligacji</span>
+      <span
+        class="input calculator-input"
+        [class.input-error]="form.numberOfBonds().invalid()"
+      >
+        <input
+          id="treasury-bonds-numberOfBonds"
+          type="number"
+          [formField]="form.numberOfBonds"
+          step="1"
+          placeholder="1000"
+          [attr.aria-invalid]="form.numberOfBonds().invalid()"
+          [attr.aria-describedby]="
+            form.numberOfBonds().invalid()
+              ? 'treasury-bonds-numberOfBonds-error'
+              : null
+          "
+        />
+        <span class="label">szt.</span>
+      </span>
+    </label>
+    @if (form.numberOfBonds().invalid()) {
+      <p
+        id="treasury-bonds-numberOfBonds-error"
+        class="text-error text-sm"
+        role="alert"
+      >
+        Podaj pełną liczbę obligacji od 1 do 1 000 000.
+      </p>
+    }
+    <p class="text-sm text-base-content/75">
+      1 obligacja = 100 zł · łącznie {{ model().numberOfBonds * 100 }} zł
+    </p>
+    <label class="calculator-field" for="treasury-bonds-duration">
+      <span>Okres</span>
+      <span
+        class="input calculator-input"
+        [class.input-error]="form.duration().invalid()"
+      >
+        <input
+          id="treasury-bonds-duration"
+          type="number"
+          [formField]="form.duration"
+          step="1"
+          placeholder="10"
+          [attr.aria-invalid]="form.duration().invalid()"
+          [attr.aria-describedby]="
+            form.duration().invalid() ? 'treasury-bonds-duration-error' : null
+          "
+        />
+        <span class="label">lat</span>
+      </span>
+    </label>
+    @if (form.duration().invalid()) {
+      <p
+        id="treasury-bonds-duration-error"
+        class="text-error text-sm"
+        role="alert"
+      >
+        Podaj pełną liczbę lat od 1 do 12.
+      </p>
+    }
+    <ng-content select="[offer-selector]" />
+  </fieldset>
+  <pf-calculator-panel
+    label="Założenia dodatkowe"
+    panelKey="treasury-bonds-extra"
+    [summary]="
+      'Inflacja ' +
+      model().inflation +
+      '% · NBP ' +
+      model().referenceRate +
+      '% · gotówka ' +
+      model().rate +
+      '%'
+    "
+    [reveal]="
+      form.rate().invalid() ||
+      form.inflation().invalid() ||
+      form.referenceRate().invalid()
+    "
+  >
+    <fieldset class="fieldset calculator-panel-fields">
+      <legend class="sr-only">Założenia dodatkowe</legend>
+      <label class="calculator-field" for="treasury-bonds-inflation">
+        <span>Szacowana inflacja</span>
+        <span
+          class="input calculator-input"
+          [class.input-error]="form.inflation().invalid()"
+        >
           <input
+            id="treasury-bonds-inflation"
             type="number"
-            placeholder="1000"
-            class="input input-primary w-full text-base px-4"
-            [formField]="form.numberOfBonds"
-            step="1"
-            [attr.aria-invalid]="form.numberOfBonds().invalid()"
-          />
-        </label>
-
-        <label class="flex flex-col w-full">
-          <div class="flex justify-between items-center px-1 py-2">
-            <span class="text-sm">Okres</span>
-            <span class="text-xs">(lat)</span>
-          </div>
-          <input
-            type="number"
-            class="input input-primary w-full text-base px-4"
-            placeholder="10"
-            [formField]="form.duration"
-            step="1"
-            [attr.aria-invalid]="form.duration().invalid()"
-          />
-        </label>
-      </div>
-    </pfui-accordion-item>
-
-    <pfui-accordion-item>
-      <span title>Założenia dodatkowe</span>
-      <div content>
-        <label class="flex flex-col w-full">
-          <div class="flex justify-between items-center px-1 py-2">
-            <span class="text-sm"> Szacowana inflacja</span>
-            <span class="text-xs">(%)</span>
-          </div>
-          <input
-            type="number"
-            class="input input-primary w-full text-base px-4"
-            placeholder="3.5"
             [formField]="form.inflation"
             step="0.1"
+            placeholder="3.5"
+            [attr.aria-invalid]="form.inflation().invalid()"
+            [attr.aria-describedby]="
+              form.inflation().invalid()
+                ? 'treasury-bonds-inflation-error'
+                : null
+            "
           />
-        </label>
-
-        <label class="flex flex-col w-full">
-          <div class="flex justify-between items-center px-1 py-2">
-            <span class="text-sm">Zakładana przyszła stopa NBP</span>
-            <span class="text-xs">(%)</span>
-          </div>
+          <span class="label">% / rok</span>
+        </span>
+      </label>
+      @if (form.inflation().invalid()) {
+        <p
+          id="treasury-bonds-inflation-error"
+          class="text-error text-sm"
+          role="alert"
+        >
+          Podaj inflację od −99 do 100%.
+        </p>
+      }
+      <label class="calculator-field" for="treasury-bonds-referenceRate">
+        <span>Zakładana przyszła stopa NBP</span>
+        <span
+          class="input calculator-input"
+          [class.input-error]="form.referenceRate().invalid()"
+        >
           <input
+            id="treasury-bonds-referenceRate"
             type="number"
-            class="input input-primary w-full text-base px-4"
-            placeholder="5"
             [formField]="form.referenceRate"
             step="0.1"
+            placeholder="5"
+            [attr.aria-invalid]="form.referenceRate().invalid()"
+            [attr.aria-describedby]="
+              form.referenceRate().invalid()
+                ? 'treasury-bonds-referenceRate-error'
+                : null
+            "
           />
-        </label>
-
-        <label class="flex flex-col w-full">
-          <div class="flex justify-between items-center px-1 py-2">
-            <span class="text-sm">
-              Zakładane oprocentowanie wypłaconych środków</span
-            >
-            <span class="text-xs">(%)</span>
-          </div>
+          <span class="label">% / rok</span>
+        </span>
+      </label>
+      @if (form.referenceRate().invalid()) {
+        <p
+          id="treasury-bonds-referenceRate-error"
+          class="text-error text-sm"
+          role="alert"
+        >
+          Podaj stopę NBP od 0 do 100%.
+        </p>
+      }
+      <label class="calculator-field" for="treasury-bonds-rate">
+        <span>Zakładane oprocentowanie wypłaconych środków</span>
+        <span
+          class="input calculator-input"
+          [class.input-error]="form.rate().invalid()"
+        >
           <input
+            id="treasury-bonds-rate"
             type="number"
-            class="input input-primary w-full text-base px-4"
-            placeholder="0"
             [formField]="form.rate"
             step="0.1"
+            placeholder="0"
+            [attr.aria-invalid]="form.rate().invalid()"
+            [attr.aria-describedby]="
+              form.rate().invalid() ? 'treasury-bonds-rate-error' : null
+            "
           />
-        </label>
-      </div>
-    </pfui-accordion-item>
-  </pfui-accordion>
-  <label class="flex items-center gap-3 my-4">
-    <input
-      type="checkbox"
-      class="checkbox checkbox-primary"
-      [formField]="form.familyEligible"
-    />
-    <span>Mam uprawnienia do zakupu obligacji rodzinnych (800+)</span>
-  </label>
-  @if (model().familyEligible) {
-    <p class="text-sm">
-      Zakup ROS i ROD wymaga dostępnego limitu świadczeń. Kalkulator nie
-      sprawdza limitu, także przy ponownym zakupie.
-    </p>
-  }
-  <pf-tax-options [bonds]="true" [skipTax]="form.skipTax" />
-  <ng-content select="[offer-selector]" />
-  @if (form().invalid()) {
-    <p class="text-error mb-3" role="alert">
-      Podaj całkowitą liczbę obligacji od 1 do 1 000 000 i okres od 1 do 12
-      pełnych lat. Inflacja: −99–100%, pozostałe stopy: 0–100%.
-    </p>
-  }
+          <span class="label">% / rok</span>
+        </span>
+      </label>
+      @if (form.rate().invalid()) {
+        <p
+          id="treasury-bonds-rate-error"
+          class="text-error text-sm"
+          role="alert"
+        >
+          Podaj stopę od 0 do 100%.
+        </p>
+      }
+      <p class="text-sm text-base-content/75">
+        Wartości są Twoim scenariuszem, a nie prognozą.
+      </p>
+    </fieldset>
+  </pf-calculator-panel>
+  <pf-calculator-panel
+    label="Podatek i uprawnienia"
+    panelKey="treasury-bonds-tax"
+    [desktopOpen]="true"
+    [summary]="
+      (model().skipTax ? 'Podatek pominięty' : 'Podatek uwzględniony') +
+      (model().familyEligible ? ' · z ROS/ROD' : ' · bez ROS/ROD')
+    "
+  >
+    <fieldset class="fieldset calculator-panel-fields">
+      <legend class="sr-only">Podatek i uprawnienia</legend>
+      <pf-tax-options [bonds]="true" [skipTax]="form.skipTax" />
+      <label class="calculator-check"
+        ><input
+          type="checkbox"
+          class="checkbox checkbox-primary"
+          [formField]="form.familyEligible"
+        /><span
+          >Mam uprawnienia do zakupu obligacji rodzinnych (800+)</span
+        ></label
+      >
+      @if (model().familyEligible) {
+        <p class="text-sm">
+          Zakup ROS i ROD wymaga dostępnego limitu świadczeń. Kalkulator nie
+          sprawdza limitu, także przy ponownym zakupie.
+        </p>
+      }
+    </fieldset>
+  </pf-calculator-panel>
   <button
     type="button"
     class="btn btn-outline w-full whitespace-normal h-auto min-h-12"
