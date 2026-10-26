@@ -1,5 +1,5 @@
 {
-  "mode": "monitor",
+  "mode": "enforce",
   "siteKey": "6LdjFQEuAAAAAK6SEFf_yjeZdhI6MIIJ0_EAGcU8",
   "firebase": {
     "apiKey": "AIzaSyDmmTKP-FkDrHcCD6eR02FJXxS_E5iUm78",

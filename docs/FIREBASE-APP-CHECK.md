@@ -12,7 +12,9 @@ Firebase Web SDK jest przypięty do 12.18.0; overrides `@firebase/app=0.16.1` i 
 
 ## Konfiguracja i kolejność uruchomienia
 
-Repozytorium domyślnie używa `off`: samo scalenie PR nie uruchamia reCAPTCHA ani blokady ruchu. Ten PR nie rejestruje kluczy i nie zmienia produkcyjnych ustawień Firebase.
+Kod backendu bez jawnej konfiguracji używa `off`. Produkcyjny frontend w `public/app-check.json` jest skonfigurowany w trybie `enforce`. Przy wdrażaniu do nowego projektu najpierw ustaw `monitor` zgodnie z poniższą procedurą. Produkcyjne zmienne Functions są w ignorowanym przez Git pliku `functions/.env.personal-finance-2ee61`; zachowaj je przy kolejnych wdrożeniach.
+
+Konfiguracja produkcyjna przygotowana 26.10.2026: aplikacja Web `1:850956574248:web:e8f8affa8457cfe578df1d`, klucz `Oszczedzify App Check production`, domeny `oszczedzify.org`, `personal-finance-2ee61.web.app` i `personal-finance-2ee61.firebaseapp.com`, TTL `3600s`, próg oceny `0.5`, allowlista backendu ograniczona do tej aplikacji Web. Rejestrację providera i klucza wykonano przez Google API; nie jest potrzebna ponowna konfiguracja w konsoli.
 
 1. Zarejestruj aplikację Web w projekcie `personal-finance-2ee61` (lub użyj istniejącej). Utwórz **score-based reCAPTCHA Enterprise site key**, dodaj domeny `oszczedzify.org` oraz `personal-finance-2ee61.web.app` i zarejestruj provider w Firebase Console → App Check. Ustal próg oceny i TTL w konsoli. Dla stagingu użyj oddzielnego projektu, klucza i domen.
 2. Ustaw Functions `APP_CHECK_MODE=monitor` w pliku `functions/.env.<project-id>`; opcjonalnie `APP_CHECK_APP_IDS=<web-app-id>`. Wdróż wszystkie osiem funkcji HTTP. Nie trzeba ustawiać `enforceAppCheck` dla funkcji callable: aplikacja używa **onRequest**, weryfikacja odbywa się w naszym kodzie.
