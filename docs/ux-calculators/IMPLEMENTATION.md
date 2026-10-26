@@ -57,6 +57,6 @@ Zrzuty po korekcie: [wyrównanie obligacji](aligned-bonds-desktop.png), [wykres 
 
 ### Animacja rozwiniętego hero przy zmianie kalkulatora
 
-Zachowanie stanu nie wystarczało: nowa instancja hero nadal miała aktywne przejścia CSS, a router uruchamiał globalny efekt View Transition. Przejścia wewnątrz sekcji kalkulatorów pomijają teraz ten efekt. Animacje wysokości i ikony hero są włączane dopiero przez kliknięcie jego strzałki lub „Rozpocznij”, osobno w każdej instancji. Pierwszy render po zmianie trasy ma od razu docelową wysokość.
+Zachowanie stanu nie wystarczało: nowa instancja hero nadal miała aktywne przejścia CSS. Animacje wysokości i ikony hero są włączane dopiero przez kliknięcie jego strzałki lub „Rozpocznij”, osobno w każdej instancji. Pierwszy render po zmianie trasy ma od razu docelową wysokość. Oryginalny globalny fade routera pozostaje włączony; próbne pomijanie go między kalkulatorami wycofano po uwadze użytkownika o miganiu strony.
 
-Weryfikacja: 124/124 testy w 28 plikach, lint i produkcyjny build. Nowy test wykorzystuje rzeczywiste snapshoty routera i potwierdza pomijanie przejść między kalkulatorami oraz zachowanie efektu przy przejściu do innej sekcji. W przeglądarce dla trzech kalkulatorów potwierdzono `transitionDuration: 0s` po nawigacji w stanie rozwiniętym oraz `0.3s` po ręcznym przełączeniu hero.
+Weryfikacja: 123/123 testy w 27 plikach, lint i produkcyjny build. Regresja nawigacji sprawdza, że nowa instancja hero nie uruchamia własnych przejść, nawet gdy poprzednią rozwinięto ręcznie. W przeglądarce dla trzech kalkulatorów potwierdzono `transitionDuration: 0s` po nawigacji w stanie rozwiniętym oraz `0.3s` po ręcznym przełączeniu hero.

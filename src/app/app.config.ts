@@ -20,7 +20,6 @@ import { appCheckInterceptor } from "./core/http/app-check.interceptor";
 import { appRoutes } from "./app.routes";
 import { API_ENDPOINTS } from "@core/http/api-endpoints";
 import { environment } from "../environments/environment";
-import { skipCalculatorTransition } from "./shared/router/view-transitions";
 
 import "@angular/common/locales/global/pl";
 import {
@@ -43,9 +42,7 @@ export const appConfig: ApplicationConfig = {
       withInMemoryScrolling({
         scrollPositionRestoration: "enabled",
       }),
-      withViewTransitions({
-        onViewTransitionCreated: skipCalculatorTransition,
-      }),
+      withViewTransitions(),
       withComponentInputBinding(),
     ),
     provideHttpClient(withFetch(), withInterceptors([appCheckInterceptor])),
