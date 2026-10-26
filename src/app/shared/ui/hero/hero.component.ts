@@ -4,13 +4,13 @@ import {
   input,
   output,
   signal,
-} from '@angular/core';
+} from "@angular/core";
 
 @Component({
-    selector: 'pfui-hero',
-    imports: [],
-    templateUrl: './hero.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+  selector: "pfui-hero",
+  imports: [],
+  templateUrl: "./hero.component.html",
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeroComponent {
   ANIMATION_DURATION = 300;
@@ -29,7 +29,7 @@ export class HeroComponent {
       return;
     }
 
-    this.expanded.update((expanded) => value || !expanded);
+    this.expanded.update((expanded) => value ?? !expanded);
   }
 
   handleClick() {

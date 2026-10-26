@@ -1,11 +1,10 @@
-<header class="calculator-heading">
-  <h1>Kalkulator oszczędzania na cel</h1>
-  <p>
-    Sprawdź, ile odkładać co miesiąc, aby osiągnąć cel. Uwzględnij zakładaną
-    inflację, stopę zwrotu i modelowy podatek, a potem porównaj kilka
-    scenariuszy.
-  </p>
-</header>
+<pfui-hero
+  class="block mb-6"
+  title="Kalkulator oszczędzania na cel"
+  text="Sprawdź, ile odkładać co miesiąc, aby osiągnąć cel. Uwzględnij zakładaną inflację, stopę zwrotu i modelowy podatek, a potem porównaj kilka scenariuszy."
+  buttonLabel="Rozpocznij"
+  (clicked)="scrollToForm()"
+/>
 <div class="calculator-mobile-links">
   <button type="button" class="link" (click)="scrollToResult()">
     Zobacz wynik ↓

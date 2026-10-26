@@ -1,10 +1,10 @@
-<header class="calculator-heading">
-  <h1>Kalkulator regularnego oszczędzania</h1>
-  <p>
-    Oblicz, ile uzbierasz, wpłacając co miesiąc stałą kwotę. Porównaj sumę
-    wpłat, odsetki i wynik po modelowym podatku przy własnej stopie zwrotu.
-  </p>
-</header>
+<pfui-hero
+  class="block mb-6"
+  title="Kalkulator regularnego oszczędzania"
+  text="Oblicz, ile uzbierasz, wpłacając co miesiąc stałą kwotę. Porównaj sumę wpłat, odsetki i wynik po modelowym podatku przy własnej stopie zwrotu."
+  buttonLabel="Rozpocznij"
+  (clicked)="scrollToForm()"
+/>
 <div class="calculator-mobile-links">
   <button type="button" class="link" (click)="scrollToResult()">
     Zobacz wynik ↓

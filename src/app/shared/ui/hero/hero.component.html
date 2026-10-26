@@ -2,6 +2,7 @@
   <div class="hero-content text-center">
     <div>
       <button
+        type="button"
         class="flex justify-between items-center w-full"
         [attr.aria-expanded]="expanded()"
         (click)="toggle()"
@@ -45,7 +46,11 @@
           </p>
 
           <ng-content />
-          <button class="btn btn-primary mt-6" (click)="handleClick()">
+          <button
+            type="button"
+            class="btn btn-primary mt-6"
+            (click)="handleClick()"
+          >
             {{ buttonLabel() }}
           </button>
         </div>

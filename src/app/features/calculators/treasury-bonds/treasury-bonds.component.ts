@@ -1,3 +1,4 @@
+import { TreasuryBondsHeroComponent } from "./ui/treasury-bonds-hero/treasury-bonds-hero.component";
 import {
   afterNextRender,
   effect,
@@ -33,6 +34,7 @@ import { TreasuryBondsResultsComponent } from "./ui/treasury-bonds-results/treas
 @Component({
   selector: "pf-treasury-bonds",
   imports: [
+    TreasuryBondsHeroComponent,
     RouterLink,
     DecimalPipe,
     CalculationStatusComponent,

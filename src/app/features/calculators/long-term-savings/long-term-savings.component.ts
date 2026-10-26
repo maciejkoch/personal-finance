@@ -1,3 +1,4 @@
+import { HeroComponent } from "@shared/ui/hero/hero.component";
 import {
   ChangeDetectionStrategy,
   Component,
@@ -19,6 +20,7 @@ import { LongTermSavingsFormComponent } from "./ui/long-term-savings-form/long-t
 @Component({
   selector: "pf-long-term-savings",
   imports: [
+    HeroComponent,
     RouterLink,
     CalculationStatusComponent,
     CalculatorPanelComponent,

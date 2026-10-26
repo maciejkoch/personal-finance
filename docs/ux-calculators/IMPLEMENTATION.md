@@ -4,6 +4,10 @@
 
 Późniejsza publikacja na polecenie użytkownika i kontrola produkcji: [PRODUCTION.md](PRODUCTION.md).
 
+## Korekta po informacji zwrotnej — hero
+
+Przywrócono wcześniejsze hero wszystkich trzech kalkulatorów: przycisk „Rozpocznij” zwija opis i po animacji przewija do głównych założeń; nagłówek pozwala ponownie rozwinąć opis. Nowy układ formularzy, paneli i wykresów pozostaje zachowany. Jawne polecenie zwinięcia nie otwiera już przypadkowo zamkniętego hero. Regresję działania przycisku i ponownego rozwijania pokrywają dwa testy. Po tej korekcie przechodzi 120/120 testów, lint, produkcyjny build i kontrola treści. Korekta nie jest częścią wydania `a872f0a` opisanego w PRODUCTION.md i nie została jeszcze wdrożona na produkcję.
+
 ## Zakres
 
 Wszystkie trzy kalkulatory mają układ „Obok wyniku”: formularz po lewej, podsumowanie i główny wykres po prawej; poniżej 1024 px jedna kolumna. Zachowano istniejące menu aplikacji i motyw `pf`.

@@ -1,3 +1,4 @@
+import { HeroComponent } from "@shared/ui/hero/hero.component";
 import {
   ChangeDetectionStrategy,
   Component,
@@ -19,6 +20,7 @@ import { RegularContributionFormComponent } from "./ui/regular-contribution-form
 @Component({
   selector: "pf-regular-contribution",
   imports: [
+    HeroComponent,
     RouterLink,
     CalculationStatusComponent,
     CalculatorPanelComponent,
