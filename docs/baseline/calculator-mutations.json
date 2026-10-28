@@ -1,34 +1,34 @@
 {
-  "baselineTests": 145,
+  "baselineTests": 167,
   "mutations": [
     {
       "name": "bond tax rounded down",
       "file": "treasury-bonds/bond-simulation.js",
-      "sourceSha256": "26f11516174955746b5499a80b345a10040ae60b661f66305d180b34471837f0",
+      "sourceSha256": "27df2fe42cdce422705d25b7c3c90441b85ca01315d8136569c198bb0b64dfcc",
       "detected": true,
-      "failures": 26,
+      "failures": 27,
       "exampleFailingTests": [
+        "Versioned bond offers pins v4 to a required offer and preserves v3 numerical results for the seed",
         "Independent calculator regression references ROR maturity, 1 bonds, skipTax=False",
-        "Independent calculator regression references DOR maturity, 1 bonds, skipTax=False",
-        "Independent calculator regression references TOS maturity, 1 bonds, skipTax=False"
+        "Independent calculator regression references DOR maturity, 1 bonds, skipTax=False"
       ]
     },
     {
       "name": "bond skipTax ignored",
       "file": "treasury-bonds/bond-simulation.js",
-      "sourceSha256": "26f11516174955746b5499a80b345a10040ae60b661f66305d180b34471837f0",
+      "sourceSha256": "27df2fe42cdce422705d25b7c3c90441b85ca01315d8136569c198bb0b64dfcc",
       "detected": true,
-      "failures": 29,
+      "failures": 30,
       "exampleFailingTests": [
+        "Versioned bond offers uses the selected offer's actual calendar in partial-year valuations",
         "Independent calculator regression references ROR maturity, 1 bonds, skipTax=True",
-        "Independent calculator regression references ROR maturity, 100 bonds, skipTax=True",
-        "Independent calculator regression references DOR maturity, 1 bonds, skipTax=True"
+        "Independent calculator regression references ROR maturity, 100 bonds, skipTax=True"
       ]
     },
     {
       "name": "redemption fee removed",
       "file": "treasury-bonds/bond-simulation.js",
-      "sourceSha256": "26f11516174955746b5499a80b345a10040ae60b661f66305d180b34471837f0",
+      "sourceSha256": "27df2fe42cdce422705d25b7c3c90441b85ca01315d8136569c198bb0b64dfcc",
       "detected": true,
       "failures": 33,
       "exampleFailingTests": [
@@ -40,7 +40,7 @@
     {
       "name": "redemption fee not deducted from taxable income",
       "file": "treasury-bonds/bond-simulation.js",
-      "sourceSha256": "26f11516174955746b5499a80b345a10040ae60b661f66305d180b34471837f0",
+      "sourceSha256": "27df2fe42cdce422705d25b7c3c90441b85ca01315d8136569c198bb0b64dfcc",
       "detected": true,
       "failures": 14,
       "exampleFailingTests": [
@@ -52,19 +52,19 @@
     {
       "name": "capitalization removed",
       "file": "treasury-bonds/bond-simulation.js",
-      "sourceSha256": "26f11516174955746b5499a80b345a10040ae60b661f66305d180b34471837f0",
+      "sourceSha256": "27df2fe42cdce422705d25b7c3c90441b85ca01315d8136569c198bb0b64dfcc",
       "detected": true,
-      "failures": 38,
+      "failures": 39,
       "exampleFailingTests": [
+        "Versioned bond offers pins v4 to a required offer and preserves v3 numerical results for the seed",
         "Independent calculator regression references TOS maturity, 1 bonds, skipTax=False",
-        "Independent calculator regression references TOS maturity, 1 bonds, skipTax=True",
-        "Independent calculator regression references TOS maturity, 100 bonds, skipTax=False"
+        "Independent calculator regression references TOS maturity, 1 bonds, skipTax=True"
       ]
     },
     {
       "name": "coupon counted twice",
       "file": "treasury-bonds/bond-simulation.js",
-      "sourceSha256": "26f11516174955746b5499a80b345a10040ae60b661f66305d180b34471837f0",
+      "sourceSha256": "27df2fe42cdce422705d25b7c3c90441b85ca01315d8136569c198bb0b64dfcc",
       "detected": true,
       "failures": 26,
       "exampleFailingTests": [
@@ -76,7 +76,7 @@
     {
       "name": "cash interest omitted",
       "file": "treasury-bonds/bond-simulation.js",
-      "sourceSha256": "26f11516174955746b5499a80b345a10040ae60b661f66305d180b34471837f0",
+      "sourceSha256": "27df2fe42cdce422705d25b7c3c90441b85ca01315d8136569c198bb0b64dfcc",
       "detected": true,
       "failures": 3,
       "exampleFailingTests": [
@@ -88,7 +88,7 @@
     {
       "name": "inflation taken one year too early",
       "file": "treasury-bonds/bond-simulation.js",
-      "sourceSha256": "26f11516174955746b5499a80b345a10040ae60b661f66305d180b34471837f0",
+      "sourceSha256": "27df2fe42cdce422705d25b7c3c90441b85ca01315d8136569c198bb0b64dfcc",
       "detected": true,
       "failures": 18,
       "exampleFailingTests": [
@@ -100,7 +100,7 @@
     {
       "name": "exchange discount removed",
       "file": "treasury-bonds/bond-simulation.js",
-      "sourceSha256": "26f11516174955746b5499a80b345a10040ae60b661f66305d180b34471837f0",
+      "sourceSha256": "27df2fe42cdce422705d25b7c3c90441b85ca01315d8136569c198bb0b64dfcc",
       "detected": true,
       "failures": 1,
       "exampleFailingTests": [
@@ -110,13 +110,13 @@
     {
       "name": "last observation omitted",
       "file": "treasury-bonds/bond-simulation.js",
-      "sourceSha256": "26f11516174955746b5499a80b345a10040ae60b661f66305d180b34471837f0",
+      "sourceSha256": "27df2fe42cdce422705d25b7c3c90441b85ca01315d8136569c198bb0b64dfcc",
       "detected": true,
-      "failures": 70,
+      "failures": 72,
       "exampleFailingTests": [
-        "Independent calculator regression references ROR maturity, 1 bonds, skipTax=False",
-        "Independent calculator regression references ROR maturity, 1 bonds, skipTax=True",
-        "Independent calculator regression references ROR maturity, 100 bonds, skipTax=False"
+        "Versioned bond offers pins v4 to a required offer and preserves v3 numerical results for the seed",
+        "Versioned bond offers uses the selected offer's actual calendar in partial-year valuations",
+        "Independent calculator regression references ROR maturity, 1 bonds, skipTax=False"
       ]
     },
     {

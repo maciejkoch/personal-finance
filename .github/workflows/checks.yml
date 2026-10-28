@@ -27,6 +27,7 @@ jobs:
           distribution: temurin
           java-version: "21"
       - run: npm run test:offers:emulator
+      - run: npm run test:inflation:emulator
       - run: npm run test:app-check:emulator
       - run: npm run lint
       - run: npm run lint:functions

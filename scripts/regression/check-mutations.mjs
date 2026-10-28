@@ -140,6 +140,12 @@ try {
   cpSync(join(functions, "content"), join(scratch, "content"), {
     recursive: true,
   });
+  // Raw CSV fixtures are not emitted by tsc, but the parser tests need their original bytes.
+  cpSync(
+    join(functions, "src/inflation/fixtures"),
+    join(scratch, "src/inflation/fixtures"),
+    { recursive: true },
+  );
   symlinkSync(
     join(functions, "node_modules"),
     join(scratch, "node_modules"),
