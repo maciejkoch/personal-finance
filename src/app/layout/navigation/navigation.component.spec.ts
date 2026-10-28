@@ -22,7 +22,7 @@ describe("Navigation submenus", () => {
     expect(fixture.componentInstance).toBeTruthy();
   });
 
-  it("uses three desktop links and highlights the section for every child page", async () => {
+  it("uses four desktop links and highlights the section for every child page", async () => {
     const fixture = TestBed.createComponent(NavigationComponent);
     fixture.componentRef.setInput("desktop", true);
     const navigated = vi.fn();
@@ -33,11 +33,13 @@ describe("Navigation submenus", () => {
     expect(Array.from(links, (link) => link.textContent!.trim())).toEqual([
       "Kalkulatory",
       "Poradniki",
+      "Inflacja",
       "O nas",
     ]);
     expect(Array.from(links, (link) => link.getAttribute("href"))).toEqual([
       "/kalkulatory",
       "/kalkulator-obligacji-skarbowych",
+      "/inflacja",
       "/o-nas",
     ]);
     expect(root.querySelector("details, summary, button")).toBeNull();
@@ -65,7 +67,7 @@ describe("Navigation submenus", () => {
     fixture.componentInstance.navigated.subscribe(navigated);
     await fixture.whenStable();
     const root = fixture.nativeElement as HTMLElement;
-    expect(root.querySelector("ul")!.children).toHaveLength(3);
+    expect(root.querySelector("ul")!.children).toHaveLength(4);
     const button = Array.from(root.querySelectorAll("button")).find(
       (button) => button.textContent!.trim() === "Poradniki",
     )!;

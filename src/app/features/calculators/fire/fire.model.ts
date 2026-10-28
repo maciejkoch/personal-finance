@@ -62,10 +62,10 @@ export const FIRE_FIELDS = [
   {
     key: "inflation",
     label: "Roczna inflacja (%)",
-    min: 0,
-    max: 20,
+    min: -99,
+    max: 100,
     step: 0.1,
-    hint: "Od 0% do 20%. Stała w całym scenariuszu.",
+    hint: "Od −99% do 100%. Stała w całym scenariuszu.",
   },
   {
     key: "withdrawalRate",

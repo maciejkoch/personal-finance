@@ -27,7 +27,9 @@
     "check:content": "node scripts/check-content.mjs",
     "bonds:admin": "npm --prefix functions run build && node scripts/bond-offers.mjs",
     "test:offers:emulator": "npm --prefix functions run build && npx -y firebase-tools@15.34.1 emulators:exec --only firestore --project demo-oszczedzify \"node scripts/test-bond-offers-emulator.mjs\"",
-    "test:app-check:emulator": "npm run build:functions && APP_CHECK_MODE=enforce npx -y firebase-tools@15.34.1 emulators:exec --only functions --project demo-oszczedzify \"node scripts/smoke-app-check.mjs\""
+    "test:app-check:emulator": "npm run build:functions && APP_CHECK_MODE=enforce npx -y firebase-tools@15.34.1 emulators:exec --only functions --project demo-oszczedzify \"node scripts/smoke-app-check.mjs\"",
+    "inflation:admin": "npm --prefix functions run build && node scripts/inflation.mjs",
+    "test:inflation:emulator": "npm --prefix functions run build && npx -y firebase-tools@15.34.1 emulators:exec --only firestore --project demo-oszczedzify \"node scripts/test-inflation-emulator.mjs\""
   },
   "private": true,
   "dependencies": {

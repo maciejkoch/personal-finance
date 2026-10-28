@@ -1,10 +1,17 @@
+import { provideRouter } from "@angular/router";
+import { provideTestInflation } from "@core/inflation/inflation.testing";
 import { TestBed } from "@angular/core/testing";
 import { vi } from "vitest";
 import { CalculatorPanelComponent } from "./calculator-panel.component";
 import { LongTermSavingsFormComponent } from "../long-term-savings/ui/long-term-savings-form/long-term-savings-form.component";
 
 describe("Calculator disclosures", () => {
-  beforeEach(() => localStorage.clear());
+  beforeEach(() => {
+    localStorage.clear();
+    TestBed.configureTestingModule({
+      providers: [provideRouter([]), provideTestInflation()],
+    });
+  });
   afterEach(() => vi.unstubAllGlobals());
 
   async function panel(key: string, desktop = false) {

@@ -1,3 +1,5 @@
+import { useInflationAssumption } from "@core/inflation/inflation-assumption";
+import { InflationReferenceComponent } from "@core/inflation/inflation-reference.component";
 import { CalculatorPanelComponent } from "../../../shared/calculator-panel.component";
 import {
   ChangeDetectionStrategy,
@@ -28,13 +30,18 @@ const formSchema = z.object({
   skipRate: z.boolean(),
   skipTax: z.boolean(),
   amount: z.number().min(0.01).max(CALCULATOR_LIMITS.capital),
-  inflation: z.number().min(0).max(100),
+  inflation: z.number().min(-99).max(100),
   skipInflation: z.boolean(),
 });
 
 @Component({
   selector: "pf-long-term-savings-form",
-  imports: [FormField, TaxOptionsComponent, CalculatorPanelComponent],
+  imports: [
+    InflationReferenceComponent,
+    FormField,
+    TaxOptionsComponent,
+    CalculatorPanelComponent,
+  ],
   templateUrl: "./long-term-savings-form.component.html",
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -58,6 +65,11 @@ export class LongTermSavingsFormComponent {
       skipTax: false,
     },
   );
+  readonly inflation = useInflationAssumption(
+    this.model,
+    "long-term-savings-form",
+    this.storage.load() !== null,
+  );
   readonly form = form(this.model, (path) => {
     required(path.initialCapital);
     min(path.initialCapital, 0);
@@ -66,7 +78,7 @@ export class LongTermSavingsFormComponent {
     min(path.amount, 0.01);
     max(path.amount, CALCULATOR_LIMITS.capital);
     required(path.inflation);
-    min(path.inflation, 0);
+    min(path.inflation, -99);
     max(path.inflation, 100);
     disabled(path.inflation, {
       when: ({ valueOf }) => valueOf(path.skipInflation),
@@ -91,10 +103,21 @@ export class LongTermSavingsFormComponent {
   constructor() {
     effect((onCleanup) => {
       const request = this.model();
-      this.pending.emit(this.form().valid() ? request : null);
-      if (!this.form().valid()) return;
+      this.pending.emit(
+        this.form().valid() && (request.skipInflation || this.inflation.ready())
+          ? request
+          : null,
+      );
+      if (
+        !this.form().valid() ||
+        (!request.skipInflation && !this.inflation.ready())
+      )
+        return;
       const timer = setTimeout(() => {
-        this.storage.save(request);
+        this.storage.save({
+          ...request,
+          inflation: Number.isFinite(request.inflation) ? request.inflation : 0,
+        });
         this.changed.emit(request);
       }, 300);
       onCleanup(() => clearTimeout(timer));

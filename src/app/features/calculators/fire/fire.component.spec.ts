@@ -1,3 +1,4 @@
+import { provideTestInflation } from "@core/inflation/inflation.testing";
 import { TestBed } from "@angular/core/testing";
 import { provideRouter } from "@angular/router";
 import { describe, expect, it } from "vitest";
@@ -7,7 +8,7 @@ describe("FIRE form", () => {
   it("updates the result, hides it for invalid input, and resets the example", async () => {
     TestBed.configureTestingModule({
       imports: [FireComponent],
-      providers: [provideRouter([])],
+      providers: [provideTestInflation(), provideRouter([])],
     });
     const fixture = TestBed.createComponent(FireComponent);
     fixture.detectChanges();

@@ -32,8 +32,15 @@
               [id]="'fire-' + field.key"
               [step]="field.step"
               [formField]="form[field.key]"
+              (input)="field.key === 'inflation' && inflation.custom()"
               [attr.aria-describedby]="'fire-hint-' + field.key"
             />
+            @if (field.key === "inflation") {
+              <pf-inflation-reference
+                [custom]="inflation.mode() === 'custom'"
+                (selected)="inflation.useCurrent()"
+              />
+            }
             <div [id]="'fire-hint-' + field.key" class="text-sm mt-1">
               <p>{{ field.hint }}</p>
               @for (error of form[field.key]().errors(); track $index) {
@@ -43,7 +50,7 @@
           </div>
         }
         <button class="btn btn-outline w-full" type="button" (click)="reset()">
-          Przywróć przykład
+          Przywróć ustawienia domyślne
         </button>
       </fieldset>
     </form>

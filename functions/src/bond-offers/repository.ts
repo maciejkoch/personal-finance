@@ -1,12 +1,8 @@
 import { createHash } from "node:crypto";
-import { getApps, initializeApp } from "firebase-admin/app";
-import { getFirestore, type Firestore } from "firebase-admin/firestore";
+import { database } from "../http/database";
+export { database } from "../http/database";
 import { BondOffer, OfferSummary, offerSchema } from "../contracts/bond-offer";
 
-export function database(): Firestore {
-  if (!getApps().length) initializeApp();
-  return getFirestore(process.env.BOND_DATABASE_ID || "(default)");
-}
 export function warsawDate(now = new Date()): string {
   return new Intl.DateTimeFormat("sv-SE", {
     timeZone: "Europe/Warsaw",

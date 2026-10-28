@@ -53,6 +53,7 @@ export class NavigationComponent {
       itemHeight: 52,
       items: GUIDE_LINKS,
     },
+    { link: "/inflacja", label: "Inflacja" },
     { link: "/o-nas", label: "O nas" },
   ];
 

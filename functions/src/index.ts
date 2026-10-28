@@ -1,3 +1,6 @@
+import { importInflation } from "./inflation/importer";
+import { serveInflation } from "./inflation/http";
+import { inflationFreshness } from "./contracts/inflation";
 import { onSchedule } from "firebase-functions/v2/scheduler";
 import { logger } from "firebase-functions";
 import { syncOffers } from "./bond-offers/importer";
@@ -142,6 +145,45 @@ export const syncBondOffers = onSchedule(
       logger.info("BOND_IMPORT_SUCCEEDED");
     } catch (error) {
       logger.error("BOND_IMPORT_FAILED", error);
+      throw error;
+    }
+  },
+);
+
+export const inflationWarsaw = onRequest(warsaw, (request, response) => {
+  response.setHeader("X-Oszczedzify-Build", buildId);
+  checkedCors(request, response, () => {
+    void serveInflation(request, response);
+  });
+});
+export const syncInflation = onSchedule(
+  {
+    schedule: "0 8,20 * * *",
+    timeZone: "Europe/Warsaw",
+    region: "europe-central2",
+    timeoutSeconds: 540,
+    memory: "256MiB",
+    maxInstances: 1,
+    retryCount: 2,
+  },
+  async () => {
+    if (process.env.INFLATION_IMPORT_ENABLED !== "true") {
+      logger.info("Inflation import disabled");
+      return;
+    }
+    try {
+      const result = await importInflation(true);
+      if (
+        inflationFreshness(result.latest.period, result.evidence.fetchedAt)
+          .dataStale
+      )
+        logger.error("INFLATION_DATA_STALE", { period: result.latest.period });
+      logger.info("INFLATION_IMPORT_SUCCEEDED", {
+        datasetId: result.datasetId,
+        period: result.latest.period,
+      });
+    } catch (error) {
+      logger.error("INFLATION_IMPORT_FAILED", error);
       throw error;
     }
   },

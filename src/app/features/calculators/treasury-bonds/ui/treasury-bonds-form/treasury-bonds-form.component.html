@@ -72,7 +72,7 @@
     panelKey="treasury-bonds-extra"
     [summary]="
       'Inflacja ' +
-      model().inflation +
+      (inflation.ready() ? model().inflation : '…') +
       '% · NBP ' +
       model().referenceRate +
       '% · gotówka ' +
@@ -97,8 +97,9 @@
             id="treasury-bonds-inflation"
             type="number"
             [formField]="form.inflation"
+            (input)="inflation.custom()"
             step="0.1"
-            placeholder="3.5"
+            placeholder="Wpisz lub poczekaj na GUS"
             [attr.aria-invalid]="form.inflation().invalid()"
             [attr.aria-describedby]="
               form.inflation().invalid()
@@ -109,6 +110,10 @@
           <span class="label">% / rok</span>
         </span>
       </label>
+      <pf-inflation-reference
+        [custom]="inflation.mode() === 'custom'"
+        (selected)="inflation.useCurrent()"
+      />
       @if (form.inflation().invalid()) {
         <p
           id="treasury-bonds-inflation-error"

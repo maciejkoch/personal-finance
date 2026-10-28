@@ -1,3 +1,5 @@
+import { provideRouter } from "@angular/router";
+import { provideTestInflation } from "@core/inflation/inflation.testing";
 import { TestBed } from "@angular/core/testing";
 import { vi } from "vitest";
 import { RegularContributionFormComponent } from "./regular-contribution/ui/regular-contribution-form/regular-contribution-form.component";
@@ -6,7 +8,12 @@ import { LongTermSavingsFormComponent } from "./long-term-savings/ui/long-term-s
 const settle = () => new Promise((resolve) => setTimeout(resolve, 350));
 
 describe("Calculator Signal Forms", () => {
-  beforeEach(() => localStorage.clear());
+  beforeEach(() => {
+    localStorage.clear();
+    TestBed.configureTestingModule({
+      providers: [provideRouter([]), provideTestInflation()],
+    });
+  });
 
   for (const component of [
     RegularContributionFormComponent,

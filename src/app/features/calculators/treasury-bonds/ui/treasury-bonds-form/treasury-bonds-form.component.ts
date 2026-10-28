@@ -1,3 +1,5 @@
+import { useInflationAssumption } from "@core/inflation/inflation-assumption";
+import { InflationReferenceComponent } from "@core/inflation/inflation-reference.component";
 import { CalculatorPanelComponent } from "../../../shared/calculator-panel.component";
 import {
   ChangeDetectionStrategy,
@@ -20,13 +22,19 @@ import {
   BOND_STORAGE_KEY,
   BondFormValue,
   bondFormDefaults,
+  bondFormSchema,
   readBondForm,
   serializeBondForm,
 } from "../../model/treasury-bonds-form-state";
 
 @Component({
   selector: "pf-treasury-bonds-form",
-  imports: [FormField, CalculatorPanelComponent, TaxOptionsComponent],
+  imports: [
+    InflationReferenceComponent,
+    FormField,
+    CalculatorPanelComponent,
+    TaxOptionsComponent,
+  ],
   templateUrl: "./treasury-bonds-form.component.html",
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -35,6 +43,11 @@ export class TreasuryBondsFormComponent {
   readonly pending = output<TreasuryBondsRequest | null>();
   readonly optionsChanged = output<{ familyEligible: boolean }>();
   readonly model = signal(this.load());
+  readonly inflation = useInflationAssumption(
+    this.model,
+    BOND_STORAGE_KEY,
+    this.hasSavedValue(),
+  );
   readonly form = form(this.model, (path) => {
     required(path.numberOfBonds);
     min(path.numberOfBonds, 1);
@@ -66,11 +79,15 @@ export class TreasuryBondsFormComponent {
   constructor() {
     effect((onCleanup) => {
       const value = this.model();
-      this.pending.emit(this.form().valid() ? this.toRequest(value) : null);
+      this.pending.emit(
+        this.form().valid() && this.inflation.ready()
+          ? this.toRequest(value)
+          : null,
+      );
       this.optionsChanged.emit({
         familyEligible: value.familyEligible,
       });
-      if (!this.form().valid()) return;
+      if (!this.form().valid() || !this.inflation.ready()) return;
       const timer = setTimeout(() => {
         try {
           localStorage.setItem(BOND_STORAGE_KEY, serializeBondForm(value));
@@ -85,6 +102,21 @@ export class TreasuryBondsFormComponent {
 
   resetToCurrentDefaults() {
     this.form().reset({ ...bondFormDefaults });
+    this.inflation.useCurrent();
+  }
+
+  private hasSavedValue(): boolean {
+    try {
+      const saved = JSON.parse(
+        localStorage.getItem(BOND_STORAGE_KEY) || "null",
+      );
+      return (
+        saved?.schemaVersion === 4 &&
+        bondFormSchema.safeParse(saved.values).success
+      );
+    } catch {
+      return false;
+    }
   }
 
   private load(): BondFormValue {

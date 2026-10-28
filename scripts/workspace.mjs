@@ -42,6 +42,7 @@ if (target === "staging") {
       regularContribution: "calculateRegularContributionWarsaw",
       treasuryBonds: "calculateTreasuryBondsWarsaw",
       article: "articleWarsaw",
+      inflation: "inflationWarsaw",
     }).map(([key, name]) => [key, `${prefix}/${name}`]),
   );
   writeFileSync(

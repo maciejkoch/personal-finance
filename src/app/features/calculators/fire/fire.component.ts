@@ -1,3 +1,5 @@
+import { useInflationAssumption } from "@core/inflation/inflation-assumption";
+import { InflationReferenceComponent } from "@core/inflation/inflation-reference.component";
 import {
   ChangeDetectionStrategy,
   Component,
@@ -26,7 +28,13 @@ import {
 
 @Component({
   selector: "pf-fire",
-  imports: [FormField, RouterLink, HeroComponent, CalculatorPanelComponent],
+  imports: [
+    InflationReferenceComponent,
+    FormField,
+    RouterLink,
+    HeroComponent,
+    CalculatorPanelComponent,
+  ],
   templateUrl: "./fire.component.html",
   styleUrl: "./fire.component.css",
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -41,6 +49,7 @@ export class FireComponent {
   }
   readonly fields = FIRE_FIELDS;
   readonly model = signal({ ...FIRE_DEFAULTS });
+  readonly inflation = useInflationAssumption(this.model, "fire-form");
   readonly form = form(this.model, (path) => {
     for (const field of FIRE_FIELDS) {
       required(path[field.key], { message: "Uzupełnij pole." });
@@ -59,7 +68,9 @@ export class FireComponent {
     );
   });
   readonly result = computed(() =>
-    validFireInput(this.model()) ? calculateFire(this.model()) : null,
+    this.inflation.ready() && validFireInput(this.model())
+      ? calculateFire(this.model())
+      : null,
   );
   readonly time = computed(() => {
     const months = this.result()?.months;
@@ -102,5 +113,6 @@ export class FireComponent {
   reset() {
     this.model.set({ ...FIRE_DEFAULTS });
     this.form().reset();
+    this.inflation.useCurrent();
   }
 }

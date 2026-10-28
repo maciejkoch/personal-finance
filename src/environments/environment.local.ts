@@ -12,5 +12,6 @@ export const environment: {
     regularContribution: `${base}/calculateRegularContributionWarsaw`,
     treasuryBonds: `${base}/calculateTreasuryBondsWarsaw`,
     article: `${base}/articleWarsaw`,
+    inflation: `${base}/inflationWarsaw`,
   },
 };
