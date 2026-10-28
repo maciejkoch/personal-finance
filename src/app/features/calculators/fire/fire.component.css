@@ -1,0 +1,19 @@
+:host {
+  display: block;
+}
+svg {
+  display: block;
+  width: 100%;
+  margin-block: 1rem;
+}
+svg text {
+  fill: currentColor;
+  font-size: 14px;
+}
+#fire-result {
+  scroll-margin-top: 6rem;
+}
+
+.calculator-form-column {
+  scroll-margin-top: 6rem;
+}

@@ -2,6 +2,7 @@
 /kalkulatory/obligacje-skarbowe
 /kalkulatory/regularne-oszczedzanie
 /kalkulatory/oszczedzanie-na-cel
+/kalkulatory/fire
 /o-nas
 /oszczedzaj-regularnie
 /kalkulator-obligacji-skarbowych

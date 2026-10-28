@@ -6,6 +6,11 @@ export const createRoutes: CreateRoutesFn = () => [
     path: "",
     component: CalculatorsShellComponent,
     children: [
+      {
+        path: "fire",
+        loadComponent: () =>
+          import("../fire/fire.component").then((m) => m.FireComponent),
+      },
       { path: "", pathMatch: "full", redirectTo: "obligacje-skarbowe" },
       {
         path: "oszczedzanie-na-cel",

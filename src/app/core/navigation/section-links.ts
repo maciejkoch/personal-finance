@@ -10,6 +10,7 @@ export const CALCULATOR_LINKS: readonly SectionLink[] = [
     label: "Regularne oszczędzanie",
     link: "/kalkulatory/regularne-oszczedzanie",
   },
+  { label: "FIRE — niezależność finansowa", link: "/kalkulatory/fire" },
 ];
 
 export const GUIDE_LINKS: readonly SectionLink[] = [

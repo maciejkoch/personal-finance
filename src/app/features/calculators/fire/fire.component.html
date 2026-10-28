@@ -1,0 +1,260 @@
+<pfui-hero
+  class="block mb-6"
+  title="Kalkulator FIRE — niezależność finansowa"
+  text="Ile potrzebujesz, żeby żyć z oszczędności? Wyznacz cel kapitałowy i sprawdź, jak długo zajmie jego osiągnięcie. Wszystkie kwoty pokazujemy w dzisiejszych złotych."
+  buttonLabel="Rozpocznij"
+  (clicked)="scrollToForm()"
+/>
+<div class="calculator-mobile-links">
+  <a class="link" href="#fire-result">Zobacz wynik ↓</a>
+</div>
+<div class="calculator-workspace">
+  <section
+    class="calculator-form-column"
+    #formContainer
+    aria-labelledby="fire-assumptions"
+  >
+    <h2 id="fire-assumptions" class="text-xl font-bold mb-4">
+      Twoje założenia
+    </h2>
+    <form (submit)="$event.preventDefault()" novalidate>
+      <fieldset class="fieldset calculator-fieldset">
+        <legend class="fieldset-legend">Droga do FIRE</legend>
+        @for (field of fields; track field.key) {
+          <div class="mb-4">
+            <label class="calculator-field" [for]="'fire-' + field.key">{{
+              field.label
+            }}</label>
+            <input
+              class="input w-full"
+              type="number"
+              inputmode="decimal"
+              [id]="'fire-' + field.key"
+              [step]="field.step"
+              [formField]="form[field.key]"
+              [attr.aria-describedby]="'fire-hint-' + field.key"
+            />
+            <div [id]="'fire-hint-' + field.key" class="text-sm mt-1">
+              <p>{{ field.hint }}</p>
+              @for (error of form[field.key]().errors(); track $index) {
+                <p class="text-error">{{ error.message }}</p>
+              }
+            </div>
+          </div>
+        }
+        <button class="btn btn-outline w-full" type="button" (click)="reset()">
+          Przywróć przykład
+        </button>
+      </fieldset>
+    </form>
+    <p class="text-sm mt-3">
+      Wyniki aktualizują się po zmianie danych. Obliczenia wykonujemy w Twojej
+      przeglądarce.
+    </p>
+  </section>
+  <section
+    id="fire-result"
+    class="calculator-result-column"
+    aria-labelledby="fire-result-title"
+  >
+    <h2 id="fire-result-title" class="text-xl font-bold mb-4">
+      Twój plan niezależności
+    </h2>
+    @if (result(); as result) {
+      <div class="card bg-base-200 mb-6">
+        <div class="card-body">
+          <p>Twój cel FIRE w dzisiejszych cenach</p>
+          <p class="text-3xl sm:text-4xl font-bold break-words">
+            {{ money(result.target) }}
+          </p>
+          <p class="text-xl font-semibold" role="status">{{ time() }}</p>
+          @if (result.months !== null) {
+            <p>
+              Wiek w chwili osiągnięcia celu:
+              {{ number(model().age + result.months / 12) }} lat.
+            </p>
+          } @else {
+            <p>
+              Przy tych założeniach kapitał nie osiąga celu w ciągu 100 lat.
+              Porównaj większą wpłatę lub mniejsze wydatki.
+            </p>
+          }
+          <label for="fire-progress"
+            >Obecny kapitał pokrywa {{ number(result.progress) }}% celu</label
+          >
+          <progress
+            id="fire-progress"
+            class="progress progress-primary w-full"
+            [value]="result.progress"
+            max="100"
+          ></progress>
+        </div>
+      </div>
+      <dl class="calculator-metrics">
+        <div>
+          <dt>Brakujący kapitał</dt>
+          <dd>{{ money(result.gap) }}</dd>
+        </div>
+        <div>
+          <dt>Roczne wydatki</dt>
+          <dd>{{ money(model().expenses * 12) }}</dd>
+        </div>
+        <div>
+          <dt>Realna roczna stopa zwrotu</dt>
+          <dd>{{ number(result.realReturn * 100) }}%</dd>
+        </div>
+        <div>
+          <dt>Cel jako wielokrotność rocznych wydatków</dt>
+          <dd>{{ number(100 / model().withdrawalRate) }}×</dd>
+        </div>
+      </dl>
+      @if (chart(); as chart) {
+        <section
+          class="calculator-chart mt-6"
+          aria-labelledby="fire-chart-title"
+        >
+          <h3 id="fire-chart-title" class="text-lg font-bold">Droga do celu</h3>
+          <p class="text-sm">
+            Kapitał i cel FIRE w dzisiejszych złotych. Dokładne kwoty znajdziesz
+            w tabeli poniżej.
+          </p>
+          <svg
+            viewBox="0 0 720 260"
+            role="img"
+            aria-label="Wykres kapitału w czasie i poziomej linii celu FIRE"
+          >
+            <line x1="40" y1="220" x2="680" y2="220" stroke="currentColor" />
+            <line
+              x1="40"
+              [attr.y1]="chart.targetY"
+              x2="680"
+              [attr.y2]="chart.targetY"
+              stroke="currentColor"
+              stroke-dasharray="6 5"
+            />
+            <polyline
+              [attr.points]="chart.line"
+              fill="none"
+              stroke="var(--color-primary)"
+              stroke-width="3"
+            />
+            <text x="40" y="250">Start</text>
+            <text x="680" y="250" text-anchor="end">
+              {{ number(chart.years) }} lat
+            </text>
+          </svg>
+          <p class="text-sm">
+            Linia ciągła: kapitał. Linia przerywana: cel
+            {{ money(result.target) }}.
+          </p>
+        </section>
+      }
+      <pf-calculator-panel
+        label="Tabela kapitału"
+        panelKey="fire-table"
+        class="block mt-4"
+      >
+        <div
+          class="overflow-x-auto"
+          tabindex="0"
+          role="region"
+          aria-label="Tabela kapitału w czasie"
+        >
+          <table class="table">
+            <caption>
+              Kwoty w dzisiejszych złotych, na koniec wskazanego miesiąca
+            </caption>
+            <thead>
+              <tr>
+                <th scope="col">Miesiące od startu</th>
+                <th scope="col">Kapitał</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (point of result.points; track point.month) {
+                <tr>
+                  <th scope="row">{{ point.month }}</th>
+                  <td>{{ money(point.capital) }}</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </pf-calculator-panel>
+    } @else {
+      <p role="status" class="alert alert-warning">
+        Popraw zaznaczone pola, aby zobaczyć aktualny wynik.
+      </p>
+    }
+  </section>
+</div>
+<pf-calculator-panel
+  label="Jak działa FIRE i jak liczymy?"
+  panelKey="fire-method"
+  class="block my-6"
+  [initialOpen]="true"
+>
+  <section class="prose max-w-none my-6">
+    <h2 id="methodology-title">Niezależność finansowa krok po kroku</h2>
+    <p>
+      FIRE (Financial Independence, Retire Early) oznacza zgromadzenie majątku
+      pozwalającego finansować życie bez wynagrodzenia za pracę. Ten kalkulator
+      szacuje etap gromadzenia kapitału.
+    </p>
+    <h3>Cel i stopa wypłat</h3>
+    <p>
+      Cel FIRE = miesięczne wydatki × 12 ÷ (roczna stopa wypłat / 100). Przy
+      wydatkach 5 000 zł i stopie 4% celem jest 1 500 000 zł, czyli 25 rocznych
+      budżetów. Stopa wypłat określa pierwszą roczną wypłatę jako część kapitału
+      na początku FIRE; w kolejnych latach zakłada się waloryzację tej kwoty
+      inflacją.
+    </p>
+    <p>
+      Domyślne 3,5% to przykład do porównań, a nie zalecenie ani gwarancja.
+      Badania Morningstar pokazują, że odpowiednia stopa zależy m.in. od
+      długości emerytury i składu portfela. Wcześniejsza emerytura może wymagać
+      niższej stopy niż okres 30 lat.
+      <a
+        href="https://www.morningstar.com/retirement/how-much-can-you-safely-withdraw-if-you-retire-early"
+        target="_blank"
+        rel="noopener noreferrer"
+        >Źródło: Morningstar — wypłaty przy wcześniejszej emeryturze</a
+      >.
+    </p>
+    <h3>Inflacja i miesięczne wpłaty</h3>
+    <p>
+      Realna roczna stopa = (1 + stopa zwrotu netto / 100) ÷ (1 + inflacja /
+      100) − 1. Miesięczna stopa to (1 + realna roczna stopa)^(1/12) − 1.
+      Każdego miesiąca najpierw naliczamy zwrot, następnie dodajemy wpłatę.
+      Szukamy pierwszego miesiąca, w którym kapitał osiąga cel, maksymalnie
+      przez 100 lat.
+    </p>
+    <p>
+      Wydatki, kapitał i wpłaty są wyrażone w dzisiejszych złotych. Zakładamy,
+      że nominalne wpłaty rosną wraz z inflacją, więc ich siła nabywcza
+      pozostaje stała. Przykład kontrolny: kapitał 0 zł, wpłata 1 000 zł,
+      wydatki 1 000 zł, zwrot i inflacja 0%, stopa wypłat 4% — cel 300 000 zł
+      osiągasz po 25 latach.
+    </p>
+    <h3>Ograniczenia symulacji</h3>
+    <p>
+      Stały zwrot nie odzwierciedla zmienności rynku ani ryzyka kolejności stóp
+      zwrotu. Osiągnięcie celu nie dowodzi, że kapitał wystarczy do końca życia.
+      Nie symulujemy wypłat po FIRE, emerytury ZUS, innych dochodów, zmian
+      wydatków ani indywidualnych zasad podatkowych. Zwrot podaj po kosztach i
+      podatkach w okresie oszczędzania; w wydatkach uwzględnij rezerwę na
+      ewentualne podatki przy wypłatach.
+    </p>
+    <p>
+      To scenariusz edukacyjny, nie rekomendacja inwestycyjna. Porównaj także
+      <a routerLink="/kalkulatory/oszczedzanie-na-cel">oszczędzanie na cel</a> i
+      <a routerLink="/kalkulatory/regularne-oszczedzanie"
+        >regularne oszczędzanie</a
+      >.
+    </p>
+    <p class="text-sm">
+      Opiekun treści: <a routerLink="/o-nas">Oszczędzify</a>. Aktualizacja:
+      <time datetime="2026-10-26">26.10.2026</time>.
+    </p>
+  </section>
+</pf-calculator-panel>

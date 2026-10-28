@@ -2,10 +2,10 @@
   {
     "path": "/",
     "title": "Kalkulatory finansowe – oszczędzanie i obligacje | Oszczędzify",
-    "description": "Porównaj obligacje skarbowe, oblicz efekty regularnych wpłat i zaplanuj oszczędzanie na cel. Wybierz jeden z trzech kalkulatorów Oszczędzify.",
+    "description": "Porównaj obligacje, zaplanuj oszczędzanie i oblicz kapitał potrzebny do niezależności finansowej FIRE. Cztery kalkulatory Oszczędzify.",
     "name": "Kalkulatory finansowe",
     "type": "WebPage",
-    "lastmod": "2026-10-22"
+    "lastmod": "2026-10-26"
   },
   {
     "path": "/kalkulatory/obligacje-skarbowe",
@@ -30,6 +30,14 @@
     "name": "Cel długoterminowy",
     "type": "WebApplication",
     "lastmod": "2026-10-24"
+  },
+  {
+    "path": "/kalkulatory/fire",
+    "title": "Kalkulator FIRE – niezależność finansowa | Oszczędzify",
+    "description": "Oblicz kapitał i czas do FIRE. Uwzględnij wydatki, wpłaty, inflację, stopę zwrotu i wypłat. Wyniki w dzisiejszych złotych, wykres i opis metody.",
+    "name": "Kalkulator FIRE — niezależność finansowa",
+    "type": "WebApplication",
+    "lastmod": "2026-10-26"
   },
   {
     "path": "/o-nas",
