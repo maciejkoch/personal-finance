@@ -36,6 +36,13 @@ export const appRoutes: Route[] = [
       ),
   },
   {
+    path: "inflacja",
+    loadComponent: () =>
+      import("./features/inflation/inflation.component").then(
+        (m) => m.InflationComponent,
+      ),
+  },
+  {
     path: "o-nas",
     loadComponent: async () =>
       (await import("@features/about/about-us.component")).AboutUsComponent,

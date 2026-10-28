@@ -1,3 +1,5 @@
+import { provideRouter } from "@angular/router";
+import { provideTestInflation } from "@core/inflation/inflation.testing";
 import { TestBed } from "@angular/core/testing";
 import { vi } from "vitest";
 import { TreasuryBondsFormComponent } from "./treasury-bonds-form.component";
@@ -9,7 +11,12 @@ import {
 const settle = () => new Promise((resolve) => setTimeout(resolve, 350));
 
 describe("Bond Signal Form API contract", () => {
-  beforeEach(() => localStorage.clear());
+  beforeEach(() => {
+    localStorage.clear();
+    TestBed.configureTestingModule({
+      providers: [provideRouter([]), provideTestInflation()],
+    });
+  });
 
   it("converts years to months and sends skipTax, without a WIBOR assumption", async () => {
     const fixture = TestBed.createComponent(TreasuryBondsFormComponent);

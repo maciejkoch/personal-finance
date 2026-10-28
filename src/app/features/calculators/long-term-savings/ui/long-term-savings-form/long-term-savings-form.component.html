@@ -99,7 +99,7 @@
     [summary]="
       (model().skipInflation
         ? 'Inflacja pominięta'
-        : 'Inflacja ' + model().inflation + '%') +
+        : 'Inflacja ' + (inflation.ready() ? model().inflation : '…') + '%') +
       ' · ' +
       (model().skipRate
         ? 'Stopa zwrotu pominięta'
@@ -119,8 +119,9 @@
             id="long-term-savings-inflation"
             type="number"
             [formField]="form.inflation"
+            (input)="inflation.custom()"
             step="0.1"
-            placeholder="3.5"
+            placeholder="Wpisz lub poczekaj na GUS"
             [attr.aria-invalid]="form.inflation().invalid()"
             [attr.aria-describedby]="
               form.inflation().invalid()
@@ -131,13 +132,18 @@
           <span class="label">% / rok</span>
         </span>
       </label>
+      <pf-inflation-reference
+        [custom]="inflation.mode() === 'custom'"
+        [disabled]="model().skipInflation"
+        (selected)="inflation.useCurrent()"
+      />
       @if (form.inflation().invalid()) {
         <p
           id="long-term-savings-inflation-error"
           class="text-error text-sm"
           role="alert"
         >
-          Podaj inflację od 0 do 100%.
+          Podaj inflację od −99 do 100%.
         </p>
       }
       <label class="calculator-check"

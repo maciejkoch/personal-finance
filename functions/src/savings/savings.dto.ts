@@ -16,7 +16,7 @@ const SavingsSchema = z.object({
     .optional()
     .default(0),
   duration: z.preprocess(parseQueryNumber, z.number().int().min(1).max(100)),
-  inflation: z.preprocess(parseQueryNumber, z.number().min(0).max(1)),
+  inflation: z.preprocess(parseQueryNumber, z.number().min(-0.99).max(1)),
   rate: z.preprocess(parseQueryNumber, z.number().min(0).max(1)),
   skipTax: queryBoolean,
 });

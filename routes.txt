@@ -6,4 +6,5 @@
 /o-nas
 /oszczedzaj-regularnie
 /kalkulator-obligacji-skarbowych
+/inflacja
 /404

@@ -1,0 +1,2 @@
+# Preserve the original GUS Windows-1250 bytes and CRLF for parser regression tests.
+functions/src/inflation/fixtures/*.csv binary

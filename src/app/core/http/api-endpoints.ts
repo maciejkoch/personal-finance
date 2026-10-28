@@ -5,6 +5,7 @@ export interface ApiEndpoints {
   regularContribution: string;
   treasuryBonds: string;
   article: string;
+  inflation: string;
 }
 
 const warsaw =
@@ -14,6 +15,7 @@ export const PRODUCTION_API_ENDPOINTS: ApiEndpoints = {
   regularContribution: `${warsaw}/calculateRegularContributionWarsaw`,
   treasuryBonds: `${warsaw}/calculateTreasuryBondsWarsaw`,
   article: `${warsaw}/articleWarsaw`,
+  inflation: `${warsaw}/inflationWarsaw`,
 };
 
 export const API_ENDPOINTS = new InjectionToken<ApiEndpoints>("API_ENDPOINTS", {

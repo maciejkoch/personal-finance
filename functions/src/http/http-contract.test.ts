@@ -112,7 +112,7 @@ describe("Zod 4 query validation and HTTP compatibility", () => {
     for (const inflation of [
       "",
       " ",
-      "-0.01",
+      "-0.991",
       "1.01",
       "Infinity",
       [],
@@ -124,6 +124,11 @@ describe("Zod 4 query validation and HTTP compatibility", () => {
         false,
       );
     }
+  });
+
+  it("accepts deflation down to -99 percent", () => {
+    for (const inflation of ["-0.99", "-0.01", "0", "1"])
+      ok(validateSavings({ ...savingsQuery, inflation }).success);
   });
 
   it("returns a JSON error envelope with paths for all four endpoints", () => {

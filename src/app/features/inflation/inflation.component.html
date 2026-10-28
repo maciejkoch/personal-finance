@@ -1,0 +1,185 @@
+<section class="pb-6 sm:pb-10" aria-labelledby="inflation-title">
+  <h1 id="inflation-title" class="text-3xl sm:text-5xl font-bold mb-4">
+    Inflacja w Polsce
+  </h1>
+  <p class="max-w-3xl text-lg mb-8">
+    Jak zmieniają się ceny? Sprawdź miesięczną inflację rok do roku — zmianę cen
+    towarów i usług konsumpcyjnych względem tego samego miesiąca poprzedniego
+    roku.
+  </p>
+  @if (data.current(); as current) {
+    <div class="card bg-base-200 mb-6">
+      <div class="card-body">
+        <p>Ostatni odczyt · {{ period(current.point.period) }}</p>
+        <p class="text-5xl sm:text-6xl font-bold">
+          {{ current.point.ratePercent | number: "1.1-2"
+          }}<span class="text-2xl">% r/r</span>
+        </p>
+        @if (change() !== null) {
+          <p>
+            Zmiana odczytu r/r względem poprzedniego miesiąca:
+            {{ change()! > 0 ? "+" : "" }}{{ change() | number: "1.1-2" }} pkt
+            proc.
+          </p>
+        }
+        <p class="text-sm">
+          Ostatnie udane sprawdzenie:
+          {{ current.checkedAt | date: "dd.MM.yyyy HH:mm" }}
+        </p>
+        @if (current.dataStale || current.syncStale || data.error()) {
+          <p class="alert alert-warning">
+            Aktualizacja jest opóźniona. Pokazujemy ostatnie dostępne dane.
+          </p>
+        }
+        <a
+          class="link text-sm"
+          [href]="current.sourcePageUrl"
+          target="_blank"
+          rel="noopener noreferrer"
+          >Źródło i metodologia: GUS</a
+        >
+      </div>
+    </div>
+    <section
+      class="card border border-base-300 p-4 sm:p-6"
+      aria-labelledby="inflation-chart-title"
+    >
+      <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+        <h2 id="inflation-chart-title" class="text-xl font-bold">
+          Historia inflacji
+        </h2>
+        <label
+          >Zakres
+          <select
+            class="select ml-2"
+            [value]="range()"
+            (change)="setRange($any($event.target).value)"
+          >
+            <option value="1y">1 rok</option>
+            <option value="5y">5 lat</option>
+            <option value="10y">10 lat</option>
+            <option value="all">Cała historia</option>
+          </select>
+        </label>
+      </div>
+      @if (historyLoading()) {
+        <p role="status">Pobieranie historii inflacji…</p>
+      } @else if (historyError()) {
+        <div role="alert">
+          <p>Nie udało się pobrać historii inflacji.</p>
+          <button
+            class="btn btn-outline mt-3"
+            type="button"
+            (click)="loadHistory()"
+          >
+            Ponów pobranie historii
+          </button>
+        </div>
+      } @else if (visible().length) {
+        <p class="text-sm mb-4">
+          {{ period(visible()[0].period) }} –
+          {{ period(visible()[visible().length - 1].period) }}. Linia zera
+          oddziela wzrost cen od deflacji.
+        </p>
+        <div class="relative h-[300px] sm:h-[420px]">
+          <canvas
+            #canvas
+            role="img"
+            aria-label="Miesięczna inflacja CPI w Polsce rok do roku. Dokładne odczyty są dostępne w tabeli poniżej."
+          ></canvas>
+        </div>
+        <details class="mt-6">
+          <summary class="cursor-pointer font-semibold">
+            Tabela miesięcznych odczytów
+          </summary>
+          <div class="overflow-x-auto mt-3">
+            <table class="table">
+              <caption>
+                Inflacja CPI ogółem w Polsce, rok do roku
+              </caption>
+              <thead>
+                <tr>
+                  <th scope="col">Miesiąc</th>
+                  <th scope="col">Inflacja r/r</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (point of table(); track point.period) {
+                  <tr>
+                    <th scope="row">{{ period(point.period) }}</th>
+                    <td>{{ point.ratePercent | number: "1.1-2" }}%</td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+          <div class="flex items-center gap-3 mt-3">
+            <button
+              type="button"
+              class="btn btn-sm"
+              [disabled]="page() === 0"
+              (click)="page.set(page() - 1)"
+            >
+              Nowsze</button
+            ><span aria-live="polite"
+              >Strona {{ page() + 1 }} z {{ pageCount() }}</span
+            ><button
+              type="button"
+              class="btn btn-sm"
+              [disabled]="page() + 1 >= pageCount()"
+              (click)="page.set(page() + 1)"
+            >
+              Starsze
+            </button>
+          </div>
+        </details>
+      } @else {
+        <p>Brak odczytów dla wybranego zakresu.</p>
+      }
+    </section>
+  } @else {
+    <p role="status">
+      {{
+        data.error()
+          ? "Nie udało się pobrać danych inflacji."
+          : "Pobieranie aktualnej inflacji…"
+      }}
+    </p>
+  }
+  @if (data.error()) {
+    <button
+      type="button"
+      class="btn btn-outline my-4"
+      [disabled]="data.loading()"
+      (click)="data.load()"
+    >
+      Ponów pobranie danych GUS
+    </button>
+  }
+  <section class="prose max-w-3xl mt-10">
+    <h2>Co oznacza inflacja rok do roku?</h2>
+    <p>
+      Odczyt 3% oznacza, że ogólny poziom cen jest o 3% wyższy niż w tym samym
+      miesiącu rok wcześniej. Niższa dodatnia inflacja oznacza wolniejszy wzrost
+      cen. Ujemny odczyt oznacza deflację.
+    </p>
+    <p>
+      Wykres przedstawia miesięczny CPI ogółem, z regularnej tabeli GUS, bez
+      szybkich szacunków. Brakujące miesiące pozostają przerwami w linii. Dane
+      historyczne mogą podlegać korektom.
+    </p>
+    <p>
+      Ostatni odczyt jest punktem startowym kalkulatorów, a nie prognozą
+      przyszłych cen. Możesz go zmienić na własne założenie.
+    </p>
+    <p>
+      <a routerLink="/kalkulatory/obligacje-skarbowe"
+        >Porównaj obligacje skarbowe</a
+      >
+      lub
+      <a routerLink="/kalkulatory/oszczedzanie-na-cel"
+        >zaplanuj oszczędzanie na cel</a
+      >.
+    </p>
+  </section>
+</section>

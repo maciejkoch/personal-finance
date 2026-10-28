@@ -1,3 +1,4 @@
+import { provideTestInflation } from "@core/inflation/inflation.testing";
 import { TestBed } from "@angular/core/testing";
 import { By } from "@angular/platform-browser";
 import { provideRouter } from "@angular/router";
@@ -35,6 +36,7 @@ describe("Bond selection during asynchronous recalculation", () => {
     });
     TestBed.configureTestingModule({
       providers: [
+        provideTestInflation(),
         provideRouter([]),
         {
           provide: TreasuryBondsDataService,
