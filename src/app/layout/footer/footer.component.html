@@ -23,6 +23,14 @@
     >
     <a class="link link-hover" routerLink="/inflacja">Inflacja w Polsce</a>
     <a class="link link-hover" [routerLink]="'/o-nas'">O nas</a>
+    <button
+      #cookieSettings
+      type="button"
+      class="link link-hover"
+      (click)="consent.openSettings(cookieSettings)"
+    >
+      Ustawienia cookies
+    </button>
   </nav>
   <aside>
     <p>© 2026 koch-it. Wszelkie prawa zastrzeżone.</p>
