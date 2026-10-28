@@ -1,4 +1,4 @@
-import { DatePipe, DecimalPipe } from "@angular/common";
+import { DatePipe, DecimalPipe, Location } from "@angular/common";
 import {
   afterRenderEffect,
   ChangeDetectionStrategy,
@@ -54,6 +54,7 @@ export class InflationComponent {
   readonly data = inject(InflationService);
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
+  private readonly location = inject(Location);
   readonly range = signal<Range>(
     this.readRange(this.route.snapshot.queryParamMap.get("range")),
   );
@@ -170,12 +171,20 @@ export class InflationComponent {
     return INFLATION_RANGES.includes(value as Range) ? (value as Range) : "5y";
   }
   setRange(value: string) {
-    void this.router.navigate([], {
+    this.range.set(this.readRange(value));
+    this.page.set(0);
+    const url = this.router.createUrlTree([], {
       relativeTo: this.route,
-      queryParams: { range: value },
+      queryParams: { range: this.range() },
       queryParamsHandling: "merge",
-      replaceUrl: true,
+      preserveFragment: true,
     });
+    // Changing a chart filter must not trigger the router's scroll restoration.
+    this.location.replaceState(
+      this.router.serializeUrl(url),
+      "",
+      this.location.getState(),
+    );
   }
   async loadHistory(id = this.data.current()?.datasetId) {
     if (!id) return;
