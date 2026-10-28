@@ -1,6 +1,6 @@
 # Inflacja GUS — wdrożenie i utrzymanie
 
-Implementacja na branchu `codex/inflation-sync-plan`. Bez deploya ani zapisów produkcyjnych podczas prac.
+Wdrożono na produkcję 28.10.2026. Strona: [oszczedzify.org/inflacja](https://oszczedzify.org/inflacja). Raport weryfikacji: [INFLACJA-PRODUKCJA-2026-10-28.md](INFLACJA-PRODUKCJA-2026-10-28.md).
 
 ## Źródło i dane
 

@@ -1,6 +1,6 @@
 # Plan automatycznej aktualizacji inflacji
 
-Data: 2026-10-28. Branch: `codex/inflation-sync-plan`. Status: zaimplementowano lokalnie; bez zmian produkcyjnych. Szczegóły końcowego modelu i procedura uruchomienia: [INFLACJA-WDROZENIE.md](INFLACJA-WDROZENIE.md).
+Data: 2026-10-28. Branch: `codex/inflation-sync-plan`. Status: wdrożono na produkcję 28.10.2026. Szczegóły końcowego modelu i procedura uruchomienia: [INFLACJA-WDROZENIE.md](INFLACJA-WDROZENIE.md).
 
 ## Cel
 
