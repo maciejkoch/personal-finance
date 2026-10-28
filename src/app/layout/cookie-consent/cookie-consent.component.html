@@ -1,0 +1,54 @@
+@if (consent.bannerVisible()) {
+  <section
+    aria-labelledby="cookie-consent-title"
+    class="fixed inset-x-0 bottom-0 z-50 max-h-[85dvh] overflow-y-auto border-t border-base-content/20 bg-base-200 p-5 shadow-2xl sm:p-6"
+  >
+    <div
+      class="mx-auto flex max-w-6xl flex-col gap-5 lg:flex-row lg:items-center lg:gap-8"
+    >
+      <div class="flex-1">
+        <h2
+          #heading
+          id="cookie-consent-title"
+          tabindex="-1"
+          class="text-lg font-semibold"
+        >
+          Twoja prywatność, Twój wybór
+        </h2>
+        <p class="mt-2 text-sm leading-relaxed">
+          Korzystamy z pamięci przeglądarki, aby zapisywać ustawienia
+          kalkulatorów i Twój wybór cookies. Za Twoją zgodą włączymy też cookies
+          Google Analytics, które pomagają nam zrozumieć, jak używasz serwisu i
+          co warto poprawić. Bez zgody analityka pozostaje wyłączona.
+        </p>
+        <p class="mt-2 text-sm leading-relaxed">
+          Wybór zapamiętamy na 180 dni. Możesz go zmienić w dowolnej chwili,
+          wybierając „Ustawienia cookies” w stopce.
+          <a
+            class="link"
+            href="https://policies.google.com/privacy"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Polityka prywatności Google (nowa karta)</a
+          >.
+        </p>
+      </div>
+      <div class="flex shrink-0 flex-col gap-3 sm:flex-row lg:flex-col">
+        <button
+          type="button"
+          class="btn btn-outline"
+          (click)="consent.choose(false)"
+        >
+          Tylko niezbędne
+        </button>
+        <button
+          type="button"
+          class="btn btn-outline"
+          (click)="consent.choose(true)"
+        >
+          Akceptuję analitykę
+        </button>
+      </div>
+    </div>
+  </section>
+}
